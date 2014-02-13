@@ -1,0 +1,22 @@
+<%def name="repository_tree(project)">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">/</h3>
+    </div>
+    <!-- List group -->
+    <ul class="list-group">
+        % for blob in project.repo_tree:
+        <li class="list-group-item">
+        % if blob['type'] == 'tree':
+        <span class="glyphicon glyphicon-folder-close"></span>
+        % elif blob['type'] == 'blob':
+        <span class="glyphicon glyphicon-file"></span>
+        % else:
+        <span class="glyphicon glyphicon-credit-card"></span>
+        % endif
+        ${blob['name']}
+        </li>
+        % endfor
+    </ul>
+</div>
+</%def>

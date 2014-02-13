@@ -1,0 +1,47 @@
+<%inherit file="/layouts/base.html" />
+
+<%def name="title()">New project</%def>
+
+<div class="hero-unit">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">New project</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" role="form" method="POST" action="/projects">
+                <div class="form-group">
+                    <label for="inputName" class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="name" class="form-control" id="inputName" placeholder="Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputDescription" class="col-sm-2 control-label">Description</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="description" class="form-control" id="inputDescription" placeholder="Description">
+                    </div>
+                </div>
+                % if organizations:
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label">Organization</label>
+                    <div class="col-sm-10">
+                        <select name="organization_id" class="form-control">
+                            % for org in organizations:
+                            <option value="${org.id}">${org.name}</option>
+                            % endfor
+                        </select>
+                    </div>
+                </div>
+                % endif
+                <input type="hidden" name="creator_id" value="${current_user.id if current_user else 1}">
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <input type="submit" class="btn btn-default" value="Create">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

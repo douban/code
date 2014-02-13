@@ -1,0 +1,35 @@
+<%inherit file="/layouts/base.html" />
+
+<div class="well">
+    <pre>
+   _____    ____    _____    ______
+  / ____|  / __ \  |  __ \  |  ____|
+ | |      | |  | | | |  | | | |__
+ | |      | |  | | | |  | | |  __|
+ | |____  | |__| | | |__| | | |____
+  \_____|  \____/  |_____/  |______|
+
+code@localhost ~/ $ -.-. --- -.. .
+code@localhost ~/ $ Welcome to New Code!
+code@localhost ~/ $
+    </pre>
+</div>
+
+% if current_user:
+<div class="panel panel-default">
+    <div class="panel-heading">Projects</div>
+    <% projects = current_user.projects %>
+    % if projects:
+    <div class="list-group">
+        % for p in projects:
+        <a href="/${p.repo_name}" class="list-group-item">${p.name}</a>
+        % endfor
+    </div>
+    % else:
+    <div class="panel-body">
+        No project here.
+    </div>
+    % endif
+</div>
+% endif
+

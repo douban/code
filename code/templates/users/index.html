@@ -1,0 +1,16 @@
+<%inherit file="/layouts/base.html" />
+
+<%def name="title()">Users</%def>
+<%def name="suffix()"></%def>
+
+<div class="hero-unit">
+% if users:
+    % for u in users:
+        ${u.name}
+    % endfor
+% endif
+
+% if user:
+    ${user.name}
+% endif
+</div>

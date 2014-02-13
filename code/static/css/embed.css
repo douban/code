@@ -1,0 +1,13 @@
+.gist { color: black; }
+.gist-syntax { background: white; }
+.gist-file { border: 1px solid #DEDEDE; font-family: Consolas, "Liberation Mono", Courier, monospace; margin-bottom: 1em; }
+.gist-file .data { overflow: auto; word-wrap: normal; background-color: ghostWhite; border-bottom: 1px solid #DDD; font-size: 100%; }
+.gist-file .data table { border-spacing: 0px; }
+.gist-file .data td.linenos { background-color: #ECECEC; color: #AAA; border-right: 1px solid #DDD; text-align: right; padding: .5em; }
+.gist-file .data td.code { padding: .5em !important; font-family: Consolas,Menlo,"Liberation Mono",Courier,monospace; }
+.gist-file .data td.code .highlight { background: transparent; }
+.gist-file .data td a { color: #AAA; text-decoration: none; }
+.gist-file .data td pre { word-break: normal; font-family: Consolas, "Liberation Mono", Courier, monospace; }
+.gist-file .gist-meta { font-family: Helvetica, arial, freesans, clean, sans-serif; overflow: hidden; font-size: 80%; padding: .5em; color: #666; background-color: #EAEAEA; }
+.gist .gist-file .gist-meta a { color: #369; }
+.gist-file .gist-meta a:visited { color: #737; }

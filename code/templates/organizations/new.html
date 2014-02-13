@@ -1,0 +1,16 @@
+<%inherit file="/layouts/base.html" />
+
+<%def name="title()">New organization</%def>
+
+<div class="hero-unit">
+    <h2>New user</h2>
+    <form method="POST" action="/organizations">
+        Name: <input type="text" name="name">
+        <br>
+        Description: <input type="text" name="description">
+        <br>
+        <input type="hidden" name="creator_id" value="1">
+        <input type="submit" value="Create">
+    </form>
+</div>
+

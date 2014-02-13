@@ -1,0 +1,15 @@
+<%inherit file="/layouts/base.html" />
+
+<%namespace file="/projects/repos/empty.html" import="repository_empty"/>
+<%namespace file="/projects/repos/tree.html" import="repository_tree"/>
+
+<%def name="title()">${project.name}</%def>
+
+<div class="hero-unit">
+% if project.repo.is_empty:
+${repository_empty(project)}
+% else:
+${repository_tree(project)}
+% endif
+</div>
+

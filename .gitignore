@@ -1,0 +1,14 @@
+*.pyc
+/venv
+/permdir
+/tmpdir
+/code/permdir
+/code/tmpdir
+*.ropeproject
+node_modules
+/dist
+.tmp
+.sass-cache
+*.swp
+*.swo
+local_config.py

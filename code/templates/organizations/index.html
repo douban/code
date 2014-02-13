@@ -1,0 +1,13 @@
+<%inherit file="/layouts/base.html" />
+
+<%def name="title()">Organizations</%def>
+<%def name="suffix()"></%def>
+
+<div class="hero-unit">
+% if organizations:
+    % for o in organizations:
+        ${o.name}
+    % endfor
+% endif
+</div>
+

@@ -1,0 +1,57 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import absolute_import
+from quixote.errors import TraversalError, AccessError
+from code.libs.template import st
+from code.models.organization import Organization
+
+_q_exports = ['new']
+
+
+def __call__(request):
+    return _q_index(request)
+
+
+def _q_index(request):
+    tdt = dict()
+    if request.method == "POST":
+        name = request.get_form_var('name')
+        description = request.get_form_var('description')
+        creator_id = int(request.get_form_var('creator_id', 1))
+        o = Organization.add(name=name,
+                             description=description,
+                             owner_id=creator_id,
+                             creator_id=creator_id)
+        if o:
+            return request.redirect('organizations/%s' % o.name)
+        tdt['organization'] = o
+        return st('organizations/index.html', **tdt)
+    organizations = Organization.gets_by()
+    tdt['organizations'] = organizations
+    return st('organizations/index.html', **tdt)
+
+
+def _q_lookup(request, part):
+    o = Organization.get_by_name(part)
+    if o:
+        return OrganizationUI(o)
+    raise TraversalError
+
+
+class OrganizationUI(object):
+    _q_exports = []
+
+    def __init__(self, organization):
+        self.organization = organization
+
+    def __call__(self, request):
+        return self._q_index(request)
+
+    def _q_index(self, request):
+        tdt = dict()
+        tdt['organization'] = self.organization
+        return st('organizations/org.html', **tdt)
+
+    def _q_lookup(self, request, part):
+        raise TraversalError
+
