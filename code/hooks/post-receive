@@ -15,7 +15,7 @@ PROJECT_NAME = os.path.realpath('.').split('/permdir/')[1][:-4]
 CODE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 sys.path.insert(0, CODE_DIR)
 #sys.path.append(CODE_DIR + "/venv/src/pygit2")
-from config import DOMAIN
+from code.config import DOMAIN
 
 
 def http_post(url, data):
