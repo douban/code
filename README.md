@@ -7,9 +7,11 @@ Prepare
 -------
 - mysql # default port
 
-    # import code/databases/schema.sql to database `valentine`
-    $ mysql -uroot -e 'create database valentine;'
-    $ mysql -uroot -D valentine < code/databases/schema.sql
+```
+# import code/databases/schema.sql to database `valentine`
+$ mysql -uroot -e 'create database valentine;'
+$ mysql -uroot -D valentine < code/databases/schema.sql
+```
 
 - memcached # default port
 
