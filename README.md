@@ -13,6 +13,12 @@ $ mysql -uroot -e 'create database valentine;'
 $ mysql -uroot -D valentine < code/databases/schema.sql
 ```
 
+```
+# modify settings according to database in your computer
+change mysql connection with passwd as u define in
+code/config.py
+```
+
 - memcached # default port
 
 
