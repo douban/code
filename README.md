@@ -2,6 +2,7 @@ Douban CODE
 ===========
 
 * Website: <http://douban-code.github.io>
+* Guide: <http://douban-code.github.io/pages/getting-started.html>
 
 Prepare
 -------
