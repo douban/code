@@ -30,7 +30,7 @@ def http_post(url, data):
 
 
 def main():
-    url = '%s/api/v1/post_receive/' % DOMAIN
+    url = '%sapi/v1/post_receive/' % DOMAIN
     refs = []
     user = os.environ.get('CODE_REMOTE_USER')
     for line in sys.stdin.readlines():

@@ -13,14 +13,15 @@ $ mysql -uroot -e 'create database valentine;'
 $ mysql -uroot -D valentine < code/databases/schema.sql
 ```
 
-```
-# modify settings according to database in your computer
-change mysql connection with passwd as u define in
-code/config.py
-```
-
 - memcached # default port
 
+- customize code config
+```
+# after clone code repo you can change the default config by:
+$ touch CODE_REPO/code/local_config.py
+# overwrite configs defined in code/config.py.
+$ vim CODE_REPO/code/local_config.py
+```
 
 Getting started
 ---------------
@@ -35,7 +36,7 @@ virtualenv venv
 pip install cython  # should install first
 pip install -U setuptools  # python-libmemcached require updated setuptools
 pip install -r requirements.txt
-gunicorn -b 127.0.0.1:8000 app:app  # web & git http daemon
+gunicorn -w 2 -b 127.0.0.1:8000 app:app  # web & git http daemon
 ```
 
 FAQ
@@ -43,6 +44,9 @@ FAQ
 
 1. single http daemon
  - `gunicorn -b 127.0.0.1:8001 smart_httpd:app` # git http daemon
+
+2. code.config.DOMAIN
+ - if you run 'gunicorn -b IP:PORT app:app', the DOMAIN should be 'http://IP:PORT/'
 
 
 License

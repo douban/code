@@ -51,7 +51,7 @@ MYSQL_STORE = {
     }
 }
 
-DOMAIN = "http://127.0.0.1/"
+DOMAIN = "http://127.0.0.1:8000/"
 
 MAKO_FS_CHECK = True
 
