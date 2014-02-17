@@ -24,6 +24,24 @@ $ touch CODE_REPO/code/local_config.py
 $ vim CODE_REPO/code/local_config.py
 ```
 
+- install libmemcached(for ubuntu)
+
+```
+sudo apt-get install build-essential g++
+wget https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz
+git clone https://github.com/douban/python-libmemcached
+tar zxf libmemcached-1.0.18.tar.gz
+cd libmemcached-1.0.18
+patch -p1 < ../python-libmemcached/patches/1.0/behavior.patch
+patch -p1 < ../python-libmemcached/patches/1.0/empty_string.patch 
+patch -p1 < ../python-libmemcached/patches/1.0/touch_expire-1.0.patch
+./configure && make && sudo make install
+cd ..
+rm -rf python-libmemcached
+rm -rf libmemcached*
+sudo ldconfig
+```
+
 Getting started
 ---------------
 
