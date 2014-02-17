@@ -28,7 +28,7 @@ Getting started
 ---------------
 
 ```
-git clone https://github.com/douban-code/code.git
+git clone https://github.com/douban/code.git
 cd code
 mysql -uroot -e 'create database valentine;'
 mysql -uroot -D valentine < code/databases/schema.sql
@@ -52,4 +52,4 @@ FAQ
 
 License
 -------
-See the [LICENSE file](https://github.com/douban-code/code/blob/master/LICENSE) for the full license text.
+See the [LICENSE file](https://github.com/douban/code/blob/master/LICENSE) for the full license text.
