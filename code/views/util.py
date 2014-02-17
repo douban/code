@@ -6,9 +6,9 @@ import re
 import json
 from functools import wraps
 from quixote.errors import TraversalError
-from quixote.html import html_quote
 
 from code.libs.template import st, request
+from code.libs.diff import LineHtml
 
 RE_MOBILE = re.compile(r"""
                        android.+mobile|samsumg|avantgo|bada\\/|blackberry|
@@ -118,58 +118,5 @@ def render_actions(actions, show_avatar, is_render_actions=True, is_collapsed=Tr
 
 def render_message(message):
     return st('widgets/chat_message.html', **locals())
-
-
-SEQUENCE_TAGS = [
-    ur'\x00\-(.*?)\x01',
-    ur'\x00\+(.*?)\x01',
-    ur'\x00\^(.*?)\x01',
-    ur'(#[A-Fa-f0-9\x00\x01\-\+\^]{3,9})',
-]
-
-SEQUENCE_RE = re.compile("|".join(SEQUENCE_TAGS), re.UNICODE + re.DOTALL)
-
-
-class LineHtml(object):
-
-    def __init__(self):
-        self.s = None
-
-    def repl(self, match):
-        ret = ""
-        text = ""
-        del_code = match.group(1)
-        add_code = match.group(2)
-        rep_code = match.group(3)
-        color_code = match.group(4)
-        if del_code:
-            text = html_quote(str(del_code))
-            ret = '<span class="x">%s</span>' % text
-        elif add_code:
-            text = html_quote(str(add_code))
-            ret = '<span class="i">%s</span>' % text
-        elif rep_code:
-            text = html_quote(str(rep_code))
-            ret = '<span class="c">%s</span>' % text
-        elif color_code:
-            color_code = re.sub(r'[\+\-\^](.*?)', r'\1', color_code)
-            text = html_quote(str(color_code))
-            ret = '<span class="color">%s</span>' % text
-        return str(ret)
-
-    def __call__(self, s):
-        if not s:
-            return ''
-        self.s = s
-        r = ""
-        b = 0
-        e = 0
-        for i in SEQUENCE_RE.finditer(s):
-            b, e1 = i.span()
-            r += html_quote(str(s[e:b]))
-            r += self.repl(i)
-            e = e1
-        r += html_quote(str(s[e:]))
-        return r
 
 linehtml = LineHtml()
