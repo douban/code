@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
-import difflib
+from difflib import _mdiff as mdiff  # noqa
 
 
-def _get_old(lines):
-    return [line for (attr, line) in lines if attr not in ('add', 'other')]
-
-
-def _get_new(lines):
-    return [line for (attr, line) in lines if attr not in ('rem', 'other')]
-
-
-def mdiff(old, new):
-    return difflib._mdiff(old, new)
+def _get_hunk(lines):
+    new, old = [], []
+    for attr, line in lines:
+        if attr != 'other':
+            if attr != 'add':
+                old.append(attr)
+            if attr != 'rem':
+                new.append(attr)
+    return new, old
 
 
 def rediff(generator):
@@ -56,8 +55,7 @@ def sidediff(generator):
 
 
 def rehunk(a_hunk, side=False):
-    old = _get_old(a_hunk)
-    new = _get_new(a_hunk)
+    new, old = _get_hunk(a_hunk)
     if side:
         hunk = sidediff(mdiff(old, new))
     else:
@@ -85,24 +83,20 @@ class LineHtml(object):
     def repl(self, match):
         ret = ""
         text = ""
-        del_code = match.group(1)
-        add_code = match.group(2)
-        rep_code = match.group(3)
-        color_code = match.group(4)
+        del_code, add_code, rep_code, color_code = match.groups()
         if del_code:
-            text = html_quote(str(del_code))
-            ret = '<span class="x">%s</span>' % text
+            return self.span(del_code, "x")
         elif add_code:
-            text = html_quote(str(add_code))
-            ret = '<span class="i">%s</span>' % text
+            return self.span(add_code, "i")
         elif rep_code:
-            text = html_quote(str(rep_code))
-            ret = '<span class="c">%s</span>' % text
+            return self.span(rep_code, "c")
         elif color_code:
             color_code = re.sub(r'[\+\-\^](.*?)', r'\1', color_code)
-            text = html_quote(str(color_code))
-            ret = '<span class="color">%s</span>' % text
-        return str(ret)
+            return self.span(color_code, "color")
+
+    def span(self, code, cls):
+        text = html_quote(str(code))
+        return '<span class="%s">%s</span>' % (cls, text)
 
     def __call__(self, s):
         if not s:
