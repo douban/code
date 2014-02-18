@@ -20,10 +20,11 @@ _q_exports = ['api',
 
 def _q_exception_handler(request, exception):
     if isinstance(exception, TraversalError):
-        error = exception
+        error = exception.title
+        current_user = request.user
         return st('/errors/404.html', **locals())
     if isinstance(exception, AccessError):
-        error = exception
+        error = exception.title
         return st('/errors/401.html', **locals())
     else:
         raise exception
