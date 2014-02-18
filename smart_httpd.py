@@ -5,12 +5,12 @@ import os.path
 
 from wsgiauth.basic import BasicAuth
 
-from code.config import DEVELOP_MODE
-from code.libs.git_http_backend import assemble_WSGI_git_app
-from code.libs.permdir import get_repo_root
-from code.models.user import User
-from code.models.project import Project
-from code.models.organization import Organization
+from vilya.config import DEVELOP_MODE
+from vilya.libs.git_http_backend import assemble_WSGI_git_app
+from vilya.libs.permdir import get_repo_root
+from vilya.models.user import User
+from vilya.models.project import Project
+from vilya.models.organization import Organization
 
 
 DOUBAN_REALM = "douban wsgi basic auth"
