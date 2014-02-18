@@ -30,11 +30,9 @@ def _q_exception_handler(request, exception):
 
 
 def _q_index(request):
-    tdt = {}
-    session = request.session
-    tdt['session'] = session
-    tdt['current_user'] = User.get_by(id=session.user) if session else None
-    return st("index.html", **tdt)
+    context = {}
+    context['current_user'] = request.user
+    return st("index.html", **context)
 
 
 def __call__(request):
@@ -70,4 +68,3 @@ class HubUI(object):
 
     def _q_lookup(self, request, part):
         pass
-

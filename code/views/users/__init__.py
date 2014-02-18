@@ -15,7 +15,7 @@ def __call__(request):
 
 
 def _q_index(request):
-    tdt = dict()
+    context = {}
     if request.method == "POST":
         name = request.get_form_var('name')
         password = request.get_form_var('password')
@@ -26,13 +26,13 @@ def _q_index(request):
                         description=description,
                         email=email)
         if user:
-            tdt['user'] = user
-            session = request.session
-            session.set_user(user.id)
+            context['user'] = user
+            user.set_session(request)
+            request.user = user
             return request.redirect('/')
     users = User.gets_by()
-    tdt['users'] = users
-    return st('users/index.html', **tdt)
+    context['users'] = users
+    return st('users/index.html', **context)
 
 
 def _q_lookup(request, part):
@@ -56,4 +56,3 @@ class UserUI(object):
         if project:
             return ProjectUI(project)
         raise TraversalError
-

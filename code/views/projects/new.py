@@ -13,8 +13,7 @@ def __call__(request):
 
 
 def _q_index(request):
-    tdt = dict()
-    session = request.session
-    tdt['users'] = User.gets_by()
-    tdt['current_user'] = User.get_by(id=session.user) if session else None
-    return st('projects/new.html', **tdt)
+    context = {}
+    context['users'] = User.gets_by()
+    context['current_user'] = request.user
+    return st('projects/new.html', **context)

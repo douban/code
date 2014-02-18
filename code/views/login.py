@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import absolute_import
-from quixote import get_session
 from quixote.errors import TraversalError, AccessError
 from code.libs.template import st
 from code.models.user import User
@@ -19,7 +18,7 @@ def _q_index(request):
         password = request.get_form_var('password')
         user = User.get_by_name(name)
         if user and user.validate_password(password):
-            session = request.session
-            session.set_user(user.id)
+            user.set_session(request)
+            request.user = user
             return request.redirect('/')
     return st('login.html')

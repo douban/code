@@ -4,19 +4,17 @@
 import os
 import time
 import traceback
-
-from quixote.publish import SessionPublisher
+from quixote.publish import Publisher
 from quixote.qwip import QWIP
-from quixote.session import SessionManager
 
+from code import views as controllers
 from code.libs.gzipper import make_gzip_middleware
 from code.libs.permdir import get_tmpdir
 from code.libs.auth.check_auth import check_auth
 from code.libs.import_obj import import_obj_set
 from code.libs.template import st
+from code.models.user import User
 from code.views.util import is_mobile_device
-
-import code.views as controllers
 
 
 PERFORMANCE_METRIC_MARKER = '<!-- _performtips_ -->'
@@ -27,21 +25,21 @@ def show_performance_metric(request, output):
     if idx > 0:
         pt = int((time.time() - request.start_time) * 1000)
         cls = pt > 250 and 'red' or pt > 100 and 'orange' or 'green'
-        block = '<li class="hidden-phone"><a href="?_dae_profile=1" style="color:%s"> %d ms </a></li>' % (cls, pt)
+        block = '<li class="hidden-phone"><span style="color:%s"> %d ms </span></li>' % (cls, pt)
         output = (output[:idx] + block + output[idx + len(PERFORMANCE_METRIC_MARKER):])
     return output
 
 
-class CodePublisher(SessionPublisher):
+class CODEPublisher(Publisher):
 
     def __init__(self, *args, **kwargs):
-        SessionPublisher.__init__(self, *args, **kwargs)
+        Publisher.__init__(self, *args, **kwargs)
         display = 'html' if os.environ.get('DOUBAN_PRODUCTION') else 'plain'
         self.configure(DISPLAY_EXCEPTIONS=display,
                        UPLOAD_DIR=get_tmpdir() + '/upload/')
 
     def start_request(self, request):
-        SessionPublisher.start_request(self, request)
+        Publisher.start_request(self, request)
         os.environ['SQLSTORE_SOURCE'] = request.get_url()
 
         resp = request.response
@@ -56,29 +54,23 @@ class CodePublisher(SessionPublisher):
         request.url = request.get_path()
         request.is_mobile = is_mobile_device(request)
         request.start_time = time.time()
-        # FIXME: user login
-        request.user = None
-        check_auth(request)  # OAuth
+        request.user = User.check_session(request)
 
         import_obj_set("request", request)
 
     def try_publish(self, request, path):
-        output = SessionPublisher.try_publish(self, request, path)
+        output = Publisher.try_publish(self, request, path)
         output = show_performance_metric(request, output)
         return output
 
-    def _generate_cgitb_error(self, request, original_response, exc_type, exc_value, tb):
-        if os.environ.get('DAE_ENV') == 'SDK':
-            traceback.print_exc()
-            return st('/errors/500.html', **locals())
-
+    def _generate_cgitb_error(self, request, original_response,
+                              exc_type, exc_value, tb):
         traceback.print_exc()
         return st('/errors/500.html', **locals())
 
 
 def create_publisher():
-    return CodePublisher(controllers,
-                         session_mgr=SessionManager())
+    return CODEPublisher(controllers)
 
 
 app = make_gzip_middleware(QWIP(create_publisher()))
