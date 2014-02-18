@@ -7,14 +7,14 @@ import traceback
 from quixote.publish import Publisher
 from quixote.qwip import QWIP
 
-from code import views as controllers
-from code.libs.gzipper import make_gzip_middleware
-from code.libs.permdir import get_tmpdir
-from code.libs.auth.check_auth import check_auth
-from code.libs.import_obj import import_obj_set
-from code.libs.template import st
-from code.models.user import User
-from code.views.util import is_mobile_device
+from vilya import views as controllers
+from vilya.libs.gzipper import make_gzip_middleware
+from vilya.libs.permdir import get_tmpdir
+from vilya.libs.auth.check_auth import check_auth
+from vilya.libs.import_obj import import_obj_set
+from vilya.libs.template import st
+from vilya.models.user import User
+from vilya.views.util import is_mobile_device
 
 
 PERFORMANCE_METRIC_MARKER = '<!-- _performtips_ -->'

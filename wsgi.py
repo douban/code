@@ -11,7 +11,7 @@ from app import app
 formatter = logging.Formatter(
     "[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s")
 
-handler = RotatingFileHandler('code.log', maxBytes=10000, backupCount=1)
+handler = RotatingFileHandler('vilya.log', maxBytes=10000, backupCount=1)
 handler.setLevel(logging.INFO)
 
 # werkzeug log

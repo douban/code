@@ -2,8 +2,8 @@
 /venv
 /permdir
 /tmpdir
-/code/permdir
-/code/tmpdir
+/vilya/permdir
+/vilya/tmpdir
 *.ropeproject
 node_modules
 /dist
@@ -12,4 +12,4 @@ node_modules
 *.swp
 *.swo
 local_config.py
-code.log
+vilya.log
