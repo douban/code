@@ -3,6 +3,7 @@
 
 import logging
 from logging.handlers import RotatingFileHandler
+from werkzeug.debug import DebuggedApplication
 from werkzeug.serving import run_simple
 from werkzeug.wsgi import DispatcherMiddleware
 
@@ -19,9 +20,11 @@ handler.setLevel(logging.INFO)
 #log.setLevel(logging.DEBUG)
 #log.addHandler(handler)
 
+app = DebuggedApplication(app, evalex=True)
 application = DispatcherMiddleware(app)
 
 if __name__ == "__main__":
     run_simple('0.0.0.0', 8000, application,
                use_reloader=True,
+               use_debugger=True,
                processes=2)
