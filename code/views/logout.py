@@ -3,7 +3,6 @@
 from __future__ import absolute_import
 from quixote.errors import TraversalError, AccessError
 from code.libs.template import st
-from code.models.user import User
 
 _q_exports = []
 
@@ -18,6 +17,6 @@ def _q_index(request):
         if user:
             user.clear_session()
         return request.redirect('/')
-    tdt = {}
-    tdt['current_user'] = user
-    return st('logout.html', **tdt)
+    context = {}
+    context['current_user'] = user
+    return st('logout.html', **context)

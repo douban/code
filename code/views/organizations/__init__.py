@@ -13,7 +13,7 @@ def __call__(request):
 
 
 def _q_index(request):
-    tdt = dict()
+    context = {}
     if request.method == "POST":
         name = request.get_form_var('name')
         description = request.get_form_var('description')
@@ -24,11 +24,11 @@ def _q_index(request):
                              creator_id=creator_id)
         if o:
             return request.redirect('organizations/%s' % o.name)
-        tdt['organization'] = o
-        return st('organizations/index.html', **tdt)
+        context['organization'] = o
+        return st('organizations/index.html', **context)
     organizations = Organization.gets_by()
-    tdt['organizations'] = organizations
-    return st('organizations/index.html', **tdt)
+    context['organizations'] = organizations
+    return st('organizations/index.html', **context)
 
 
 def _q_lookup(request, part):
@@ -48,10 +48,9 @@ class OrganizationUI(object):
         return self._q_index(request)
 
     def _q_index(self, request):
-        tdt = dict()
-        tdt['organization'] = self.organization
-        return st('organizations/org.html', **tdt)
+        context = {}
+        context['organization'] = self.organization
+        return st('organizations/org.html', **context)
 
     def _q_lookup(self, request, part):
         raise TraversalError
-

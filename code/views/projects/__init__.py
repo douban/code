@@ -13,7 +13,7 @@ def __call__(request):
 
 
 def _q_index(request):
-    tdt = dict()
+    context = {}
     current_user = request.user
     if current_user and request.method == "POST":
         name = request.get_form_var('name')
@@ -24,12 +24,12 @@ def _q_index(request):
                         creator_id=current_user.id)
         if p:
             return request.redirect('projects/%s' % p.name)
-        tdt['project'] = p
-        return st('projects/index.html', **tdt)
+        context['project'] = p
+        return st('projects/index.html', **context)
     projects = Project.gets_by()
-    tdt['projects'] = projects
-    tdt['current_user'] = current_user
-    return st('projects/index.html', **tdt)
+    context['projects'] = projects
+    context['current_user'] = current_user
+    return st('projects/index.html', **context)
 
 
 def _q_lookup(request, part):
@@ -49,10 +49,10 @@ class ProjectUI(object):
         return self._q_index(request)
 
     def _q_index(self, request):
-        tdt = dict()
-        tdt['project'] = self.project
-        tdt['current_user'] = request.user
-        return st('/projects/repo.html', **tdt)
+        context = {}
+        context['project'] = self.project
+        context['current_user'] = request.user
+        return st('/projects/repo.html', **context)
 
     def _q_lookup(self, request, part):
         raise TraversalError

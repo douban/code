@@ -13,5 +13,5 @@ def __call__(request):
 
 
 def _q_index(request):
-    tdt = dict()
-    return st('organizations/new.html', **tdt)
+    context = {}
+    return st('organizations/new.html', **context)
