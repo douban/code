@@ -4,6 +4,10 @@ Douban CODE
 * Website: <http://douban-code.github.io>
 * Guide: <http://douban-code.github.io/pages/getting-started.html>
 
+Dependency
+----------
+- Python 2.7+
+
 Prepare
 -------
 - mysql # default port
