@@ -2,12 +2,14 @@
 # coding:utf8
 
 import os
+import sys
 import time
 import traceback
-from quixote.publish import Publisher
 from quixote.qwip import QWIP
+from quixote.publish import Publisher
 
 from vilya import views as controllers
+from vilya.config import DEVELOP_MODE
 from vilya.libs.gzipper import make_gzip_middleware
 from vilya.libs.permdir import get_tmpdir
 from vilya.libs.auth.check_auth import check_auth
@@ -34,8 +36,8 @@ class CODEPublisher(Publisher):
 
     def __init__(self, *args, **kwargs):
         Publisher.__init__(self, *args, **kwargs)
-        display = 'html' if os.environ.get('DOUBAN_PRODUCTION') else 'plain'
-        self.configure(DISPLAY_EXCEPTIONS=display,
+        self.configure(DISPLAY_EXCEPTIONS='plain',
+                       SECURE_ERRORS=0,
                        UPLOAD_DIR=get_tmpdir() + '/upload/')
 
     def start_request(self, request):
@@ -62,6 +64,13 @@ class CODEPublisher(Publisher):
         output = Publisher.try_publish(self, request, path)
         output = show_performance_metric(request, output)
         return output
+
+    def finish_failed_request(self, request):
+        if DEVELOP_MODE:
+            exc_type, exc_value, tb = sys.exc_info()
+            raise exc_type, exc_value, tb
+        else:
+            return Publisher.finish_failed_request(self, request)
 
     def _generate_cgitb_error(self, request, original_response,
                               exc_type, exc_value, tb):
