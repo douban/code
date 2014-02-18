@@ -21,17 +21,10 @@ def get_site_cookie(environ, site):
 def format_rfc822_date(dt, localtime=True, cookie_format=False):
     if localtime:
         dt = dt - timedelta(hours=8)
-    fmt = "%s, %02d %s %04d %02d:%02d:%02d GMT"
+    fmt = '%a, %d %b %Y %H:%M:%S GMT'
     if cookie_format:
-        fmt = "%s, %02d-%s-%04d %02d:%02d:%02d GMT"
-
-    # dt.strftime('%a, %d-%b-%Y %H:%M:%S GMT')
-    return fmt % (["Mon", "Tue", "Wed", "Thu", "Fri", "Sat",
-                   "Sun"][dt.weekday()],
-                  dt.day,
-                  ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][dt.month - 1],
-                  dt.year, dt.hour, dt.minute, dt.second)
+        fmt = '%a, %d-%b-%Y %H:%M:%S GMT'
+    return dt.strftime(fmt)
 
 
 def format_cookie_date(dt, localtime=True):
