@@ -7,6 +7,7 @@ Douban CODE
 Dependency
 ----------
 - Python 2.7+
+- pip >= 1.4.1
 
 Prepare
 -------
