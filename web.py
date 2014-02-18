@@ -17,6 +17,7 @@ from code.libs.template import st
 from code.views.util import is_mobile_device
 
 import code.views as controllers
+from code.models.user import User
 
 
 PERFORMANCE_METRIC_MARKER = '<!-- _performtips_ -->'
@@ -56,9 +57,7 @@ class CodePublisher(SessionPublisher):
         request.url = request.get_path()
         request.is_mobile = is_mobile_device(request)
         request.start_time = time.time()
-        # FIXME: user login
-        request.user = None
-        check_auth(request)  # OAuth
+        request.user = User.check_session(request)
 
         import_obj_set("request", request)
 
@@ -67,11 +66,8 @@ class CodePublisher(SessionPublisher):
         output = show_performance_metric(request, output)
         return output
 
-    def _generate_cgitb_error(self, request, original_response, exc_type, exc_value, tb):
-        if os.environ.get('DAE_ENV') == 'SDK':
-            traceback.print_exc()
-            return st('/errors/500.html', **locals())
-
+    def _generate_cgitb_error(self, request, original_response,
+                              exc_type, exc_value, tb):
         traceback.print_exc()
         return st('/errors/500.html', **locals())
 

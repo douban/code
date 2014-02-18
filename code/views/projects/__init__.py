@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import absolute_import
-from quixote.errors import TraversalError, AccessError
+from quixote.errors import TraversalError
 from code.libs.template import st
 from code.models.project import Project
-from code.models.user import User
 
 _q_exports = ['new']
 
@@ -15,8 +14,7 @@ def __call__(request):
 
 def _q_index(request):
     tdt = dict()
-    session = request.session
-    current_user = User.get_by(session.user) if session else None
+    current_user = request.user
     if current_user and request.method == "POST":
         name = request.get_form_var('name')
         description = request.get_form_var('description')
@@ -30,7 +28,7 @@ def _q_index(request):
         return st('projects/index.html', **tdt)
     projects = Project.gets_by()
     tdt['projects'] = projects
-    tdt['current_user'] = User.get_by(id=session.user) if session else None
+    tdt['current_user'] = current_user
     return st('projects/index.html', **tdt)
 
 
@@ -52,11 +50,9 @@ class ProjectUI(object):
 
     def _q_index(self, request):
         tdt = dict()
-        session = request.session
         tdt['project'] = self.project
-        tdt['current_user'] = User.get_by(id=session.user) if session else None
+        tdt['current_user'] = request.user
         return st('/projects/repo.html', **tdt)
 
     def _q_lookup(self, request, part):
         raise TraversalError
-

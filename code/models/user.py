@@ -4,15 +4,21 @@ from __future__ import absolute_import
 import os
 from hashlib import sha1
 from datetime import datetime
-from code.libs.store import OrzField, store, IntegrityError, OrzBase
+from code.libs.store import (store,
+                             OrzField,
+                             OrzBase,
+                             IntegrityError)
+from code.models.session import SessionMixin
 
 
-class User(OrzBase):
+class User(OrzBase, SessionMixin):
     __orz_table__ = "users"
     name = OrzField(as_key=OrzField.KeyType.DESC)
     password = OrzField(as_key=OrzField.KeyType.DESC)
     description = OrzField()
     email = OrzField(as_key=OrzField.KeyType.DESC)
+    session_id = OrzField()
+    session_expired_at = OrzField()
     created_at = OrzField(default='null')
     updated_at = OrzField(default='null')
 

@@ -13,11 +13,11 @@ def __call__(request):
 
 
 def _q_index(request):
-    session = request.session
-    tdt = {}
-    tdt['session'] = session
-    tdt['current_user'] = User.get_by(id=session.user) if session else None
+    user = request.user
     if request.method == 'POST':
-        session.set_user(None)
+        if user:
+            user.clear_session()
         return request.redirect('/')
+    tdt = {}
+    tdt['current_user'] = user
     return st('logout.html', **tdt)

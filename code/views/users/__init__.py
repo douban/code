@@ -27,8 +27,8 @@ def _q_index(request):
                         email=email)
         if user:
             tdt['user'] = user
-            session = request.session
-            session.set_user(user.id)
+            user.set_session(request)
+            request.user = user
             return request.redirect('/')
     users = User.gets_by()
     tdt['users'] = users

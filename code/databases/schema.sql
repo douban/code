@@ -96,6 +96,8 @@ CREATE TABLE `users` (
   `password` varchar(200) NOT NULL,
   `description` varchar(512) NOT NULL,
   `email` varchar(200) DEFAULT NULL,
+  `session_id` varchar(16) DEFAULT NULL,
+  `session_expired_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),

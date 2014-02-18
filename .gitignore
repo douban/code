@@ -12,3 +12,4 @@ node_modules
 *.swp
 *.swo
 local_config.py
+code.log
