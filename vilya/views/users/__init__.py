@@ -6,6 +6,7 @@ from vilya.libs.template import st
 from vilya.models.project import Project
 from vilya.models.user import User
 from vilya.views.projects import ProjectUI
+from vilya.libs.text import _validate_email
 
 _q_exports = ['new']
 
@@ -21,6 +22,16 @@ def _q_index(request):
         password = request.get_form_var('password')
         email = request.get_form_var('email')
         description = request.get_form_var('description')
+
+        # Forced mail format must be correct
+        if not _validate_email(email):
+            context['name'] = name
+            context['not_validate_email'] = True
+            context['password'] = password
+            context['email'] = email
+            context['description'] = description
+            return st('users/new.html', **context)
+
         user = User.add(name=name,
                         password=password,
                         description=description,

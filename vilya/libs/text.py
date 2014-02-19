@@ -6,6 +6,8 @@ import hashlib
 from mikoto.libs.text import *
 from mikoto.libs.emoji import *
 
+from vilya.config import EMAIL_SUFFIX
+
 
 def trunc_utf8(string, num, etc="..."):
     """truncate a utf-8 string, show as num chars.
@@ -47,7 +49,7 @@ def email_normalizer(name, email):
     if _validate_email(email):
         return email
     else:
-        return name + '@douban.com'
+        return name + '@' + EMAIL_SUFFIX
 
 
 def is_image(fname):

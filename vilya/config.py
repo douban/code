@@ -60,6 +60,8 @@ DOMAIN = "http://127.0.0.1:8000/"
 
 MAKO_FS_CHECK = True
 
+EMAIL_SUFFIX = 'douban.com'
+
 try:
     from local_config import *
 except ImportError:
