@@ -16,7 +16,7 @@ Prepare
 ```
 # import code/databases/schema.sql to database `valentine`
 $ mysql -uroot -e 'create database valentine;'
-$ mysql -uroot -D valentine < code/databases/schema.sql
+$ mysql -uroot -D valentine < vilya/databases/schema.sql
 ```
 
 - memcached # default port
@@ -36,7 +36,7 @@ Getting started
 git clone https://github.com/douban/code.git
 cd code
 mysql -uroot -e 'create database valentine;'
-mysql -uroot -D valentine < code/databases/schema.sql
+mysql -uroot -D valentine < vilya/databases/schema.sql
 virtualenv venv
 . venv/bin/activate
 pip install cython  # should install first
