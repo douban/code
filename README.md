@@ -6,6 +6,7 @@ Douban CODE
 
 Dependency
 ----------
+- libmemcached <http://douban-code.github.io/pages/python-libmemcached.html>
 - Python 2.7+
 - pip >= 1.4.1
 
@@ -32,7 +33,6 @@ $ vim vilya/local_config.py
 
 Getting started
 ---------------
-
 ```
 git clone https://github.com/douban/code.git
 cd code
@@ -58,4 +58,5 @@ FAQ
 
 License
 -------
+CODE is under Revised BSD License.
 See the [LICENSE file](https://github.com/douban/code/blob/master/LICENSE) for the full license text.
