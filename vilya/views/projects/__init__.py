@@ -13,7 +13,6 @@ def __call__(request):
 
 
 def _q_index(request):
-    context = {}
     current_user = request.user
     if current_user and request.method == "POST":
         name = request.get_form_var('name')
@@ -24,12 +23,14 @@ def _q_index(request):
                         creator_id=current_user.id)
         if p:
             return request.redirect('projects/%s' % p.name)
-        context['project'] = p
-        return st('projects/index.html', **context)
+        has_proj = Project.get_by_name_and_owner(name, current_user.id)
+        error = 'Create Failure. Please contact the administrator!'
+        if has_proj is not None:
+            error = 'Project has exists, Please confirm!'
+        return st('/errors/common.html', **locals())
+
     projects = Project.gets_by()
-    context['projects'] = projects
-    context['current_user'] = current_user
-    return st('projects/index.html', **context)
+    return st('projects/index.html', **locals())
 
 
 def _q_lookup(request, part):
