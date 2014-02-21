@@ -23,7 +23,7 @@ def _q_index(request):
                         owner_id=current_user.id,
                         creator_id=current_user.id)
         if p:
-            return request.redirect('projects/%s' % p.name)
+            return request.redirect('%s' % p.repo_name)
         context['project'] = p
         return st('projects/index.html', **context)
     projects = Project.gets_by()
