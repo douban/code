@@ -32,6 +32,11 @@ $ vim vilya/local_config.py
 
 Getting started
 ---------------
+Firstly install libmemcached:
+
+http://douban-code.github.io/pages/python-libmemcached.html
+
+Then go through the following steps:
 
 ```
 git clone https://github.com/douban/code.git
@@ -40,6 +45,7 @@ mysql -uroot -e 'create database valentine;'
 mysql -uroot -D valentine < vilya/databases/schema.sql
 virtualenv venv
 . venv/bin/activate
+pip install mime python-magic
 pip install cython  # should install first
 pip install -U setuptools  # python-libmemcached require updated setuptools
 pip install -r requirements.txt
