@@ -24,8 +24,15 @@ def _q_index(request):
                         creator_id=current_user.id)
         if p:
             return request.redirect('%s' % p.repo_name)
-        context['project'] = p
-        return st('projects/index.html', **context)
+        has_proj = Project.get_by_name_and_owner(name, current_user.id)
+        default_error = 'Create Failure. Please contact the administrator!'
+        if has_proj is not None:
+            context['error'] = 'Project has exists, Please confirm!'
+        else:
+            context['error'] = default_error
+        context['current_user'] = current_user
+        return st('/errors/common.html', **context)
+
     projects = Project.gets_by()
     context['projects'] = projects
     context['current_user'] = current_user
