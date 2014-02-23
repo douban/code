@@ -17,6 +17,10 @@ Currently supports the following systems:
 * gentoo
 * ubuntu/debian
 * centos/redhat/fedora
+* opensuse
+* archlinux
+
+You only to excute:
 
 ```
 bash <(curl -s https://raw.github.com/douban/code/master/scripts/install_code.sh)

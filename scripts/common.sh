@@ -46,6 +46,7 @@ install_code() {
     . venv/bin/activate
     pip install cython  # should install first
     pip install -U setuptools  # python-libmemcached require updated setuptools
+    pip install "distribute==0.6.29" # Fixed install MySQL-python  for #14
     pip install -r requirements.txt
 }
 
