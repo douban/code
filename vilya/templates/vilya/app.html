@@ -1,0 +1,131 @@
+<%inherit file="/vilya/base.html" />
+
+<%def name="title()">CODE</%def>
+
+<%def name="head()">
+<link rel="stylesheet" type="text/css" href="/static/dist/css/main.css" />
+<script src="/static/dist/js/lib/modernizr.js"></script>
+</%def>
+
+<div class="container" id="main">
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">CODE</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="/projects">Explore</a></li>
+            </ul>
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                % if current_user:
+                <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-plus"></span> <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/projects/new"><span class="glyphicon glyphicon-book"></span> New project</a></li>
+                    <!-- <li><a href="/organizations/new"><span class="glyphicon glyphicon-user"></span> New organization</a></li> -->
+                </ul>
+                </li>
+                <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">${current_user.name} <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+                </li>
+                % else:
+                <li><a href="/login">Login</a></li>
+                <li><a href="/users/new">Signup</a></li>
+                % endif
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<!--[if lt IE 10]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div id="content">
+
+
+    <div class="header">
+        <ul class="nav nav-pills pull-right">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <h3 class="text-muted">code_front</h3>
+    </div>
+
+    <div class="jumbotron">
+        <h1>'Allo, 'Allo!</h1>
+        <p class="lead">Always a pleasure scaffolding your apps.</p>
+        <p><a class="btn btn-lg btn-success" href="#">Splendid!</a></p>
+    </div>
+
+    <div class="row text-left">
+        <div class="col-md-offset-4">
+            <h2>Now Try,</h2>
+            <h4><b>yo backbone:router</b> &lt;router&gt;</h4>
+            <h4><b>yo backbone:collection</b> &lt;collection&gt;</h4>
+            <h4><b>yo backbone:model </b> &lt;model&gt;</h4>
+            <h4><b>yo backbone:view </b> &lt;view&gt;</h4>
+        </div>
+    </div>
+
+    <div class="row marketing">
+        <div class="col-lg-6">
+            <h4>HTML5 Boilerplate</h4>
+            <p>HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.</p>
+
+            <h4>Bootstrap</h4>
+            <p>Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.</p>
+
+            <h4>Modernizr</h4>
+            <p>Modernizr is an open-source JavaScript library that helps you build the next generation of HTML5 and CSS3-powered websites.</p>
+
+        </div>
+        <div class="col-lg-6">
+            <h4>Backbone.js</h4>
+            <p>Backbone.js gives structure to web applications by providing models, collections, views and connects it all to your existing API over a RESTful JSON interface.</p>
+
+            <h4>Underscore.js</h4>
+            <p>Underscore.js is a utility-belt library for JavaScript that provides a lot of the functional programming support</p>
+
+            <h4>RequireJS</h4>
+            <p>RequireJS is a JavaScript file and module loader. It is optimized for in-browser use, but it can be used in other JavaScript environments, like Rhino and Node.</p>
+
+        </div>
+    </div>
+</div> <!-- /content -->
+
+    <div id="footer" class="footer">
+        <span>♥  Code &copy; Douban Inc. 2012-2014</span>
+    </div>
+</div> <!-- /main -->
+
+<script src="static/dist/setup.js">
+<script>
+ require(['vilya/main'], function(App) {
+    App.initialize()
+ });
+</script>

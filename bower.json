@@ -1,0 +1,13 @@
+{
+  "name": "vilya",
+  "version": "0.0.0",
+  "dependencies": {
+    "ozjs": "~2.6.2",
+    "sass-bootstrap": "~3.0.0",
+    "jquery": "~1.9.0",
+    "underscore": "~1.4.3",
+    "backbone": "~1.0.0",
+    "modernizr": "~2.6.2"
+  },
+  "devDependencies": {}
+}
