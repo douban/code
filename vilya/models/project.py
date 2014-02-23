@@ -2,7 +2,9 @@
 
 from __future__ import absolute_import
 import os
+import logging
 from datetime import datetime
+from ellen.utils import JagareError
 from vilya.config import DOMAIN
 from vilya.libs.permdir import get_repo_root
 from vilya.libs.store import OrzField, store, IntegrityError, OrzBase
@@ -93,6 +95,23 @@ class Project(OrzBase):
         ref = 'HEAD'
         tree = self.repo.get_tree(ref, path=path)
         return tree
+
+    def get_repo_readme(self, path='/', ref='HEAD'):
+        from vilya.libs.text import format_md_or_rst
+        repo = self.repo
+        try:
+            tree = repo.get_tree(ref, path=path)
+        except JagareError as e:
+            logging.warning("JagareError: %r" % e)
+            return ''
+        for item in tree:
+            if (item['type'] == 'blob'
+                and (item['name'] == 'README'
+                     or item['name'].startswith('README.'))):
+                readme_content = repo.get_file_by_ref("%s:%s" % (ref,
+                                                                 item['path']))
+                return format_md_or_rst(item['path'], readme_content)
+        return ''
 
     def as_dict(self):
         d = dict(id=self.id,

@@ -9,6 +9,7 @@ from vilya.views.api.utils import RestAPIUI
 from vilya.views.api.v1.projects.commits import CommitsUI
 from vilya.views.api.v1.projects.files import FilesUI
 from vilya.views.api.v1.projects.contents import ContentsUI
+from vilya.views.api.v1.projects.readme import ReadmeUI
 
 
 class ProjectsUI(RestAPIUI):
@@ -32,13 +33,11 @@ class ProjectsUI(RestAPIUI):
     def get(self, request):
         projects = Project.gets_by()
         projects = [p.as_dict() for p in projects]
-        for p in projects:
-            p['links'] = dict(commits='commits')
-        return dict(projects=projects)
+        return projects
 
 
 class ProjectUI(RestAPIUI):
-    _q_exports = ['commits', 'files', 'contents']
+    _q_exports = ['commits', 'files', 'contents', 'readme']
     _q_methods = ['get']
 
     def __init__(self, project):
@@ -63,3 +62,7 @@ class ProjectUI(RestAPIUI):
     @property
     def contents(self):
         return ContentsUI(self.project)
+
+    @property
+    def readme(self):
+        return ReadmeUI(self.project)
