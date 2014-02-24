@@ -10,6 +10,22 @@ Dependency
 - Python 2.7+
 - pip >= 1.4.1
 
+Quick Installation
+------------------
+Currently supports the following systems:
+
+* gentoo
+* ubuntu/debian
+* centos/redhat/fedora
+* opensuse
+* archlinux
+
+You only to excute:
+
+```
+bash <(curl -s https://raw.github.com/douban/code/master/scripts/install_code.sh)
+```
+
 Prepare
 -------
 - mysql # default port
