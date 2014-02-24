@@ -84,7 +84,7 @@ module.exports = function (grunt) {
                     "<%= meta.jsLibDir %>/": ["underscore.js"]
                 }
             },
-            modernizr:{
+            modernizr: {
                 use: {
                     "<%= meta.jsLibDir %>/": ["modernizr.js"]
                 }
@@ -102,9 +102,14 @@ module.exports = function (grunt) {
                     cwd: '',
                     dest: 'vilya/static/dist',
                     src: [
-                        'vilya/static/css/fonts/{,*/}*.*',
                         'bower_components/sass-bootstrap/fonts/*.*'
                     ],
+                }, {
+                    expand: true,
+                    flatten: true,
+                    src: ['vilya/static/css/fonts/{,*/}*.*'],
+                    dest: 'vilya/static/dist/css/fonts',
+                    filter: 'isFile'
                 }, {
                     expand: true,
                     flatten: true,
@@ -114,12 +119,29 @@ module.exports = function (grunt) {
                 }]
             }
         },
+        furnace: {
+            bootstrap: {
+                options: {
+                    importas: 'cjs',
+                    exportas: 'amd',
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'bower_components/sass-bootstrap/js/',
+                    src: ['*.js'],
+                    dest: 'vilya/static/dist/js/lib/bootstrap/',
+                    ext: '.js'
+                }]
+            }
+        },
+
     }
 
     grunt.initConfig(config)
 
     grunt.loadNpmTasks('grunt-ozjs')
     grunt.loadNpmTasks('grunt-dispatch')
+    grunt.loadNpmTasks('grunt-furnace')
     grunt.loadNpmTasks('grunt-contrib-copy')
     grunt.loadNpmTasks('grunt-contrib-clean')
     grunt.loadNpmTasks('grunt-contrib-coffee')
@@ -127,6 +149,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean',
+        'furnace',
         'dispatch',
         'coffee',
         'ozma',

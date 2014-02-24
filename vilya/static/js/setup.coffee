@@ -24,4 +24,5 @@ define('backbone/events', ['backbone-src'], () ->
     return Backbone.Events
 )
 
+
 require(['vilya/main'], (App) ->)

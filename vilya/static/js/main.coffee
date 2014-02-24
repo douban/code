@@ -1,4 +1,8 @@
-define(['jquery', 'backbone', 'underscore', 'vilya/router'], ($, Backbone, _, VilyaRouter) ->
+define(['jquery',
+ 'backbone',
+ 'underscore',
+ 'vilya/router',
+ 'bootstrap/dropdown'], ($, Backbone, _, VilyaRouter) ->
     window.vilya =
       Models: {}
       Collections: {}
@@ -7,11 +11,11 @@ define(['jquery', 'backbone', 'underscore', 'vilya/router'], ($, Backbone, _, Vi
       init: ->
         'use strict'
         console.log 'Hello from Backbone!'
+        vilyaRouter = new VilyaRouter()
 
     $ ->
       'use strict'
       window.vilya.init();
 
-    vilyaRouter = new VilyaRouter()
-    # Backbone.history.start()
+    Backbone.history.start()
 )
