@@ -26,6 +26,9 @@ You only to excute:
 bash <(curl -s https://raw.github.com/douban/code/master/scripts/install_code.sh)
 ```
 
+Notes: The install script in `code/scripts` subdirectory, for example ubuntu/debian,
+You can see `code/scripts/ubuntu.sh`
+
 Prepare
 -------
 - mysql # default port

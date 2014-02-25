@@ -7,7 +7,7 @@ echo "Install needed package.This may take some time..."
 sudo yum install -y -q git python-virtualenv python-devel memcached gcc gcc-c++
 
 echo "Install mysql..."
-sudo yum install mysql-server mysql
+sudo yum install mysql-server mysql mysql-devel
 #fedora only this method
 sudo service mysqld start
 

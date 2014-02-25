@@ -4,14 +4,16 @@ modify_sudo_time() {
 }
 
 install_libmemcached() {
-    wget -c https://github.com/xtao/douban-patched/raw/master/libmemcached-douban-1.0.18.tar.gz
-    tar zxf libmemcached-douban-1.0.18.tar.gz
-    cd libmemcached-1.0.18
-    ./configure && make && sudo make install
-    cd ..
-    rm -rf python-libmemcached
-    rm -rf libmemcached*
-    sudo /sbin/ldconfig
+    #check libmemcached has installed
+    if [ ! -f /usr/local/bin/memping ] ; then
+        curl -L https://github.com/xtao/douban-patched/raw/master/libmemcached-douban-1.0.18.tar.gz |tar zx
+        cd libmemcached-1.0.18
+        ./configure && make && sudo make install
+        cd ..
+        rm -rf libmemcached-1.0.18
+        echo "/usr/local/lib" | sudo tee -a /etc/ld.so.conf
+        sudo /sbin/ldconfig
+    fi
 }
 
 check_virtualenv() {
@@ -46,7 +48,9 @@ install_code() {
     . venv/bin/activate
     pip install cython  # should install first
     pip install -U setuptools  # python-libmemcached require updated setuptools
-    pip install "distribute==0.6.29" # Fixed install MySQL-python  for #14
+    if [ -f /etc/arch-release ] ; then
+        pip install "distribute==0.6.29" # Fixed install MySQL-python on archlinux  for #14
+    fi
     pip install -r requirements.txt
 }
 
