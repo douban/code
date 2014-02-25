@@ -21,7 +21,7 @@ if [ $? != 0 ];then
 fi
 pip install -r requirements.txt
 
-echo "Start serveing!!!"
+echo "Start serving!!!"
 echo
 echo
 gunicorn -w 2 -b 0.0.0.0:8000 app:app
