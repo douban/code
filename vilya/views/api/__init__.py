@@ -8,6 +8,10 @@ VERSIONS = {'v1': v1, }
 DEFAULT_VERSION = v1
 
 
+def _q_access(request):
+    request.response.set_content_type('application/json; charset=utf8')
+
+
 def _q_lookup(request, part):
     if not part:
         return DEFAULT_VERSION.APIRoot()

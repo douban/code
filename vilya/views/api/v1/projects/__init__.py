@@ -32,9 +32,7 @@ class ProjectsUI(RestAPIUI):
     def get(self, request):
         projects = Project.gets_by()
         projects = [p.as_dict() for p in projects]
-        for p in projects:
-            p['links'] = dict(commits='commits')
-        return dict(projects=projects)
+        return projects
 
 
 class ProjectUI(RestAPIUI):

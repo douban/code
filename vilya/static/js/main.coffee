@@ -1,21 +1,14 @@
 define(['jquery',
  'backbone',
  'underscore',
+ 'vilya/app',
  'vilya/router',
- 'bootstrap/dropdown'], ($, Backbone, _, VilyaRouter) ->
-    window.vilya =
-      Models: {}
-      Collections: {}
-      Views: {}
-      Routers: {}
-      init: ->
-        'use strict'
-        console.log 'Hello from Backbone!'
-        vilyaRouter = new VilyaRouter()
+ 'bootstrap/dropdown'], ($, Backbone, _, app, Router) ->
 
-    $ ->
-      'use strict'
-      window.vilya.init();
+    initialize = () ->
+        Router.initialize(app)
 
-    Backbone.history.start()
+    return {
+        initialize: initialize
+    }
 )

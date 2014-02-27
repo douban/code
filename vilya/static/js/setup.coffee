@@ -5,6 +5,9 @@ require.config(
         aliases: {
             'mod': '../mod/'
             'vilya': '../'
+            'views': '../views/'
+            'collections': '../collections/'
+            'models': '../models/'
         }
     }
 )
@@ -23,6 +26,5 @@ define('backbone', ['backbone-src'], () ->
 define('backbone/events', ['backbone-src'], () ->
     return Backbone.Events
 )
-
 
 require(['vilya/main'], (App) ->)
