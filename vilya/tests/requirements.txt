@@ -1,4 +1,4 @@
--e git+https://github.com/qingfeng/MySQL-python.git@60bed46dc04da7642348769aafd499663c34e8d4#egg=MySQL-python
+-e git+https://github.com/qingfeng/MySQLdb1.git@577ceee63d80a199d18309e69c27e72e690c86a5#egg=MySQL-python
 Mako==0.9.0
 docutils==0.9.1
 gunicorn==18.0
