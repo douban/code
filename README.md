@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/douban/code.png?branch=master)](https://travis-ci.org/douban/code)
+
 Douban CODE
 ===========
 
