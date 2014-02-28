@@ -1,8 +1,7 @@
 *.pyc
 *.DS_Store
 *.ropeproject
-*.swp
-*.swo
+*.sw[po]
 /venv
 /permdir
 /tmpdir
