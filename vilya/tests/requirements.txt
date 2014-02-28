@@ -1,4 +1,4 @@
-PyMySQL==0.6.1
+-e git+https://github.com/qingfeng/MySQL-python.git@60bed46dc04da7642348769aafd499663c34e8d4#egg=MySQL-python
 Mako==0.9.0
 docutils==0.9.1
 gunicorn==18.0
