@@ -1,3 +1,4 @@
+from framework import *
 from unittest import TestCase
 from vilya.models.project import Project
 

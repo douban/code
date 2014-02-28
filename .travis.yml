@@ -3,16 +3,11 @@ language: python
 python:
  - 2.7
 
-services:
- - memcached
-
 before_script:
  - mysql -e 'create database valentine;'
  - mysql -D valentine < vilya/databases/schema.sql
 
 install:
- - pip install cython
- - pip install -U setuptools
  - pip install -e "git+https://github.com/qingfeng/misaka.git@2fbe52692e8f304eea9d8925fd2a857916ff0ea5#egg=misaka-1.0.3"
  - pip install -r vilya/tests/requirements.txt
 
