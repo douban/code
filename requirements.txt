@@ -10,7 +10,9 @@ Werkzeug==0.9.4
 mikoto==0.0.4
 -e git+https://github.com/douban/douban-utils.git@5ca697545da191dab3fbe308e6b6776d8da83bd5#egg=DoubanUtils
 -e git+https://github.com/douban/douban-sqlstore.git@d7136b7cac1075f0b285e8c763af2e85124f8b76#egg=DoubanSQLStore
+-e git+https://github.com/douban/douban-mc.git@f594ab28af464f25a54263d1cc312e895e65b1f4#egg=DoubanMC
 -e git+https://github.com/douban/douban-orz.git@208b48177dc847ef2afdadfda302868c39797bdf#egg=ORZ
 -e git+https://github.com/douban/douban-quixote.git@72fd1b6f1224519709df2c031afc4bd9dbe611e4#egg=Quixote
 -e git+https://github.com/douban/pygit2.git@c7b13237e9934b5620cf0c351ae7eaea7d14ffc3#egg=pygit2
 -e git+https://github.com/douban/ellen.git@e092eddd933a4676c53f016d11782897807f873a#egg=ellen
+-e git+https://github.com/douban/python-libmemcached.git@71fb66d473bbab82c2b6ddb410a386dd84417fa3#egg=python_libmemcached
