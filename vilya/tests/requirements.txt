@@ -1,4 +1,4 @@
-MySQL-python==1.2.4
+-e git+https://github.com/qingfeng/MySQLdb1.git@577ceee63d80a199d18309e69c27e72e690c86a5#egg=MySQL-python
 Mako==0.9.0
 docutils==0.9.1
 gunicorn==18.0
@@ -15,4 +15,3 @@ mikoto==0.0.4
 -e git+https://github.com/douban/douban-quixote.git@72fd1b6f1224519709df2c031afc4bd9dbe611e4#egg=Quixote
 -e git+https://github.com/douban/pygit2.git@c7b13237e9934b5620cf0c351ae7eaea7d14ffc3#egg=pygit2
 -e git+https://github.com/douban/ellen.git@e092eddd933a4676c53f016d11782897807f873a#egg=ellen
--e git+https://github.com/douban/python-libmemcached.git@71fb66d473bbab82c2b6ddb410a386dd84417fa3#egg=python_libmemcached
