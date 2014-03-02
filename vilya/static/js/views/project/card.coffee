@@ -7,7 +7,7 @@ define(
             escape: /\{\{-([\s\S]+?)\}\}/g
         }
 
-        ProjectView = Backbone.View.extend({
+        ProjectCardView = Backbone.View.extend({
             tagName: 'div'
             className: 'projectContainer'
             template: _.template($('#projectTemplate').html())
@@ -15,6 +15,6 @@ define(
                 this.$el.html(this.template(this.model.toJSON()));
                 return this;
         })
-        return ProjectView
+        return ProjectCardView
 )
 

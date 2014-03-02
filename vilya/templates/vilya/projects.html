@@ -1,8 +1,21 @@
 <script id="projectTemplate" type="text/template">
 <div class="list-group">
-    <a href="/{{= full_name }}" class="list-group-item">
+    <a href="#{{= full_name }}" class="list-group-item">
         <h4 class="list-group-item-heading">{{= owner_name }}/{{= name }}</h4>
         <p class="list-group-item-text">{{= description }}</p>
     </a>
 </div>
+</script>
+
+<script id="treeFileTemplate" type="text/template">
+<li class="list-group-item">
+    {{ if (type == 'tree') { }}
+    <span class="glyphicon glyphicon-folder-close"></span>
+    {{ } else if (type == 'blob') { }}
+    <span class="glyphicon glyphicon-file"></span>
+    {{ } else { }}
+    <span class="glyphicon glyphicon-credit-card"></span>
+    {{ } }}
+    {{= name }}
+</li>
 </script>

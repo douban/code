@@ -25,7 +25,7 @@ module.exports = function (grunt) {
                     // require them into your main .coffee file
                     expand: true,
                     cwd: 'vilya/static/js',
-                    src: '{,*/}*.coffee',
+                    src: '{,*/,*/*/}*.coffee',
                     dest: 'vilya/static/dist/js',
                     ext: '.js'
                 }]

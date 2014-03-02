@@ -9,7 +9,9 @@ define(
                 full_name: ''
                 owner_name: ''
                 owner_id: 0
-            url: '/api/projects/' + this.full_name + '/'
+            urlRoot: '/api/v1/projects/'
+            url: () ->
+                 this.full_name + '/'
         })
         return Project
 )

@@ -4,8 +4,9 @@ define(
     'underscore',
     'vilya/app',
     'views/home',
-    'views/explore'],
-    ($, Backbone, _, app, HomeView, ExploreView) ->
+    'views/explore',
+    'views/project/home'],
+    ($, Backbone, _, app, HomeView, ExploreView, ProjectHomeView) ->
         VILYA_ROOT = '/vilya/'
 
         class AppRouter extends Backbone.Router
@@ -13,7 +14,7 @@ define(
                 "" : "showHome"
                 "about" : "showAbout"
                 "explore": "showExpore"
-                #":user/:project": "",
+                ":user/:project": "showProject"
                 #":user/:project/commits": "",
             initialize: (app) ->
                 this.app = app
@@ -27,13 +28,12 @@ define(
                 this.view = view
             showAbout: () ->
                 this.loadView(new HomeView())
-                console.log "about"
             showHome: () ->
                 this.loadView(new HomeView())
-                console.log "about"
             showExpore: () ->
                 this.loadView(new ExploreView())
-                console.log "projects"
+            showProject: (user, project) ->
+                this.loadView(new ProjectHomeView({full_name: user + "/" + project}))
 
         initialize = (app) ->
             app.router = new AppRouter()
