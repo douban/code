@@ -11,7 +11,7 @@ define(
                 owner_id: 0
             urlRoot: '/api/v1/projects/'
             url: () ->
-                 this.full_name + '/'
+                this.full_name + '/'
         })
         return Project
 )

@@ -21,7 +21,6 @@ define(
                     ,
                     this
                 )
-                console.log this.views
             renderFile: (item) ->
                 view = new TreeFileView({
                     model: item

@@ -11,7 +11,7 @@ define(
                 full_name = options.full_name
                 #this.project = new Project({full_name: full_name})
                 #this.project.fetch()
-                this.fileCollection = new ProjectCommits({full_name: full_name})
+                this.fileCollection = new ProjectCommits({full_name: full_name, page: options.page})
                 this.fileCollection.fetch({reset: true})
                 this.listenTo(this.fileCollection, 'reset', this.render)
             render: () ->
@@ -21,7 +21,6 @@ define(
                     ,
                     this
                 )
-                console.log this.views
             renderCommit: (item) ->
                 view = new CommitView({
                     model: item

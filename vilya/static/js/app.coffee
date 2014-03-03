@@ -1,3 +1,3 @@
-define(['vilya/modules/create_app'], (createApp) ->
+define(['modules/create_app'], (createApp) ->
        return createApp()
 )

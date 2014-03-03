@@ -3,11 +3,11 @@ require.config(
         baseUrl: "/js/lib/",
         distUrl: "/static/dist/js/lib/",
         aliases: {
-            'mod': '../mod/'
             'vilya': '../'
             'views': '../views/'
             'collections': '../collections/'
             'models': '../models/'
+            'modules': '../modules/'
         }
     }
 )
