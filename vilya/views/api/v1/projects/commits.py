@@ -15,5 +15,5 @@ class CommitsUI(RestAPIUI):
         repo = self.project.repo
         commits = repo.get_commits('HEAD', 'HEAD~5')
         if not commits:
-            return {'commits':[]}
-        return dict(commits=[commit.as_dict() for commit in commits])
+            return []
+        return [commit.as_dict() for commit in commits]
