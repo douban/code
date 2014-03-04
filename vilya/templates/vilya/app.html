@@ -1,0 +1,83 @@
+<%inherit file="/vilya/base.html" />
+
+<%def name="title()">CODE</%def>
+
+<%def name="head()">
+<link rel="stylesheet" type="text/css" href="/static/dist/css/main.css" />
+<script src="/static/dist/js/lib/modernizr.js"></script>
+</%def>
+
+<div class="container" id="main">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">CODE</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#explore">Explore</a></li>
+                </ul>
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    % if current_user:
+                    <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-plus"></span> <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/projects/new"><span class="glyphicon glyphicon-book"></span> New project</a></li>
+                        <!-- <li><a href="/organizations/new"><span class="glyphicon glyphicon-user"></span> New organization</a></li> -->
+                    </ul>
+                    </li>
+                    <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">${current_user.name} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/logout">Logout</a></li>
+                    </ul>
+                    </li>
+                    % else:
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/users/new">Signup</a></li>
+                    % endif
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+<!--[if lt IE 10]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+    <div id="content">
+    </div> <!-- /content -->
+
+    <div id="footer" class="footer">
+        <span>♥  Code &copy; Douban Inc. 2012-2014</span>
+    </div>
+</div> <!-- /main -->
+
+<%include file="/vilya/home.html" />
+<%include file="/vilya/projects.html" />
+<%include file="/vilya/menu.html" />
+
+<script src="static/dist/setup.js"></script>
+<script>
+require(['vilya/main'], function(App) {
+    App.initialize()
+});
+</script>

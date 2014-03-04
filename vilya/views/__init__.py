@@ -15,7 +15,8 @@ _q_exports = ['api',
               'users',
               'projects',
               'login',
-              'logout']
+              'logout',
+              'vilya']
 
 
 def _q_exception_handler(request, exception):
@@ -28,6 +29,12 @@ def _q_exception_handler(request, exception):
         return st('/errors/401.html', **locals())
     else:
         raise exception
+
+
+def vilya(request):
+    context = {}
+    context['current_user'] = request.user
+    return st("vilya/app.html", **context)
 
 
 def _q_index(request):

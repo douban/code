@@ -13,3 +13,4 @@ node_modules
 .sass-cache
 local_config.py
 vilya.log
+bower_components
