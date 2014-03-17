@@ -85,12 +85,11 @@ class Commit(object):
     @cached_property
     def diff(self):
         repo = self.repo
-        parent = self.parent
-        raw_diff = repo.get_raw_diff(self.sha, from_ref=parent)
+        raw_diff = repo.get_raw_diff(self.sha)
         diff = Diff(repo, raw_diff) if raw_diff else None
         return diff
 
-    def as_dict(self, with_files=False):
+    def as_dict(self, with_files=False, with_diff=False):
         d = OrderedDict([
             ("id", self.sha),
             ("sha", self.sha),
@@ -107,5 +106,12 @@ class Commit(object):
             for delta in self.diff.deltas:
                 files.append(dict(type=delta.status_text, filepath=delta.new_file_path))
             d['files'] = files
+        if with_diff:
+            raw_diff = self.diff.raw_diff
+            try:
+                del raw_diff['diff']
+            except KeyError:
+                pass
+            d['diff'] = raw_diff
         return d
 
