@@ -16,7 +16,7 @@ class AuthCode(object):
             login, passwd = b64decode(auth_string).split(':')
             self.login = login
             self.passwd = passwd
-            self.user = User.get_by_name(login)
+            self.user = User.get(name=login)
         except ValueError:
             pass
         except TypeError:

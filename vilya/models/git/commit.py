@@ -40,7 +40,7 @@ class Commit(object):
         self.email = author_email
         # FIXME: user
         #author = User(name=author_name, email=author_email)
-        author = User.get_by_name(author_name)
+        author = User.get(name=author_name)
         self.author = author
         author_date = datetime.fromtimestamp(commit['author']['time'],
                                              FixedOffset(commit['author']['offset']))
@@ -54,7 +54,7 @@ class Commit(object):
             committer_name, commit['committer']['email'])
         # FIXME: user
         #committer = User(name=committer_name, email=committer_email)
-        committer = User.get_by_name(committer_name)
+        committer = User.name(name=committer_name)
         self.committer = committer
         committer_date = datetime.fromtimestamp(commit['committer']['time'],
                                              FixedOffset(commit['committer']['offset']))

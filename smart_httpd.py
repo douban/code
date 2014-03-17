@@ -37,25 +37,25 @@ def get_git_path_info(path):
     git_name = path_split[1]
     # raw path: project_id.git
     if git_name.endswith('.git'):
-        project = Project.get_by_name(git_name[:-4])
+        project = Project.get(name=git_name[:-4])
         if project:
             path_split[1] = "%s.git" % project.id
             return '/'.join(path_split)
     else:
         owner_name, git_name = path_split[1:3]
         # user project: user/project.git
-        user = User.get_by_name(owner_name)
+        user = User.get(name=owner_name)
         if user:
-            project = Project.get_by_name_and_owner(git_name[:-4], user.id)
+            project = Project.get(name=git_name[:-4], owner_id=user.id)
             if project:
                 path_split[1] = ""
                 path_split[2] = "%s.git" % project.id
                 return '/'.join(path_split[1:])
             return
         # org project: org/project.git
-        org = Organization.get_by_name(owner_name)
+        org = Organization.get(name=owner_name)
         if org:
-            project = Project.get_by_name_and_owner(git_name[:-4], user.id)
+            project = Project.get(name=git_name[:-4], owner_id=user.id)
             if project:
                 path_split[1] = ""
                 path_split[2] = "%s.git" % project.id

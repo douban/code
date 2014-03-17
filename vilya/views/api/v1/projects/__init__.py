@@ -22,11 +22,11 @@ class ProjectsUI(RestAPIUI):
         from vilya.views.api.v1.users import UserUI
         from vilya.views.api.v1.organizations import OrganizationUI
 
-        user = User.get_by_name(name)
+        user = User.get(name=name)
         if user:
             return UserUI(user)
 
-        org = Organization.get_by_name(name)
+        org = Organization.get(name=name)
         if org:
             return OrganizationUI(org)
 

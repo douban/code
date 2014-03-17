@@ -41,20 +41,18 @@ CREATE TABLE `organizations` (
 -- Table structure for table `project_forks`
 --
 
-DROP TABLE IF EXISTS `project_forks`;
+DROP TABLE IF EXISTS `fork_relationships`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `project_forks` (
+CREATE TABLE `fork_relationships` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `project_id` int(11) NOT NULL,
   `forked_id` int(11) NOT NULL,
-  `family_id` int(11) NOT NULL,
   `creator_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_project` (`project_id`),
-  KEY `idx_fork` (`forked_id`),
-  KEY `idx_family` (`family_id`)
+  KEY `idx_fork` (`forked_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -93,7 +91,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
-  `password` varchar(200) NOT NULL,
+  `password_digest` varchar(200) NOT NULL,
   `description` varchar(512) NOT NULL,
   `email` varchar(200) DEFAULT NULL,
   `session_id` varchar(16) DEFAULT NULL,
@@ -102,8 +100,7 @@ CREATE TABLE `users` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_user` (`name`),
-  UNIQUE KEY `uk_email` (`email`),
-  KEY `idx_user_password` (`name`,`password`)
+  UNIQUE KEY `uk_email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

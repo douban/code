@@ -18,13 +18,13 @@ def _q_index(request):
     if current_user and request.method == "POST":
         name = request.get_form_var('name')
         description = request.get_form_var('description')
-        p = Project.add(name=name,
+        p = Project.create(name=name,
                         description=description,
                         owner_id=current_user.id,
                         creator_id=current_user.id)
         if p:
-            return request.redirect('%s' % p.repo_name)
-        has_proj = Project.get_by_name_and_owner(name, current_user.id)
+            return request.redirect('%s' % p.full_name)
+        has_proj = Project.get(name=name, owner_id=current_user.id)
         default_error = 'Create Failure. Please contact the administrator!'
         if has_proj is not None:
             context['error'] = 'Project has exists, Please confirm!'
@@ -40,7 +40,7 @@ def _q_index(request):
 
 
 def _q_lookup(request, part):
-    p = Project.get_by_name(part)
+    p = Project.get(name=part)
     if p:
         return ProjectUI(p)
     raise TraversalError

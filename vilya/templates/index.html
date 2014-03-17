@@ -22,7 +22,7 @@ code@localhost ~/ $
     % if projects:
     <div class="list-group">
         % for p in projects:
-        <a href="/${p.repo_name}" class="list-group-item">${p.name}</a>
+        <a href="/${p.full_name}" class="list-group-item">${p.name}</a>
         % endfor
     </div>
     % else:
