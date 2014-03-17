@@ -13,7 +13,7 @@ define [
         tagName: 'div'
         className: 'row'
         initialize: (options) ->
-            $("#content").html(this.el);
+            $("#content").html(this.el)
             this.full_name = options.full_name
             this.fileCollection = new ProjectFiles({full_name: this.full_name})
             this.fileCollection.fetch({reset: true})
@@ -23,7 +23,7 @@ define [
             this.menuView = this.renderMenu()
             this.views = this.fileCollection.map(
                 (item) ->
-                    return this.renderFile(item);
+                    return this.renderFile(item)
                 ,
                 this
             )
@@ -33,12 +33,12 @@ define [
                 model: item
             })
             $el = this.$el.find('#project-content')
-            $el.append(view.render().el);
+            $el.append(view.render().el)
             return view
         renderMenu: () ->
             view = new MenuView({full_name: this.full_name})
             $el = this.$el.find('#project-menu')
-            $el.append(view.render().el);
+            $el.append(view.render().el)
             return view
         renderReadme: () ->
             model = new Readme({full_name: this.full_name})
@@ -48,7 +48,7 @@ define [
             })
             $el = this.$el.find('#project-content')
             this.listenTo(model, 'change', () ->
-                $el.append(view.render().el);
+                $el.append(view.render().el)
             )
             model.fetch()
             return view

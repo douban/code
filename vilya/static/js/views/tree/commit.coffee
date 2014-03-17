@@ -10,8 +10,8 @@ define(
         CommitView = Backbone.View.extend({
             template: _.template($('#commitTemplate').html())
             render: () ->
-                this.$el.html(this.template(this.model.toJSON()));
-                return this;
+                this.$el.html(this.template(this.model.toJSON()))
+                return this
         })
         return CommitView
 )

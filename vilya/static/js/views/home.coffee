@@ -7,11 +7,11 @@ define(
             tagName: 'div'
             template: _.template($('#homeTemplate').html())
             initialize: () ->
-                $("#content").html(this.el);
-                this.render();
+                $("#content").html(this.el)
+                this.render()
             render: () ->
-                this.$el.html(this.template());
-                return this;
+                this.$el.html(this.template())
+                return this
         })
         return HomeView
 )

@@ -17,7 +17,7 @@ define(
             render: () ->
                 this.views = this.collection.map(
                     (item) ->
-                        return this.renderItem(item);
+                        return this.renderItem(item)
                     ,
                     this
                 )
@@ -26,7 +26,7 @@ define(
                 view = new MenuItemView({
                     model: item
                 })
-                this.$el.append(view.render().el);
+                this.$el.append(view.render().el)
                 return view
             closeView: () ->
                 _.each(this.views, (view) ->

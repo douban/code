@@ -3,5 +3,5 @@ define([], () ->
         _cache: {}
 
     return () ->
-        return new App();
+        return new App()
 )

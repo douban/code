@@ -6,7 +6,7 @@ define(
         ExploreView = Backbone.View.extend({
             tagName: 'div'
             initialize: () ->
-                $("#content").html(this.el);
+                $("#content").html(this.el)
                 # FIXME: delete collection
                 this.collection = new Projects()
                 this.collection.fetch({reset: true})
@@ -15,7 +15,7 @@ define(
             render: () ->
                 this.views = this.collection.map(
                     (item) ->
-                        return this.renderProject(item);
+                        return this.renderProject(item)
                     ,
                     this
                 )
@@ -23,7 +23,7 @@ define(
                 projectCardView = new ProjectCardView({
                     model: item
                 })
-                this.$el.append(projectCardView.render().el);
+                this.$el.append(projectCardView.render().el)
                 return projectCardView
             closeView: () ->
                 _.each(this.views, (view) ->

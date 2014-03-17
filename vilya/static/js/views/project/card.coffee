@@ -12,8 +12,8 @@ define(
             className: 'projectContainer'
             template: _.template($('#projectTemplate').html())
             render: () ->
-                this.$el.html(this.template(this.model.toJSON()));
-                return this;
+                this.$el.html(this.template(this.model.toJSON()))
+                return this
         })
         return ProjectCardView
 )

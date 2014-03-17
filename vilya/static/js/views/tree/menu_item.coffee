@@ -16,7 +16,7 @@ define(
                     return ''
             template: _.template($('#menuItemTemplate').html())
             render: () ->
-                this.$el.html(this.template(this.model.toJSON()));
+                this.$el.html(this.template(this.model.toJSON()))
                 return this
         })
         return MenuItemView

@@ -14,7 +14,7 @@ require.config(
 
 define('jquery-src', 'jquery/jquery.js')
 define('jquery', ['jquery-src'], () ->
-    return window.jQuery;
+    return window.jQuery
 )
 
 define('backbone-src', 'backbone/backbone.js')
