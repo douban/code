@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import absolute_import
-from vilya.libs.store import OrzField, store, IntegrityError, OrzBase
+from vilya.libs.store import OrzField, OrzBase
 
 
 class ProjectFork(OrzBase):
@@ -11,6 +11,3 @@ class ProjectFork(OrzBase):
     family_id = OrzField(as_key=OrzField.KeyType.DESC)
     creator_id = OrzField(as_key=OrzField.KeyType.DESC)
     created_at = OrzField()
-
-    class OrzMeta:
-        id2str = True

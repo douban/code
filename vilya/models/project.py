@@ -48,6 +48,43 @@ class Project(OrzBase):
             p.init_repo()
         return p
 
+    def add_fork(self, user_id):
+        from vilya.models.project_fork import ProjectFork
+        fork_project = None
+        try:
+            fork_project = Project.create(name=self.name,
+                                          description=self.description,
+                                          kind=self.kind,
+                                          owner_id=user_id,
+                                          creator_id=user_id)
+            fork = ProjectFork.create(project_id=fork_project.id,
+                                      forked_id=self.id,
+                                      family_id=self.fork.family_id if self.fork else self.id)
+        except IntegrityError:
+            store.rollback()
+        else:
+            self.fork_repo(fork_project)
+        return fork_project
+
+    @property
+    def fork(self):
+        from vilya.models.project_fork import ProjectFork
+        rs = ProjectFork.gets_by(project_id=self.id)
+        return rs[0] if rs else None
+
+    @property
+    def fork_projects(self):
+        from vilya.models.project_fork import ProjectFork
+        rs = ProjectFork.gets_by(forked_id=self.id)
+        return [Project.get_by(p.project_id) for p in rs]
+
+    @property
+    def family_projects(self):
+        from vilya.models.project_fork import ProjectFork
+        family_id = self.fork.family_id if self.fork else self.id
+        rs = ProjectFork.gets_by(family_id=family_id)
+        return [Project.get_by(p.project_id) for p in rs]
+
     ## git wrap
     @property
     def repo_http_url(self):
@@ -84,6 +121,11 @@ class Project(OrzBase):
         repo = ProjectRepo.init(self.repo_path)
         repo.update_hooks(HOOKS_DIR)
         return repo
+
+    def fork_repo(self, project):
+        from vilya.config import HOOKS_DIR
+        self.repo.clone(project.repo_path, bare=True)
+        project.repo.update_hooks(HOOKS_DIR)
 
     @property
     def repo(self):
