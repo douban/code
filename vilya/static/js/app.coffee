@@ -1,3 +1,3 @@
 define(['modules/create_app'], (createApp) ->
-       return createApp()
+     return createApp()
 )

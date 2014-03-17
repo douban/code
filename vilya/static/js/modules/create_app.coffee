@@ -1,7 +1,7 @@
 define([], () ->
-    class App
-        _cache: {}
+  class App
+    _cache: {}
 
-    return () ->
-        return new App();
+  return () ->
+    return new App()
 )
