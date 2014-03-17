@@ -5,10 +5,10 @@ define(['jquery',
  'vilya/router',
  'bootstrap/dropdown'], ($, Backbone, _, app, Router) ->
 
-    initialize = () ->
-        Router.initialize(app)
+  initialize = () ->
+    Router.initialize(app)
 
-    return {
-        initialize: initialize
-    }
+  return {
+    initialize: initialize
+  }
 )
