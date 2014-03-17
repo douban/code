@@ -63,19 +63,17 @@ def get_git_path_info(path):
 
 
 def authfunc(environ, username, passwd):
-    # no auth
-    return True
-
-    if DEVELOP_MODE or (environ['REMOTE_ADDR'] == '127.0.0.1'
-                        and environ['HTTP_HOST'] == 'localhost:8080'):
-        return True
+    #if DEVELOP_MODE or (environ['REMOTE_ADDR'] == '127.0.0.1'
+    #                    and environ['HTTP_HOST'] == 'localhost:8080'):
+    #    return True
     if not passwd:
         return
     if username == 'code' and passwd == 'code':
         return True
-    # FIXME: login
-    is_good = True
-    if not is_good:
+    user = User.get_by_name(username)
+    if not user:
+        return
+    if not user.validate_password(passwd):
         return
     is_push = 'service=git-receive-pack' in environ['QUERY_STRING'] or '/git-receive-pack' in environ['PATH_INFO']
     if is_push:
