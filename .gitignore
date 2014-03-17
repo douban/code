@@ -7,6 +7,7 @@
 /tmpdir
 /vilya/permdir
 /vilya/tmpdir
+/vilya/static/dist/
 node_modules
 /dist
 .tmp
