@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import absolute_import
-from quixote.errors import TraversalError, AccessError
+from quixote.errors import TraversalError
 from vilya.models.user import User
 from vilya.models.organization import Organization
 from vilya.models.project import Project
 from vilya.views.api.utils import RestAPIUI
 from vilya.views.api.v1.projects.commits import CommitsUI
-from vilya.views.api.v1.projects.files import FilesUI
+from vilya.views.api.v1.projects.files import FilesUI, FileUI
 from vilya.views.api.v1.projects.contents import ContentsUI
 from vilya.views.api.v1.projects.readme import ReadmeUI
 
@@ -37,7 +37,7 @@ class ProjectsUI(RestAPIUI):
 
 
 class ProjectUI(RestAPIUI):
-    _q_exports = ['commits', 'files', 'contents', 'readme']
+    _q_exports = ['commits', 'files', 'contents', 'readme', 'file']
     _q_methods = ['get']
 
     def __init__(self, project):
@@ -58,6 +58,10 @@ class ProjectUI(RestAPIUI):
     @property
     def files(self):
         return FilesUI(self.project)
+
+    @property
+    def file(self):
+        return FileUI(self.project)
 
     @property
     def contents(self):
