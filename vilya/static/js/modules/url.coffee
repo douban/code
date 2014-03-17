@@ -15,9 +15,7 @@ define([], () ->
         params = {}
         paramsArray = string.replace(rNonQuerystring, ' ').split('&')
 
-        # for (i = 0, l = paramsArray.length; i < l; i++)
         for paramString in paramsArray
-            #paramString = paramsArray[i]
             pair = paramString.split('=')
             paramName = decodeURIComponent([pair[0]])
             paramValue = decodeURIComponent([pair[1]])
