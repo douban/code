@@ -7,7 +7,8 @@ redis==2.8.0
 wsgiauth==0.1
 pytz==2013.8
 Werkzeug==0.9.4
-mikoto==0.0.4
+#mikoto==0.0.4
+-e git+https://github.com/qingfeng/mikoto.git@0d42a416f837ee172aa549a4f495207d89f953d1#egg=mikoto
 -e git+https://github.com/douban/douban-utils.git@5ca697545da191dab3fbe308e6b6776d8da83bd5#egg=DoubanUtils
 -e git+https://github.com/douban/douban-sqlstore.git@d7136b7cac1075f0b285e8c763af2e85124f8b76#egg=DoubanSQLStore
 -e git+https://github.com/douban/douban-mc.git@f594ab28af464f25a54263d1cc312e895e65b1f4#egg=DoubanMC
