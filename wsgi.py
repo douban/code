@@ -27,4 +27,4 @@ if __name__ == "__main__":
     run_simple('0.0.0.0', 8000, application,
                use_reloader=True,
                use_debugger=True,
-               processes=1)
+               processes=4)

@@ -54,6 +54,9 @@ class Repo(object):
             return None
         self.repo.update_head(name)
 
+    def update_hooks(self, path):
+        self.repo.update_hooks(path)
+
     def clone(self, path, bare=None, branch=None, mirror=None, env=None):
         self.repo.clone(path,
                         bare=bare, branch=branch,
