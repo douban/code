@@ -23,6 +23,6 @@
         "faketouches": "0.0.4",
         "ozjs": "~2.6.2",
         "ozma": "~1.7.0",
-        "time-grunt": "~0.2.1",
+        "time-grunt": "~0.2.1"
     }
 }
