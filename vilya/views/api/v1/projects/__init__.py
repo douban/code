@@ -10,6 +10,7 @@ from vilya.views.api.v1.projects.commits import CommitsUI
 from vilya.views.api.v1.projects.files import FilesUI, FileUI
 from vilya.views.api.v1.projects.contents import ContentsUI
 from vilya.views.api.v1.projects.readme import ReadmeUI
+from vilya.views.api.v1.projects.compare import CompareUI
 
 
 class ProjectsUI(RestAPIUI):
@@ -37,7 +38,8 @@ class ProjectsUI(RestAPIUI):
 
 
 class ProjectUI(RestAPIUI):
-    _q_exports = ['commits', 'files', 'contents', 'readme', 'file']
+    _q_exports = ['commits', 'files', 'contents', 'readme', 'file',
+                  'compare']
     _q_methods = ['get']
 
     def __init__(self, project):
@@ -70,3 +72,7 @@ class ProjectUI(RestAPIUI):
     @property
     def readme(self):
         return ReadmeUI(self.project)
+
+    @property
+    def compare(self):
+        return CompareUI(self.project)
