@@ -33,7 +33,7 @@ class ProjectsUI(RestAPIUI):
         raise TraversalError
 
     def get(self, request):
-        projects = Project.gets_by()
+        projects = Project.gets()
         projects = [p.as_dict() for p in projects]
         return projects
 

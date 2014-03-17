@@ -356,6 +356,22 @@ class ProjectRepo(Repo):
                                                     committer=commit['committer']['name']
                                                     )
         return objects_dict
+    
+    def get_readme(self, path='/', ref='HEAD'):
+        from vilya.libs.text import format_md_or_rst
+        try:
+            tree = self.get_tree(ref, path=path)
+        except JagareError as e:
+            logging.warning("JagareError: %r" % e)
+            return ''
+        for item in tree:
+            if (item['type'] == 'blob'
+                and (item['name'] == 'README'
+                     or item['name'].startswith('README.'))):
+                readme_content = repo.get_file_by_ref("%s:%s" % (ref,
+                                                                 item['path']))
+                return format_md_or_rst(item['path'], readme_content)
+        return ''
 
 
 class GistRepo(Repo):

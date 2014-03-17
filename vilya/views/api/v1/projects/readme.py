@@ -15,5 +15,5 @@ class ReadmeUI(RestAPIUI):
     def get(self, request):
         path = request.get_form_var("path", "/")
         ref = request.get_form_var("ref", "HEAD")
-        return dict(html=self.project.get_repo_readme(ref=ref,
+        return dict(html=self.project.repo.get_readme(ref=ref,
                                                       path=path))

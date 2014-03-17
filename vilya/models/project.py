@@ -9,6 +9,8 @@ from vilya.config import DOMAIN
 from vilya.libs.permdir import get_repo_root
 from vilya.models.git.repo import ProjectRepo
 from vilya.models import ModelField, BaseModel
+from vilya.models.fork_relationship import ForkRelationship
+from vilya.config import HOOKS_DIR
 
 KIND_USER = 1
 KIND_ORGANIZATION = 2
@@ -24,42 +26,40 @@ class Project(BaseModel):
     created_at = ModelField(auto_now_create=True)
     updated_at = ModelField(auto_now=True)
 
-    def add_fork(self, user_id):
-        from vilya.models.project_fork import ProjectFork
-        fork_project = None
-        try:
-            fork_project = Project.create(name=self.name,
-                                          description=self.description,
-                                          kind=self.kind,
-                                          owner_id=user_id,
-                                          creator_id=user_id)
-            fork = ProjectFork.create(project_id=fork_project.id,
-                                      forked_id=self.id,
-                                      family_id=self.fork.family_id if self.fork else self.id)
-        except IntegrityError:
-            store.rollback()
-        else:
-            self.fork_repo(fork_project)
-        return fork_project
+    @BaseModel.transaction
+    def fork(self, user_id):
+        fork = Project.create(name=self.name,
+                description=self.description,
+                kind=self.kind,
+                owner_id=user_id,
+                creator_id=user_id)
+        fork_relation = ForkRelationship.create(project_id=fork_project.id,
+                forked_id=self.id,
+                family_id=self.fork.family_id if self.fork else self.id)
+        self.repo.clone(fork.repo_path, bare=True)
+        project.repo.update_hooks(HOOKS_DIR)
+        return fork
 
     @property
-    def fork(self):
-        from vilya.models.project_fork import ProjectFork
-        rs = ProjectFork.gets_by(project_id=self.id)
+    def upstream(self):
+        rs = ForkRelationship.gets(project_id=self.id)
         return rs[0] if rs else None
 
     @property
-    def fork_projects(self):
-        from vilya.models.project_fork import ProjectFork
-        rs = ProjectFork.gets_by(forked_id=self.id)
+    def forks(self):
+        rs = ForkRelationship.gets(forked_id=self.id)
         return [Project.get_by(p.project_id) for p in rs]
 
     @property
-    def family_projects(self):
-        from vilya.models.project_fork import ProjectFork
-        family_id = self.fork.family_id if self.fork else self.id
-        rs = ProjectFork.gets_by(family_id=family_id)
-        return [Project.get_by(p.project_id) for p in rs]
+    def families(self):
+        id = self.family_id or self.id
+        families = ForkRelationship.gets(family_id=id)
+        if families:
+            return [Project.get(id=family.project_id) for family in families]
+        else:
+            return []
+
+
 
     ## git wrap
     @property
@@ -89,14 +89,8 @@ class Project(BaseModel):
             return org.name
 
     def after_create(self):
-        from vilya.config import HOOKS_DIR
         repo = ProjectRepo.init(self.repo_path)
         repo.update_hooks(HOOKS_DIR)
-
-    def fork_repo(self, project):
-        from vilya.config import HOOKS_DIR
-        self.repo.clone(project.repo_path, bare=True)
-        project.repo.update_hooks(HOOKS_DIR)
 
     @property
     def repo(self):

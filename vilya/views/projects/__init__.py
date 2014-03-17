@@ -33,7 +33,7 @@ def _q_index(request):
         context['current_user'] = current_user
         return st('/errors/common.html', **context)
 
-    projects = Project.gets_by()
+    projects = Project.gets()
     context['projects'] = projects
     context['current_user'] = current_user
     return st('projects/index.html', **context)

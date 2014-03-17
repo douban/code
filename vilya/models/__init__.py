@@ -39,19 +39,9 @@ class ModelMeta(OrzMeta):
                     auto_now_create_fields.append(k)
         self.__auto_now_fields__ = auto_now_fields
         self.__auto_now_create_fields__ = auto_now_create_fields
+        
 
-
-
-class BaseModel(OrzBase):
-
-    __metaclass__ = ModelMeta
-    __transaction__ = True
-    __table__ = ''
-
-    def __init__(self, *args, **kwargs):
-        super(BaseModel, self).__init__(*args, **kwargs)
-
-    def transaction(func):
+def _transaction(func):
         def _transaction_block(*args, **kwargs):
             if store.in_transaction or store.modified_cursors:
                 return func(*args, **kwargs)
@@ -69,9 +59,23 @@ class BaseModel(OrzBase):
                     store.commit()
                     return ret
         return _transaction_block
+
+
+class BaseModel(OrzBase):
+
+    __metaclass__ = ModelMeta
+    __transaction__ = True
+    __table__ = ''
+
+    def __init__(self, *args, **kwargs):
+        super(BaseModel, self).__init__(*args, **kwargs)
+
+    @staticmethod
+    def transaction(func):
+        return _transaction(func)
     
     @classmethod
-    @transaction
+    @_transaction
     def create(cls, **kwargs):
         fields = cls.__auto_now_fields__ + cls.__auto_now_create_fields__
         if fields:
@@ -94,7 +98,7 @@ class BaseModel(OrzBase):
     def count(cls, **kwargs):
         return cls.objects.count_by(**kwargs)
 
-    @transaction
+    @_transaction
     def save(self):
         fields = self.__auto_now_fields__
         if fields:

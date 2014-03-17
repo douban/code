@@ -26,7 +26,7 @@ def _q_index(request):
             return request.redirect('organizations/%s' % o.name)
         context['organization'] = o
         return st('organizations/index.html', **context)
-    organizations = Organization.gets_by()
+    organizations = Organization.gets()
     context['organizations'] = organizations
     return st('organizations/index.html', **context)
 

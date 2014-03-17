@@ -47,7 +47,8 @@ DROP TABLE IF EXISTS `fork_relationships`;
 CREATE TABLE `fork_relationships` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `project_id` int(11) NOT NULL,
-  `forked_id` int(11) NOT NULL,
+  `upstream_id` int(11) NOT NULL,
+  `family_id` int(11) NOT NULL,
   `creator_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),

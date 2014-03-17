@@ -41,7 +41,7 @@ def _q_index(request):
             user.set_session(request)
             request.user = user
             return request.redirect('/')
-    users = User.gets_by()
+    users = User.gets()
     context['users'] = users
     return st('users/index.html', **context)
 
