@@ -8,7 +8,6 @@ module.exports = function (grunt) {
         meta: {
             distDir: 'vilya/static/dist',
             jsLibDir: 'vilya/static/dist/js/lib' ,
-            jsComponentDir: 'vilya/static/js/component' ,
             cssDir: 'vilya/css' ,
             reportDir: 'report/js-ut',
             appOzConfig: {
@@ -24,7 +23,7 @@ module.exports = function (grunt) {
                     // rather than compiling multiple files here you should
                     // require them into your main .coffee file
                     expand: true,
-                    cwd: 'vilya/static/js',
+                    cwd: 'frontend/js',
                     src: '{,*/,*/*/}*.coffee',
                     dest: 'vilya/static/dist/js',
                     ext: '.js'
@@ -134,7 +133,12 @@ module.exports = function (grunt) {
                 }]
             }
         },
-
+        concat: {
+            dist: {
+              src: ['frontend/template/*.html'],
+              dest: 'vilya/static/dist/index.html'
+            }
+        }
     }
 
     grunt.initConfig(config)
@@ -146,6 +150,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean')
     grunt.loadNpmTasks('grunt-contrib-coffee')
     grunt.loadNpmTasks('grunt-contrib-compass')
+    grunt.loadNpmTasks('grunt-contrib-concat')
 
     grunt.registerTask('build', [
         'clean',
@@ -155,6 +160,7 @@ module.exports = function (grunt) {
         'ozma',
         'compass',
         'copy',
+        'concat'
     ])
 
     grunt.registerTask('default', [

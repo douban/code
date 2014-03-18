@@ -1,11 +1,15 @@
-<%inherit file="/vilya/base.html" />
-
-<%def name="title()">CODE</%def>
-
-<%def name="head()">
-<link rel="stylesheet" type="text/css" href="/static/dist/css/main.css" />
-<script src="/static/dist/js/lib/modernizr.js"></script>
-</%def>
+<!DOCTYPE html>
+<html lang="zh-CN" >
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Expires" content="Sun, 6 Mar 2005 01:00:00 GMT">
+    <title>CODE</title>
+    <link rel="stylesheet" type="text/css" href="/static/dist/css/main.css" />
+    <script src="/static/dist/js/lib/modernizr.js"></script>
+</head>
+<body>
 
 <div class="container" id="main">
     <nav class="navbar navbar-default" role="navigation">
@@ -34,26 +38,25 @@
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    % if current_user:
+                    <!--
                     <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-plus"></span> <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="/projects/new"><span class="glyphicon glyphicon-book"></span> New project</a></li>
-                        <!-- <li><a href="/organizations/new"><span class="glyphicon glyphicon-user"></span> New organization</a></li> -->
+                        <li><a href="/organizations/new"><span class="glyphicon glyphicon-user"></span> New organization</a></li>
                     </ul>
                     </li>
                     <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">${current_user.name} <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">username<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="/logout">Logout</a></li>
                     </ul>
                     </li>
-                    % else:
+                    -->
                     <li><a href="/login">Login</a></li>
                     <li><a href="/users/new">Signup</a></li>
-                    % endif
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -71,13 +74,11 @@
     </div>
 </div> <!-- /main -->
 
-<%include file="/vilya/home.html" />
-<%include file="/vilya/projects.html" />
-<%include file="/vilya/menu.html" />
-
-<script src="static/dist/setup.js"></script>
+<script src="/static/dist/setup.js"></script>
 <script>
-require(['vilya/main'], function(App) {
-    App.initialize()
-});
+    require(['vilya/main'], function(App) {
+        App.initialize()
+    });
 </script>
+</body>
+</html>
