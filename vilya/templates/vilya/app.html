@@ -1,11 +1,15 @@
-<%inherit file="/vilya/base.html" />
-
-<%def name="title()">CODE</%def>
-
-<%def name="head()">
-<link rel="stylesheet" type="text/css" href="/static/dist/css/main.css" />
-<script src="/static/dist/js/lib/modernizr.js"></script>
-</%def>
+<!DOCTYPE html>
+<html lang="zh-CN" >
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Expires" content="Sun, 6 Mar 2005 01:00:00 GMT">
+    <title>CODE</title>
+    <link rel="stylesheet" type="text/css" href="/static/dist/css/main.css" />
+    <script src="/static/dist/js/lib/modernizr.js"></script>
+</head>
+<body>
 
 <div class="container" id="main">
     <nav class="navbar navbar-default" role="navigation">
@@ -81,3 +85,5 @@ require(['vilya/main'], function(App) {
     App.initialize()
 });
 </script>
+</body>
+</html>
