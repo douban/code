@@ -11,13 +11,7 @@ from vilya.models.user import User
 from vilya.models.organization import Organization
 from vilya.static import get_static
 
-_q_exports = ['api',
-              'organizations',
-              'users',
-              'projects',
-              'login',
-              'logout',
-              'vilya']
+_q_exports = ['api']
 
 
 def _q_exception_handler(request, exception):
@@ -33,11 +27,6 @@ def _q_exception_handler(request, exception):
 
 
 def _q_index(request):
-    context = {}
-    context['current_user'] = request.user
-    return st("index.html", **context)
-
-def vilya(request):
     return get_static('/static/dist/index.html')
 
 def __call__(request):
@@ -56,20 +45,3 @@ def _q_lookup(request, name):
     if org:
         return OrganizationUI(org)
 
-    raise TraversalError
-
-
-class HubUI(object):
-    _q_exports = []
-
-    def __init__(self, name):
-        pass
-
-    def __call__(self, request):
-        pass
-
-    def _q_index(self, request):
-        pass
-
-    def _q_lookup(self, request, part):
-        pass
