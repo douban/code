@@ -13,13 +13,13 @@ class ForksUI(RestAPIUI):
         self.project = project
 
     def get(self, request):
-        rs = self.project.fork_projects
-        return [p.as_dict() for p in rs]
+        rs = self.project.forks
+        return [p.to_dict() for p in rs]
 
     def post(self, request):
         user = request.user
         project = self.project
         if project.owner_id == user.id:
             return {}
-        p = project.add_fork(user.id)
-        return p.as_dict() if p else {}
+        p = project.fork(user.id)
+        return p.to_dict() if p else {}

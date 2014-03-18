@@ -88,7 +88,8 @@ class Project(BaseModel):
     def after_create(self):
         upstream = self.upstream
         if upstream:
-            repo = upstream.clone(self.repo_path, bare=True)
+            upstream.repo.clone(self.repo_path, bare=True)
+            repo = self.repo
         else:
             repo = ProjectRepo.init(self.repo_path)
         repo.update_hooks(HOOKS_DIR)
