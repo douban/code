@@ -54,7 +54,7 @@ class Commit(object):
             committer_name, commit['committer']['email'])
         # FIXME: user
         #committer = User(name=committer_name, email=committer_email)
-        committer = User.name(name=committer_name)
+        committer = User.get(name=committer_name)
         self.committer = committer
         committer_date = datetime.fromtimestamp(commit['committer']['time'],
                                              FixedOffset(commit['committer']['offset']))

@@ -70,7 +70,7 @@ def authfunc(environ, username, passwd):
         return
     if username == 'code' and passwd == 'code':
         return True
-    user = User.get_by_name(username)
+    user = User.get(name=username)
     if not user:
         return
     if not user.validate_password(passwd):

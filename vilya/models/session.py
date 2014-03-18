@@ -57,7 +57,6 @@ class SessionMixin(object):
     def clear_session(self):
         self.session_id = None
         self.save()
-        self.session_id = None
 
     def create_session(self):
         session_id = randbytes2(8)

@@ -34,7 +34,7 @@ class ProjectsUI(RestAPIUI):
 
     def get(self, request):
         projects = Project.gets()
-        projects = [p.as_dict() for p in projects]
+        projects = [p.to_dict() for p in projects]
         return projects
 
 
@@ -50,7 +50,7 @@ class ProjectUI(RestAPIUI):
         raise TraversalError
 
     def get(self, request):
-        project = self.project.as_dict()
+        project = self.project.to_dict()
         project['links'] = {'commits': 'commits'}
         return dict(project=project)
 

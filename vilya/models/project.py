@@ -9,7 +9,6 @@ from vilya.config import DOMAIN
 from vilya.libs.permdir import get_repo_root
 from vilya.models.git.repo import ProjectRepo
 from vilya.models import ModelField, BaseModel
-from vilya.models.fork_relationship import ForkRelationship
 from vilya.config import HOOKS_DIR
 
 KIND_USER = 1
@@ -23,43 +22,41 @@ class Project(BaseModel):
     kind = ModelField(as_key=ModelField.KeyType.DESC, default=KIND_USER)
     owner_id = ModelField(as_key=ModelField.KeyType.DESC)
     creator_id = ModelField(as_key=ModelField.KeyType.DESC)
+    upstream_id = ModelField(as_key=ModelField.KeyType.DESC)
+    family_id = ModelField(as_key=ModelField.KeyType.DESC)
     created_at = ModelField(auto_now_create=True)
     updated_at = ModelField(auto_now=True)
 
     @BaseModel.transaction
     def fork(self, user_id):
         fork = Project.create(name=self.name,
-                description=self.description,
-                kind=self.kind,
-                owner_id=user_id,
-                creator_id=user_id)
-        fork_relation = ForkRelationship.create(project_id=fork_project.id,
-                forked_id=self.id,
-                family_id=self.fork.family_id if self.fork else self.id)
-        self.repo.clone(fork.repo_path, bare=True)
-        project.repo.update_hooks(HOOKS_DIR)
+                              description=self.description,
+                              kind=self.kind,
+                              owner_id=user_id,
+                              creator_id=user_id,
+                              upstream_id=self.id,
+                              family_id=self.family_id)
         return fork
 
     @property
     def upstream(self):
-        rs = ForkRelationship.gets(project_id=self.id)
-        return rs[0] if rs else None
+        return Project.get(id=self.upstream_id)
 
     @property
     def forks(self):
-        rs = ForkRelationship.gets(forked_id=self.id)
-        return [Project.get_by(p.project_id) for p in rs]
+        return Project.gets(upstream_id=self.id)
 
     @property
     def families(self):
-        id = self.family_id or self.id
-        families = ForkRelationship.gets(family_id=id)
-        if families:
-            return [Project.get(id=family.project_id) for family in families]
-        else:
-            return []
+        return Project.gets(family_id=self.family_id)
 
-
+    def to_dict(self):
+        return dict(id=self.id,
+                    name=self.name,
+                    full_name=self.full_name,
+                    description=self.description,
+                    owner_name=self.owner_name,
+                    owner_id=self.owner_id)
 
     ## git wrap
     @property
@@ -89,7 +86,11 @@ class Project(BaseModel):
             return org.name
 
     def after_create(self):
-        repo = ProjectRepo.init(self.repo_path)
+        upstream = self.upstream
+        if upstream:
+            repo = upstream.clone(self.repo_path, bare=True)
+        else:
+            repo = ProjectRepo.init(self.repo_path)
         repo.update_hooks(HOOKS_DIR)
 
     @property
@@ -97,14 +98,3 @@ class Project(BaseModel):
         if not (hasattr(self, '_repo') and self._repo):
             self._repo = ProjectRepo(self)
         return self._repo
-
-    def to_dict(self):
-        return dict(
-                id=self.id,
-                name=self.name,
-                full_name=self.full_name,
-                description=self.description,
-                owner_name=self.owner_name,
-                owner_id=self.owner_id,
-                )
-

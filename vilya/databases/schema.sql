@@ -38,26 +38,6 @@ CREATE TABLE `organizations` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `project_forks`
---
-
-DROP TABLE IF EXISTS `fork_relationships`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `fork_relationships` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `project_id` int(11) NOT NULL,
-  `upstream_id` int(11) NOT NULL,
-  `family_id` int(11) NOT NULL,
-  `creator_id` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `idx_project` (`project_id`),
-  KEY `idx_fork` (`forked_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `projects`
 --
 
@@ -71,6 +51,8 @@ CREATE TABLE `projects` (
   `kind` tinyint(2) NOT NULL,
   `owner_id` int(11) NOT NULL,
   `creator_id` int(11) NOT NULL,
+  `upstream_id` int(11) NOT NULL DEFAULT '0',
+  `family_id` int(11) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -78,6 +60,8 @@ CREATE TABLE `projects` (
   KEY `idx_name` (`name`),
   KEY `idx_owner` (`owner_id`),
   KEY `idx_kind_owner` (`kind`,`owner_id`),
+  KEY `idx_upstream` (`upstream_id`),
+  KEY `idx_family` (`family_id`),
   KEY `idx_creator` (`creator_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
