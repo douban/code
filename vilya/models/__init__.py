@@ -1,34 +1,32 @@
 # -*- coding: utf-8 -*-
+from vilya.libs.store import (OrzField,
+                              OrzBase,
+                              store,
+                              IntegrityError)
+from ORZ.klass_init import OrzMeta
+from datetime import datetime
 
 __all__ = []
 __dict__ = []
-
-
-from vilya.libs.store import (
-        OrzField,
-        OrzBase,
-        store,
-        IntegrityError,
-        )
-from ORZ.klass_init import OrzMeta
-from datetime import datetime
 
 
 class ModelField(OrzField):
     def __init__(self, *args, **kwargs):
         self.auto_now = kwargs.get('auto_now')
         self.auto_now_create = kwargs.get('auto_now_create')
-        if kwargs.has_key('auto_now'):
+        if 'auto_now' in kwargs:
             del kwargs['auto_now']
-        if kwargs.has_key('auto_now_create'):
+        if 'auto_now_create' in kwargs:
             del kwargs['auto_now_create']
         super(ModelField, self).__init__(*args, **kwargs)
 
+
 class ModelMeta(OrzMeta):
     def __init__(self, *args, **kwargs):
-        if self.__table__: self.__orz_table__ = self.__table__
+        if self.__table__:
+            self.__orz_table__ = self.__table__
         super(ModelMeta, self).__init__(*args, **kwargs)
-        
+
         auto_now_fields = []
         auto_now_create_fields = []
         for k, v in self.__dict__.iteritems():
@@ -39,7 +37,7 @@ class ModelMeta(OrzMeta):
                     auto_now_create_fields.append(k)
         self.__auto_now_fields__ = auto_now_fields
         self.__auto_now_create_fields__ = auto_now_create_fields
-        
+
 
 def _transaction(func):
         def _transaction_block(*args, **kwargs):
@@ -51,7 +49,8 @@ def _transaction(func):
                     ret = func(*args, **kwargs)
                 except IntegrityError, e:
                     store.rollback()
-                    raise e
+                    return None
+                    # raise e
                 except Exception, e:
                     store.rollback()
                     raise e
@@ -73,7 +72,7 @@ class BaseModel(OrzBase):
     @staticmethod
     def transaction(func):
         return _transaction(func)
-    
+
     @classmethod
     @_transaction
     def create(cls, **kwargs):
@@ -112,4 +111,3 @@ class BaseModel(OrzBase):
 
     def __iter__(self):
         self.to_dict().iteritems()
-

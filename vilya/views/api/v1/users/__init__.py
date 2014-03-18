@@ -15,7 +15,15 @@ def __call__(request):
 
 
 def _q_index(request):
-    return 'users'
+    return []
+
+
+class UsersUI(RestAPIUI):
+    _q_exports = []
+    _q_methods = ['get']
+
+    def get(self, request):
+        return []
 
 
 class UserUI(RestAPIUI):

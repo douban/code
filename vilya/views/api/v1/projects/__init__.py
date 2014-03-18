@@ -16,7 +16,23 @@ from vilya.views.api.v1.projects.forks import ForksUI
 
 class ProjectsUI(RestAPIUI):
     _q_exports = []
-    _q_methods = ['get']
+    _q_methods = ['get', 'post']
+
+    def get(self, request):
+        projects = Project.gets()
+        projects = [p.to_dict() for p in projects]
+        return projects
+
+    def post(self, request):
+        user = request.user
+        name = request.get_form_var('name', '')
+        description = request.get_form_var('description', '')
+        if user:
+            p = Project.create(name=name,
+                               owner_id=user.id,
+                               creator_id=user.id,
+                               description=description)
+        return p.to_dict() if p else []
 
     def _q_lookup(self, request, name):
         from vilya.views.api.v1.users import UserUI
@@ -31,11 +47,6 @@ class ProjectsUI(RestAPIUI):
             return OrganizationUI(org)
 
         raise TraversalError
-
-    def get(self, request):
-        projects = Project.gets()
-        projects = [p.to_dict() for p in projects]
-        return projects
 
 
 class ProjectUI(RestAPIUI):
