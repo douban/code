@@ -31,7 +31,7 @@ class User(BaseModel, SessionMixin):
 
     @password.setter
     def _set_password(self, password):
-        self.password_digest= self.hash_password(password)
+        self.password_digest = self.hash_password(password)
 
     def validate_password(self, password):
         """Check the password against existing credentials."""
@@ -63,3 +63,7 @@ class User(BaseModel, SessionMixin):
     def projects(self):
         from vilya.models.project import Project
         return Project.gets(owner_id=self.id)
+
+    def to_dict(self):
+        return dict(id=self.id,
+                    name=self.name)

@@ -33,9 +33,9 @@ def _q_index(request):
             return st('users/new.html', **context)
 
         user = User.create(name=name,
-                        password=password,
-                        description=description,
-                        email=email)
+                           password=password,
+                           description=description,
+                           email=email)
         if user:
             context['user'] = user
             user.set_session(request)

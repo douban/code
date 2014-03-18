@@ -5,6 +5,7 @@ from quixote.errors import TraversalError
 from vilya.models.user import User
 from vilya.models.organization import Organization
 from vilya.models.project import Project
+from vilya.views.api import errors
 from vilya.views.api.utils import RestAPIUI
 from vilya.views.api.v1.projects.commits import CommitsUI
 from vilya.views.api.v1.projects.files import FilesUI, FileUI
@@ -35,9 +36,6 @@ class ProjectsUI(RestAPIUI):
         return p.to_dict() if p else []
 
     def _q_lookup(self, request, name):
-        from vilya.views.api.v1.users import UserUI
-        from vilya.views.api.v1.organizations import OrganizationUI
-
         user = User.get(name=name)
         if user:
             return UserUI(user)
@@ -92,3 +90,31 @@ class ProjectUI(RestAPIUI):
     @property
     def forks(self):
         return ForksUI(self.project)
+
+
+class UserUI(RestAPIUI):
+    _q_exports = []
+    _q_methods = []
+
+    def __init__(self, user):
+        self.user = user
+
+    def _q_lookup(self, request, name):
+        project = Project.get(name=name, owner_id=self.user.id)
+        if project:
+            return ProjectUI(project)
+        raise errors.NotFoundError('project %s', name)
+
+
+class OrganizationUI(RestAPIUI):
+    _q_exports = []
+    _q_methods = []
+
+    def __init__(self, organizaton):
+        self.organizaton = organizaton
+
+    def _q_lookup(self, request, name):
+        project = Project.get(name=name, owner_id=self.organizaton.id)
+        if project:
+            return ProjectUI(project)
+        raise errors.NotFoundError('project %s', name)
