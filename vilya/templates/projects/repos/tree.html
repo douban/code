@@ -5,7 +5,7 @@
     </div>
     <!-- List group -->
     <ul class="list-group">
-        % for blob in project.repo_tree:
+        % for blob in project.repo.get_tree('HEAD', ''):
         <li class="list-group-item">
         % if blob['type'] == 'tree':
         <span class="glyphicon glyphicon-folder-close"></span>

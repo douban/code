@@ -51,11 +51,11 @@ def _q_lookup(request, name):
     if name in ['static', 'js', 'css']:
         return StaticUI(request, name)
 
-    user = User.get_by_name(name)
+    user = User.get(name=name)
     if user:
         return UserUI(user)
 
-    org = Organization.get_by_name(name)
+    org = Organization.get(name=name)
     if org:
         return OrganizationUI(org)
 

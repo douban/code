@@ -16,7 +16,7 @@ def _q_index(request):
     if request.method == 'POST':
         name = request.get_form_var('login')
         password = request.get_form_var('password')
-        user = User.get_by_name(name)
+        user = User.get(name=name)
         if user and user.validate_password(password):
             user.set_session(request)
             request.user = user

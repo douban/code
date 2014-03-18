@@ -26,7 +26,7 @@ class UserUI(RestAPIUI):
         self.user = user
 
     def _q_lookup(self, request, name):
-        project = Project.get_by_name_and_owner(name, self.user.id)
+        project = Project.get(name=name, owner_id=self.user.id)
         if project:
             return ProjectUI(project)
         raise errors.NotFoundError('project %s', name)

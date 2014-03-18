@@ -18,7 +18,7 @@ def _q_index(request):
         name = request.get_form_var('name')
         description = request.get_form_var('description')
         creator_id = int(request.get_form_var('creator_id', 1))
-        o = Organization.add(name=name,
+        o = Organization.create(name=name,
                              description=description,
                              owner_id=creator_id,
                              creator_id=creator_id)
@@ -26,13 +26,13 @@ def _q_index(request):
             return request.redirect('organizations/%s' % o.name)
         context['organization'] = o
         return st('organizations/index.html', **context)
-    organizations = Organization.gets_by()
+    organizations = Organization.gets()
     context['organizations'] = organizations
     return st('organizations/index.html', **context)
 
 
 def _q_lookup(request, part):
-    o = Organization.get_by_name(part)
+    o = Organization.get(name=part)
     if o:
         return OrganizationUI(o)
     raise TraversalError

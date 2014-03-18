@@ -14,6 +14,6 @@ def __call__(request):
 
 def _q_index(request):
     context = {}
-    context['users'] = User.gets_by()
+    context['users'] = User.gets()
     context['current_user'] = request.user
     return st('projects/new.html', **context)
