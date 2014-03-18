@@ -133,7 +133,12 @@ module.exports = function (grunt) {
                 }]
             }
         },
-
+        concat: {
+            dist: {
+              src: ['vilya/templates/vilya/*.html'],
+              dest: 'vilya/static/dist/index.html'
+            }
+        }
     }
 
     grunt.initConfig(config)
@@ -145,6 +150,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean')
     grunt.loadNpmTasks('grunt-contrib-coffee')
     grunt.loadNpmTasks('grunt-contrib-compass')
+    grunt.loadNpmTasks('grunt-contrib-concat')
 
     grunt.registerTask('build', [
         'clean',
@@ -154,6 +160,7 @@ module.exports = function (grunt) {
         'ozma',
         'compass',
         'copy',
+        'concat'
     ])
 
     grunt.registerTask('default', [

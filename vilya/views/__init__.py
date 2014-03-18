@@ -32,9 +32,7 @@ def _q_exception_handler(request, exception):
 
 
 def vilya(request):
-    context = {}
-    context['current_user'] = request.user
-    return st("vilya/app.html", **context)
+    return st("vilya/statics/dist/index.html")
 
 
 def _q_index(request):

@@ -18,6 +18,7 @@
         "grunt-contrib-watch": "~0.3.1",
         "grunt-contrib-clean": "~0.4.0",
         "grunt-contrib-connect": "~0.5.0",
+        "grunt-contrib-concat": "~0.3.0",
         "grunt-contrib-coffee": "~0.7.0",
         "jshint": "~2.1.11",
         "faketouches": "0.0.4",
