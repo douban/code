@@ -135,7 +135,7 @@ module.exports = function (grunt) {
         },
         concat: {
             dist: {
-              src: ['vilya/templates/vilya/*.html'],
+              src: ['frontend/template/*.html'],
               dest: 'vilya/static/dist/index.html'
             }
         }
