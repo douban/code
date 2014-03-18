@@ -9,6 +9,7 @@ from vilya.views.organizations import OrganizationUI
 from vilya.views.users import UserUI
 from vilya.models.user import User
 from vilya.models.organization import Organization
+from vilya.static import get_static
 
 _q_exports = ['api',
               'organizations',
@@ -36,6 +37,8 @@ def _q_index(request):
     context['current_user'] = request.user
     return st("index.html", **context)
 
+def vilya(request):
+    return get_static('/static/dist/index.html')
 
 def __call__(request):
     return _q_index(request)
