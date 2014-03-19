@@ -83,6 +83,11 @@ module.exports = function (grunt) {
                     "<%= meta.jsLibDir %>/": ["underscore.js"]
                 }
             },
+            handlebars: {
+                use: {
+                    "<%= meta.jsLibDir %>/": ["handlebars.js"]
+                }
+            },
             modernizr: {
                 use: {
                     "<%= meta.jsLibDir %>/": ["modernizr.js"]

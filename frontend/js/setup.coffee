@@ -27,4 +27,8 @@ define('backbone/events', ['backbone-src'], () ->
   return Backbone.Events
 )
 
+define('handlebars', ['handlebars.js'], ()->
+  return Handlebars
+)
+
 require(['vilya/main'], (App) ->)
