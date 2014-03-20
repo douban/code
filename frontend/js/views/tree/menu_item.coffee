@@ -1,7 +1,6 @@
 define(
   ['jquery', 'backbone', 'handlebars'],
   ($, Backbone, Handlebars) ->
-    console.log(Handlebars)
     MenuItemView = Backbone.View.extend({
       tagName: 'li'
       className: () ->
