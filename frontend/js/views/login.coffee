@@ -19,7 +19,7 @@ define(
         event.preventDefault()
         login = new Login
         login.set('password', $(@el).find('#loginPassowrd').val())
-        login.set('email', $(@el).find('#loginEmail').val())
+        login.set('name', $(@el).find('#loginName').val())
         login.save()
     })
     return LoginView

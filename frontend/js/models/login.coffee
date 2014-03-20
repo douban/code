@@ -3,10 +3,8 @@ define(
   ($, Backbone, _) ->
     Login = Backbone.Model.extend({
       defaults:
-        email: ''
         password: ''
-        username: ''
-        avatar: ''
+        name: ''
       url: () ->
         '/api/v1/login/'
     })
