@@ -2,6 +2,7 @@
 
 from __future__ import absolute_import
 from quixote.errors import TraversalError
+from vilya.views.api.utils import json_body, jsonize, http_status
 from vilya.models.user import User
 from vilya.views.api.utils import RestAPIUI
 
@@ -36,7 +37,7 @@ class UsersUI(RestAPIUI):
 
 class UserUI(RestAPIUI):
     _q_exports = []
-    _q_methods = ['get']
+    _q_methods = ['get', 'post']
 
     def __init__(self, user=None):
         self.user = user
@@ -46,3 +47,18 @@ class UserUI(RestAPIUI):
         if not user:
             return {}
         return user.to_dict()
+
+    @jsonize
+    @json_body
+    @http_status(201)
+    def _post(self, request):
+        return self.post(request)
+
+    def post(self, request):
+        name = request.data.get('name')
+        password = request.data.get('password')
+        user = User.get(name=name)
+        if user and user.validate_password(password):
+            user.set_session(request)
+            return user.to_dict()
+        return {}

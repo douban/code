@@ -46,7 +46,7 @@ def json_body(func):
             try:
                 req.data = json.loads(body)
             except ValueError:
-                raise errors.NotJsonError
+                raise errors.NotJSONError
         return func(*args, **kwargs)
     return _
 
