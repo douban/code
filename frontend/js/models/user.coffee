@@ -6,7 +6,7 @@ define(
         password: ''
         name: ''
       url: () ->
-        '/api/v1/login/'
+        '/api/v1/current_user/'
     })
     return User
 )
