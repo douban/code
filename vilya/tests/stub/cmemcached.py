@@ -4,37 +4,40 @@
 from cPickle import dumps, loads
 
 __all__ = ['DIST_MODULA', 'DIST_CONSISTENT', 'DIST_CONSISTENT_KETAMA',
-        'Client']
+           'Client']
 
 DIST_MODULA = 0
 DIST_CONSISTENT = 1
 DIST_CONSISTENT_KETAMA = 2
 
 (BEHAVIOR_NO_BLOCK, BEHAVIOR_TCP_NODELAY, BEHAVIOR_HASH, BEHAVIOR_KETAMA,
-        BEHAVIOR_SOCKET_SEND_SIZE, BEHAVIOR_SOCKET_RECV_SIZE,
-        BEHAVIOR_CACHE_LOOKUPS, BEHAVIOR_SUPPORT_CAS, BEHAVIOR_POLL_TIMEOUT,
-        BEHAVIOR_DISTRIBUTION, BEHAVIOR_BUFFER_REQUESTS, BEHAVIOR_USER_DATA,
-        BEHAVIOR_SORT_HOSTS, BEHAVIOR_VERIFY_KEY, BEHAVIOR_CONNECT_TIMEOUT,
-        BEHAVIOR_RETRY_TIMEOUT, BEHAVIOR_KETAMA_WEIGHTED,
-        BEHAVIOR_KETAMA_HASH, BEHAVIOR_BINARY_PROTOCOL, BEHAVIOR_SND_TIMEOUT,
-        BEHAVIOR_RCV_TIMEOUT, BEHAVIOR_SERVER_FAILURE_LIMIT) = range(22)
-
+ BEHAVIOR_SOCKET_SEND_SIZE, BEHAVIOR_SOCKET_RECV_SIZE,
+ BEHAVIOR_CACHE_LOOKUPS, BEHAVIOR_SUPPORT_CAS, BEHAVIOR_POLL_TIMEOUT,
+ BEHAVIOR_DISTRIBUTION, BEHAVIOR_BUFFER_REQUESTS, BEHAVIOR_USER_DATA,
+ BEHAVIOR_SORT_HOSTS, BEHAVIOR_VERIFY_KEY, BEHAVIOR_CONNECT_TIMEOUT,
+ BEHAVIOR_RETRY_TIMEOUT, BEHAVIOR_KETAMA_WEIGHTED,
+ BEHAVIOR_KETAMA_HASH, BEHAVIOR_BINARY_PROTOCOL, BEHAVIOR_SND_TIMEOUT,
+ BEHAVIOR_RCV_TIMEOUT, BEHAVIOR_SERVER_FAILURE_LIMIT) = range(22)
 
 pool = {}
+
 
 def prepare(val, comp_threshold):
     return dumps(val), 1
 
+
 def restore(val, flag):
     return loads(val)
+
 
 def clear():
     for v in pool.values():
         v.clear()
 
+
 class Client(object):
     def __init__(self, servers=[], dist=DIST_CONSISTENT_KETAMA, debug=0,
-            log=None, log_threshold=100000, *a, **kw):
+                 log=None, log_threshold=100000, *a, **kw):
         self.dataset = pool.get(';'.join(servers), {})
         pool[id(self.dataset)] = self.dataset
 
@@ -44,7 +47,7 @@ class Client(object):
     def set(self, key, val, time=0, compress=False):
         _, ver = self.dataset.get(key, (None, 0))
         v = prepare(val, 0)
-        self.dataset[key] = (v, ver+1)
+        self.dataset[key] = (v, ver + 1)
         return 1
 
     def set_multi(self, values, time=0, compress=True):
@@ -128,14 +131,14 @@ class Client(object):
 
     def incr(self, key, val=1):
         if key in self.dataset:
-            self.set(key, self.get(key)+val)
+            self.set(key, self.get(key) + val)
             return 0
         else:
             return 16
 
     def decr(self, key, val=1):
         if key in self.dataset:
-            self.set(key, max(self.get(key)-val, 0))
+            self.set(key, max(self.get(key) - val, 0))
             return 0
         else:
             return 16

@@ -13,6 +13,7 @@ from vilya.views.api.v1.projects.contents import ContentsUI
 from vilya.views.api.v1.projects.readme import ReadmeUI
 from vilya.views.api.v1.projects.compare import CompareUI
 from vilya.views.api.v1.projects.forks import ForksUI
+from vilya.views.api.v1.projects.pulls import PullsUI
 
 
 class ProjectsUI(RestAPIUI):
@@ -26,8 +27,8 @@ class ProjectsUI(RestAPIUI):
 
     def post(self, request):
         user = request.user
-        name = request.get_form_var('name', '')
-        description = request.get_form_var('description', '')
+        name = request.data.get('name', '')
+        description = request.data.get('description', '')
         if user:
             p = Project.create(name=name,
                                owner_id=user.id,
@@ -49,7 +50,7 @@ class ProjectsUI(RestAPIUI):
 
 class ProjectUI(RestAPIUI):
     _q_exports = ['commits', 'files', 'contents', 'readme', 'file',
-                  'compare', 'forks']
+                  'compare', 'forks', 'pulls']
     _q_methods = ['get']
 
     def __init__(self, project):
@@ -90,6 +91,10 @@ class ProjectUI(RestAPIUI):
     @property
     def forks(self):
         return ForksUI(self.project)
+
+    @property
+    def pulls(self):
+        return PullsUI(self.project)
 
 
 class UserUI(RestAPIUI):

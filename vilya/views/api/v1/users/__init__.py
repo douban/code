@@ -14,19 +14,22 @@ class UsersUI(RestAPIUI):
     def get(self, request):
         return []
 
+    @jsonize
+    @json_body
+    @http_status(201)
+    def _post(self, request):
+        return self.post(request)
+
     def post(self, request):
-        user = request.user
-        name = request.get_form_var('name', '')
-        password = request.get_form_var('password', '')
-        description = request.get_form_var('description', '')
-        email = request.get_form_var('email', '')
-        if user:
-            new_user = User.create(name=name,
-                                   password=password,
-                                   description=description,
-                                   email=email)
-            return new_user.to_dict() if new_user else {}
-        return {}
+        name = request.data.get('name')
+        password = request.data.get('password')
+        description = request.data.get('description')
+        email = request.data.get('email', '')
+        new_user = User.create(name=name,
+                               password=password,
+                               description=description,
+                               email=email)
+        return new_user.to_dict() if new_user else {}
 
     def _q_lookup(self, request, name):
         user = User.get(name=name)

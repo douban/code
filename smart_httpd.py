@@ -10,7 +10,6 @@ from vilya.libs.git_http_backend import assemble_WSGI_git_app
 from vilya.libs.permdir import get_repo_root
 from vilya.models.user import User
 from vilya.models.project import Project
-from vilya.models.organization import Organization
 
 
 DOUBAN_REALM = "douban wsgi basic auth"
@@ -52,14 +51,6 @@ def get_git_path_info(path):
                 path_split[2] = "%s.git" % project.id
                 return '/'.join(path_split[1:])
             return
-        # org project: org/project.git
-        org = Organization.get(name=owner_name)
-        if org:
-            project = Project.get(name=git_name[:-4], owner_id=user.id)
-            if project:
-                path_split[1] = ""
-                path_split[2] = "%s.git" % project.id
-                return '/'.join(path_split[1:])
 
 
 def authfunc(environ, username, passwd):

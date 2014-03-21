@@ -64,6 +64,11 @@ class User(BaseModel, SessionMixin):
         from vilya.models.project import Project
         return Project.gets(owner_id=self.id)
 
+    @property
+    def org(self):
+        from vilya.models.organization import Organization
+        return Organization.get(user_id=self.id)
+
     def to_dict(self):
         return dict(id=self.id,
                     name=self.name)

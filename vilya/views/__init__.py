@@ -3,7 +3,6 @@
 from __future__ import absolute_import
 from quixote.errors import TraversalError, AccessError
 from vilya.libs.template import st
-from vilya.views.util import jsonize
 from vilya.views.static import StaticUI
 from vilya.views.organizations import OrganizationUI
 from vilya.views.users import UserUI
@@ -29,6 +28,7 @@ def _q_exception_handler(request, exception):
 def _q_index(request):
     return get_static('/static/dist/index.html')
 
+
 def __call__(request):
     return _q_index(request)
 
@@ -40,8 +40,3 @@ def _q_lookup(request, name):
     user = User.get(name=name)
     if user:
         return UserUI(user)
-
-    org = Organization.get(name=name)
-    if org:
-        return OrganizationUI(org)
-
