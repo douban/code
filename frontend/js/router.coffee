@@ -21,7 +21,6 @@ define(
         ":user/:project/commits": "showProjectCommits"
       initialize: (app) ->
         @app = app
-        app.router = this
       loadView: (view) ->
         if (this.view)
           if (this.view.closeView)
@@ -30,7 +29,7 @@ define(
             this.view.remove()
         this.view = view
       showLogin: () ->
-        this.loadView(new LoginView(app.currentUser))
+        this.loadView(new LoginView(@app.currentUser))
       showHome: () ->
         this.loadView(new HomeView())
       showExpore: () ->
