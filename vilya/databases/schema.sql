@@ -34,7 +34,7 @@ CREATE  TABLE IF NOT EXISTS `valentine`.`projects` (
   `created_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00' ,
   `updated_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP ,
   PRIMARY KEY (`id`) ,
-  UNIQUE KEY `idx_full_name` (`owner_id`, `kind`, `name`),
+  UNIQUE KEY `idx_full_name` (`owner_id`, `name`),
   KEY `idx_name` (`name`),
   KEY `idx_owner` (`owner_id`),
   KEY `idx_network` (`owner_id`, `family_id`),
