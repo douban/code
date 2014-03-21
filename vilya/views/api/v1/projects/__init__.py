@@ -3,7 +3,6 @@
 from __future__ import absolute_import
 from quixote.errors import TraversalError
 from vilya.models.user import User
-from vilya.models.organization import Organization
 from vilya.models.project import Project
 from vilya.views.api import errors
 from vilya.views.api.utils import RestAPIUI
@@ -40,11 +39,6 @@ class ProjectsUI(RestAPIUI):
         user = User.get(name=name)
         if user:
             return UserUI(user)
-
-        org = Organization.get(name=name)
-        if org:
-            return OrganizationUI(org)
-
         raise TraversalError
 
 
