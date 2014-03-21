@@ -2,14 +2,13 @@ define(
   ['jquery',
   'backbone',
   'underscore',
-  'vilya/app',
   'modules/url',
   'views/page_views/home',
   'views/page_views/login',
   'views/page_views/explore',
   'views/page_views/projects/index',
   'views/page_views/projects/commits'],
-  ($, Backbone, _, app, UrlUtil, HomeView, LoginView, ExploreView, ProjectIndexView,
+  ($, Backbone, _, UrlUtil, HomeView, LoginView, ExploreView, ProjectIndexView,
   ProjectCommitsView) ->
     VILYA_ROOT = '/vilya/'
 
@@ -22,7 +21,8 @@ define(
         ":user/:project": "showProject"
         ":user/:project/commits": "showProjectCommits"
       initialize: (app) ->
-        this.app = app
+        @app = app
+        app.router = this
         this.loadView(new HomeView())
       loadView: (view) ->
         if (this.view)
@@ -32,8 +32,7 @@ define(
             this.view.remove()
         this.view = view
       showLogin: () ->
-        window.v = new LoginView(app.currentUser)
-        this.loadView(v)
+        this.loadView(new LoginView(app.currentUser))
       showHome: () ->
         this.loadView(new HomeView())
       showExpore: () ->
@@ -44,14 +43,5 @@ define(
         page = UrlUtil.getURLParameter('page')
         this.loadView(new ProjectCommitsView({full_name: user + "/" + project, page: page}))
 
-    initialize = (app) ->
-      app.router = new AppRouter()
-      Backbone.history.start({
-        #pushState: true,
-        #root: VILYA_ROOT
-      })
-
-    return {
-      initialize: initialize
-    }
+    return AppRouter
 )
