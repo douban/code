@@ -10,7 +10,6 @@ define(
   'views/page_views/projects/commits'],
   ($, Backbone, _, UrlUtil, HomeView, LoginView, ExploreView, ProjectIndexView,
   ProjectCommitsView) ->
-    VILYA_ROOT = '/vilya/'
 
     class AppRouter extends Backbone.Router
       routes:
@@ -23,7 +22,6 @@ define(
       initialize: (app) ->
         @app = app
         app.router = this
-        this.loadView(new HomeView())
       loadView: (view) ->
         if (this.view)
           if (this.view.closeView)
