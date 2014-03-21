@@ -38,7 +38,7 @@ class UsersUI(RestAPIUI):
         raise TraversalError
 
 
-class UserUI(RestAPIUI):
+class CurrentUserUI(RestAPIUI):
     _q_exports = []
     _q_methods = ['get', 'post']
 

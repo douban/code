@@ -12,23 +12,19 @@ require.config(
   }
 )
 
-define('jquery-src', 'jquery/jquery.js')
-define('jquery', ['jquery-src'], () ->
-  return window.jQuery
-)
+define 'jquery-src', 'jquery/jquery.js'
 
-define('backbone-src', 'backbone/backbone.js')
-define('backbone', ['backbone-src'], () ->
+define 'jquery', ['jquery-src'], -> jQuery
+
+define 'backbone-src', 'backbone/backbone.js'
+
+define 'backbone', ['backbone-src'], () ->
   Backbone.inhert = Backbone.View.extend
-  return Backbone
-)
+  Backbone
 
-define('backbone/events', ['backbone-src'], () ->
-  return Backbone.Events
-)
+define 'backbone/events', ['backbone-src'], -> Backbone.Events
 
-define('handlebars', ['handlebars.js'], ()->
-  return Handlebars
-)
+define 'handlebars', ['handlebars.js'], -> Handlebars
 
-require(['vilya/main'], (App) ->)
+require ['vilya/app'], (App) ->
+  App.initialize()

@@ -3,7 +3,7 @@ define(
   'backbone',
   'underscore',
   'collections/project/menu',
-  'views/tree/menu_item'],
+  'views/partial_views/menu_item'],
   ($, Backbone, _, ProjectMenu, MenuItemView) ->
     MenuView = Backbone.View.extend({
       tagName: "ul"
