@@ -1,11 +1,11 @@
 define(
   ['jquery',
   'backbone',
-  'underscore'],
-  ($, Backbone, _) ->
+  'handlebars'],
+  ($, Backbone, Handlebars) ->
     HomeView = Backbone.View.extend({
       tagName: 'div'
-      template: _.template($('#homeTemplate').html())
+      template: Handlebars.compile($('#homeTemplate').html())
       initialize: () ->
         $("#content").html(this.el)
         this.render()

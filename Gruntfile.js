@@ -83,6 +83,11 @@ module.exports = function (grunt) {
                     "<%= meta.jsLibDir %>/": ["underscore.js"]
                 }
             },
+            handlebars: {
+                use: {
+                    "<%= meta.jsLibDir %>/": ["handlebars.js"]
+                }
+            },
             modernizr: {
                 use: {
                     "<%= meta.jsLibDir %>/": ["modernizr.js"]
@@ -135,7 +140,7 @@ module.exports = function (grunt) {
         },
         concat: {
             dist: {
-              src: ['frontend/template/*.html'],
+              src: ['frontend/template/app.html', 'frontend/template/partial/*.html'],
               dest: 'vilya/static/dist/index.html'
             }
         }

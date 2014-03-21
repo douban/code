@@ -5,16 +5,18 @@ define(
   'vilya/app',
   'modules/url',
   'views/home',
+  'views/login',
   'views/explore',
   'views/project/home',
   'views/project/commits'],
-  ($, Backbone, _, app, UrlUtil, HomeView, ExploreView, ProjectHomeView,
+  ($, Backbone, _, app, UrlUtil, HomeView, LoginView, ExploreView, ProjectHomeView,
   ProjectCommitsView) ->
     VILYA_ROOT = '/vilya/'
 
     class AppRouter extends Backbone.Router
       routes:
         "" : "showHome"
+        "login" : "showLogin"
         "about" : "showAbout"
         "explore": "showExpore"
         ":user/:project": "showProject"
@@ -29,8 +31,9 @@ define(
           else
             this.view.remove()
         this.view = view
-      showAbout: () ->
-        this.loadView(new HomeView())
+      showLogin: () ->
+        window.v = new LoginView(app.currentUser)
+        this.loadView(v)
       showHome: () ->
         this.loadView(new HomeView())
       showExpore: () ->

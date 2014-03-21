@@ -1,22 +1,16 @@
 <script id="projectTemplate" type="text/template">
 <div class="list-group">
-    <a href="#{{= full_name }}" class="list-group-item">
-        <h4 class="list-group-item-heading">{{= owner_name }}/{{= name }}</h4>
-        <p class="list-group-item-text">{{= description }}</p>
+    <a href="#{{full_name}}" class="list-group-item">
+        <h4 class="list-group-item-heading">{{owner_name}}/{{name}}</h4>
+        <p class="list-group-item-text">{{description}}</p>
     </a>
 </div>
 </script>
 
 <script id="treeFileTemplate" type="text/template">
 <li class="list-group-item">
-    {{ if (type == 'tree') { }}
-    <span class="glyphicon glyphicon-folder-close"></span>
-    {{ } else if (type == 'blob') { }}
-    <span class="glyphicon glyphicon-file"></span>
-    {{ } else { }}
-    <span class="glyphicon glyphicon-credit-card"></span>
-    {{ } }}
-    {{= name }}
+    <span class="glyphicon {{display_class}}"></span>
+    {{name}}
 </li>
 </script>
 
@@ -26,8 +20,8 @@
     <img class="media-object" src="/static/img/user_normal.jpg" alt="..." width="36" height="36">
   </a>
   <div class="media-body">
-    <h4 class="media-heading">{{= id }}</h4>
-    <p>{{= message }}</p>
+    <h4 class="media-heading">{{id}}</h4>
+    <p>{{message}}</p>
   </div>
 </div>
 </script>
@@ -36,7 +30,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">README</div>
     <div class="panel-body">
-    {{= html }}
+    {{html}}
     </div>
 </div>
 </script>

@@ -6,6 +6,7 @@
     "sass-bootstrap": "~3.0.0",
     "jquery": "~1.9.0",
     "underscore": "~1.4.3",
+    "handlebars": "~2.0.0",
     "backbone": "~1.1.2",
     "modernizr": "~2.6.2"
   },
