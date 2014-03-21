@@ -1,13 +1,13 @@
 define(
   ['jquery',
   'backbone',
-  'handlebars',
-  'models/login'],
-  ($, Backbone, Handlebars, Login) ->
+  'handlebars'],
+  ($, Backbone, Handlebars) ->
     LoginView = Backbone.View.extend({
       tagName: 'div'
       template: Handlebars.compile($('#loginTemplate').html())
-      initialize: () ->
+      initialize: (currentUser) ->
+        @model = currentUser
         $("#content").html(this.el)
         this.render()
       render: () ->
@@ -17,10 +17,9 @@ define(
         "submit form":   "createLogin"
       createLogin: (event) ->
         event.preventDefault()
-        login = new Login
-        login.set('password', $(@el).find('#loginPassowrd').val())
-        login.set('name', $(@el).find('#loginName').val())
-        login.save()
+        @model.set('password', $(@el).find('#loginPassowrd').val())
+        @model.set('name', $(@el).find('#loginName').val())
+        @model.save()
     })
     return LoginView
 )

@@ -1,17 +1,15 @@
 define(
   ['jquery',
   'backbone',
-  'handlebars',
-  'models/login'],
+  'handlebars'],
   ($, Backbone, Handlebars, Login) ->
-    login = new Login()
     window.StatusView = Backbone.View.extend({
-      model: login
       tagName: 'div'
       template: Handlebars.compile($('#statusTemplate').html())
-      initialize: () ->
+      initialize: (currentUser) ->
+        @model = currentUser
         @model.fetch()
-        this.model.bind('change', _.bind(this.render, this))
+        @model.bind('change', _.bind(this.render, this))
       render: () ->
         @$el.html(@template(@model.toJSON()))
         $("#statusBar").html(@$el.html())

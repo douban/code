@@ -3,12 +3,14 @@ define(['jquery',
  'underscore',
  'vilya/app',
  'vilya/router',
+ 'models/user'
  'views/status',
- 'bootstrap/dropdown'], ($, Backbone, _, app, Router, StatusView) ->
+ 'bootstrap/dropdown'], ($, Backbone, _, app, Router, User, StatusView) ->
 
   initialize = () ->
+    app.currentUser = new User
+    (new StatusView(app.currentUser)).render()
     Router.initialize(app)
-    v = (new StatusView())
 
   return {
     initialize: initialize
