@@ -5,6 +5,14 @@ from vilya.models.card import Card
 
 class TestCard(TestCase):
 
+    def setUp(self):
+        super(TestCard, self).setUp()
+
+    def tearDown(self):
+        super(TestCard, self).tearDown()
+        store.execute('truncate table cards')
+        store.commit()
+
     def test_create(self):
         name = "card"
         desc = "description"
@@ -29,7 +37,7 @@ class TestCard(TestCase):
         self.assertEqual(card.creator_id, creator_id)
         self.assertIsNotNone(card.created_at)
         self.assertIsNone(card.archived_at)
-        self.assertIsNone(card.archived_id)
+        self.assertIsNone(card.archiver_id)
         self.assertIsNone(card.closer_id)
         self.assertIsNone(card.closed_at)
         self.assertIsNone(card.pull)

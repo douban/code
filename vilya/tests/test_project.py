@@ -1,9 +1,18 @@
 from framework import *
 from unittest import TestCase
+from vilya.libs.store import store
 from vilya.models.project import Project
 
 
 class TestProject(TestCase):
+
+    def setUp(self):
+        super(TestProject, self).setUp()
+
+    def tearDown(self):
+        super(TestProject, self).tearDown()
+        store.execute('truncate table projects')
+        store.commit()
 
     def test_create(self):
         proj_name = "test_project"

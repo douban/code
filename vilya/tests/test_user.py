@@ -5,6 +5,14 @@ from vilya.models.user import User
 
 class TestUser(TestCase):
 
+    def setUp(self):
+        super(TestUser, self).setUp()
+
+    def tearDown(self):
+        super(TestUser, self).tearDown()
+        store.execute('truncate table users')
+        store.commit()
+
     def test_create(self):
         password = "ilovecode"
         name = "code"

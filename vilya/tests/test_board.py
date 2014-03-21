@@ -5,6 +5,14 @@ from vilya.models.board import Board
 
 class TestBoard(TestCase):
 
+    def setUp(self):
+        super(TestBoard, self).setUp()
+
+    def tearDown(self):
+        super(TestBoard, self).tearDown()
+        store.execute('truncate table boards')
+        store.commit()
+
     def test_create(self):
         name = "board"
         desc = "description"
