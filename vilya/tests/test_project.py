@@ -1,18 +1,8 @@
 from framework import *
-from unittest import TestCase
-from vilya.libs.store import store
 from vilya.models.project import Project
 
 
-class TestProject(TestCase):
-
-    def setUp(self):
-        super(TestProject, self).setUp()
-
-    def tearDown(self):
-        super(TestProject, self).tearDown()
-        store.execute('truncate table projects')
-        store.commit()
+class TestProject(VilyaTestCase):
 
     def test_create(self):
         proj_name = "test_project"
@@ -29,3 +19,4 @@ class TestProject(TestCase):
         self.assertIsNotNone(proj.archive_board)
         self.assertIsNotNone(proj.issue_board)
         self.assertEqual(proj.remote_name, str(proj.id))
+        proj.rm_repo()

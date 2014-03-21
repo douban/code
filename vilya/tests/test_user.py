@@ -1,17 +1,8 @@
 from framework import *
-from unittest import TestCase
 from vilya.models.user import User
 
 
-class TestUser(TestCase):
-
-    def setUp(self):
-        super(TestUser, self).setUp()
-
-    def tearDown(self):
-        super(TestUser, self).tearDown()
-        store.execute('truncate table users')
-        store.commit()
+class TestUser(VilyaTestCase):
 
     def test_create(self):
         password = "ilovecode"

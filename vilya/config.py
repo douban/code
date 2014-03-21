@@ -11,6 +11,8 @@ CSS_JS_DEVELOP_MODE = DAE_ENV == 'SDK'
 
 
 CODE_DIR = dirname(abspath(__file__))
+if os.environ.get('VILYA_TEST'):
+    CODE_DIR = os.path.join(CODE_DIR, 'tests')
 HOOKS_DIR = os.path.join(CODE_DIR, 'hooks')
 REPO_DIR = os.path.join(CODE_DIR, 'permdir')
 

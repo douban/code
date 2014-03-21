@@ -34,8 +34,6 @@ class Counter(object):
             statement = "insert into %s %s on duplicate key update " \
                 "counter=LAST_INSERT_ID(counter+1)" % (self.table_name,
                                                        set_sql)
-        print statement
-        print v
         id = store.execute(statement, v)
         return id
 

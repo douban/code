@@ -79,6 +79,10 @@ class Project(BaseModel):
                      creator_id=self.owner_id,
                      role=BOARD_ROLES['card'])
 
+    def rm_repo(self):
+        import shutil
+        shutil.rmtree(self.repo_path)
+
     @BaseModel.transaction
     def fork(self, user_id):
         fork = Project.create(name=self.name,

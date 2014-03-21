@@ -1,17 +1,8 @@
 from framework import *
-from unittest import TestCase
 from vilya.models.card import Card
 
 
-class TestCard(TestCase):
-
-    def setUp(self):
-        super(TestCard, self).setUp()
-
-    def tearDown(self):
-        super(TestCard, self).tearDown()
-        store.execute('truncate table cards')
-        store.commit()
+class TestCard(VilyaTestCase):
 
     def test_create(self):
         name = "card"
