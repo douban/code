@@ -4,12 +4,12 @@ define(
   'underscore',
   'vilya/app',
   'modules/url',
-  'views/home',
-  'views/login',
-  'views/explore',
-  'views/project/home',
-  'views/project/commits'],
-  ($, Backbone, _, app, UrlUtil, HomeView, LoginView, ExploreView, ProjectHomeView,
+  'views/page_views/home',
+  'views/page_views/login',
+  'views/page_views/explore',
+  'views/page_views/projects/index',
+  'views/page_views/projects/commits'],
+  ($, Backbone, _, app, UrlUtil, HomeView, LoginView, ExploreView, ProjectIndexView,
   ProjectCommitsView) ->
     VILYA_ROOT = '/vilya/'
 
@@ -39,7 +39,7 @@ define(
       showExpore: () ->
         this.loadView(new ExploreView())
       showProject: (user, project) ->
-        this.loadView(new ProjectHomeView({full_name: user + "/" + project}))
+        this.loadView(new ProjectIndexView({full_name: user + "/" + project}))
       showProjectCommits: (user, project) ->
         page = UrlUtil.getURLParameter('page')
         this.loadView(new ProjectCommitsView({full_name: user + "/" + project, page: page}))

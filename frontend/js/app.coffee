@@ -4,12 +4,12 @@ define(['jquery',
  'modules/create_app'
  'vilya/router',
  'models/user'
- 'views/status',
- 'bootstrap/dropdown'], ($, Backbone, _, createApp, Router, User, StatusView) ->
+ 'views/layout',
+ 'bootstrap/dropdown'], ($, Backbone, _, createApp, Router, User, LayoutView) ->
   initialize = () ->
     app = createApp()
-    app.currentUser = new User
-    (new StatusView(app.currentUser)).render()
+    app.currentUser = new User()
+    (new LayoutView(app)).render()
     Router.initialize(app)
 
   return {

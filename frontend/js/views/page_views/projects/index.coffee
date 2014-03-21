@@ -3,13 +3,13 @@ define [
   'backbone'
   'underscore'
   'models/project'
-  'collections/project/files'
-  'views/tree/file'
-  'views/tree/menu'
   'models/readme'
-  'views/tree/readme'
-], ($, Backbone, _, Project, ProjectFiles, TreeFileView, MenuView, Readme, ReadmeView) ->
-  ProjectHomeView = Backbone.View.extend({
+  'collections/project/files'
+  'views/partial_views/file'
+  'views/partial_views/menu'
+  'views/partial_views/readme'
+], ($, Backbone, _, Project, Readme, ProjectFiles, TreeFileView, MenuView, ReadmeView) ->
+  ProjectIndexView = Backbone.View.extend({
     tagName: 'div'
     className: 'row'
     initialize: (options) ->
@@ -60,4 +60,4 @@ define [
       this.readmeView.remove()
       this.remove()
   })
-  return ProjectHomeView
+  return ProjectIndexView
