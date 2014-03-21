@@ -8,7 +8,8 @@
     "underscore": "~1.4.3",
     "handlebars": "~2.0.0",
     "backbone": "~1.1.2",
-    "modernizr": "~2.6.2"
+    "modernizr": "~2.6.2",
+    "fontawesome": "~4.0.3"
   },
   "devDependencies": {}
 }
