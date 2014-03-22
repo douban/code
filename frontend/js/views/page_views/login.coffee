@@ -8,7 +8,7 @@ define(
       template: Handlebars.compile($('#loginTemplate').html())
       initialize: (currentUser) ->
         @model = currentUser
-        $("#content").html(this.el)
+        $("#content").html(@el)
         this.render()
       render: () ->
         this.$el.html(this.template())

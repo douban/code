@@ -6,13 +6,15 @@ define(['jquery',
  'models/user'
  'views/layout',
  'bootstrap/dropdown'], ($, Backbone, _, createApp, Router, User, LayoutView) ->
-  initialize = () ->
-    app = createApp()
-    app.currentUser = new User()
-    (new LayoutView(app)).render()
-    Router.initialize(app)
+    initialize = () ->
+      app = createApp()
+      window.app = app
+      app.currentUser = new User()
+      (new LayoutView(app)).render()
+      new Router(app)
+      Backbone.history.start()
 
-  return {
-    initialize: initialize
-  }
+    return {
+      initialize: initialize
+    }
 )
