@@ -2,7 +2,7 @@ define([
   'jquery',
   'backbone',
   'handlebars',
-  'views/partial_views/status'],
+  'views/partials/status'],
   ($, Backbone, Handlebars, StatusView) ->
     Backbone.View.extend({
       initialize: () ->

@@ -3,11 +3,11 @@ define(
   'backbone',
   'underscore',
   'modules/url',
-  'views/page_views/home',
-  'views/page_views/login',
-  'views/page_views/explore',
-  'views/page_views/projects/index',
-  'views/page_views/projects/commits'],
+  'views/pages/home',
+  'views/pages/login',
+  'views/pages/explore',
+  'views/pages/projects/index',
+  'views/pages/projects/commits'],
   ($, Backbone, _, UrlUtil, HomeView, LoginView, ExploreView, ProjectIndexView,
   ProjectCommitsView) ->
 

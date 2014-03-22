@@ -5,9 +5,9 @@ define [
   'models/project'
   'models/readme'
   'collections/project/files'
-  'views/partial_views/file'
-  'views/partial_views/menu'
-  'views/partial_views/readme'
+  'views/partials/file'
+  'views/partials/menu'
+  'views/partials/readme'
 ], ($, Backbone, _, Project, Readme, ProjectFiles, TreeFileView, MenuView, ReadmeView) ->
   ProjectIndexView = Backbone.View.extend({
     tagName: 'div'
