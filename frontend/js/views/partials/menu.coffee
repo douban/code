@@ -11,8 +11,8 @@ define(
       initialize: (options) ->
         this.full_name = options.full_name
         this.collection = new ProjectMenu([
-          {id: 1, title: 'files', href: '#' + this.full_name + '', active: 0}
-          {id: 2, title: 'commits', href: '#' + this.full_name + '/commits', active: 0}
+          {id: 1, title: 'Files', href: '#' + this.full_name + '', active: 0}
+          {id: 2, title: 'Commits', href: '#' + this.full_name + '/commits', active: 0}
         ], {full_name: this.full_name})
       render: () ->
         this.views = this.collection.map(
