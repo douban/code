@@ -2,8 +2,8 @@ define(
   ['jquery', 'backbone', 'underscore',
   'models/project',
   'collections/project/commits',
-  'views/partial_views/commit',
-  'views/partial_views/menu'],
+  'views/partials/commit',
+  'views/partials/menu'],
   ($, Backbone, _, Project, ProjectCommits, CommitView, MenuView) ->
     ProjectCommitsView = Backbone.View.extend({
       tagName: 'div'

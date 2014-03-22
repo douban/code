@@ -26,5 +26,6 @@ define 'backbone/events', ['backbone-src'], -> Backbone.Events
 
 define 'handlebars', ['handlebars.js'], -> Handlebars
 
-require ['vilya/app'], (App) ->
-  App.initialize()
+require ['vilya/app'], (app) ->
+  window.app = app
+  app.initialize()

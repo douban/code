@@ -1,7 +1,7 @@
 define(
   ['jquery', 'backbone', 'underscore',
   'collections/projects',
-  'views/page_views/projects/card'],
+  'views/pages/projects/card'],
   ($, Backbone, _, Projects, ProjectCardView) ->
     ExploreView = Backbone.View.extend({
       tagName: 'div'

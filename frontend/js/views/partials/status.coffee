@@ -6,8 +6,8 @@ define(
     StatusView = Backbone.View.extend({
       tagName: 'div'
       template: Handlebars.compile($('#statusTemplate').html())
-      initialize: (currentUser) ->
-        @model = currentUser
+      initialize: () ->
+        @model = app.currentUser
         @model.fetch()
         @model.bind('change', _.bind(this.render, this))
       render: () ->
