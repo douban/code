@@ -21,6 +21,8 @@ define [
     render: () ->
       this.$el.append('<div id="project-menu" class="col-sm-2"></div><div id="project-content" class="col-sm-10"></div>')
       this.menuView = this.renderMenu()
+      $el = this.$el.find('#project-content')
+      $el.append($('#treeTemplate').html())
       this.views = this.fileCollection.map(
         (item) ->
           return this.renderFile(item)
@@ -32,7 +34,7 @@ define [
       view = new TreeFileView({
         model: item
       })
-      $el = this.$el.find('#project-content')
+      $el = this.$el.find('#project-tree')
       $el.append(view.render().el)
       return view
     renderMenu: () ->

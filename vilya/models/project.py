@@ -80,6 +80,7 @@ class Project(BaseModel):
                      role=BOARD_ROLES['card'])
 
     def rm_repo(self):
+        # TODO: move to ellen
         import shutil
         shutil.rmtree(self.repo_path)
 

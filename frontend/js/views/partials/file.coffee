@@ -2,6 +2,7 @@ define(
   ['jquery', 'backbone', 'handlebars'],
   ($, Backbone, Handlebars) ->
     TreeFileView = Backbone.View.extend({
+      tagName: "tr"
       template: Handlebars.compile($('#treeFileTemplate').html())
       render: () ->
         fileData = this.model.toJSON()

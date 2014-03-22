@@ -7,11 +7,36 @@
 </div>
 </script>
 
+
+<script id="treeTemplate" type="text/template">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="input-group">
+      <div class="input-group-btn">
+        <span>Branch: </span>
+        <a class="dropdown-toggle" data-toggle="dropdown">Master <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Master</a></li>
+        </ul>
+      </div><!-- /btn-group -->
+    </div><!-- /input-group -->
+    <hr style="margin: 0;">
+    <h3 class="panel-title"> code /</h3>
+  </div>
+  <div class="panel-body">
+    <table class="table table-hover">
+      <tbody id="project-tree">
+      </tbody>
+    </table>
+  </div>
+</div>
+</script>
+
 <script id="treeFileTemplate" type="text/template">
-<li class="list-group-item">
-    <span class="glyphicon {{display_class}}"></span>
-    {{name}}
-</li>
+<td><span class="glyphicon {{display_class}}"></span> {{name}}</td>
+<td>commit log</td>
+<td>24 days ago</td>
+<td>1KB</td>
 </script>
 
 <script id="commitTemplate" type="text/template">
@@ -20,8 +45,10 @@
     <img class="media-object" src="/static/img/user_normal.jpg" alt="..." width="36" height="36">
   </a>
   <div class="media-body">
-    <h4 class="media-heading">{{id}}</h4>
+    <p class="pull-right">{{id}}</p>
     <p>{{message}}</p>
+    <p class="pull-right">Browe Code</p>
+    <p>shanzi authored 5 hours ago</p>
   </div>
 </div>
 </script>
