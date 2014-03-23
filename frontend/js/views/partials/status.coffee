@@ -13,9 +13,6 @@ define(
         @$el.html(@template(@model.toJSON()))
         $("#statusBar").html(@$el.html())
         return this
-      removeCurrentUser: (events) ->
-        event.preventDefault()
-        app.currentUser.destroy()
     })
     return StatusView
 )
