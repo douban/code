@@ -1,18 +1,18 @@
-define(
-  ['jquery', 'backbone', 'underscore',
+define([
+  'jquery',
+  'views/pages/base',
+  'underscore',
   'collections/projects',
-  'views/pages/projects/card'],
-  ($, Backbone, _, Projects, ProjectCardView) ->
-    ExploreView = Backbone.View.extend({
+  'views/partials/card'],
+  ($, PageView, _, Projects, ProjectCardView) ->
+    ExploreView = PageView.extend({
       tagName: 'div'
-      initialize: () ->
-        $("#content").html(this.el)
+      _initialize: () ->
         # FIXME: delete collection
         this.collection = new Projects()
         this.collection.fetch({reset: true})
-        this.render()
         this.listenTo(this.collection, 'reset', this.render)
-      render: () ->
+      _render: () ->
         this.views = this.collection.map(
           (item) ->
             return this.renderProject(item)

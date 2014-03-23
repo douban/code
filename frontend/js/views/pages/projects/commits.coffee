@@ -1,15 +1,16 @@
-define(
-  ['jquery', 'backbone', 'underscore',
+define([
+  'jquery',
+  'views/pages/base',
+  'underscore',
   'models/project',
   'collections/project/commits',
   'views/partials/commit',
   'views/partials/menu'],
-  ($, Backbone, _, Project, ProjectCommits, CommitView, MenuView) ->
-    ProjectCommitsView = Backbone.View.extend({
+  ($, PageView, _, Project, ProjectCommits, CommitView, MenuView) ->
+    ProjectCommitsView = PageView.extend({
       tagName: 'div'
       className: 'row'
-      initialize: (options) ->
-        $("#content").html(this.el)
+      _initialize: (options) ->
         this.full_name = options.full_name
         this.fileCollection = new ProjectCommits({
           full_name: this.full_name
@@ -17,7 +18,7 @@ define(
         })
         this.fileCollection.fetch({reset: true})
         this.listenTo(this.fileCollection, 'reset', this.render)
-      render: () ->
+      _render: () ->
         this.$el.append('<div id="project-menu" class="col-sm-2"></div><div id="project-content" class="col-sm-10"></div>')
         this.menuView = this.renderMenu()
         this.views = this.fileCollection.map(

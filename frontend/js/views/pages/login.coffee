@@ -1,20 +1,17 @@
 define(
   ['jquery',
-  'backbone',
+  'views/pages/base',
   'handlebars'],
-  ($, Backbone, Handlebars) ->
-    LoginView = Backbone.View.extend({
+  ($, PageView, Handlebars) ->
+    LoginView = PageView.extend({
       tagName: 'div'
       template: Handlebars.compile($('#loginTemplate').html())
-      initialize: (currentUser) ->
-        @model = currentUser
-        $("#content").html(@el)
-        this.render()
-      render: () ->
-        this.$el.html(this.template())
-        return this
+      _initialize: () ->
+        @model = app.currentUser
       events:
         "submit form":   "createLogin"
+      _render: () ->
+        this.$el.html(this.template())
       createLogin: (event) ->
         event.preventDefault()
         @model.set('password', $(@el).find('#loginPassowrd').val())

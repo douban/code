@@ -5,40 +5,31 @@ define(
   'modules/url',
   'views/pages/home',
   'views/pages/login',
+  'views/pages/signup',
   'views/pages/explore',
   'views/pages/projects/index',
   'views/pages/projects/commits'],
-  ($, Backbone, _, UrlUtil, HomeView, LoginView, ExploreView, ProjectIndexView,
+  ($, Backbone, _, UrlUtil, HomeView, LoginView, SignupView, ExploreView, ProjectIndexView,
   ProjectCommitsView) ->
 
     class Router extends Backbone.Router
       routes:
         "" : "showHome"
         "login" : "showLogin"
+        "signup" : "showSignup"
         "about" : "showAbout"
         "explore": "showExpore"
         ":user/:project": "showProject"
         ":user/:project/commits": "showProjectCommits"
       initialize: () ->
-
-      loadView: (view) ->
-        if (this.view)
-          if (this.view.closeView)
-            this.view.closeView()
-          else
-            this.view.remove()
-        this.view = view
-      showLogin: () ->
-        this.loadView(new LoginView(app.currentUser))
-      showHome: () ->
-        this.loadView(new HomeView())
-      showExpore: () ->
-        this.loadView(new ExploreView())
-      showProject: (user, project) ->
-        this.loadView(new ProjectIndexView({full_name: user + "/" + project}))
+      showLogin: () -> new LoginView()
+      showSignup: () -> new SignupView()
+      showHome: () -> new HomeView()
+      showExpore: () -> new ExploreView()
+      showProject: (user, project) -> new ProjectIndexView({full_name: user + "/" + project})
       showProjectCommits: (user, project) ->
         page = UrlUtil.getURLParameter('page')
-        this.loadView(new ProjectCommitsView({full_name: user + "/" + project, page: page}))
+        new ProjectCommitsView({full_name: user + "/" + project, page: page})
 
     return Router
 )

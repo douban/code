@@ -23,13 +23,17 @@ class UsersUI(RestAPIUI):
     def post(self, request):
         name = request.data.get('name')
         password = request.data.get('password')
-        description = request.data.get('description')
+        description = request.data.get('description', '')
         email = request.data.get('email', '')
         new_user = User.create(name=name,
                                password=password,
                                description=description,
                                email=email)
-        return new_user.to_dict() if new_user else {}
+        if new_user:
+            new_user.set_session(request)
+            return new_user.to_dict()
+        else:
+            return {}
 
     def _q_lookup(self, request, name):
         user = User.get(name=name)
@@ -38,15 +42,25 @@ class UsersUI(RestAPIUI):
         raise TraversalError
 
 
-class CurrentUserUI(RestAPIUI):
-    _q_exports = []
-    _q_methods = ['get', 'post']
+class UserUI(RestAPIUI):
+    _q_methods = ['get']
 
     def __init__(self, user=None):
         self.user = user
 
     def get(self, request):
-        user = self.user if self.user else request.user
+        user = self.user
+        if not user:
+            return {}
+        return user.to_dict()
+
+
+class CurrentUserUI(RestAPIUI):
+    _q_exports = []
+    _q_methods = ['get', 'post']
+
+    def get(self, request):
+        user = request.user
         if not user:
             return {}
         return user.to_dict()

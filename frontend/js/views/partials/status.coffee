@@ -8,7 +8,6 @@ define(
       template: Handlebars.compile($('#statusTemplate').html())
       initialize: () ->
         @model = app.currentUser
-        @model.fetch()
         @model.bind('change', _.bind(this.render, this))
       render: () ->
         @$el.html(@template(@model.toJSON()))
