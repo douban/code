@@ -5,8 +5,8 @@ define(
       defaults:
         password: ''
         name: ''
-      url: () ->
-        '/api/v1/current_user/'
+      url: (name) ->
+        "/api/v1/users/#{name}"
     })
     return User
 )
