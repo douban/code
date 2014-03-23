@@ -14,9 +14,14 @@ define(
         this.$el.html(this.template())
       createLogin: (event) ->
         event.preventDefault()
-        @model.set('password', $(@el).find('#loginPassowrd').val())
-        @model.set('name', $(@el).find('#loginName').val())
-        @model.save()
+        attrs =
+          password: $(@el).find('#loginPassowrd').val()
+          name: $(@el).find('#loginName').val()
+        @model.save(attrs,
+                    success: () ->
+                      app.router.navigate("", {trigger: true})
+        )
+
     })
     return LoginView
 )
