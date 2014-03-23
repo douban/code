@@ -23,7 +23,7 @@ class UsersUI(RestAPIUI):
     def post(self, request):
         name = request.data.get('name')
         password = request.data.get('password')
-        description = request.data.get('description')
+        description = request.data.get('description', '')
         email = request.data.get('email', '')
         new_user = User.create(name=name,
                                password=password,
