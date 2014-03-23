@@ -38,15 +38,25 @@ class UsersUI(RestAPIUI):
         raise TraversalError
 
 
-class CurrentUserUI(RestAPIUI):
-    _q_exports = []
-    _q_methods = ['get', 'post']
+class UserUI(RestAPIUI):
+    _q_methods = ['get']
 
     def __init__(self, user=None):
         self.user = user
 
     def get(self, request):
-        user = self.user if self.user else request.user
+        user = self.user
+        if not user:
+            return {}
+        return user.to_dict()
+
+
+class CurrentUserUI(RestAPIUI):
+    _q_exports = []
+    _q_methods = ['get', 'post']
+
+    def get(self, request):
+        user = request.user
         if not user:
             return {}
         return user.to_dict()
