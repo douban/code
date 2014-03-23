@@ -29,7 +29,11 @@ class UsersUI(RestAPIUI):
                                password=password,
                                description=description,
                                email=email)
-        return new_user.to_dict() if new_user else {}
+        if new_user:
+            new_user.set_session(request)
+            return new_user.to_dict()
+        else:
+            return {}
 
     def _q_lookup(self, request, name):
         user = User.get(name=name)
