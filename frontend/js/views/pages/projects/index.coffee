@@ -1,6 +1,6 @@
 define [
   'jquery'
-  'backbone'
+  'views/pages/base'
   'underscore'
   'models/project'
   'models/readme'
@@ -8,17 +8,16 @@ define [
   'views/partials/file'
   'views/partials/menu'
   'views/partials/readme'
-], ($, Backbone, _, Project, Readme, ProjectFiles, TreeFileView, MenuView, ReadmeView) ->
-  ProjectIndexView = Backbone.View.extend({
+], ($, PageView, _, Project, Readme, ProjectFiles, TreeFileView, MenuView, ReadmeView) ->
+  ProjectIndexView = PageView.extend({
     tagName: 'div'
     className: 'row'
-    initialize: (options) ->
-      $("#content").html(this.el)
+    _initialize: (options) ->
       this.full_name = options.full_name
       this.fileCollection = new ProjectFiles({full_name: this.full_name})
       this.fileCollection.fetch({reset: true})
       this.listenTo(this.fileCollection, 'reset', this.render)
-    render: () ->
+    _render: () ->
       this.$el.append('<div id="project-menu" class="col-sm-2"></div><div id="project-content" class="col-sm-10"></div>')
       this.menuView = this.renderMenu()
       this.views = this.fileCollection.map(

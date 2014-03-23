@@ -11,7 +11,7 @@ define(
   ($, Backbone, _, UrlUtil, HomeView, LoginView, ExploreView, ProjectIndexView,
   ProjectCommitsView) ->
 
-    class Router extends Backbone.Router
+    class AppRouter extends Backbone.Router
       routes:
         "" : "showHome"
         "login" : "showLogin"
@@ -20,16 +20,10 @@ define(
         ":user/:project": "showProject"
         ":user/:project/commits": "showProjectCommits"
       initialize: () ->
-
       loadView: (view) ->
-        if (this.view)
-          if (this.view.closeView)
-            this.view.closeView()
-          else
-            this.view.remove()
         this.view = view
       showLogin: () ->
-        this.loadView(new LoginView(app.currentUser))
+        this.loadView(new LoginView())
       showHome: () ->
         this.loadView(new HomeView())
       showExpore: () ->
@@ -40,5 +34,5 @@ define(
         page = UrlUtil.getURLParameter('page')
         this.loadView(new ProjectCommitsView({full_name: user + "/" + project, page: page}))
 
-    return Router
+    return AppRouter
 )
