@@ -18,7 +18,9 @@ define(
           password: $(@el).find('#loginPassowrd').val()
           name: $(@el).find('#loginName').val()
         @model.save attrs,
-                    success: () -> app.router.navigate("", {trigger: true})
+                    success: () ->
+                      app.router.navigate("", {trigger: true})
+                      app.currentUser.unset('password')
 
     })
     return LoginView

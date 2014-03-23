@@ -3,7 +3,6 @@ define(
   ($, Backbone, _) ->
     User = Backbone.Model.extend({
       defaults:
-        password: ''
         name: ''
       url: (name) ->
         name = '' if @isNew
