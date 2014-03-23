@@ -20,19 +20,13 @@ define(
         ":user/:project": "showProject"
         ":user/:project/commits": "showProjectCommits"
       initialize: () ->
-      loadView: (view) ->
-        this.view = view
-      showLogin: () ->
-        this.loadView(new LoginView())
-      showHome: () ->
-        this.loadView(new HomeView())
-      showExpore: () ->
-        this.loadView(new ExploreView())
-      showProject: (user, project) ->
-        this.loadView(new ProjectIndexView({full_name: user + "/" + project}))
+      showLogin: () -> new LoginView()
+      showHome: () -> new HomeView()
+      showExpore: () -> new ExploreView()
+      showProject: (user, project) -> new ProjectIndexView({full_name: user + "/" + project})
       showProjectCommits: (user, project) ->
         page = UrlUtil.getURLParameter('page')
-        this.loadView(new ProjectCommitsView({full_name: user + "/" + project, page: page}))
+        new ProjectCommitsView({full_name: user + "/" + project, page: page})
 
     return Router
 )
