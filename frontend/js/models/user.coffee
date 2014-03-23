@@ -6,6 +6,7 @@ define(
         password: ''
         name: ''
       url: (name) ->
+        name = '' if @isNew
         "/api/v1/users/#{name}"
     })
     return User
