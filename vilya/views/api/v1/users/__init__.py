@@ -57,7 +57,7 @@ class UserUI(RestAPIUI):
 
 class CurrentUserUI(RestAPIUI):
     _q_exports = []
-    _q_methods = ['get', 'post']
+    _q_methods = ['get', 'post', 'delete']
 
     def get(self, request):
         user = request.user
@@ -77,5 +77,16 @@ class CurrentUserUI(RestAPIUI):
         user = User.get(name=name)
         if user and user.validate_password(password):
             user.set_session(request)
-            return user.to_dict()
+            user_attrs = user.to_dict()
+            return user_attrs
         return {}
+
+    @jsonize
+    @json_body
+    @http_status(204)
+    def _delete(self, request):
+        user = request.user
+        if user:
+            user.clear_session()
+        return {}
+

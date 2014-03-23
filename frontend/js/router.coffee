@@ -5,24 +5,27 @@ define(
   'modules/url',
   'views/pages/home',
   'views/pages/login',
+  'views/pages/logout',
   'views/pages/signup',
   'views/pages/explore',
   'views/pages/projects/index',
   'views/pages/projects/commits'],
-  ($, Backbone, _, UrlUtil, HomeView, LoginView, SignupView, ExploreView, ProjectIndexView,
-  ProjectCommitsView) ->
+  ($, Backbone, _, UrlUtil,
+  HomeView, LoginView, LogoutView, SignupView, ExploreView, ProjectIndexView, ProjectCommitsView) ->
 
     class Router extends Backbone.Router
       routes:
         "" : "showHome"
         "login" : "showLogin"
         "signup" : "showSignup"
+        "logout" : "showLogout"
         "about" : "showAbout"
         "explore": "showExpore"
         ":user/:project": "showProject"
         ":user/:project/commits": "showProjectCommits"
       initialize: () ->
       showLogin: () -> new LoginView()
+      showLogout: () -> new LogoutView()
       showSignup: () -> new SignupView()
       showHome: () -> new HomeView()
       showExpore: () -> new ExploreView()
