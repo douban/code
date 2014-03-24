@@ -9,14 +9,19 @@ define(
       _initialize: () ->
         @model = app.currentUser
       events:
-        "submit form":   "createLogin"
+        "submit form":   "createCurrentUser"
       _render: () ->
         this.$el.html(this.template())
-      createLogin: (event) ->
+      createCurrentUser: (event) ->
         event.preventDefault()
-        @model.set('password', $(@el).find('#loginPassowrd').val())
-        @model.set('name', $(@el).find('#loginName').val())
-        @model.save()
+        attrs =
+          password: $(@el).find('#loginPassowrd').val()
+          name: $(@el).find('#loginName').val()
+        @model.save attrs,
+                    success: () ->
+                      app.router.navigate("", {trigger: true})
+                      app.currentUser.unset('password')
+
     })
     return LoginView
 )
