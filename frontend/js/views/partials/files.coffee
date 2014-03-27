@@ -1,7 +1,7 @@
 define(
   ['jquery', 'backbone', 'handlebars', 'collections/project/files'],
   ($, Backbone, Handlebars, ProjectFiles) ->
-    TreeFileView = Backbone.View.extend({
+    FilesView = Backbone.View.extend({
       template: Handlebars.compile($('#treeFileTemplate').html())
       initialize: (options) ->
         this.full_name =  options.full_name
@@ -18,5 +18,5 @@ define(
           file: "glyphicon-credit-card"
         }[type]
     })
-    return TreeFileView
+    return FilesView
 )
