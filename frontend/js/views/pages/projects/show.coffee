@@ -7,7 +7,7 @@ define [
   'views/partials/menu'
   'views/partials/readme'
 ], ($, PageView, _, Project, TreeFileView, MenuView, ReadmeView) ->
-  ProjectIndexView = PageView.extend({
+  ProjectShowView = PageView.extend({
     tagName: 'div'
     className: 'row'
     _initialize: (options) ->
@@ -27,7 +27,7 @@ define [
       $el.append(view.render().el)
       return view
     renderReadme: (full_name) ->
-      window.view = new ReadmeView({full_name: full_name})
+      window.view = new ReadmeView(full_name: full_name)
     closeView: () ->
       _.each(this.views, (view) ->
         view.remove()
@@ -36,4 +36,4 @@ define [
       this.readmeView.remove()
       this.remove()
   })
-  return ProjectIndexView
+  return ProjectShowView
