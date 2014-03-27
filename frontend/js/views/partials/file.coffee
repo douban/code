@@ -1,14 +1,16 @@
 define(
-  ['jquery', 'backbone', 'handlebars'],
-  ($, Backbone, Handlebars) ->
+  ['jquery', 'backbone', 'handlebars', 'collections/project/files'],
+  ($, Backbone, Handlebars, ProjectFiles) ->
     TreeFileView = Backbone.View.extend({
-      tagName: "tr"
       template: Handlebars.compile($('#treeFileTemplate').html())
+      initialize: (options) ->
+        this.full_name =  options.full_name
+        this.fileCollection = new ProjectFiles({full_name: this.full_name})
+        this.fileCollection.fetch({reset: true})
+        this.listenTo(this.fileCollection, 'reset', this.render)
       render: () ->
-        fileData = this.model.toJSON()
-        fileData.display_class = this.typeToDisplayClass(fileData.type)
-        this.$el.html(this.template(fileData))
-        return this
+        this.$el.html(this.template({files: this.fileCollection.toJSON()}))
+        $("#project-tree").html(@el)
       typeToDisplayClass: (type) ->
         {
           tree: "glyphicon-folder-close"

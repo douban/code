@@ -24,8 +24,8 @@
     <h3 class="panel-title"> code /</h3>
   </div>
   <div class="panel-body">
-    <table class="table table-hover">
-      <tbody id="project-tree">
+    <table id="project-tree" class="table table-hover">
+      <tbody>
       </tbody>
     </table>
   </div>
@@ -33,10 +33,16 @@
 </script>
 
 <script id="treeFileTemplate" type="text/template">
-<td><span class="glyphicon {{display_class}}"></span> {{name}}</td>
-<td>commit log</td>
-<td>24 days ago</td>
-<td>1KB</td>
+<tbody>
+  {{#each files}}
+    <tr>
+      <td><span class="glyphicon {{display_class}}"></span> {{name}}</td>
+      <td>commit log</td>
+      <td>24 days ago</td>
+      <td>1KB</td>
+    </tr>
+  {{/each}}
+</tbody>
 </script>
 
 <script id="commitTemplate" type="text/template">
