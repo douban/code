@@ -8,28 +8,32 @@
 </script>
 
 
-<script id="treeTemplate" type="text/template">
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <div class="input-group">
-      <div class="input-group-btn">
-        <span>Branch: </span>
-        <a class="dropdown-toggle" data-toggle="dropdown">Master <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Master</a></li>
-        </ul>
+<script id="projectShowTemplate" type="text/template">
+<div id="project-menu" class="col-sm-2"></div>
+<div id="project-content" class="col-sm-10">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="input-group">
+        <div class="input-group-btn">
+          <span>Branch: </span>
+          <a class="dropdown-toggle" data-toggle="dropdown">Master <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Master</a></li>
+          </ul>
+        </div>
       </div>
+      <hr style="margin: 0;">
+      <h3 class="panel-title"> code /</h3>
     </div>
-    <hr style="margin: 0;">
-    <h3 class="panel-title"> code /</h3>
-  </div>
-  <div class="panel-body">
-    <table id="project-tree" class="table table-hover">
-      <tbody>
-      </tbody>
-    </table>
+    <div class="panel-body">
+      <table id="project-tree" class="table table-hover">
+        <tbody>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
+<div id="project-readme" class="col-sm-10"></div>
 </script>
 
 <script id="treeFileTemplate" type="text/template">

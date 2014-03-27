@@ -2,21 +2,20 @@ define [
   'jquery'
   'views/pages/base'
   'underscore'
-  'models/project'
+  'handlebars'
   'views/partials/file'
   'views/partials/menu'
   'views/partials/readme'
-], ($, PageView, _, Project, TreeFileView, MenuView, ReadmeView) ->
+], ($, PageView, _, Handlebars, TreeFileView, MenuView, ReadmeView) ->
   ProjectShowView = PageView.extend({
     tagName: 'div'
     className: 'row'
+    template: Handlebars.compile($('#projectShowTemplate').html())
     _initialize: (options) ->
       this.full_name = options.full_name
     _render: () ->
-      this.$el.append('<div id="project-menu" class="col-sm-2"></div><div id="project-content" class="col-sm-10"></div><div id="project-readme" class="col-sm-10"></div>')
+      @$el.html(@template())
       this.menuView = this.renderMenu()
-      $el = this.$el.find('#project-content')
-      $el.append($('#treeTemplate').html())
       @renderFile(@full_name)
       @renderReadme(@full_name)
     renderFile: (full_name) ->
