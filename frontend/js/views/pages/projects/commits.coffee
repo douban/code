@@ -3,7 +3,7 @@ define([
   'views/pages/projects/base',
   'underscore',
   'models/project',
-  'views/partials/commit',
+  'views/partials/commits',
   'views/partials/menu'],
   ($, ProjectBaseView, _, Project, CommitView, MenuView) ->
     ProjectCommitsView = ProjectBaseView.extend({
