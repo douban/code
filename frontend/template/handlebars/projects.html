@@ -7,31 +7,14 @@
 </div>
 </script>
 
-<script id="projectShowTemplate" type="text/template">
+<script id="projectBaseTemplate" type="text/template">
 <div id="project-menu" class="col-sm-2"></div>
 <div class="col-sm-10">
   <div id="project-content">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <div class="input-group">
-          <div class="input-group-btn">
-            <span>Branch: </span>
-            <a class="dropdown-toggle" data-toggle="dropdown">Master <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Master</a></li>
-            </ul>
-          </div>
-        </div>
-        <hr style="margin: 0;">
-        <h3 class="panel-title"> code /</h3>
-      </div>
-      <div class="panel-body">
-        <table id="project-tree" class="table table-hover">
-        </table>
-      </div>
-    </div>
+    <div id="project-basic" class="panel panel-default"></div>
+    <div id="project-readme" class="panel panel-default"></div>
+    <div id="project-commits" class="panel panel-default"></div>
   </div>
-  <div id="project-readme"></div>
 </div>
 </script>
 
@@ -44,37 +27,54 @@
 </script>
 
 <script id="treeFileTemplate" type="text/template">
-<tbody>
-  {{#each files}}
-    <tr>
-      <td><span class="glyphicon {{display_class}}"></span> {{name}}</td>
-      <td>commit log</td>
-      <td>24 days ago</td>
-      <td>1KB</td>
-    </tr>
-  {{/each}}
-</tbody>
-</script>
-
-<script id="commitTemplate" type="text/template">
-<div class="media">
-  <a class="pull-left" href="#">
-    <img class="media-object" src="/static/img/user_normal.jpg" alt="..." width="36" height="36">
-  </a>
-  <div class="media-body">
-    <p class="pull-right">{{id}}</p>
-    <p>{{message}}</p>
-    <p class="pull-right">Browe Code</p>
-    <p>shanzi authored 5 hours ago</p>
+<div class="panel-heading">
+  <div class="input-group">
+    <div class="input-group-btn">
+      <span>Branch: </span>
+      <a class="dropdown-toggle" data-toggle="dropdown">Master <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        <li><a href="#">Master</a></li>
+      </ul>
+    </div>
   </div>
+  <hr style="margin: 0;">
+  <h3 class="panel-title"> code /</h3>
+</div>
+<div class="panel-body">
+  <table id="project-tree" class="table table-hover">
+    <tbody>
+      {{#each files}}
+        <tr>
+          <td><span class="glyphicon {{display_class}}"></span> {{name}}</td>
+          <td>commit log</td>
+          <td>24 days ago</td>
+          <td>1KB</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </div>
 </script>
 
-<script id="readmeTemplate" type="text/template">
-<div class="panel panel-default">
-  <div class="panel-heading">README</div>
-  <div class="panel-body">
-  {{{html}}}
+<script id="commitTemplate" type="text/template">
+{{#each commits}}
+  <div class="media">
+    <a class="pull-left" href="#">
+      <img class="media-object" src="/static/img/user_normal.jpg" alt="..." width="36" height="36">
+    </a>
+    <div class="media-body">
+      <p class="pull-right">{{id}}</p>
+      <p>{{message}}</p>
+      <p class="pull-right">Browe Code</p>
+      <p>shanzi authored 5 hours ago</p>
+    </div>
   </div>
+{{/each}}
+</script>
+
+<script id="readmeTemplate" type="text/template">
+<div class="panel-heading">README</div>
+<div class="panel-body">
+  {{{html}}}
 </div>
 </script>

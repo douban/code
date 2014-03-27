@@ -1,12 +1,16 @@
 define(
-  ['jquery', 'backbone', 'handlebars'],
-  ($, Backbone, Handlebars) ->
-
-    CommitView = Backbone.View.extend({
+  ['jquery', 'backbone', 'handlebars', 'collections/project/commits'],
+  ($, Backbone, Handlebars, ProjectCommits) ->
+    CommitsView = Backbone.View.extend({
       template: Handlebars.compile($('#commitTemplate').html())
+      initialize: (options) ->
+        @collection = new ProjectCommits({
+          full_name: options.full_name
+          page: options.page
+        })
+        @collection.fetch({reset: true})
+        @listenTo(@collection, 'reset', @render)
       render: () ->
-        this.$el.html(this.template(this.model.toJSON()))
-        return this
+        @$el.html(@template(commits: @collection.toJSON()))
     })
-    return CommitView
 )
