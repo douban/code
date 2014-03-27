@@ -4,13 +4,13 @@ define(
     FilesView = Backbone.View.extend({
       template: Handlebars.compile($('#treeFileTemplate').html())
       initialize: (options) ->
+        @setElement(options.el)
         @full_name =  options.full_name
         @collection = new ProjectFiles({full_name: @full_name})
         @listenTo(@collection, 'reset', @render)
         @collection.fetch({reset: true})
       render: () ->
         @$el.html(@template({files: @collection.toJSON()}))
-        $("#project-tree").html(@el)
       typeToDisplayClass: (type) ->
         {
           tree: "glyphicon-folder-close"
@@ -18,5 +18,4 @@ define(
           file: "glyphicon-credit-card"
         }[type]
     })
-    return FilesView
 )
