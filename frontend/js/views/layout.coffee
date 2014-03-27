@@ -6,6 +6,7 @@ define([
   ($, Backbone, Handlebars, StatusView) ->
     Backbone.View.extend({
       initialize: () ->
+      render: () ->
         (new StatusView()).render()
     })
 )
