@@ -7,7 +7,6 @@
 </div>
 </script>
 
-
 <script id="projectShowTemplate" type="text/template">
 <div id="project-menu" class="col-sm-2"></div>
 <div id="project-content" class="col-sm-10">
@@ -34,6 +33,12 @@
   </div>
 </div>
 <div id="project-readme" class="col-sm-10"></div>
+</script>
+
+<script id="projectMenuTemplate" type="text/template">
+  {{#each items}}
+    <li><a href="{{path}}">{{title}}</a></li>
+  {{/each}}
 </script>
 
 <script id="treeFileTemplate" type="text/template">

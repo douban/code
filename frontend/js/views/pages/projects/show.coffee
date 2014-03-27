@@ -11,28 +11,21 @@ define [
     tagName: 'div'
     className: 'row'
     template: Handlebars.compile($('#projectShowTemplate').html())
+    menuContainer: () -> @$el.find('#project-menu')
     _initialize: (options) ->
       this.full_name = options.full_name
     _render: () ->
       @$el.html(@template())
-      this.menuView = this.renderMenu()
       @renderFile(@full_name)
       @renderReadme(@full_name)
+      @renderMenu(@full_name)
     renderFile: (full_name) ->
       new TreeFileView(full_name: full_name)
-    renderMenu: () ->
-      view = new MenuView({full_name: this.full_name})
-      $el = this.$el.find('#project-menu')
-      $el.append(view.render().el)
-      return view
+    renderMenu: (full_name) ->
+      new MenuView({full_name: full_name, container: @menuContainer()})
     renderReadme: (full_name) ->
-      window.view = new ReadmeView(full_name: full_name)
+      new ReadmeView(full_name: full_name)
     closeView: () ->
-      _.each(this.views, (view) ->
-        view.remove()
-      )
-      this.menuView.closeView()
-      this.readmeView.remove()
       this.remove()
   })
   return ProjectShowView
