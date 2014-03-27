@@ -21,10 +21,7 @@ define [
       this.readmeView = this.renderReadme()
       @renderFile(@full_name)
     renderFile: (full_name) ->
-      window.view = new TreeFileView(full_name: full_name)
-      $el = this.$el.find('#project-tree')
-      $el.append(view.render().el)
-      return view
+      new TreeFileView(full_name: full_name)
     renderMenu: () ->
       view = new MenuView({full_name: this.full_name})
       $el = this.$el.find('#project-menu')
