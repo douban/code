@@ -23,9 +23,9 @@ define [
     renderFile: (full_name) ->
       new FilesView(full_name: full_name)
     renderMenu: (full_name) ->
-      new MenuView(full_name: full_name, container: @menuContainer())
+      new MenuView(full_name: full_name, el: @menuContainer())
     renderReadme: (full_name) ->
-      new ReadmeView(full_name: full_name, container: @readmeContainer())
+      new ReadmeView(full_name: full_name, el: @readmeContainer())
     closeView: () ->
       this.remove()
   })
