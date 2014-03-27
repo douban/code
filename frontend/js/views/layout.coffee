@@ -6,6 +6,8 @@ define([
   ($, Backbone, Handlebars, StatusView) ->
     Backbone.View.extend({
       initialize: () ->
-        (new StatusView()).render()
+      statusContainer: () -> $("#statusBar")
+      render: () ->
+        window.view = new StatusView(el: @statusContainer())
     })
 )

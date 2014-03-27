@@ -4,16 +4,15 @@ define(
   'handlebars'],
   ($, Backbone, Handlebars) ->
     PageView = Backbone.View.extend(
-      pageContainer: $("#content")
+      el: "#content"
       _initialize: () ->
       _render: () ->
       initialize: (options) ->
         @_initialize(options)
         @render()
       render: (options) ->
-        @closePrevPage()
+        #@closePrevPage()
         @_render(options)
-        @pageContainer.html(@el)
         @setCurrentPage()
       setCurrentPage: () ->
         app.currentPage = this
