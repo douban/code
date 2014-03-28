@@ -21,18 +21,6 @@
                         <input type="text" name="description" class="form-control" id="inputDescription" placeholder="Description">
                     </div>
                 </div>
-                % if organizations:
-                <div class="form-group">
-                    <label for="" class="col-sm-2 control-label">Organization</label>
-                    <div class="col-sm-10">
-                        <select name="organization_id" class="form-control">
-                            % for org in organizations:
-                            <option value="${org.id}">${org.name}</option>
-                            % endfor
-                        </select>
-                    </div>
-                </div>
-                % endif
                 <input type="hidden" name="creator_id" value="${current_user.id if current_user else 1}">
                 <div class="form-group">
                     <label for="" class="col-sm-2 control-label"></label>
