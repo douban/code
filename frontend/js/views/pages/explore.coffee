@@ -3,32 +3,15 @@ define([
   'views/pages/base',
   'underscore',
   'collections/projects',
-  'views/partials/card'],
-  ($, PageView, _, Projects, ProjectCardView) ->
+  'views/partials/list'],
+  ($, PageView, _, Projects, ProjectListView) ->
     ExploreView = PageView.extend({
+      template: Handlebars.compile($('#exploerTemplate').html())
+      listContainer: () -> @$el.find('#project-list')
       _initialize: () ->
-        # FIXME: delete collection
-        @collection = new Projects()
-        @collection.fetch({reset: true})
-        @listenTo(@collection, 'reset', @render)
       _render: () ->
-        @views = @collection.map(
-          (item) ->
-            return @renderProject(item)
-          ,
-          this
-        )
-      renderProject: (item) ->
-        projectCardView = new ProjectCardView({
-          model: item
-        })
-        @$el.append(projectCardView.render().el)
-        return projectCardView
-      closeView: () ->
-        _.each(@views, (view) ->
-          view.remove()
-        )
-        @remove()
+        @$el.html(@template())
+        window.view = new ProjectListView(el: @listContainer())
     })
 )
 

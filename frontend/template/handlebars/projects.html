@@ -1,10 +1,12 @@
-<script id="projectTemplate" type="text/template">
-<div class="list-group">
-  <a href="#{{full_name}}" class="list-group-item">
-    <h4 class="list-group-item-heading">{{owner_name}}/{{name}}</h4>
-    <p class="list-group-item-text">{{description}}</p>
-  </a>
-</div>
+<script id="projectListTemplate" type="text/template">
+{{#each projects}}
+  <div class="list-group">
+    <a href="#{{full_name}}" class="list-group-item">
+      <h4 class="list-group-item-heading">{{owner_name}}/{{name}}</h4>
+      <p class="list-group-item-text">{{description}}</p>
+    </a>
+  </div>
+{{/each}}
 </script>
 
 <script id="projectBaseTemplate" type="text/template">
