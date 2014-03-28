@@ -4,11 +4,9 @@ define(
   'handlebars'],
   ($, PageView, Handlebars) ->
     HomeView = PageView.extend({
-      tagName: 'div'
       template: Handlebars.compile($('#homeTemplate').html())
       _render: () ->
-        @$el.html(this.template())
+        @$el.html(@template())
     })
-    return HomeView
 )
 

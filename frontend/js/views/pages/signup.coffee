@@ -6,13 +6,12 @@ define(
   'handlebars'],
   ($, Backbone, User, PageView, Handlebars) ->
     SignupView = PageView.extend({
-      tagName: 'div'
       template: Handlebars.compile($('#signupTemplate').html())
       _initialize: () ->
       events:
         "submit form":   "createUser"
       _render: () ->
-        this.$el.html(this.template())
+        @$el.html(this.template())
       createUser: (event) ->
         event.preventDefault()
         @model = new User()

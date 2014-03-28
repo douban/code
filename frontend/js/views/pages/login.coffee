@@ -4,14 +4,13 @@ define(
   'handlebars'],
   ($, PageView, Handlebars) ->
     LoginView = PageView.extend({
-      tagName: 'div'
       template: Handlebars.compile($('#loginTemplate').html())
       _initialize: () ->
         @model = app.currentUser
       events:
         "submit form":   "createCurrentUser"
       _render: () ->
-        this.$el.html(this.template())
+        @$el.html(@template())
       createCurrentUser: (event) ->
         event.preventDefault()
         attrs =
@@ -23,6 +22,5 @@ define(
                       app.currentUser.unset('password')
 
     })
-    return LoginView
 )
 

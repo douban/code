@@ -6,16 +6,15 @@ define([
   'views/partials/card'],
   ($, PageView, _, Projects, ProjectCardView) ->
     ExploreView = PageView.extend({
-      tagName: 'div'
       _initialize: () ->
         # FIXME: delete collection
-        this.collection = new Projects()
-        this.collection.fetch({reset: true})
-        this.listenTo(this.collection, 'reset', this.render)
+        @collection = new Projects()
+        @collection.fetch({reset: true})
+        @listenTo(@collection, 'reset', @render)
       _render: () ->
-        this.views = this.collection.map(
+        @views = @collection.map(
           (item) ->
-            return this.renderProject(item)
+            return @renderProject(item)
           ,
           this
         )
@@ -23,15 +22,14 @@ define([
         projectCardView = new ProjectCardView({
           model: item
         })
-        this.$el.append(projectCardView.render().el)
+        @$el.append(projectCardView.render().el)
         return projectCardView
       closeView: () ->
-        _.each(this.views, (view) ->
+        _.each(@views, (view) ->
           view.remove()
         )
-        this.remove()
+        @remove()
     })
-    return ExploreView
 )
 
 
