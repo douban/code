@@ -8,10 +8,11 @@ define(
   'views/pages/logout',
   'views/pages/signup',
   'views/pages/explore',
+  'views/pages/projects/new',
   'views/pages/projects/show',
   'views/pages/projects/commits'],
   ($, Backbone, _, UrlUtil,
-  HomeView, LoginView, LogoutView, SignupView, ExploreView, ProjectShowView, ProjectCommitsView) ->
+  HomeView, LoginView, LogoutView, SignupView, ExploreView, ProjectNewView, ProjectShowView, ProjectCommitsView) ->
 
     class Router extends Backbone.Router
       routes:
@@ -21,6 +22,7 @@ define(
         "logout" : "showLogout"
         "about" : "showAbout"
         "explore": "showExpore"
+        "new": "showProjectNew"
         ":user/:project": "showProject"
         ":user/:project/commits": "showProjectCommits"
       initialize: () ->
@@ -30,6 +32,7 @@ define(
       showHome: () -> new HomeView()
       showExpore: () -> new ExploreView()
       showProject: (user, project) -> new ProjectShowView({full_name: user + "/" + project})
+      showProjectNew: () -> new ProjectNewView()
       showProjectCommits: (user, project) ->
         page = UrlUtil.getURLParameter('page')
         new ProjectCommitsView({full_name: user + "/" + project, page: page})

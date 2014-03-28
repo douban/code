@@ -3,15 +3,13 @@ define(
   ($, Backbone, _) ->
     Project = Backbone.Model.extend({
       defaults:
-        id: 0
+        id: null
         description: ''
         name: ''
         full_name: ''
         owner_name: ''
-        owner_id: 0
-      urlRoot: '/api/v1/projects/'
+        owner_id: null
       url: () ->
-        this.full_name + '/'
+        "/api/v1/projects/#{@get('full_name')}"
     })
-    return Project
 )
