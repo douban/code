@@ -55,8 +55,8 @@ class ProjectUI(RestAPIUI):
 
     def get(self, request):
         project = self.project.to_dict()
-        project['links'] = {'commits': 'commits'}
-        return dict(project=project)
+        #project['links'] = {'commits': 'commits'}
+        return project
 
     @property
     def commits(self):
