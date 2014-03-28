@@ -10,6 +10,6 @@ define(
         owner_name: ''
         owner_id: null
       url: () ->
-        "/api/v1/projects/#{@get('full_name')}"
+        "/api/v1/projects/#{@get('full_name')}/"
     })
 )

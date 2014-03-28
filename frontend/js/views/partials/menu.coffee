@@ -8,11 +8,10 @@ define(
       template: Handlebars.compile($('#projectMenuTemplate').html())
       initialize: (options) ->
         @setElement(options.el)
-        @full_name = options.full_name
-        @$container = options.container
+        full_name = options.project.get('full_name')
         @collection = [
-          {title: 'Files', path: '#' + this.full_name + ''}
-          {title: 'Commits', path: '#' + this.full_name + '/commits'}
+          {title: 'Files', path: '#' + full_name + ''}
+          {title: 'Commits', path: '#' + full_name + '/commits'}
         ]
         @render()
       render: () ->

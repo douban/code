@@ -10,7 +10,7 @@ define([
       commitsContainer: () -> @$el.find('#project-commits')
       _render: () ->
         @render_project_layout()
-        new CommitView(full_name: @full_name, el: @commitsContainer())
+        new CommitView(project: @project, el: @commitsContainer())
     })
     return ProjectCommitsView
 )

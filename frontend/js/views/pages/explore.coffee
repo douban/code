@@ -11,7 +11,7 @@ define([
       _initialize: () ->
       _render: () ->
         @$el.html(@template())
-        window.view = new ProjectListView(el: @listContainer())
+        new ProjectListView(el: @listContainer())
     })
 )
 
