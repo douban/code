@@ -6,7 +6,8 @@ define(
       template: Handlebars.compile($('#readmeTemplate').html())
       initialize: (options) ->
         @setElement(options.el)
-        @model = new Readme({full_name: options.full_name})
+        @full_name = options.project.get('full_name')
+        @model = new Readme({full_name: @full_name})
         @model.bind('change', _.bind(this.render, this))
         @model.fetch()
       render: () ->

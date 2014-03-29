@@ -4,8 +4,9 @@ define(
     CommitsView = Backbone.View.extend({
       template: Handlebars.compile($('#commitTemplate').html())
       initialize: (options) ->
+        @full_name = options.project.get('full_name')
         @collection = new ProjectCommits({
-          full_name: options.full_name
+          full_name: @full_name
           page: options.page
         })
         @collection.fetch({reset: true})

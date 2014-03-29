@@ -11,7 +11,7 @@ define [
     basicContainer: () -> @$el.find('#project-basic')
     _render: () ->
       @render_project_layout()
-      new FilesView(full_name: @full_name, el: @basicContainer())
-      new ReadmeView(full_name: @full_name, el: @readmeContainer())
+      new FilesView(project: @project, el: @basicContainer())
+      new ReadmeView(project: @project, el: @readmeContainer())
   })
   return ProjectShowView

@@ -8,6 +8,6 @@ define([
       initialize: () ->
       statusContainer: () -> $("#statusBar")
       render: () ->
-        window.view = new StatusView(el: @statusContainer())
+        new StatusView(el: @statusContainer())
     })
 )
