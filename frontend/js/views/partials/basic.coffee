@@ -11,7 +11,8 @@ define(
         @collection.fetch({reset: true})
         @listenTo(@project, 'change', @render)
       render: () ->
-        @$el.html(@template(files: @collection.toJSON(), project: @project.toJSON()))
+        window.p = @project
+        @$el.html(@template(files: @collection.toJSON(), project: @project.toFullJSON()))
       typeToDisplayClass: (type) ->
         {
           tree: "glyphicon-folder-close"
