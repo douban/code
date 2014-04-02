@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/douban/code.png?branch=master)](https://travis-ci.org/douban/code)
+[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 Douban CODE
 ===========
