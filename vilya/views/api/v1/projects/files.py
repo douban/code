@@ -2,6 +2,7 @@
 
 from __future__ import absolute_import
 from vilya.views.api.utils import RestAPIUI
+from ellen.utils import JagareError
 
 
 class FilesUI(RestAPIUI):
@@ -15,7 +16,12 @@ class FilesUI(RestAPIUI):
         path = request.get_form_var('path', '')
         rev = request.get_form_var('rev', 'HEAD')
         repo = self.project.repo
-        files = repo.get_tree(rev, path=path)
+        # FIXME: return a empty list here is workaround,
+        #        consider more reasonable sulotion.
+        try:
+            files = repo.get_tree(rev, path=path)
+        except JagareError:
+            files = []
         return [f for f in files]
 
 
