@@ -8,10 +8,9 @@ define(
       initialize: (options) ->
         @setElement(options.el)
         @model = app.currentUser
-        @model.bind('change', _.bind(this.render, this))
+        @model.bind('sync', _.bind(this.render, this))
+        @render()
       render: () ->
         @$el.html(@template(@model.toJSON()))
-        return this
     })
-    return StatusView
 )
