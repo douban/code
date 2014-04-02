@@ -98,6 +98,12 @@ module.exports = function (grunt) {
             dist: ['.tmp', 'vilya/static/dist/*'],
             server: '.tmp'
         },
+        watch: {
+            coffee: {
+                files: [ 'frontend/js/**/*.coffee' ],
+                tasks: [ 'coffee', 'ozma' ]
+            }
+        },
         copy: {
             dist: {
                 files: [{
@@ -152,6 +158,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-dispatch')
     grunt.loadNpmTasks('grunt-furnace')
     grunt.loadNpmTasks('grunt-contrib-copy')
+    grunt.loadNpmTasks('grunt-contrib-watch')
     grunt.loadNpmTasks('grunt-contrib-clean')
     grunt.loadNpmTasks('grunt-contrib-coffee')
     grunt.loadNpmTasks('grunt-contrib-compass')

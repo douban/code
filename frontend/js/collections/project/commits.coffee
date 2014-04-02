@@ -5,17 +5,16 @@ define(
     ProjectCommits = Backbone.Collection.extend({
       model: GitCommit
       url: () ->
-        return '/api/v1/projects/' + this.full_name + '/commits/?' + $.param({page: this.page})
+        return "/api/v1/projects/#{@full_name}/commits/?#{$.param(page: @page)}"
       initialize: (options) ->
         if options.page != undefined
-          this.page = options.page
+          @page = options.page
         else
-          this.page = 1
-        this.full_name = options.full_name
+          @page = 1
+        @full_name = options.full_name
       fetchPage: (page) ->
-        this.page = page
-        this.fetch({reset: true, success: -> callback?()})
+        @page = page
+        @fetch({reset: true, success: -> callback?()})
     })
     return ProjectCommits
 )
-
