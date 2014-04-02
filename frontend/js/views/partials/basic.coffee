@@ -1,7 +1,7 @@
 define(
   ['jquery', 'backbone', 'handlebars', 'collections/project/files'],
   ($, Backbone, Handlebars, ProjectFiles) ->
-    FilesView = Backbone.View.extend({
+    BasicView = Backbone.View.extend({
       template: Handlebars.compile($('#projectBasicTemplate').html())
       initialize: (options) ->
         @setElement(options.el)

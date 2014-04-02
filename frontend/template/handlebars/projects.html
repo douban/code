@@ -61,32 +61,35 @@
 
 <script id="projectBasicTemplate" type="text/template">
 <div class="panel panel-default">
-  <div class="panel-heading">
-    <div class="input-group">
-      <div class="input-group-btn">
-        <span>Branch: </span>
-        <a class="dropdown-toggle" data-toggle="dropdown">Master <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Master</a></li>
-        </ul>
+  {{#if files}}
+    <div class="panel-heading">
+      <div class="input-group">
+        <div class="input-group-btn">
+          <span>Branch: </span>
+          <a class="dropdown-toggle" data-toggle="dropdown">Master <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Master</a></li>
+          </ul>
+        </div>
       </div>
+      <hr style="margin: 0;">
+      <h3 class="panel-title"> {{project.name}} /</h3>
     </div>
-    <hr style="margin: 0;">
-    <h3 class="panel-title"> {{project.name}} /</h3>
-  </div>
-  <div class="panel-body">
-    <table id="project-tree" class="table table-hover">
-      <tbody>
-        {{#each files}}
-          <tr>
-            <td><span class="glyphicon {{display_class}}"></span> {{name}}</td>
-            <td>commit log</td>
-            <td>24 days ago</td>
-            <td>1KB</td>
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
-  </div>
+    <div class="panel-body">
+      <table id="project-tree" class="table table-hover">
+        <tbody>
+          {{#each files}}
+            <tr>
+              <td><span class="glyphicon {{display_class}}"></span> {{name}}</td>
+              <td>commit log</td>
+              <td>24 days ago</td>
+              <td>1KB</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  {{else}}
+  {{/if}}
 </div>
 </script>
