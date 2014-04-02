@@ -1,7 +1,7 @@
 define(
   ['jquery', 'backbone', 'handlebars', 'collections/project/files'],
   ($, Backbone, Handlebars, ProjectFiles) ->
-    FilesView = Backbone.View.extend({
+    BasicView = Backbone.View.extend({
       template: Handlebars.compile($('#projectBasicTemplate').html())
       initialize: (options) ->
         @setElement(options.el)
@@ -11,7 +11,8 @@ define(
         @collection.fetch({reset: true})
         @listenTo(@project, 'change', @render)
       render: () ->
-        @$el.html(@template(files: @collection.toJSON(), project: @project.toJSON()))
+        window.p = @project
+        @$el.html(@template(files: @collection.toJSON(), project: @project.toFullJSON()))
       typeToDisplayClass: (type) ->
         {
           tree: "glyphicon-folder-close"

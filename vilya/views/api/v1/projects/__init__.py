@@ -102,7 +102,7 @@ class UserUI(RestAPIUI):
         project = Project.get(name=name, owner_id=self.user.id)
         if project:
             return ProjectUI(project)
-        raise errors.NotFoundError('project %s', name)
+        raise errors.NotFoundError('project %s' % name)
 
 
 class OrganizationUI(RestAPIUI):
@@ -116,4 +116,4 @@ class OrganizationUI(RestAPIUI):
         project = Project.get(name=name, owner_id=self.organizaton.id)
         if project:
             return ProjectUI(project)
-        raise errors.NotFoundError('project %s', name)
+        raise errors.NotFoundError('project %s' % name)
