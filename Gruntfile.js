@@ -149,6 +149,14 @@ module.exports = function (grunt) {
               src: ['frontend/template/app.html', 'frontend/template/handlebars/*.html'],
               dest: 'vilya/static/dist/index.html'
             }
+        },
+        mochaTest: {
+          test: {
+            options: {
+              reporter: 'spec'
+            },
+            src: ['frontend/test/**/*.coffee']
+          }
         }
     }
 
@@ -163,6 +171,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-coffee')
     grunt.loadNpmTasks('grunt-contrib-compass')
     grunt.loadNpmTasks('grunt-contrib-concat')
+    grunt.loadNpmTasks('grunt-mocha-test')
 
     grunt.registerTask('build', [
         'clean',
@@ -172,7 +181,8 @@ module.exports = function (grunt) {
         'ozma',
         'compass',
         'copy',
-        'concat'
+        'concat',
+        'mochaTest'
     ])
 
     grunt.registerTask('default', [
