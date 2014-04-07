@@ -3,13 +3,14 @@
 from __future__ import absolute_import
 from quixote.errors import TraversalError, AccessError
 from vilya.views.api.v1.projects import ProjectsUI
+from vilya.views.api.v1.users import UsersUI, CurrentUserUI
 from vilya.views.api.v1.post_receive import PostReceiveUI
 from vilya.views.api.utils import APIRootBase
 
 
 class APIRoot(APIRootBase):
     """API Root handler for version 1.x"""
-    _q_exports = ['projects', 'post_receive']
+    _q_exports = ['projects', 'post_receive', 'users', 'current_user']
 
     @property
     def version(self):
@@ -20,5 +21,13 @@ class APIRoot(APIRootBase):
         return ProjectsUI()
 
     @property
+    def users(self):
+        return UsersUI()
+
+    @property
     def post_receive(self):
         return PostReceiveUI()
+
+    @property
+    def current_user(self):
+        return CurrentUserUI()

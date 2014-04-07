@@ -32,16 +32,16 @@ def _q_index(request):
             context['description'] = description
             return st('users/new.html', **context)
 
-        user = User.add(name=name,
-                        password=password,
-                        description=description,
-                        email=email)
+        user = User.create(name=name,
+                           password=password,
+                           description=description,
+                           email=email)
         if user:
             context['user'] = user
             user.set_session(request)
             request.user = user
             return request.redirect('/')
-    users = User.gets_by()
+    users = User.gets()
     context['users'] = users
     return st('users/index.html', **context)
 
@@ -63,7 +63,7 @@ class UserUI(object):
         pass
 
     def _q_lookup(self, request, part):
-        project = Project.get_by_name(part)
+        project = Project.get(owner_id=self.user.id, name=part)
         if project:
             return ProjectUI(project)
         raise TraversalError

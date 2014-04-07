@@ -40,7 +40,7 @@ class Commit(object):
         self.email = author_email
         # FIXME: user
         #author = User(name=author_name, email=author_email)
-        author = User.get_by_name(author_name)
+        author = User.get(name=author_name)
         self.author = author
         author_date = datetime.fromtimestamp(commit['author']['time'],
                                              FixedOffset(commit['author']['offset']))
@@ -54,7 +54,7 @@ class Commit(object):
             committer_name, commit['committer']['email'])
         # FIXME: user
         #committer = User(name=committer_name, email=committer_email)
-        committer = User.get_by_name(committer_name)
+        committer = User.get(name=committer_name)
         self.committer = committer
         committer_date = datetime.fromtimestamp(commit['committer']['time'],
                                              FixedOffset(commit['committer']['offset']))
@@ -85,12 +85,11 @@ class Commit(object):
     @cached_property
     def diff(self):
         repo = self.repo
-        parent = self.parent
-        raw_diff = repo.get_raw_diff(self.sha, from_ref=parent)
+        raw_diff = repo.get_raw_diff(self.sha)
         diff = Diff(repo, raw_diff) if raw_diff else None
         return diff
 
-    def as_dict(self, with_files=False):
+    def as_dict(self, with_files=False, with_diff=False):
         d = OrderedDict([
             ("id", self.sha),
             ("sha", self.sha),
@@ -107,5 +106,12 @@ class Commit(object):
             for delta in self.diff.deltas:
                 files.append(dict(type=delta.status_text, filepath=delta.new_file_path))
             d['files'] = files
+        if with_diff:
+            raw_diff = self.diff.raw_diff
+            try:
+                del raw_diff['diff']
+            except KeyError:
+                pass
+            d['diff'] = raw_diff
         return d
 

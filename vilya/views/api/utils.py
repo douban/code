@@ -46,7 +46,7 @@ def json_body(func):
             try:
                 req.data = json.loads(body)
             except ValueError:
-                raise errors.NotJsonError
+                raise errors.NotJSONError
         return func(*args, **kwargs)
     return _
 
@@ -87,7 +87,7 @@ def api_require_login(fn):
 def api_list_user(users):
     rs = []
     for username in users:
-        user = User.get_by_name(username)
+        user = User.get(name=username)
         rs.append({'username': user.username,
                    'avatar_url': user.avatar_url,
                    'email': user.email,

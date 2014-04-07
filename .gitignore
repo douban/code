@@ -7,9 +7,11 @@
 /tmpdir
 /vilya/permdir
 /vilya/tmpdir
+/vilya/static/dist/
 node_modules
 /dist
 .tmp
 .sass-cache
 local_config.py
 vilya.log
+bower_components

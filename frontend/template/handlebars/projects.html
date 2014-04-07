@@ -1,0 +1,114 @@
+<script id="projectListTemplate" type="text/template">
+{{#each projects}}
+  <div class="list-group">
+    <a href="#{{full_name}}" class="list-group-item">
+      <h4 class="list-group-item-heading">{{owner_name}}/{{name}}</h4>
+      <p class="list-group-item-text">{{description}}</p>
+    </a>
+  </div>
+{{/each}}
+</script>
+
+<script id="projectBaseTemplate" type="text/template">
+<div id="project-menu" class="col-sm-2"></div>
+<div class="col-sm-10">
+  <div id="project-basic"></div>
+  <div id="project-readme"></div>
+  <div id="project-commits"></div>
+</div>
+</script>
+
+<script id="projectMenuTemplate" type="text/template">
+<ul class="nav nav-pills nav-stacked">
+  {{#each items}}
+    <li><a href="{{path}}">{{title}}</a></li>
+  {{/each}}
+</ul>
+</script>
+
+<script id="projectNewTemplate" type="text/template">
+<div class="hero-unit">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">New project</h3>
+    </div>
+    <div class="panel-body">
+      <form class="form-horizontal" role="form" method="POST" action="/projects">
+        <div class="form-group">
+          <label class="col-sm-1 control-label" for="projectName">Name</label>
+          <div class="col-sm-11">
+            <input type="name" class="form-control" id="projectName" placeholder="Name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label" for="projectDescription">Description</label>
+          <div class="col-sm-11">
+            <textarea class="form-control" rows="4" id="projectDescription"></textarea>
+          </div>
+        </div>
+        <input type="hidden" name="creator_id" value="${current_user.id if current_user else 1}">
+        <div class="form-group">
+          <label for="" class="col-sm-1 control-label"></label>
+          <div class="col-sm-11">
+            <input type="submit" class="btn btn-default" value="Create">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</script>
+
+<script id="projectBasicTemplate" type="text/template">
+<div class="panel panel-default">
+  {{#if files}}
+    <div class="panel-heading">
+      <div class="input-group">
+        <div class="input-group-btn">
+          <span>Branch: </span>
+          <a class="dropdown-toggle" data-toggle="dropdown">Master <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Master</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr style="margin: 0;">
+      <h3 class="panel-title"> {{project.name}} /</h3>
+    </div>
+    <div class="panel-body">
+      <table id="project-tree" class="table table-hover">
+        <tbody>
+          {{#each files}}
+            <tr>
+              <td><span class="glyphicon {{display_class}}"></span> {{name}}</td>
+              <td>commit log</td>
+              <td>24 days ago</td>
+              <td>1KB</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  {{else}}
+    <div class="panel-heading">
+        <h3 class="panel-title">Empty repository</h3>
+    </div>
+    <div class="panel-body">
+      <h5>Create a new repository on the command line</h5>
+      <pre>
+      <code>touch README.md</code>
+      <code>git init</code>
+      <code>git add README.md</code>
+      <code>git commit -m "first commit"</code>
+      <code>git remote add origin {{project.clone_url}}</code>
+      <code>git push -u origin master</code>
+      </pre>
+      <h5>Push an existing repository from the command line</h5>
+      <pre>
+      <code>git remote add origin {{project.clone_url}}</code>
+      <code>git push -u origin master</code>
+      </pre>
+    </div>
+  {{/if}}
+</div>
+</script>

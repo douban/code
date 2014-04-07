@@ -1,0 +1,29 @@
+<script id="commitTemplate" type="text/template">
+<div class="panel panel-default">
+  <div class="panel-heading">Commits</div>
+  <div class="panel-body">
+    {{#each commits}}
+      <div class="media">
+        <a class="pull-left" href="#">
+          <img class="media-object" src="/static/img/user_normal.jpg" alt="..." width="36" height="36">
+        </a>
+        <div class="media-body">
+          <p class="pull-right">{{id}}</p>
+          <p>{{message}}</p>
+          <p class="pull-right">Browse Code</p>
+          <p>{{name}} authored {{date}}</p>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>
+</script>
+
+<script id="readmeTemplate" type="text/template">
+<div class="panel panel-default">
+  <div class="panel-heading">README</div>
+  <div class="panel-body">
+    {{{html}}}
+  </div>
+</div>
+</script>

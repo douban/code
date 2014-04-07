@@ -1,0 +1,46 @@
+#! /usr/bin/python
+# -*- coding: utf-8 -*-
+#
+# This code is copyright (c) 2008 by Jack Moffitt jack@metajack.im
+# and is available under the GPLv3.
+
+import os
+import sys
+import urllib
+import urllib2
+import json
+
+
+PROJECT_NAME = os.path.realpath('.').split('/permdir/')[1][:-4]
+CODE_DIR = os.path.realpath(__file__).rsplit('/', 3)[0]
+sys.path.insert(0, CODE_DIR)
+#sys.path.append(CODE_DIR + "/venv/src/pygit2")
+from vilya.config import DOMAIN
+
+
+def http_post(url, data):
+    payload = json.dumps(data)
+    try:
+        u = urllib2.urlopen(url,
+                            urllib.urlencode({'payload': payload}))
+        u.read()
+        u.close()
+    except urllib2.URLError, x:
+        print "%s => %s" % (url,x)
+
+
+def main():
+    url = '%sapi/v1/post_receive/' % DOMAIN
+    refs = []
+    user = os.environ.get('CODE_REMOTE_USER')
+    for line in sys.stdin.readlines():
+        old, new, ref = line.strip().split(' ')
+        refs.append(dict(old_value=old,
+                         new_value=new,
+                         ref_name=ref,
+                         user_name=user))
+    #http_post(url, dict(refs=refs, project=PROJECT_NAME))
+
+
+if __name__ == '__main__':
+    main()

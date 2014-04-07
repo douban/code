@@ -53,7 +53,7 @@ class StaticManager(object):
         return join(self.static_dir, filename)
 
     def static(self, path, compressed=False, convert_url_func=None):
-        from libs.template import request as req
+        from vilya.libs.template import request as req
 
         '''获取静态文件的访问url'''
         filename = path[len(self.static_type) + 2:]  # 去掉前缀的 /css/
@@ -122,7 +122,7 @@ __JS_MANAGER = None
 
 def get_static_manager(static_path):
     '''获取单例化的管理器'''
-    from config import DOMAIN
+    from vilya.config import DOMAIN
 
     global __CSS_MANAGER
     global __JS_MANAGER
@@ -164,8 +164,8 @@ def static(static_file_path):
 
 
 def _static_helper(static_file_path):
-    from config import CSS_JS_DEVELOP_MODE
-    from libs.template import request as req
+    from vilya.config import CSS_JS_DEVELOP_MODE
+    from vilya.libs.template import request as req
 
     # 简单的单例模式(singlton)，避免扫描文件等做重复计算，提交执行效率
 
@@ -408,7 +408,7 @@ def istatic(static_path, **kwargs):
 
     输出内容中不包含script标签。
     '''
-    from libs.template import request
+    from vilya.libs.template import request
     """
     if getattr(request, 'is_mobile', None):
         mobile_uri = get_mobile_uri(static_path)

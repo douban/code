@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-
-CODE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+from vilya.config import CODE_DIR
 
 
 def get_permdir():

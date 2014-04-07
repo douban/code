@@ -26,7 +26,7 @@ class OrganizationUI(RestAPIUI):
         self.organizaton = organizaton
 
     def _q_lookup(self, request, name):
-        project = Project.get_by_name(name)
+        project = Project.get(name=name, owner_id=self.organizaton.id)
         if project:
             return ProjectUI(project)
         raise errors.NotFoundError('project %s', name)

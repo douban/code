@@ -1,35 +1,31 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import absolute_import
-from datetime import datetime
-from vilya.libs.store import OrzField, store, IntegrityError, OrzBase
+from vilya.models import ModelField, BaseModel
 
 
-class Organization(OrzBase):
-    __orz_table__ = "organizations"
-    name = OrzField(as_key=OrzField.KeyType.DESC)
-    description = OrzField()
-    owner_id = OrzField(as_key=OrzField.KeyType.DESC)
-    creator_id = OrzField(as_key=OrzField.KeyType.DESC)
-    created_at = OrzField(default='null')
-    updated_at = OrzField(default='null')
+class Organization(BaseModel):
+    __table__ = "organizations"
+    user_id = ModelField(as_key=ModelField.KeyType.ONLY_INDEX)
+    owner_id = ModelField(as_key=ModelField.KeyType.DESC)
+    creator_id = ModelField(as_key=ModelField.KeyType.DESC)
+    created_at = ModelField(auto_now_create=True)
+    updated_at = ModelField(auto_now=True)
 
-    class OrzMeta:
-        id2str = True
+    @property
+    def user(self):
+        from vilya.models.user import User
+        user = User.get(self.user_id)
+        return user
 
-    @classmethod
-    def get_by_name(cls, name):
-        rs = cls.gets_by(name=name)
-        return rs[0] if rs else None
+    @property
+    def name(self):
+        return self.user.name
 
-    @classmethod
-    def add(cls, **kw):
-        now = datetime.now()
-        kw['created_at'] = now
-        kw['updated_at'] = now
-        p = None
-        try:
-            p = cls.create(**kw)
-        except IntegrityError:
-            store.rollback()
-        return p
+    @property
+    def description(self):
+        return self.user.description
+
+    @property
+    def email(self):
+        return self.user.email

@@ -6,6 +6,7 @@ import os
 import time
 import gzip
 import shutil
+import logging
 import tempfile
 import ConfigParser
 from cStringIO import StringIO
@@ -17,11 +18,10 @@ from vilya.models.git.commit import Commit
 from vilya.models.git.blob import Blob
 from vilya.models.git.submodule import Submodule
 from vilya.models.git.tree import Tree
-from vilya.models.user import User
 
 LATEST_UPDATE_REF_THRESHOLD = 60 * 60 * 24
-PULL_REF_H = 'refs/pull/%s/head'
-PULL_REF_M = 'refs/pull/%s/merge'
+PULL_REF_H = 'refs/pulls/%s/head'
+PULL_REF_M = 'refs/pulls/%s/merge'
 
 
 class Repo(object):
@@ -54,6 +54,9 @@ class Repo(object):
             return None
         self.repo.update_head(name)
 
+    def update_hooks(self, path):
+        self.repo.update_hooks(path)
+
     def clone(self, path, bare=None, branch=None, mirror=None, env=None):
         self.repo.clone(path,
                         bare=bare, branch=branch,
@@ -78,7 +81,8 @@ class Repo(object):
         config = ConfigParser.RawConfigParser()
         config.readfp(StringIO(modules_str))
         for section in config.sections():
-            if config.has_option(section, 'path') and config.get(section, 'path') == path:
+            if config.has_option(section, 'path') \
+                    and config.get(section, 'path') == path:
                 url = config.get(section, 'url')
                 return Submodule(url, path)
         return None
@@ -295,6 +299,7 @@ class ProjectRepo(Repo):
     def merge_base(self, to_sha, from_sha):
         return self.repo.merge_base(to_sha, from_sha)
 
+    @property
     def remotes(self):
         return self.repo.remotes()
 
@@ -313,7 +318,8 @@ class ProjectRepo(Repo):
         current_time = time.time()
         latest_branches = []
         for ref in refs:
-            commit_time = self.repo.lookup_reference(ref).get_object().commit_time
+            commit = self.repo.lookup_reference(ref).get_object()
+            commit_time = commit.commit_time
             delta = current_time - commit_time
             if delta < LATEST_UPDATE_REF_THRESHOLD:
                 latest_branches.append((commit_time, ref.split('/')[-1]))
@@ -327,11 +333,15 @@ class ProjectRepo(Repo):
             commits = self.repo.rev_list(ref)
             commits = {c['sha']: c for c in commits}
             commits_dict.update(commits)
-        commits = sorted(commits_dict.values(), key=lambda x: x['time'], reverse=True)
+        commits = sorted(commits_dict.values(),
+                         key=lambda x: x['time'],
+                         reverse=True)
 
         pruned_set = set()
         objects_dict = {}
-        treenode_list = [(commit['sha'], commit['tree'], '') for commit in commits]
+        treenode_list = [(commit['sha'],
+                          commit['tree'],
+                          '') for commit in commits]
         while treenode_list:
             commit_id, tree_id, path = treenode_list.pop()
             if tree_id in pruned_set:
@@ -346,13 +356,29 @@ class ProjectRepo(Repo):
                 elif obj['type'] == 'blob':
                     if obj_id not in objects_dict:
                         commit = commits_dict[commit_id]
+                        committer = commit['committer']['name']
                         objects_dict[obj_id] = dict(path=obj_path[1:],
                                                     commit=commit_id,
                                                     size=obj['size'],
                                                     commit_time=commit['time'],
-                                                    committer=commit['committer']['name']
-                                                    )
+                                                    committer=committer)
         return objects_dict
+
+    def get_readme(self, path='/', ref='HEAD'):
+        from vilya.libs.text import format_md_or_rst
+        try:
+            tree = self.get_tree(ref, path=path)
+        except JagareError as e:
+            logging.warning("JagareError: %r" % e)
+            return ''
+        for item in tree:
+            if (item['type'] == 'blob'
+                and (item['name'] == 'README'
+                     or item['name'].startswith('README.'))):
+                readme_content = self.get_file_by_ref("%s:%s" % (ref,
+                                                                 item['path']))
+                return format_md_or_rst(item['path'], readme_content)
+        return ''
 
 
 class GistRepo(Repo):
@@ -424,52 +450,45 @@ class PullRepo(ProjectRepo):
     provided_features = ProjectRepo.provided_features + ['show_inline_toggle']
 
     def __init__(self, pull):
-        # TODO: When to_proj or from_proj not exist?
-        # TODO: catch exception if from_proj was deleted
-
-        super(PullRepo, self).__init__(pull.to_proj, pull)
+        super(PullRepo, self).__init__(pull.upstream_project, pull)
         self.type = "pull"
-        self.from_repo = None
+        self.origin_repo = None
         try:
-            if pull.from_proj:
-                self.from_repo = ProjectRepo(pull.from_proj, pull)
+            self.origin_repo = ProjectRepo(pull.origin_project, pull) \
+                if pull.origin_project else None
         except JagareError:
-            self.from_repo = None
+            self.origin_repo = None
         self._temp_dir = None
-
-        # no use
-        #self.merge_repo = None
-        #self.test_repo = None
 
     # TODO: 统一 url
     @property
     def api_url(self):
         project_name = self.project.name
-        ticket_id = self.pull.ticket_id
+        pull_id = self.pull.pull_id
         # FIXME: pull/new，没有ticket
-        if not ticket_id:
+        if not pull_id:
             return ''
-        url = "/api/%s/pull/%s/" % (project_name, ticket_id)
+        url = "/api/%s/pull/%s/" % (project_name, pull_id)
         return url
 
     @property
     def context_url(self):
         project_name = self.project.name
-        ticket_id = self.pull.ticket_id
+        pull_id = self.pull.pull_id
         # FIXME: pull/new，没有ticket
-        if not ticket_id:
+        if not pull_id:
             return ''
-        url = "/api/%s/pull/%s/moreline" % (project_name, ticket_id)
+        url = "/api/%s/pull/%s/moreline" % (project_name, pull_id)
         return url
 
     @property
     def fulltext_url(self):
         project_name = self.project.name
-        ticket_id = self.pull.ticket_id
+        pull_id = self.pull.pull_id
         # FIXME: pull/new，没有ticket
-        if not ticket_id:
+        if not pull_id:
             return ''
-        url = "/api/%s/pull/%s/fulltext" % (project_name, ticket_id)
+        url = "/api/%s/pull/%s/fulltext" % (project_name, pull_id)
         return url
 
     @property
@@ -491,125 +510,71 @@ class PullRepo(ProjectRepo):
         return Jagare.init(path, work_path=work_path, bare=False)
 
     @property
-    def from_local(self):
-        return self.pull.to_proj == self.pull.from_proj
-
-    @property
-    def from_sha(self):
+    def origin_sha(self):
         sha = None
-        ticket_id = self.pull.ticket_id
-        if ticket_id:
-            # FIXME: catch more exceptions
-            try:
-                sha = self.sha(PULL_REF_H % ticket_id)
-            except:
-                #旧有的被close但又未merge的pr可能出错
-                pass
-        if not sha and self.from_repo:
-            sha = self.from_repo.sha(self.pull.from_ref)
+        try:
+            sha = self.sha(self.upstream_head_ref)
+        except:
+            pass
+        try:
+            if not sha and self.origin_repo:
+                sha = self.origin_repo.sha(self.pull.origin_project_ref)
+        except:
+            pass
         return sha
 
     @property
-    def to_sha(self):
+    def upstream_sha(self):
         sha = None
-        ticket_id = self.pull.ticket_id
-        if ticket_id:
-            from models.consts import PULL_REF_M
-            # FIXME: catch more exceptions
-            try:
-                sha = self.sha(PULL_REF_M % ticket_id)
-            except:
-                #旧有的被close但又未merge的pr可能出错
-                pass
-        if not sha:
-            sha = self.sha(self.pull.to_ref)
+        try:
+            sha = self.sha(self.pull.upstream_merge_ref)
+        except:
+            pass
+        try:
+            if not sha:
+                sha = self.sha(self.pull.upstream_project_ref)
+        except:
+            pass
         return sha
-
-    def fetch_remote(self):
-        # TODO: raise exception?
-        if not self.from_repo:
-            return
-        remotes = self.remotes()
-        remote_name = 'hub/%s' % self.pull.from_proj.name
-        remote_name = remote_name.replace('~', '_')
-        remote_names = [r.name for r in remotes]
-        # TODO: check remote path if from_repo renamed
-        if str(remote_name) not in remote_names:
-            self.add_remote(str(remote_name), str(self.from_repo.path))
-        self.fetch(str(remote_name))
-        # pullrequest 确实被创建了
-        ticket = self.pull.ticket
-        if ticket and not ticket.closed:
-            self.update_ref(PULL_REF_H % self.ticket_id,
-                            'refs/remotes/%s/%s' % (remote_name,
-                                                    self.pull.from_ref))
-            self.update_ref(PULL_REF_M % self.ticket_id,
-                            'refs/heads/%s' % self.pull.to_ref)
-
-    def fetch_local(self):
-        # pullrequest 确实被创建了
-        ticket = self.pull.ticket
-        if ticket and not ticket.closed:
-            self.update_ref(PULL_REF_H % self.ticket_id,
-                            'refs/heads/%s' % self.pull.from_ref)
-            self.update_ref(PULL_REF_M % self.ticket_id,
-                            'refs/heads/%s' % self.pull.to_ref)
 
     def merge(self, merger, message_header, message_body):
-        # TODO: Use User only
-        if merger and isinstance(merger, basestring):
-            merger = User(merger)
-        if not isinstance(merger, User):
-            raise Exception("User is needed to merge pull")
         env = make_git_env(merger)
 
         worktree = self.temp_dir
         merge_commit_sha = None
         try:
-            if self.pull.is_up_to_date():
+            if self.pull.is_up_to_date:
                 return ''
 
-            from_sha = self.from_sha
-            to_sha = self.to_sha
+            from_sha = self.origin_sha
+            to_sha = self.upstream_sha
             repo = self.pull.pull_clone(worktree)
-            if self.from_local:
-                ref = self.pull.pull_fetch_local(repo)
-            else:
-                ref = self.pull.pull_fetch_remote(repo)
+            ref = self.pull.pull_fetch(repo)
             repo.merge(ref, message_header, message_body, no_ff=True, _env=env)
-            repo.push('origin', self.pull.to_ref)
-            merge_commit_sha = self.sha(self.pull.to_ref)
+            repo.push('origin', self.pull.upstream_project_ref)
+            merge_commit_sha = self.sha(self.pull.upstream_project_ref)
             self.pull._save_merged(merger.name, from_sha, to_sha)
         finally:
             shutil.rmtree(worktree)
         return merge_commit_sha
 
+    @property
     def can_merge(self):
         worktree = self.temp_dir
         try:
-            user = self.pull.to_proj.owner
+            user = self.pull.upstream_project.owner
             env = make_git_env(user)
-
-            self.clone(worktree, branch=self.pull.to_ref, bare=False)
-            repo = ProjectRepo.init(
-                os.path.join(worktree, '.git'), worktree, bare=False)
-
-            if self.from_local:
-                ref = 'origin/%s' % self.pull.from_ref
-            else:
-                from_proj_name = self.pull.from_proj.name.replace('~', '_')
-                repo.add_remote('hub/%s' % from_proj_name,
-                                self.pull.from_proj.repo_path)
-                ref = 'hub/%s/%s' % (from_proj_name, self.pull.from_ref)
-            repo.fetch_all()
+            repo = self.pull.pull_clone(worktree)
+            ref = self.pull.pull_fetch(repo)
             result = repo.merge(ref, msg='automerge', _raise=False, _env=env)
             errcode = result['returncode']
         finally:
             shutil.rmtree(worktree)
         return errcode == 0
 
-    def can_fastforward(self):
-        if not self.get_commits(self.to_sha, self.from_sha):
+    @property
+    def is_fastforward(self):
+        if not self.get_commits(self.upsteam_sha, self.origin_sha):
             return True
 
 
@@ -621,8 +586,8 @@ def make_git_env(user=None, is_anonymous=False):
         env['GIT_COMMITTER_NAME'] = 'anonymous'
         env['GIT_COMMITTER_EMAIL'] = 'anonymous@douban.com'
     else:
-        env['GIT_AUTHOR_NAME'] = user.username
+        env['GIT_AUTHOR_NAME'] = user.name
         env['GIT_AUTHOR_EMAIL'] = user.email
-        env['GIT_COMMITTER_NAME'] = user.username
+        env['GIT_COMMITTER_NAME'] = user.name
         env['GIT_COMMITTER_EMAIL'] = user.email
     return env

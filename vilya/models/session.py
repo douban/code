@@ -23,8 +23,7 @@ class SessionMixin(object):
             uid, key = x
         if not uid:
             return
-
-        user = cls.get_by(uid)
+        user = cls.get(id=uid)
         if user and user.is_valid_session(key):
             return user
 
@@ -58,7 +57,6 @@ class SessionMixin(object):
     def clear_session(self):
         self.session_id = None
         self.save()
-        self.session_id = None
 
     def create_session(self):
         session_id = randbytes2(8)
