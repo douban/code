@@ -153,7 +153,7 @@ module.exports = function (grunt) {
         mochaTest: {
           test: {
             options: {
-              reporter: 'spec'
+              reporter: 'nyan'
             },
             src: ['frontend/test/**/*.coffee']
           }
