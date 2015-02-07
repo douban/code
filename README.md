@@ -25,7 +25,7 @@ Currently supports the following systems:
 You only to excute:
 
 ```
-bash <(curl -s https://raw.github.com/douban/code/master/scripts/install_code.sh)
+bash <(curl -s https://raw.githubusercontent.com/douban/code/master/scripts/install_code.sh)
 ```
 
 Notes: The install script in `code/scripts` subdirectory, for example ubuntu/debian,
