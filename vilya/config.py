@@ -3,6 +3,8 @@
 import os
 from os.path import dirname, abspath
 
+from libmc import MC_HASH_MD5
+
 DEVELOP_MODE = False
 
 
@@ -20,14 +22,14 @@ SESSION_DOMAIN = ''
 SESSION_COOKIE_NAME = 'code_user'
 
 
-MEMCACHED = {
-    'servers': ["127.0.0.1:11311", ],
-    'new_servers': [],
-    'backup_servers': [],
-    'disabled': False,
-    'local_cache': True,
-    'log_every_actions': False,
-    'slave_servers': [],
+MEMCACHED_HOSTS = ['127.0.0.1:11311']
+MEMCACHED_CONFIG = {
+    'do_split': True,
+    'comp_threshold': 0,
+    'noreply': False,
+    'prefix': None,
+    'hash_fn': MC_HASH_MD5,
+    'failover': False
 }
 
 DOUBANDB = {

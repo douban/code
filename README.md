@@ -8,7 +8,7 @@ Douban CODE
 
 Dependency
 ----------
-- libmemcached <http://douban-code.github.io/pages/python-libmemcached.html>
+- libmc <https://github.com/douban/libmc>
 - Python 2.7+
 - pip >= 1.4.1
 
@@ -18,20 +18,25 @@ Docker Installation
 You can use [code](https://registry.hub.docker.com/u/dongweiming/code/)
 
 ```
-docker pull dongweiming/code
+$docker pull dongweiming/code
 ```
 
 or just build locally(recommended):
 
 ```
-cd code
-docker build -t code .
+$cd code
+$docker build -t code .
 ```
 
 And launch a bash shell inside the container:
 
 ```
-docker run -t -i code /bin/bash
+$docker run -d -p 8080:8000 code gunicorn -w 2 -b 0.0.0.0:8000 app:app  # start app
+5cf0d1f6a421c53d54662df77dd142978d24b8c76fd72ce1c106506458e1304a
+$boot2docker ip
+192.168.59.103
+# go web http://192.168.59.103:8080
+$docker run -t -i code /bin/bash
 ```
 
 Quick Installation
@@ -84,7 +89,7 @@ mysql -uroot -D valentine < vilya/databases/schema.sql
 virtualenv venv
 . venv/bin/activate
 pip install cython  # should install first
-pip install -U setuptools  # python-libmemcached require updated setuptools
+pip install -U setuptools
 pip install -r requirements.txt
 gunicorn -w 2 -b 127.0.0.1:8000 app:app  # web & git http daemon
 ```

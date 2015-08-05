@@ -15,9 +15,6 @@ echo "Setup memcached port to 11311..."
 sudo sed -i "s/PORT=11211/PORT=11311/" /etc/sysconfig/memcached
 sudo service memcached restart
 
-echo "Install libmemcached..."
-install_libmemcached
-
 echo "Install code..."
 install_code
 
