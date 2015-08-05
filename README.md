@@ -12,6 +12,28 @@ Dependency
 - Python 2.7+
 - pip >= 1.4.1
 
+Docker Installation
+-------------------
+
+You can use [code](https://registry.hub.docker.com/u/dongweiming/code/)
+
+```
+docker pull dongweiming/code
+```
+
+or just build locally(recommended):
+
+```
+cd code
+docker build -t code .
+```
+
+And launch a bash shell inside the container:
+
+```
+docker run -t -i code /bin/bash
+```
+
 Quick Installation
 ------------------
 Currently supports the following systems:
