@@ -17,6 +17,8 @@ RUN echo "deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main restri
 RUN apt-get update
 
 RUN apt-get install curl python -yq
-RUN curl -O https://raw.githubusercontent.com/dongweiming/code/master/scripts/install_code.sh
+RUN curl -O https://raw.githubusercontent.com/douban/code/master/scripts/install_code.sh
 RUN /bin/bash install_code.sh
 RUN rm -rf install_code.sh
+EXPOSE 8000
+WORKDIR /code

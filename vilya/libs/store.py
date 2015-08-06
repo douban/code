@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 
 import logging
+
+import libmc
 from MySQLdb import IntegrityError, connect
 from ORZ import OrzField, OrzBase, setup
-from douban.mc import mc_from_config, create_decorators
+from douban.mc import create_decorators
 from douban.sqlstore import store_from_config
-from vilya.config import MEMCACHED, MYSQL_STORE
+from vilya.config import MEMCACHED_HOSTS, MEMCACHED_CONFIG, MYSQL_STORE
 
 logging.getLogger().setLevel(logging.DEBUG)
 
@@ -21,7 +23,7 @@ ONE_YEAR = ONE_DAY * 365
 
 
 def get_mc():
-    return mc_from_config(MEMCACHED, use_cache=False)
+    return libmc.Client(MEMCACHED_HOSTS, **MEMCACHED_CONFIG)
 
 
 def stub_cache(*args, **kws):
@@ -30,7 +32,6 @@ def stub_cache(*args, **kws):
 mc = get_mc()
 pcache = pcache2 = listcache = cache_in_obj = delete_cache = cache = stub_cache
 globals().update(create_decorators(mc))
-
 
 def mc_gets(mc_key, getter, ids):
     '''helpler for gets function'''

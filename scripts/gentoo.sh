@@ -30,10 +30,6 @@ sudo sed -i 's/PORT=\"11211\"/PORT=\"11311\"/g' /etc/conf.d/memcached
 sudo /etc/init.d/memcached restart
 $end
 
-$echo "Install libmemcached..."
-install_libmemcached
-$end
-
 $echo "Install code..."
 install_code
 $end
