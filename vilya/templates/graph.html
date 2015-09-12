@@ -1,0 +1,125 @@
+<%inherit file="/base.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/graph.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/graph/main.js')}"></script>
+</%def>
+
+<%block name="extra_head">
+</%block>
+
+<%namespace name="pagehead" file="/widgets/pagehead.mako" />
+<%namespace name="graph" file="/widgets/graph.html" />
+
+<%def name="title()">Graphs</%def>
+<%def name="suffix()">${project.name}</%def>
+
+${pagehead.trac_header("graph", project, user)}
+
+<div style="display:none">${data.authors}</div>
+<div class="raw">
+  <div class="span12">
+    <div class="items">
+      <div class="top-bar">
+        <h2>Stats</h2>
+      </div>
+      <div class="capped-box">
+        <div id="gitstats-total">
+          <div class="total-details grid">
+            <div class="col">
+
+              <span class="num">${data.total_files}</span>
+              &nbsp;
+              <span class="lbl">Total Files</span>
+            </div>
+            <div class="col">
+              <span class="num">${data.total_lines}</span>
+              ${data.total_lines_added} (+)
+              ${data.total_lines_removed} (-)
+              <span class="lbl">Total Lines</span>
+            </div>
+            <div class="col">
+              <span class="num">${data.total_commits}</span>
+              &nbsp;
+              <span class="lbl">Total Commits</span>
+            </div>
+            <div class="col">
+              <span class="num">${data.total_authors}</span>
+              &nbsp;
+              <span class="lbl">Total Authors</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottm-bar"></div>
+    </div>
+
+    <div class="items">
+      <div class="top-bar">
+        <h2>Activity</h2>
+      </div>
+      <ul class="graph-container">
+      </ul>
+
+      <div class="bottom-bar"></div>
+    </div>
+
+    <div class="items">
+      <div class="top-bar">
+        <h2>Lines of change</h2>
+      </div>
+      <ul class="lines-container">
+      </ul>
+      <div class="bottom-bar"></div>
+    </div>
+
+    <div class="items">
+      <div class="top-bar">
+        <h2>Accumulated commits per author(Top 10)</h2>
+      </div>
+      <ul class="commits-container">
+      </ul>
+      <div class="bottom-bar"></div>
+    </div>
+
+    <div class="items ext">
+      <div class="top-bar">
+        <h2>Source Code File Extensions</h2>
+      </div>
+      <div>
+        <div class="ext-lines-container"></div>
+        <div class="ext-files-container"></div>
+      </div>
+      <div class="bottom-bar">
+        <div class="lable">
+          <p>By Lines</p>
+          <p>By Files</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="items">
+      <div class="top-bar">
+        <h2>Committers</h2>
+      </div>
+      ${graph.committers(project)}
+      <div class="bottom-bar"></div>
+    </div>
+
+    <div class="items">
+      <div class="top-bar">
+        <h2>Contributors</h2>
+      </div>
+      <ul class="graph-container">
+        ${graph.contributors(data, project)}
+      </ul>
+      <div class="bottom-bar"></div>
+    </div>
+  </div>
+  <div class="span5">
+  </div>
+</div>

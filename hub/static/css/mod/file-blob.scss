@@ -1,0 +1,33 @@
+/* button list */
+
+.button-group { display:inline-block; overflow:hidden; border:1px solid #d4d4d4; border-radius:3px; border-bottom-color:#bcbcbc; background:#f5f5f5; background:-moz-linear-gradient(#f5f5f5,#e5e5e5); background:-webkit-linear-gradient(#f5f5f5,#e5e5e5); -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5',endColorstr='#e5e5e5')";}
+.button-group li{ margin:0!important; float:left; }
+.button-group li:first-child .grouped-button { border-left:none; border-bottom-left-radius:2px; border-top-left-radius:2px; }
+.button-group li:last-child .grouped-button { border-right:none; border-bottom-right-radius:2px; border-bottom-left-radius:2px; }
+.button-group .grouped-button { float:left;background:none; border-bottom:none; border-top:none; border-left:1px solid rgba(0,0,0,0.1); border-right:1px solid rgba(255,255,255,0.5); border-radius:0; cursor:pointer; }
+.button-group .minibutton {position:relative;display:inline-block;padding:0 10px 0 10px;color:#333;font-family:Helvetica,arial,freesans,clean,sans-serif;font-size:13px;font-weight:bold;line-height:24px;text-shadow:0 1px 0 #fff;white-space:nowrap;border-bottom-color:#bcbcbc;border-radius:3px;background:#fafafa;background:-moz-linear-gradient(#fafafa,#eaeaea);background:-webkit-linear-gradient(#fafafa,#eaeaea);-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa',endColorstr='#eaeaea')";cursor:pointer;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
+
+
+/* line-no */
+#blob .file { min-height:78px; position:relative; overflow:auto }
+#blob .file .rawfile { text-align: center; background-color: #ddd; padding: 30px; position: relative; }
+.file table { width:100%; border-collapse:collapse; border-spacing:0; }
+.file table td, .file table th { vertical-align:top; padding:0; }
+.file .data { overflow:auto }
+
+.code { width:100%; }
+.code .highlight pre { margin:0; padding:8px; border:none; background-color:#FFF; white-space:pre; }
+.code .highlight pre a { display:block; }
+
+// linenos
+.linenos .linenodiv pre { background-color:#ECECEC; padding:8px; border:none; border-right: 1px solid #DDD; text-align:right; white-space:pre; }
+.linenos .linenodiv pre a { color:#AAA; text-decoration:none; white-space:nowrap; line-height:18px }
+.code .highlight pre, .linenos .linenodiv pre { 
+    margin:0;
+    line-height: 18px;
+    -webkit-border-radius:0;
+    -moz-border-radius:0;
+    border-radius:0;
+}
+.linenos { padding:0; }
+

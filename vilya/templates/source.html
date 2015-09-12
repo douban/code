@@ -1,0 +1,160 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.mako" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/source.css')}" />
+    <meta http-equiv="x-pjax-version" content="v1">
+</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/src/src.js')}"></script>
+</%def>
+
+<%def name="tree_current_path()">${path_breadcrumb[-1].get('path')}</%def>
+
+<%def name="title()">
+    %if path_breadcrumb:
+        <% name = self.tree_current_path() %>
+        ${name} at ${ref}
+    %else:
+        %if ref == project.default_branch:
+            ${project.name}
+        %else:
+            ${project.name} at ${ref}
+        %endif
+    %endif
+</%def>
+
+<%def name="suffix()">
+    %if path_breadcrumb:
+        ${project.name}
+    %else:
+        Code
+    %endif
+</%def>
+
+<%!
+    from libs.text import gravatar_url, parse_emoji
+    from models.project import CodeDoubanProject
+%>
+
+${pagehead.trac_header("source", project, user)}
+
+<div style="display:none;">
+    <input id="project_name" name="project_name" type="hidden" value="${project.name}">
+    <input id="current_branch" name="current_branch" type="hidden" value="${ref}">
+</div>
+<div class="raw">
+    ${self.main()}
+</div>
+
+<%def name="pullrequest_from_latestbranch()">
+% if user and latest_update_branch:
+<div class="span12 pr-latest-branch">
+    You recently pushed branch:<br>
+    % for project, branch_shortcut_name, branch in latest_update_branch:
+        % if project.has_push_perm(user.username):
+            <a class="btn minibutton" id="pullrequest-btn" href="/${project.name}/pull/new?head_ref=${branch}">Pull Request</a>&nbsp;&nbsp;
+            <a href="/${project.name}/tree/${branch}">${branch_shortcut_name}</a>
+            </br>
+        % endif
+    % endfor
+</div>
+% endif
+</%def>
+
+<%def name="sourcenav_bar(active='files')">
+    <div class="span12 sourcenav-bar">
+        ${self.branch_switcher(project, ref_type, ref, branches, tags, active)}
+        <ul class="tab">
+            % if active == 'files':
+                <li><a class="active" href="/${project.name}/tree/${ref}">Files</a></li>
+                <li><a href="/${project.name}/commits/${ref}">Commits</a></li>
+            % elif active == 'commits':
+                <li><a href="/${project.name}/tree/${ref}">Files</a></li>
+                <li><a class="active" href="/${project.name}/commits/${ref}">Commits</a></li>
+            % endif
+        </ul>
+    </div>
+</%def>
+
+<%def name="lastcommit_bar(project, ref_type, ref, lastcommit)">
+    % if ref_type == 'branch':
+        <div class="span12 last-bar">
+            <p class="last-commit"><span class="mini-icon mini-icon-time"></span>
+                Latest commit to the <strong>${ref}</strong> branch
+            </p>
+            <div class="commit commit-tease js-details-container">
+                <p class="commit-title ">
+                    <a href="${lastcommit.url}" class="message emojstext">${parse_emoji(lastcommit.shortlog)|n}</a>
+                </p>
+                <div class="commit-meta">
+                    <a href="${lastcommit.url}" class="sha-block">commit <span class="sha">${lastcommit.sha[:10]}</span></a>
+                    <span class="js-clippy mini-icon mini-icon-clippy " data-clipboard-text="${lastcommit.sha}" data-copied-hint="copied!" data-copy-hint="Copy SHA"></span>
+
+                    <div class="authorship">
+                        <img class="user-avatar gravatar lazy" height="20" data-original="${gravatar_url(lastcommit.author.email)}" src="${gravatar_url(lastcommit.author.email)}" width="20" />
+                        <span class="author-name">${lastcommit.author}</span>
+                        authored
+                        <time class="js-relative-date updated" datetime="${lastcommit.time}" title="${lastcommit.time}">
+                            ${lastcommit.time}
+                        </time>
+                    </div>
+                </div>
+            </div>
+        </div>
+    % endif
+</%def>
+
+<%def name="branch_switcher(project, ref_type, ref, branches, tags, active)">
+    <% disp_ref = ref[:10] if ref_type == 'tree' else ref %>
+    <div class="scope btn-group">
+        <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#">
+            <span><i class="muted">${ref_type}:</i> <b>${disp_ref}</b></span>
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <ul>
+                <b style='padding-left:.4em'>Branches</b>
+                % for branch in branches:
+                    % if active == 'files':
+                        <li><a href="/${project.name}/tree/${branch}">${branch}</a></li>
+                    % elif active == 'commits':
+                        <li><a href="/${project.name}/commits/${branch}">${branch}</a></li>
+                    % endif
+                % endfor
+            </ul>
+            <ul>
+                <b style='padding-left:.4em'>Tags</b>
+                % for tag in tags:
+                    % if active == 'files':
+                        <li><a href="/${project.name}/tree/${tag | u}">${tag}</a></li>
+                    % elif active == 'commits':
+                        <li><a href="/${project.name}/commits/${tag}">${tag}</a></li>
+                    % endif
+                % endfor
+            </ul>
+        </ul>
+    </div>
+</%def>
+
+<%def name="breadcrumb(project, ref, path_breadcrumb)">
+    <div class="span12">
+        <div id="breadcrumb">
+            <a href="/${project.name}/tree/${ref}">${project.name}</a> /
+            <span id="J_SubPaths" class="sub-paths">
+            % if path_breadcrumb:
+                % for sub in path_breadcrumb[:-1]:
+                    <a href="/${project.name}/tree/${ref}/${sub.get('path')}">${sub.get('title')}</a>
+                    /
+                % endfor
+                <span class="final-path">${path_breadcrumb[-1].get('title')}</span>
+            % endif
+            </span>
+            <a style="float:right" href='/${project.name}/browsefiles'>
+                <span class="mini-icon mini-icon-u-list"></span>
+            </a>
+        </div>
+    </div>
+</%def>

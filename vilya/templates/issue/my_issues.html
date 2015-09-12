@@ -1,0 +1,74 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.html" />
+<%namespace name="tips" file="/widgets/tips.mako" />
+<%namespace name="issues" file="/widgets/issue/issues.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/my-issues.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/issue/issues.js')}"></script>
+</%def>
+
+${tips.tip()}
+${pagehead.user_header(active='issues')}
+
+<% ticket_total_len = len(my_issues) %>
+<div class="row">
+    <div class="span3">
+        <div class="issues-sidebar">
+            <ul class="nav nav-tabs nav-stacked">
+                <li class="${'active' if is_closed_tab != True else ''}">
+                <a href="${ issues.tab_url('/hub/my_issues/', list_type, show_closed=False, keyword=key_word) }">
+                    Open
+                    % if not is_closed_tab:
+                    <b class="counter">${ticket_total_len} of ${total_issues}</b>
+                    % endif
+                </a>
+                </li>
+                <li class="${'active' if is_closed_tab == True else ''}">
+                <a href="${ issues.tab_url('/hub/my_issues/', list_type, show_closed=True, keyword=key_word) }"> Closed
+                    % if is_closed_tab:
+                    <b class="counter">${ticket_total_len} of ${total_issues}</b>
+                    % endif
+                </a>
+                </li>
+            </ul>
+            <div class="rule"></div>
+            <ul class="nav nav-tabs nav-stacked">
+                <li class="${'active' if list_type == 'repos' else ''}">
+                <a href="${ issues.tab_url('/hub/my_issues/', 'team', show_closed=state!='open') }">
+                    In your repositories
+                    <b class="counter">${ "%s" % n_repos_issue if n_repos_issue else '0' }</b>
+                </a>
+                </li>
+                <li class="${'active' if list_type == 'assigned' else ''}">
+                <a href="${ issues.tab_url('/hub/my_issues/', 'assigned', show_closed=state!='open') }">
+                    Assigned to you
+                    <b class="counter">${ "%s" % n_assigned_issue if n_assigned_issue else '0' }</b>
+                </a>
+                </li>
+                <li class="${'active' if list_type == 'created_by' else ''}">
+                <a href="${ issues.tab_url('/hub/my_issues/', 'created_by', show_closed=state!='open') }">
+                    Created by you
+                    <b class="counter">${ "%s" % n_created_issue if n_created_issue else '0' }</b>
+                </a>
+                </li>
+                <li class="${'active' if list_type == 'participated' else ''}">
+                <a href="${ issues.tab_url('/hub/my_issues/', 'participated', show_closed=state!='open') }">
+                    Joined by you
+                    <b class="counter">${ "%s" % n_participated_issue if n_participated_issue else '0' }</b>
+                </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="span9">
+        ${issues.issue_list(my_issues, page=page,
+          is_closed_tab=is_closed_tab, n_pages=n_pages)}
+    </div>
+</div>

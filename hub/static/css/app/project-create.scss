@@ -1,0 +1,35 @@
+@import "css/mod/common";
+
+#mirror {
+    display: none;
+}
+
+.mirror-url {
+    display: none;
+}
+
+.mirror-with-proxy {
+    display: none;
+    margin:15px 0 5px 0;
+}
+
+.splash {
+    margin: 0;
+    padding-top: 22px;
+    margin-left: 0;
+    width: auto;
+}
+
+#owner {
+    img {
+        padding-top: 3px;
+        padding-left: 20px;
+    }
+}
+
+#mirror {
+    img {
+        padding-top: 3px;
+        padding-left: 20px;
+    }
+}

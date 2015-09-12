@@ -1,0 +1,10 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"
+                       xmlns:moz="http:/www.mozilla.org/2006/browser/search/">
+<ShortName>Code Search</ShortName>
+<Description>Code Search by Douban</Description>
+<InputEncoding>UTF-8</InputEncoding>
+<Url type="text/html" method="get" template="http://code.dapps.douban.com/hub/search_beta">
+  <Param name="q" value="{searchTerms}"/>
+</Url>
+<moz:SearchForm>http://code.dapps.douban.com/hub/search</moz:SearchForm>
+</OpenSearchDescription>

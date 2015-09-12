@@ -1,0 +1,76 @@
+<%!
+    from vilya..models.user import User
+    from vilya..models.consts import ISSUE_COMMENT_UID_PATTERN
+    from vilya..libs.text import (
+        render_markdown_with_project,
+        render_markdown_with_team,
+        replace_onimaru_to_link)
+%>
+
+<%namespace name="issue_utils" file="/issue/utils.html"/>
+<%namespace name="utils" file="/widgets/utils.html"/>
+
+<%def name="render_inner(comment, target)">
+<%
+    author = User(comment.author_id)
+    issue = comment.issue
+    cid = ISSUE_COMMENT_UID_PATTERN % comment.number
+%>
+    <a id="${cid}"></a>
+    <div class="change-text">
+        <div class="comment comment-body markdown-body markdown-format">
+            ## TODO: 应该结合issue.provide来重构下render_markdown? 如果支持这种feature就加入相应渲染功能
+            % if issue.target_type == 'project':
+                ${render_markdown_with_project(replace_onimaru_to_link(comment.content, target), target.name)|n}
+            % else:
+                ${render_markdown_with_team(comment.content, target)|n}
+            % endif
+        </div>
+    </div>
+    <div class="content">
+    % if not public and current_user and comment.author_id == current_user.name:
+        ${edit_comment_form('%sedit' % comment.url, comment.content)}
+    % endif
+    </div>
+    <div class="change-bottom">
+        % if not public and current_user and comment.author_id == current_user.name:
+        <ul class="comment-header-actions">
+            <li>
+                <a class="edit-pr-note js-edit-button mini-icon mini-icon-edit"
+                   href="javascript:void(0);"></a>
+            </li>
+            <li>
+                <a class="delete-pr-note-button js-comment-delete mini-icon mini-icon-delete-note"
+                   href="${comment.url}delete"></a>
+            </li>
+        </ul>
+        % endif
+        <div class="author-profile">
+            ${issue_utils.side_avatar(author)}
+            <a href="${author.url}">${author}</a>
+            <p>
+                edited <a href="#${cid}" class="change-header-date">${utils.time2relaive_time(comment.updated_at)}</a>
+            </p>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+</%def>
+
+<%def name="edit_comment_form(submit_url, content)">
+<div class="form-content js-write-bucket js-uploadable-container upload-enabled is-default focused" data-model="asset">
+    <form accept-charset="UTF-8" action="${submit_url}" class="js-comment-update" data-type="json"  method="post">
+        <div class="fieldWithErrors">
+            <textarea class="js-comment-field js-size-to-fit" name="pull_request_comment" tabindex="2" style="height: 34px;">${content}</textarea>
+        </div>
+        <div class="form-actions">
+            <a href="javascript:void(0);" tabindex="4" class="btn btn-small js-cancel-button js-comment-cancel-button pull-left">Cancel</a>
+            <button type="submit" tabindex="3" class="btn btn-small btn-primary">Update Comment</button>
+        </div>
+    </form>
+</div>
+</%def>
+
+<!-- template used by add/edit comment -->
+<div class="change js-edit-container">
+  ${render_inner(comment, target)}
+</div>

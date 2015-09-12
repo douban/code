@@ -1,0 +1,23 @@
+<%namespace name="mobile" file="/common/mobile-meta.html" />
+<%!
+    from vilya.views.util import client_class
+%>
+
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="${client_class(request)}">
+    <head>
+        <meta charset="utf-8">
+        ${mobile.meta()}
+        <title>Code</title>
+        ${self.head_style()}
+    </head>
+    <body>
+        ${self.body()}
+        <script src="${static('/js/mod/common.js')}"></script>
+        ${self.bottom_script()}
+    </body>
+</html>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+</%def>

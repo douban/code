@@ -1,0 +1,15 @@
+div.pull-head .pull-description .css-truncate-target+.css-truncate-target { max-width:125px; }
+div.pull-head .pull-description p .commit-ref .user { color: #CCC; }
+div.pull-head { margin:20px 0; background-color:#FAFAFA; border:1px solid #EEE; border-bottom-width:2px; border-radius:3px }
+div.pull-head .pull-description .attention-icon { position: relative; float: left; margin: 4px 10px 0 0; }
+div.pull-head .pull-description p { padding-left:10px; position:relative; float:left; margin:0; line-height:36px; font-size:13px; max-width:690px; white-space:nowrap }
+div.pull-head .pull-description p .user { font-weight:bold; color:#333 }
+
+div.pull-head .pull-description p { 
+    padding-left: 0;
+}
+
+div.pull-head .pull-description .pull-state { float: left; padding: 8px; margin-right: 8px; border-right: 1px solid #EEE; line-height: 20px; }
+div.pull-head .pull-description .state-indicator { font-size: 13px; display: inline-block; height: 20px; line-height: 20px; padding: 0 5px; }
+
+.commit-ref { position: relative; height: 20px; display: inline-block; padding: 0 5px; border: 1px solid black; border-radius: 3px; font: 10px/20px Monaco,"Liberation Mono",Courier,monospace; color: white; white-space: nowrap; vertical-align: middle; background-color: #222; background-image: -moz-linear-gradient(#444, #222); background-image: -webkit-linear-gradient(#444, #222); background-image: linear-gradient(#444, #222); background-repeat: repeat-x; }

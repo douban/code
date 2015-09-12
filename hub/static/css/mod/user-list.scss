@@ -1,0 +1,7 @@
+.user-list { border-top: 1px solid rgba(0, 0, 0, 0.05); list-style: none; }
+.user-list li { border-bottom: 1px solid rgba(0, 0, 0, 0.05); line-height: 26px; padding: 6px 0 6px 30px; position: relative; }
+.user-list li a { font-weight: bold; color: #4183C4; }
+.user-list li img { border-radius: 3px; margin-top: 1px; position: absolute; left: 0; border: 0; }
+.user-list li .actions { position: absolute; top: 6px; right: 0; }
+.user-list li .actions a { color: #333; }
+.user-list li .actions a:hover { color: #FFF; }

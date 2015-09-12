@@ -1,0 +1,193 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.mako" />
+<%namespace file="/widgets/previewable_comment_form.mako" import="previewable_comment_form" />
+<%namespace name="upload_widget" file="/widgets/upload_widget.html" />
+<%namespace name="diff_render" file="/widgets/diff/diff.html" />
+<%namespace name="commit_render" file="/widgets/commit.html" />
+<%!
+    import json
+%>
+<%
+   MAX_DIFFS_SHOWN_COUNT = 2000
+   last_commit_ref = commits[0].sha if commits else ''
+%>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/pull-new.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/pull/new.js')}"></script>
+</%def>
+
+<%def name="title()">
+    % if to_proj.name == from_proj.name:
+        Send a pull request to ${to_ref} from ${from_ref}
+    % else:
+        Send a pull request to ${to_proj.name}:${to_ref} from ${from_proj.name}:${from_ref}
+    % endif
+</%def>
+
+<%def name="suffix()">${from_proj.name}</%def>
+
+${pagehead.trac_header("pulls", from_proj, user)}
+
+<div class="new-pull-request">
+    <% opened_pull = True if len(open_pullreqs) > 0 else False %>
+    ## 最终调用 view pull/create 去创建 pr
+    <form accept-charset="UTF-8" action="/${from_proj.name}/pull/create" method="post">
+        <input type="hidden" name="from_proj" value="${from_proj.name}" />
+        <input type="hidden" name="from_ref" value="${from_ref}" />
+        <input type="hidden" name="to_proj" value="${to_proj.name}" />
+        <input type="hidden" name="to_ref" value="${to_ref}" />
+        <input type="hidden" id="all-teams" value="${json.dumps(teams)}" />
+        <div class="pull-heading">
+            <a href="#change_form" class="minibutton btn-change editor-expander" data-collapse-text="Collapse" tabindex="99">Change Commits</a>
+            ${pull_head(from_proj, from_ref, to_proj, to_ref, n_commits)}
+            ${range_editor(from_proj, from_ref, from_branches, from_commit, to_proj, to_ref, to_branches, to_commit, highlighted_projects, show=opened_pull)}
+        </div>
+
+        % if not opened_pull:
+            % if guideline_url is not None:
+                <div class="contributing">Please review the
+                    <strong>
+                        <a href="${guideline_url}" target="_blank">guidelines for contributing</a>
+                    </strong> to this repository.
+                </div>
+            % endif
+            <ul class="smalltabs pull-tabs nav">
+                <li class="active">
+                    <a href="#preview_discussion_bucket" class="preview-discussion-tab" data-toggle="tab">
+                        <i class="icon-comment"></i>
+                    Preview Discussion
+                </a>
+            </li>
+            <li>
+                <a href="#commits_bucket" data-toggle="tab">
+                    <i class="icon-upload"></i>
+                    Commits <span class="counter">${n_commits}</span>
+                </a>
+            </li>
+            <li>
+                <a href="#files_bucket" data-toggle="tab">
+                    <i class="icon-file"></i>
+                    Files Changed <span class="counter">${n_files}</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="preview_discussion_bucket">
+                ${preview_discussion_bucket(ticket_title, to_proj, description=ticket_desc)}
+            </div>
+            <div class="tab-pane" id="commits_bucket">
+                ${commit_render.commits_bucket(commits, n_authors, grouped_commits)}
+            </div>
+            <div class="tab-pane" id="files_bucket">
+                ${diff_render.files_bucket(diff, from_proj, MAX_DIFFS_SHOWN_COUNT)}
+            </div>
+        </div>
+        % endif
+
+    </form>
+
+    % if not opened_pull:
+        ${upload_widget.widget('form-file-upload')}
+    % endif
+</div>
+
+<%def name="pull_head(from_proj, from_ref, to_proj, to_ref, n_commits)">
+    <div class="pull-head">
+        <p class="pull-description">
+            % if len(open_pullreqs) == 0:
+            You're asking
+            <a href="${to_proj.owner.url}" class="user">
+                <img src="${to_proj.owner.avatar_url}" class="avatar tiny" />${to_proj.owner.name}</a>
+            to pull ${n_commits} commit${'s' if n_commits > 1 else ''}
+            into <span class="commit-ref to editor-expander"><span class="project">${to_proj.name}</span>:${to_ref}</span>
+            from <span class="commit-ref from editor-expander"><span class="project">${from_proj.name}</span>:${from_ref}</span>
+            % else:
+            <i class="attention-icon icon-exclamation-sign"></i>
+            Oops! There's <b style="color:red">already</b> a pull request for
+            <span class="commit-ref from editor-expander"><span class="project">${from_proj.name}</span>:${from_ref}</span>
+            Try a different branch or
+            <a href="/${to_proj.name}/pull/${open_pullreqs[-1].ticket_id}">view the pull request</a>?
+            % endif
+        </p>
+    </div>
+</%def>
+
+<%def name="chooser_box(base_or_head, project, ref, branches, commit, highlighted_projects)">
+    <div class="${base_or_head} chooser-box" data-preview-url-base="/${project.name}/pull/commit_preview/">
+        <h3>${base_or_head.title()} branch &middot; tag &middot; commit</h3>
+        <div class="fakerule"></div>
+
+        <table class="reposha">
+            <tr>
+                <td class="repo">
+                    <select name="${base_or_head}_repo" tabindex="${100 if base_or_head == 'base' else 102}"
+                            % if base_or_head == 'head':
+                                disabled="disabled"
+                            % endif
+                        >
+                        % for proj in highlighted_projects:
+                            <option value="${proj.name}"
+                                %if proj == project:
+                                    selected="selected"
+                                %endif
+                            >${proj.name}</option>
+                        % endfor
+                        <option value="">--------------</option>
+                        % for proj in family:
+                            % if proj not in highlighted_projects:
+                                <option value="${proj.name}">${proj.name}</option>
+                            % endif
+                        % endfor
+                    </select>
+                    <span class="at">@</span>
+                </td>
+                <td class="sha">
+                    <input type="text" autocomplete="off" value="${ref}" class="typeahead js-ref" id="${base_or_head}_ref"
+                        name="${base_or_head}_ref" data-provide="typeahead" data-source="${json.dumps(branches)}" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <%include file="/widgets/commit_preview.html" args="commit=commit" />
+    </div>
+</%def>
+
+
+<%def name="range_editor(from_proj, from_ref, from_branches, from_commit, to_proj, to_ref, to_branches, to_commit, highlighted_projects, show=False)">
+    <div class="range-editor" style="${'display:none' if not show else ''}">
+        ${chooser_box('base', to_proj, to_ref, to_branches, to_commit, highlighted_projects)}
+        ${chooser_box('head', from_proj, from_ref, from_branches, from_commit, highlighted_projects)}
+        <div class="clear"></div>
+        <div class="form-actions">
+            <button class="classy" id="update_commit_range" tabindex="104" data-url="/${from_proj.name}/pull/new">Update Commit Range</button>
+        </div>
+    </div>
+</%def>
+
+<%def name="preview_discussion_bucket(title, to_proj, description='')">
+    <div class="row">
+        <div class="span9 main pull-form-main">
+            ${previewable_comment_form(project=to_proj, class_="pull-form", title=title, description=description, zen=True)}
+            <div class="form-actions">
+                <button type="submit" class="btn btn-success btn-large" tabindex="10" data-disable-invalid>
+                    Send pull request
+                </button>
+            </div>
+        </div>
+
+        <div class="span3">
+            <div class="pull-dest-repo">
+                <i class="icon-book"></i>
+                <a href="${to_proj.url}">${to_proj.name}</a>
+                <p>Change base to send to another repository</p>
+            </div>
+        </div>
+    </div>
+</%def>

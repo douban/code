@@ -1,0 +1,182 @@
+@import "css/mod/comment-form";
+@import "css/mod/loader";
+@import "css/mod/pullrequest-pull-head";
+@import "css/mod/fav-button";
+
+#project-info { margin-bottom:15px; }
+
+.tab-content { overflow:initial; position:relative; }
+.pullrequest.tab-content { min-height:280px; overflow:visible; }
+
+.commit-preview .date { color: #5B6375; }
+
+.pull-nav.tabnav { margin: 0 0 10px; border-bottom:none; height: 35px; }
+.pull-nav.tabnav .nav li.active { font-weight: bold; }
+.pull-nav.tabnav .nav li a:hover { background-color:transparent; border:1px solid transparent;  }
+.pull-nav.tabnav .nav li.active a { background-color:#fff; border-bottom:1px solid #fff; }
+.pull-nav.tabnav .nav li.active a:hover { background-color:#fff; border: 1px solid #DDD; border-bottom:1px solid #fff; }
+
+.tabnav .counter { position: relative; top: -1px; margin: 0 0 0 5px; padding: 1px 5px 2px 5px; font-size: 10px; font-weight: bold; color: #666; background: #E5E5E5; border-radius: 10px; }
+
+.pullrequest .explain { margin: 15px 0; }
+
+.discussion-topic-header { position: relative; margin: 10px; }
+.discusion-topic-infobar { border-bottom:1px solid #e5e5e5; }
+.discussion-topic-header .comment-topic-actions { position: absolute; top: 10px; right: 10px; list-style-type: none; }
+.discussion-topic-header .comment-topic-actions li { float: left; margin-left: 12px; }
+
+.pullrequest blockquote.citation { border:none }
+.pullrequest #trac-ticket-title { display:none }
+.pullrequest .ticket { margin-top:23px }
+.pullrequest .trac-topnav { margin-top:0; top:-20px; position:absolute; right:0 }
+
+.pullrequest .ticket #ticket, .pullrequest div.change { margin-bottom:20px; background:#fff; border-radius:3px; border:3px solid #eee }
+.pullrequest .ticket #ticket::before, .pullrequest div.change::before, .pullrequest #propertyform fieldset.iefix::before, .pullrequest #add-comment-form .form-content::before { content:""; display:block; height:0; width:0; border:10px solid #EEE; border-width:10px 10px 10px 0; border-color:transparent #EEE transparent transparent; left:-12px; top:15px; float:left; position:absolute }
+.pullrequest .ticket #ticket::before { position:absolute; }
+.pullrequest div.change::before, .pullrequest #propertyform fieldset.iefix::before { position:relative; }
+.pullrequest .ticket #ticket { padding:5px }
+
+.pullrequest .ticket #ticket .date { float:none; clear:both; color:#666; font-size:12px }
+.pullrequest .ticket #ticket .date::after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.pullrequest .ticket #ticket .date p { float:left }
+.pullrequest .ticket #ticket .summary { font-size:20px; font-weight:bold; margin:0 }
+.pullrequest .ticket #ticket .properties { display:none; border:none }
+.pullrequest .ticket #ticket .description { margin-top:10px }
+.pullrequest .ticket #ticket .description div { padding:0 }
+.pullrequest .ticket #ticket .description h3 { display:none }
+.pullrequest .ticket #ticket .description #addreply { float:right }
+
+
+.pullrequest {
+    .commits-condensed tr td.message {
+        word-break: break-all;
+    }
+
+    #changelog {
+        border: none;
+        padding: 0;
+
+        .change table.commits tr td {
+            &.author {
+                width: 80px;
+            }
+            &.date {
+                width: 100px;
+            }
+            &.status {
+                width: 20px;
+            }
+
+            span {
+                &.commit-status {
+                    width:100px;
+                    display:inline-block;
+                    border-radius:100px;
+                    width:15px;
+                    height:15px;
+                    vertical-align: middle;
+                }
+                &.dirty {
+                    background-color:#f6e69f;
+                }
+                &.error {
+                    background-color:#da4f49;
+                }
+                &.success {
+                    background-color:#6eda62;
+                }
+            }
+        }
+    }
+}
+
+.pullrequest #changelog h3 { border:none }
+.pullrequest #changelog .change div.outdated_mark { background-color: #DDD; height: 31px; text-align: center; color: #777; line-height: 31px; }
+.pullrequest #changelog .change div.outdated_commits { display:none; }
+.pullrequest #changelog .change div.outdated_codereview { display:none; }
+.pullrequest div.change { padding:0; background:#FBFBFB; }
+.pullrequest #changelog .change h3.change { color:#333; margin:0; font-size:12px; text-shadow:1px 1px 0 rgba(255, 255, 255, 0.7); white-space:nowrap; text-overflow:ellipsis; padding:0 10px 0 6px; border-bottom:1px solid #CCC; background:-webkit-linear-gradient(#F8FBFC, #DDE8EB); background-image: -webkit-linear-gradient(#F8F8F8, #E1E1E1); background-image: linear-gradient(#F8F8F8, #E1E1E1); -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr='#f8fbfc', endColorstr='#dde8eb')" }
+.pullrequest div.change form[id^=reply-to-comment-] { right:7px }
+.pullrequest div.change table.commits .commit code { background-color:transparent }
+.pullrequest #changelog .comment { margin:0; top: -1px; position: relative; }
+.pullrequest #changelog .comment #files { margin-top:-24px }
+.pullrequest #changelog .comment #files .file { width:100%; margin:0 0 0 -1px }
+.pullrequest #changelog .comment p br { height:0; }
+.pullrequest #changelog .comment p { padding:5px; margin:0; color:#333; }
+
+.pullrequest div.change form#trac-comment-editor { position:relative; right:0; margin:12px }
+.pullrequest h2#trac-add-comment, .pullrequest .trac-nav { display:none }
+.pullrequest fieldset.iefix { padding:6px; background:#EEE; border-radius:3px; }
+.pullrequest fieldset.iefix h3 { font-size:13px; line-height:1.4; color:#333; margin:0 5px }
+
+.pullrequest #propertyform .btn[type=submit] { padding:8px 15px; }
+.pullrequest #modify { background-color:#EEE; padding:12px; }
+.pullrequest #ticketchange.ticketdraft { padding:1em; background:none; background-color:#FBFBFB }
+.pullrequest #ticketchange.ticketdraft .comment { margin:1em }
+.pullrequest #ticketchange.ticketdraft .comment blockquote.citation { margin:12px 0; }
+.pullrequest #ticketchange.ticketdraft .comment blockquote.citation p { font-size:13px }
+
+.pullrequest .ticket .side-avatar { position:absolute; float:left; margin-left:-60px }
+
+table.commits { margin: 0; font-size:12px; }
+
+.pull-participation { margin: -10px 0 15px; font-size: 13px; font-weight: 300; color: #666; }
+.pull-participation p.quickstat { display: inline-block; margin: 0 5px 0 0; }
+.pull-participation a { color: #666; }
+.pull-participation .avatar { position: relative; display: inline-block; height: 24px; top: -2px; margin-right: 3px; margin-bottom: 3px; }
+.pull-participation .avatar img { vertical-align: middle; }
+
+/* action-bubble part is also used in commits.html */
+
+.action-bubble { margin: 20px 0; }
+.action-bubble .action { float: left; line-height: 29px; }
+.action-bubble .state-indicator { display: inline-block; margin-right: 8px; font-size: 12px; padding: 0 5px; line-height: 24px; }
+.state-indicator.closed { background: #BD2C00; }
+.state-indicator { display: block; font-size: 14px; font-weight: bold; color: white; text-align: center; border-radius: 3px; background: #999; }
+.action-bubble .bubble { font-size: 13px; font-weight: 300; background-color: transparent; }
+.bubble { padding: 3px; background: #EEE; border-radius: 3px; }
+.action-bubble .bubble p { margin: 0; line-height: 26px; }
+.action-bubble .bubble strong { font-weight: bold; }
+.action-bubble .avatar { position: relative; top: -2px; display: inline-block; height: 24px; margin-right: 3px; line-height: 1px; }
+.action-bubble .avatar img { vertical-align: middle; }
+.state-indicator.open, .state-indicator.reopened, .state-indicator.merged { background: #6CC644; }
+
+/* the following action-bubble style seems only used in commits.html */
+
+.action-bubble .state-renamed {
+color: black;
+background-color: #FFFA5D;
+text-shadow: none;
+}
+.action-bubble .state {
+display: inline-block;
+padding: 0 5px;
+height: 24px;
+line-height: 25px;
+text-shadow: 0 -1px -1px rgba(0, 0, 0, 0.25);
+}
+.action-bubble .state {
+float: none;
+padding: 3px 5px;
+font-size: 11px;
+}
+
+
+.closed-banner { margin: 15px 0; height: 7px; overflow: hidden; background: url("/static/img/closed_pattern.gif"); border-radius: 5px; }
+
+.change-header .change-header-right { float: right; height:15px; }
+.change-header .change-header-date { display: inline-block; margin: 0; height: 33px; font-size: 11px; font-style: normal; color: #777; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7); }
+
+.pullrequest .ticket #ticket { padding:0 }
+.discussion-bubble-avatar { position: relative; float: left; border-radius: 3px; }
+.discussion-bubble-inner { min-height: 60px; border: 1px solid #CACACA; background-color: white; }
+
+.pullrequest #changelog .change .change-header { height:23px; color:#333; margin:0; font-size:12px; text-shadow:1px 1px 0 rgba(255, 255, 255, 0.7); white-space:nowrap; text-overflow:ellipsis; padding:3px 10px 0 6px; border-bottom:1px solid #CCC; background:-webkit-linear-gradient(#F8FBFC, #DDE8EB); background-image: -webkit-linear-gradient(#F8F8F8, #E1E1E1); background-image: linear-gradient(#F8F8F8, #E1E1E1); -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr='#f8fbfc', endColorstr='#dde8eb')"; }
+
+.comment-content .comment-body, .pullrequest .ticket #ticket .comment-content .comment-body { padding: 10px; font-size: 13px; overflow: auto; width: 100%; -moz-box-sizing: border-box; box-sizing: border-box; }
+.comment-content .comment-body, .pullrequest #changelog .comment p { font-size: 13px; }
+
+.user-mention, .team-mention { font-weight: bold; color: #333; }
+
+.change #files .file { border: none; }
+

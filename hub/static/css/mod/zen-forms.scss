@@ -1,0 +1,9 @@
+@import "css/lib/zen-form";
+
+.write-content .enable-fullscreen { position: absolute; top: 5px; right: 16px; color: #333333; opacity: .5; line-height: 1em; }
+.mini-icon-fullscreen::before { content: ""; }
+.fullscreen-overlay textarea, .zen-forms textarea { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; width: 100%; height: 100%; padding: 20px; border: 0; font-size: 21px; line-height: 1.6em; resize: none; -moz-transition: color 0.15s ease-in 0; -webkit-transition: color 0.15s ease-in 0; transition: color 0.15s ease-in 0; box-shadow: none; }
+.zen-forms.light-theme textarea { background: #fff; color: #999999; }
+.zen-forms .zen-forms-input-wrap { width:100%; height:100%; }
+.zen-forms label[for^=zen-forms-input] { display:none; }
+

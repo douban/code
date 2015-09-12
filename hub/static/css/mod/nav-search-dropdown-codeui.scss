@@ -1,0 +1,15 @@
+
+#search-repos-menu { display:none; position:absolute; top:30px; width:370px; background-color:white; 
+border: 1px solid rgba(99,182,174,0.4);
+z-index:100 }
+
+#search-repos-menu ul li { min-height:25px; padding:3px; color:#666; cursor:pointer; word-wrap:break-word; }
+
+#search-repos-menu ul li.active { 
+background: rgba(99,182,174,1);
+color:#fff; }
+
+#search-repos-menu ul li.intro { padding:7px; color:#666 }
+#search-repos-menu ul li.intro.active { background:#fff; padding:7px; color:#666 }
+#search-repos-menu .repo-name { padding:3px }
+#search-repos-menu .avatar img { float:left; border:none; width:24px; height:24px; margin-right:5px }

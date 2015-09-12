@@ -1,0 +1,43 @@
+<%inherit file="/base.html" />
+
+<%def name="title()">Add Badge</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/badge.css')}" />
+</%def>
+
+<div class="mod">
+<form name="upload_badge" action='' method="post" enctype='multipart/form-data'>
+    <div class="page">
+        <table class='table table-bordered table-size'>
+            <tr>
+                <th class='text-right'><label for='name'>徽章名称</label></th>
+                <td class='text-left'>
+                  <input type='text' id='name' name='name' />
+                  <p>徽章唯一名称，不可重复，否则添加失败</p>
+                </td>
+            </tr>
+            <tr>
+                <th class='text-right'><label for='summary'>描述</label></th>
+                <td class='text-left'><input type='text' id='summary' name='summary'/></td>
+            </tr>
+            <tr>
+                <th class='text-right'><label for='icon'>图片</label></th>
+                <td class='text-left'>
+                  <input type="file" name="picfile"/>
+                  <p>57x57 PNG格式</p>
+                </td>
+            </tr>
+            <tr>
+                <td class='text-center' colspan='2'>
+                    <input type='submit' id='submit' class='btn input-button' value='Submit' />
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+</div>

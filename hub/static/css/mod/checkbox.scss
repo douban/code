@@ -1,0 +1,17 @@
+.checkbox-container {
+  display: inline-block;
+}
+
+.checkbox-container input[type=checkbox] {
+  vertical-align: middle;
+}
+
+.checkbox-container label {
+  display: inline;
+  vertical-align: middle;
+  padding: 0 0 0 5px;
+}
+
+.checkbox-container label span {
+  margin: 0 0 0 5px;
+}

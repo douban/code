@@ -1,0 +1,58 @@
+<%page args="context_lines" />
+<%namespace name="diff_render" file="/widgets/diff/diff.html" />
+
+<%!
+    from vilya.models.ngit.line import LineBase
+%>
+
+% if context_lines:
+    <%
+        old = context_old_start
+        new = context_new_start
+        if current_user and current_user.settings.dblclick_comment == SETTING_ENABLE:
+            dblclick_comment = True
+        else:
+            dblclick_comment = False
+        is_commentable = True if current_user else False
+    %>
+    % if _type == 'after':
+        ${hunk_heading2(old_start,
+                        new_start,
+                        context_old_start - 1,
+                        context_new_start - 1)}
+    % endif
+    % for line_text in context_lines:
+        <%
+            line = LineBase(old, new, ' %s' % line_text,
+                            old_file_path=old_path)
+            old += 1
+            new += 1
+        %>
+        ${diff_render.hunk_line(line, is_commentable=is_commentable, dblclick_comment=dblclick_comment)}
+    % endfor
+    % if _type == 'before':
+        ${hunk_heading2(context_old_end + 1,
+                        context_new_end + 1,
+                        old_end,
+                        new_end)}
+    % endif
+% endif
+
+## TODO: 搞个HunkBase？复用 diff/hunk_heading
+<%def name="hunk_heading2(old_start, new_start, old_end, new_end)">
+    <tr class="file-diff-line">
+        ${diff_render.line_num('...', '', 'old')}
+        ${diff_render.line_num('...', '', 'new')}
+        <td class="code">
+            <input type="hidden" class="expand-data"
+                data-old-start="${old_start}"
+                data-new-start="${new_start}"
+                data-old-end="${old_end}"
+                data-new-end="${new_end}">
+            <pre class="line skipped" align="center">\
+<a href="javascript:void(0);" data-type="before">˄</a> \
+<a href="javascript:void(0);" data-type="all">(${old_end - old_start + 1}L)</a> \
+<a href="javascript:void(0);" data-type="after">˅</a></pre>
+        </td>
+    </tr>
+</%def>

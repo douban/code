@@ -1,0 +1,9 @@
+.recent-gists { display: block; }
+.recent-gists::after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.recent-gists ul { list-style: none; margin: 0; padding: 0; }
+.recent-gists li { display: list-item; text-align: -webkit-match-parent; float: left; width: 200px;}
+.recent-gists .metadata { color: #999; }
+.recent-gists .description .blank { color: rgba(153, 153, 153, 0.5); }
+.recent-gists .your-gists { float: right; width: 108px; }
+.recent-gists .mega-icon::before, .entry-title .meta-icon::before { font-size: 32px; }
+.recent-gists .mega-icon { color: #B9B9B9; float: left; top: -1px; left: -4px; position: relative; font-size: 32px; width: 32px; height: 32px; }

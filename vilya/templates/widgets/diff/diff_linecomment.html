@@ -1,0 +1,77 @@
+<%!
+    from vilya.models.user import User
+    from vilya.libs.text import render_markdown_with_project
+%>
+
+<%def name="render_comment(comment, current_user)">
+    ## id="commitcomment" ?
+    <div id="commitcomment" class="js-comment comment repo-owner-comment">
+
+        ## TODO: 相对时间显示
+        <!-- line comment header -->
+        <div class="comment-header commit-comment-header">
+            <img class="comment-header-gravatar user-avatar" height="22" src="${User(comment.author).avatar_url}" width="22">
+            <a href="${'/people/%s' % comment.author}" class="comment-header-author">${comment.author}</a>
+            <span class="comment-header-right">
+                <div class="comment-header-date">
+                    <%
+                        uid = comment.uid
+                        created = comment.created_at
+                    %>
+                    <a id="${uid}" href="#${uid}" class="comment-header-date">
+                        ## TODO: templates/widgets/utils.html
+                        <time class="js-relative-date" datetime="${created}" title="${created}" >${created}</time>
+                    </a>
+                </div>
+                <ul class="comment-header-actions">
+                    % if current_user and comment.author == current_user.name:
+                        <%
+                            delete_url = '%sdelete' % comment.url
+                        %>
+                        ## TODO: commit linecomment 支持 edit
+                        %if comment.provide('edit'):
+                            <li>
+                                ## FIXME: edit的js有点问题，被edit后的评论会跑到最下面去
+                                <a class="js-comment-edit-button mini-icon mini-icon-edit"
+                                href="javascript:void(0);"></a>
+                            </li>
+                        %endif
+                        <li>
+                            <a class="delete-button js-comment-delete mini-icon mini-icon-delete-note"
+                                data-confirm="Are you sure you want to delete this?"
+                                href="${delete_url}"></a>
+                        </li>
+                    % endif
+                </ul>
+            </span>
+        </div>
+
+        <!-- line comment content -->
+        <div class="comment-content">
+            <div class="edit-comment-hide">
+                <div class="js-comment-body comment-body markdown-body markdown-format">
+                    ${render_markdown_with_project(comment.content, comment.project)|n}
+                </div>
+            </div>
+            %if comment.provide('edit'):
+                % if current_user and comment.author == current_user.name:
+                    ${edit_linecomment_form('%sedit' % comment.url, comment.content)}
+                % endif
+            % endif
+        </div>
+    </div>
+</%def>
+
+<%def name="edit_linecomment_form(submit_url, content)">
+<div class="form-content js-write-bucket js-uploadable-container upload-enabled is-default focused" data-model="asset">
+    <form accept-charset="UTF-8" action="${submit_url}" class="js-comment-update" data-remote="true" data-type="json" method="post">
+        <div class="fieldWithErrors">
+            <textarea class="js-comment-field js-size-to-fit" name="pull_request_review_comment" style="height: 34px;">${content}</textarea>
+        </div>
+        <div class="form-actions">
+            <a href="javascript:void(0);" class="minibutton danger comment-cancel-button js-comment-cancel-button">Cancel</a>
+            <button type="submit" class="classy primary" tabindex="1" data-disable-with="" data-enable-with="Update Comment">Update Comment</button>
+        </div>
+    </form>
+</div>
+</%def>

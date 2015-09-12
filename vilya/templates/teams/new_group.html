@@ -1,0 +1,23 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.html" />
+<%namespace name="group_utils" file="/teams/group_utils.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/team.css')}" />
+</%def>
+
+<%def name="title()">${team.uid}</%def>
+
+${pagehead.team_header(team, user, 'groups')}
+
+<div class="row">
+    <div class="span12">
+        <form accept-charset="UTF-8" action="${team.url}/groups/" class="form-horizontal well" method="post">
+            ${group_utils.group_detail()}
+        </form>
+    </div>
+</div>
+

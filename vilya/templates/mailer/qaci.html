@@ -1,0 +1,74 @@
+<html>
+<body>
+<div>
+    <table style="padding:0px;border:0px;width:100%;border-spacing:0">
+        <thead>
+            % if state == 'failure':
+            <tr style="padding:0px;border:0px;font-weight:700;font-size:18px;background-color:#fdcdce;color:#df192a">
+                <td style="border:0px;border-top:1px solid #808080;border-bottom:1px solid #adadad;width:50px;padding:0px;text-align:center;vertical-align:middle;padding-top:5px;border-left:1px solid #606060;border-top-left-radius:5px">
+                    <div style="width:25px;min-height:30px;margin-left:15px;margin-top:0px;vertical-align:middle">
+                        <img height="25" src="https://travis-ci.org/images/mailer/failed.png" width="25">
+                    </div>
+                </td>
+                <td style="border:0px;padding:0px 20px 0px 0px;vertical-align:middle;border-top:1px solid #808080;border-bottom:1px solid #adadad">
+                    <span style="display:inline-block;margin-top:12px;vertical-align:middle">
+                        <a href="${url}" style="font-weight:bold;text-decoration:underline;color:#df192a" target="_blank">Build #${number} failed.</a>
+                    </span>
+                    <img height="45" src="https://travis-ci.org/images/mailer/arrow-failed.png" style="float:right">
+                </td>
+                <td align="right" style="border:0px;font-weight:normal;font-size:12px;padding:0px 20px 0px 0px;vertical-align:middle;border-top:1px solid #808080;border-bottom:1px solid #adadad;border-right:1px solid #606060;border-top-right-radius:5px">
+                    <div style="vertical-align:middle;padding:0px;display:inline-block;width:20px;min-height:20px">
+                        <img height="20" src="https://travis-ci.org/images/mailer/stopwatch-failed.png" width="20">
+                    </div>
+                    <span style="vertical-align:middle"></span>
+                </td>
+            </tr>
+            % else:
+            <tr style="padding:0px;border:0px;font-weight:700;font-size:18px;background-color:#baecb7;color:#32a32d">
+                <td style="border:0px;border-top:1px solid #808080;border-bottom:1px solid #adadad;width:50px;padding:0px;text-align:center;vertical-align:middle;padding-top:5px;border-left:1px solid #606060;border-top-left-radius:5px">
+                    <div style="width:25px;min-height:30px;margin-left:15px;margin-top:0px;vertical-align:middle">
+                        <img height="25" src="https://travis-ci.org/images/mailer/success.png" width="25" >
+                    </div>
+                </td>
+                <td style="border:0px;padding:0px 20px 0px 0px;vertical-align:middle;border-top:1px solid #808080;border-bottom:1px solid #adadad">
+                    <span style="display:inline-block;margin-top:12px;vertical-align:middle">
+                        <a href="${url}" style="font-weight:bold;text-decoration:underline;color:#32a32d" target="_blank">Build #${number} passed.</a>
+                    </span>
+                    <img height="45" src="https://travis-ci.org/images/mailer/arrow-success.png" style="float:right">
+                </td>
+                <td align="right" style="border:0px;font-weight:normal;font-size:12px;padding:0px 20px 0px 0px;vertical-align:middle;border-top:1px solid #808080;border-bottom:1px solid #adadad;border-right:1px solid #606060;border-top-right-radius:5px">
+                    <div style="vertical-align:middle;padding:0px;display:inline-block;width:20px;min-height:20px">
+                        <img height="20" src="https://travis-ci.org/images/mailer/stopwatch-success.png" width="20">
+                    </div>
+                    <span style="vertical-align:middle"></span>
+                </td>
+            </tr>
+            % endif
+        </thead>
+        <tbody style="margin-bottom:40px">
+        <tr style="padding:0px;border:0px">
+            <td style="border:0px;height:20px;width:50px;padding:0px;border-left:1px solid #adadad;padding-top:20px;padding-bottom:5px;text-align:center">
+                <img src="">
+            </td>
+            <td style="border:0px;color:#808080;padding:10px 20px 10px 0px;height:20px;padding-top:20px;padding-bottom:5px">
+                <strong>${commit.author_name if commit else ''}</strong>
+            </td>
+            <td align="right" style="border:0px;color:#808080;padding:10px 20px 10px 0px;height:20px;border-right:1px solid #adadad;padding-top:20px;padding-bottom:5px">
+                <a href="${commit.full_url if commit else ''}" style="text-decoration:none;font-weight:bold;color:#57768d" target="_blank">${sha[:8]}</a>
+                <a href="${ticket_url}" style="text-decoration:none;font-weight:bold;color:#57769d" target="_blank">Changeset →</a>
+            </td>
+        </tr>
+        <tr style="padding:0px;border:0px">
+            <td style="border:0px;height:20px;width:50px;padding:0px;border-left:1px solid #adadad;border-bottom-left-radius:5px;border-bottom:1px solid #adadad">&nbsp;</td>
+            <td colspan="2" style="border:0px;color:#808080;padding:10px 20px 10px 0px;height:20px;border-right:1px solid #adadad;padding-bottom:20px;padding-top:0px;border-bottom:1px solid #adadad;border-bottom-right-radius:5px">
+                ${commit.message if commit else ''}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+——
+<br />
+<a href="${ticket_url}" target="_blank">View it on Code.</a>
+</body>
+</html>

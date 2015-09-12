@@ -1,0 +1,122 @@
+@import "css/mod/minibutton";
+
+#files {
+	position: relative;
+}
+#files .file {
+	margin-top: 0;
+}
+#files .file, .file-box {
+	border: 1px solid #CCC;
+	margin-bottom: 13px;
+	position: relative;
+	background-color: #DDD;
+}
+#files .file .meta,
+.file-box .meta {
+	overflow: hidden;
+	padding: 5px 10px;
+	font-size: 12px;
+	height: 33px;
+	text-align: left;
+	color: #555;
+	text-shadow: 0 1px 0 white;
+	border-bottom: 1px solid #D8D8D8;
+	background: #FAFAFA;
+	background: -moz-linear-gradient(#FAFAFA, #EAEAEA);
+	background: -webkit-linear-gradient(#FAFAFA, #EAEAEA);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa',endColorstr='#eaeaea')";
+}
+#files .file .meta .info,
+.file-box .meta .info {
+	float: left;
+	height: 33px;
+	max-width: 555px;
+	line-height: 33px;
+	font-family: Consolas,Menlo,"Liberation Mono",Courier,monospace;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+#files .file .meta .info span,
+.file-box .meta .info span {
+	padding-left: 9px;
+	margin-left: 5px;
+	border-left: 1px solid 
+	#C1C1C1;
+	box-shadow: inset 1px 0 0 
+	white;
+}
+#files .file .meta .info span.icon,
+#files .file .meta .info span.diffstat,
+.file-box .meta .info span.icon {
+	line-height: 0;
+	float: left;
+	margin: 5px 5px 0 0;
+	padding: 3px;
+	background: #F7F7F7;
+	border: 1px solid #CCC;
+	border-right-color: #E5E5E5;
+	border-bottom-color: #E5E5E5;
+	border-radius: 3px;
+}
+#files .file .meta .info span.diffstat {
+	height: 16px;
+	padding: 3px 6px;
+}
+#files .file .meta .info span:first-child,
+#files .file .meta .info .icon + span,
+.file-box .meta .info span:first-child,
+.file-box .meta .info .icon + span {
+	border-left: 0 none;
+	box-shadow: inset 0 0 0 transparent;
+	margin-left: 0;
+	padding-left: 0;
+}
+#files .file .meta .info span.diffstat .diffstat-bar {
+	color: #D8D8D8;
+}
+#files .file .meta .actions, .file-box .meta .actions {
+	float: right;
+	height: 33px;
+	line-height: 33px;
+	margin-top: 1px;
+}
+#files .file .meta .actions .show-inline-notes {
+	display: block;
+    position: relative;
+    display: block;
+    float: left;
+    margin-right: 10px;
+}
+#files .file .meta .actions .show-inline-notes label {
+    font-weight: bold;
+    margin: 5px 0;
+}
+#files .file .meta .actions .show-inline-notes input {
+    margin:0;
+}
+#files .file .meta .actions .button-group,
+.file-box .meta .actions .button-group {
+	float: right;
+	margin-top: 2px;
+}
+#files .file .meta .actions code,
+.file-box .meta .actions code {
+	background: inherit;
+	border: none;
+	font-size: 11px;
+	color: inherit;
+	font-family: Consolas,Menlo,"Liberation Mono",Courier,monospace;
+	padding: 0;
+}
+
+.file {
+	margin: 15px 0;
+}
+
+.file .data { overflow: auto; }
+
+.change #files .file, .file-box, .change .file { margin-bottom:0 }
+
+.blame .line-data { font-size: 12px; font-family: Consolas,Menlo,"Liberation Mono",Courier,monospace; }

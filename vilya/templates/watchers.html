@@ -1,0 +1,31 @@
+<%!
+    from vilya.models.user import User
+%>
+<%inherit file="/base.html" />
+<%namespace name="utils" file="/pull/utils.html"/>
+<%namespace name="pagehead" file="/widgets/pagehead.mako" />
+<%def name="title()">${project.name} Watchers</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/watchers.css')}" />
+</%def>
+
+${pagehead.trac_header("", project, user)}
+
+
+%if users:
+<div class="gray">Make some friends with the one who is watching your repo...</div>
+<div class="userlist">
+%for u in users:
+<div class="user">
+    <div class="info">
+        <a href="${u.url}"><img src="${u.avatar_url}" class="user-avatar gravatar lazy"/></a>
+        <a href="${u.url}">${u.name}</a>
+    </div>
+</div>
+%endfor
+</div>
+%else:
+<div class="gray">No one in this page.</div>
+%endif

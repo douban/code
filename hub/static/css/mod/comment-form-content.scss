@@ -1,0 +1,9 @@
+.previewable-comment-form.tab-content { overflow:initial; position:relative; }
+.previewable-comment-form .write-content, .previewable-comment-form .preview-content { padding:10px }
+.previewable-comment-form textarea { display:block; width:100%; max-width:100%; min-height:100px; padding:10px; background:#FAFAFA; border:1px solid #DDD; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing:border-box; border-radius:3px }
+
+#add-comment-form .form-actions { padding:0; }
+#add-comment-form .form-content { position:relative; border: 3px solid #EEE; }
+#add-comment-form .form-content { padding: 0; background: #EEE; }
+#add-comment-form .form-content .write-content { padding:0 10px 10px; }
+#add-comment-form .form-content textarea { display: block; width: 100%; max-width: 100%; min-height: 100px; padding: 10px; background: #FAFAFA; border: 1px solid #DDD; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; border-radius: 3px; margin:0 }

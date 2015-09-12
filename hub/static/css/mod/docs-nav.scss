@@ -1,0 +1,12 @@
+.docsnav { clear: both; font-size: 120%; margin: 15px 0 25px; color: #34833E; padding: 4px 0 6px 0 }
+.docsnav a { color: #34833E; text-indent: 5px; }
+.docsnav table { width: 100% }
+.docsnav table td { vertical-align: top }
+.docsnav .bigger::before { font-size:160%; vertical-align: bottom; line-height: 16px; }
+.docsnav .biggest::before { font-size:200%; vertical-align: bottom; line-height: 10px; }
+.docsnav .search::before { font-size:130%; vertical-align: bottom; line-height: 13px; }
+
+.docsnav tr.first td { width: 33%; padding:0 6px 0px 6px; }
+.docsnav tr.second td { padding-top:9px }
+
+.docsnav { border-bottom: 1px solid #CCC; }

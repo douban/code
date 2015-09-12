@@ -1,0 +1,66 @@
+<%inherit file="/m/base.html" />
+<%!
+    from vilya.models.user import User
+    from vilya.libs.reltime import compute_relative_time
+    from vilya.libs.text import highlight_code, format_md_or_rst
+%>
+
+<%def name="head_style()">
+<link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/lib/jquery.mobile-1.3.0.min.css" />
+<link rel="stylesheet" href="/static/codemirror/codemirror.css" />
+<link rel="stylesheet" type="text/css" href="${static('/css/app/m/gist.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+<script src="/static/js/lib/jquery.mobile-1.3.0.min.js"></script>
+<script src="${static('/js/app/gist/main.js')}"></script>
+</%def>
+
+<%def name="body()">
+% for i in gists:
+<div class="gist gist-item">
+    <div class="byline">
+        <span class="creator">
+            <img src="${User(i.owner_id).avatar_url}">
+            <a href="/gist/${i.owner_id}">${i.owner_id}</a>
+            /
+            <a href="${ i.url }">${i.name}</a>
+        </span>
+        <div class="metadata">
+            <span class="datetime">Last Updated
+                <time class="js-relative-date">${compute_relative_time(i.repo.get_last_update_timestamp())}</time>
+            </span>
+        </div>
+        <span class="description">
+            ${ i.description }
+        </span>
+    </div>
+
+    <div class="snippet">
+        <div class="bubble ${ '' if i.is_public else 'secret' }">
+            <div class="file-box">
+                <a href="${ i.url }" class="link-overlay"></a>
+                <div class="data file">
+                    % if i.files:
+                    <%
+                         path = i.files[0]
+                         blob = i.get_file(path)
+                         src = blob[:10] if blob else ''
+                         abstract = '\n'.join(src.split('\n')[:3])
+                         %>
+                    % if path.endswith(('md', 'mkd', 'markdown')):
+                    <div class="markdown-body">${ format_md_or_rst(path, abstract) | n, decode.utf8 }</div>
+                    % else:
+                    ${ highlight_code(path, src) | n, decode.utf8 }
+                    % endif
+                    % else:
+                    <div class="markdown-body"> This gist has no files yet </div>
+                    % endif
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+% endfor
+</%def>

@@ -1,0 +1,51 @@
+<%inherit file="/gist/gist_base.html" />
+<%namespace name="diff_render" file="/widgets/diff/diff.html" />
+<%namespace name="commit_render" file="/widgets/commit.html" />
+
+<%block name="extra_head">
+  <link rel="stylesheet" type="text/css" href="${static('/css/app/gist.css')}" />
+  <link rel="stylesheet" type="text/css" href="${static('/css/app/gist-revisions.css')}" />
+</%block>
+
+${self.gist_content(request, gist)}
+
+<%def name="right_content(gist)">
+    % for idx, r in enumerate(revlist):
+        <%
+            diff = content[idx]
+            n_total = diff.length
+            n_adds = diff.additions
+            n_dels =  diff.deletions
+        %>
+        <div class="revision">
+            <div class="revision-meta">
+                <span class="creator">
+                <img src="${r.author.avatar_url}" width="24" height="24">
+                <strong><a href="/people/${r.author.name}">${r.author.name}</a> revised</strong> this gist <time class="js-relative-date" title="${r.time}" datetime="${r.time}">${r.time}</time>.
+                </span>
+                <span class="explain">
+                    <span class="mini-icon mini-icon-diff"></span>
+                    <strong>${n_total} changed file</strong> with <strong>${n_adds} additions</strong> and <strong>${n_dels} deletions</strong>.
+                <a href="${gist.url}/${r.sha}" class="minibutton" rel="nofollow">
+                    View gist @ <code>${r.sha[:7]}<span class="mini-icon mini-icon-arr-right"></span></code>
+                </a>
+                </span>
+            </div>
+        </div>
+        <div id="files" class="diff-view uncommentable">
+            ${diff_render.diff_files(diff.patches, None, is_commentable=False)}
+        </div>
+    % endfor
+    <div class="pagination-older-newer">
+        % if link_prev:
+            <a href="${link_prev}">&laquo; Newer</a>
+        % else:
+            <span class="disabled">&laquo; Newer</span>
+        % endif
+        % if link_next:
+            <a href="${link_next}">Older &raquo;</a>
+        % else:
+            <span class="disabled">Older &raquo;</span>
+        % endif
+    </div>
+</%def>

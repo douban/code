@@ -1,0 +1,50 @@
+<%inherit file="/source.html" />
+<%namespace name="pjax" file="/widgets/pjax_source.html" />
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/src/src.js')}"></script>
+    ## FIXME: 为何commits页面引用了compare.js ....
+    <script src="${static('/js/app/src/compare.js')}"></script>
+</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/commits.css')}" />
+    <meta http-equiv="x-pjax-version" content="v1">
+</%def>
+
+${parent.body()}
+
+<%def name="title()">
+    %if path_breadcrumb:
+        History for ${self.tree_current_path()}
+    %else:
+        Commit History
+    %endif:
+</%def>
+
+<%def name="suffix()">${project.name}</%def>
+
+<%def name="main()">
+    % if not path:
+        ${self.sourcenav_bar(active="commits")}
+    % else:
+        ${self.sourcenav_bar(active="files")}
+    % endif
+    ${pjax.commits_block()}
+    <script id="templ-compare-chooser" type="text/x-jquery-tmpl">
+      <div class="popup">
+        <div class="content">
+          <h2>Choose a ref to <span class="mode-lower">{{= mode}}</span> at</h2>
+          <p><span class="mode-upper">{{= mode}}</span>ing point can be a commit SHA, branch name or tag name.</p>
+          <input class="ref-autocompleter typeahead" type="text" value="{{= rev}}" data-provide="typeahead" data-source="{{= revisions}}"/>
+          <div class="place_preview">
+          </div>
+          <div class="form-actions">
+            <button type="submit" id="{{= mode}}-submit" class="refresh minibutton">Save &amp; Refresh</button>
+          </div>
+          <a href="#" class="close"><span class="mini-icon mini-icon-remove-close"></span></a>
+        </div>
+      </div>
+    </script>
+</%def>

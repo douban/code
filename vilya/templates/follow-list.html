@@ -1,0 +1,77 @@
+<%inherit file="/base.html" />
+<%!
+    from vilya.models.user import User, FollowRelationship
+%>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/people/main.js')}"></script>
+</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/people.css')}" />
+</%def>
+
+<%def name="title()">${name} · ${list_type}</%def>
+<%def name="suffix()"></%def>
+
+
+<div class="container">
+  <div class="follow-list">
+      <h1><a href="/people/${name}">${name} </a> / ${list_type}</h1>
+      % if count == 0:
+              <p class="text-info">
+              % if list_type == "followers":
+                  ${name} doesn’t have any followers.
+              % elif list_type == "following":
+                  ${name} isn't following anybody.
+              % endif
+              </p>
+      % elif len(user_list) == 0:
+          <p class="text-info">
+              No results anymore
+          </p>
+      % else:
+      <ul class="user-list clearfix">
+        % for username in user_list:
+            <%
+                this_user = User(username)
+            %>
+            <li class="mod follow-list-item">
+                <a href="/people/${username}" class="avatar">
+                    <img src="${this_user.avatar_in_size(64)}" width="64" height="64">
+                </a>
+                <strong class="username">
+                    <a href="/people/${username}">${username}</a>
+                </strong>
+
+                % if current_user and current_user.name != username:
+                <span class="follow-btn">
+                    % if not username in current_user_following:
+                        <a href="/people/${username}/follow" class="btn btn-small btn-success follow">
+                            <span>Follow</span>
+                        </a>
+                    % else:
+                        <a href="/people/${username}/unfollow" class="btn btn-small btn-danger unfollow" >
+                            <span>Unfollow</span>
+                        </a>
+                    % endif
+                </span>
+                %endif
+
+                <p class="clearfix email">
+                  <i class="icon-envelope"></i>
+                  <a href="mailto:${this_user.email}">${this_user.email}</a>
+                </p>
+             </li>
+        % endfor
+
+     </ul>
+     % endif
+
+     <%include file="/widgets/paginator.html", args="current=page, total=n_pages" />
+
+    </div>
+</div><!-- /.container -->

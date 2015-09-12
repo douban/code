@@ -1,0 +1,24 @@
+<body>
+    ${sender} added new commits to pull request
+    <a href="${ticket_url}" target="_blank">${ticket.title}(#${ticket.ticket_id})</a>
+    <br />
+    ——
+    <ul>
+        % for author, log, url, sha in delta_commits:
+        <li>
+        ${author}
+        ${log}
+        <a href="${url}" target="_blank">${sha}</a>
+        </li>
+        % endfor
+        % if more:
+        <li style="list-style:none">
+        And
+        <a href="${more}" target="_blank">${more_count} more commits</a>
+        </li>
+        % endif
+    </ul>
+    ——
+    <br />
+    <a href="${ticket_url}" target="_blank">View it on Code.</a>
+</body>

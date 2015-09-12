@@ -1,0 +1,61 @@
+<%inherit file="/base.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/team.css')}" />
+</%def>
+
+<%def name="make_title()">
+创建team
+</%def>
+
+<form name="add_team" action='/hub/add_team' method="post">
+    <div class="page">
+        <h3>添加team</h3>
+        <table class='table table-size'>
+            <tr>
+                <th class='text-right'><label for='uid'>唯一ID</label></th>
+                <td class='text-left'>
+                  <input type='text' id='uid' name='uid' value="${uid}"/>
+                  <p>team ID，且不可与其他team重复，且能使用字母数字及下划线</p>
+                  %if error == 'uid_not_exists':
+                  <p class="alert alert-error">请填写team ID</p>
+                  %endif
+                  %if error == 'invilid_uid':
+                  <p class="alert alert-error">uid只能使用字母数字及下划线</p>
+                  %endif
+                  %if error == 'uid_existed':
+                  <p class="alert alert-error">${uid}已经存在，请换一个名字</p>
+                  %elif error == 'user_id_existed':
+                  <p class="alert alert-error">已经存在id为${uid}的用户，请换一个名字, 或者联系管理员</p>
+                  %endif
+                </td>
+            </tr>
+            <tr>
+                <th class='text-right'><label for='name'>team名称</label></th>
+                <td class='text-left'>
+                  <input type='text' id='name' name='name' value="${name}"/>
+                  <p>team的唯一中文名称，不可与其他team重复</p>
+                  %if error == 'name_not_exists':
+                  <p class="alert alert-error">请填写team名称</p>
+                  %endif
+                  %if error == 'name_existed':
+                  <p class="alert alert-error">${name}已经存在，请换一个名字</p>
+                  %endif
+                </td>
+            </tr>
+            <tr>
+                <th class='text-right'><label for='description'>team介绍</label></th>
+                <td class='text-left'>
+                  <textarea id='description' name='description'>${description}</textarea>
+                  <p>team介绍，可为空</p>
+                </td>
+            </tr>
+            <tr>
+                <td class='text-center' colspan='2'>
+                    <input type='submit' id='submit' class='btn btn-success add_team_btn' value='Submit' />
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>

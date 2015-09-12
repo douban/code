@@ -1,0 +1,35 @@
+<%inherit file="/source.html" />
+
+${parent.body()}
+
+<%def name="main()">
+${self.sourcenav_bar()}
+${self.browsefiles_block(project, rev, allfiles)}
+</%def>
+
+<%def name="browsefiles_block(project, rev, allfiles)">
+    <div class="span12">
+        <h2>All files in tree at ${rev}</h2>
+        <ul class="browsefiles">
+        % for node in allfiles:
+            ${self.file_block(project, node, rev)}
+        % endfor
+        </ul>
+    </div>
+</%def>
+
+<%def name="file_block(project, node, rev)">
+    <li>
+        <%
+            if node['type'] == 'blob':
+                url = "/%s/%s/%s/%s" % (project.name, 'blob', rev, node['path'])
+            else:
+                url = "/%s/%s?rev=%s&path=%s" % (project.name, 'browsefiles', rev, node['path'])
+        %>
+        <a class="mode-${node['mode']} warn-${node['warn']}"
+            href="${url}">
+            <span class="mini-icon mini-icon-${node['icon-type']}"></span>
+            ${node['path']}
+        </a>
+    </li>
+</%def>

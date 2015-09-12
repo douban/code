@@ -1,0 +1,135 @@
+<%inherit file="/gist/gist_base.html" />
+
+<%!
+    from vilya.models.user import User
+    from vilya.libs.text import render_markdown
+
+%>
+
+<%def name="title()">${ gist.name }</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/gist/gist.js')}"></script>
+</%def>
+
+<%def name="banner(gist)">
+<div class="gist-description">
+  <p> ${ gist.description } </p>
+</div>
+</%def>
+
+<%def name="right_content(gist)">
+  <div class="column files">
+    % for path in gist.files:
+      <div class="bubble">
+       ${self.blob_block(gist, path, ref)}
+      </div>
+    % endfor
+  </div>
+  ${ self.comments(request, gist) }
+</%def>
+
+${ self.gist_content(request, gist) }
+
+<%def name="comments(request, gist)">
+<div id="comments" class="new-comments">
+  % for comment in gist.comments:
+  <div class="discussion-bubble js-comment-container" id="comment-${ comment.id }-container">
+    <img class="discussion-bubble-avatar" width="48" height="48" src="${ comment.author.avatar_url }">
+    <div class="discussion-bubble-content bubble">
+      <div class="discussion-bubble-inner">
+        <div class="comment js-comment" id="comment-${ comment.id }">
+          <div class="comment-header normal-comment-header">
+            <a href="#" class="comment-type-icon mini-icon mini-icon-commit-comment"></a>
+            <a href="${ comment.author.url }/" class="comment-header-author">${ comment.author.name }</a>
+            <span class="comment-header-action-text">
+              <span id="gistcomment-${ comment.id }">
+                <a href="/gist/${ gist.id }/#comment-${ comment.id }">commented</a>
+              </span>
+            </span>
+            <span class="comment-header-right">
+              <span id="gistcomment-${ comment.id }">
+                <a href="/gist/${ gist.id }/#comment-${ comment.id }" class="comment-header-date">
+                    <time class="js-relative-date" title="${ comment.created_at }" datetime="${ comment.created_at }">${ comment.created_at }</time>
+                </a>
+              </span>
+              <ul class="comment-header-actions">
+                <!--
+                <li><a class="js-comment-edit-button mini-icon mini-icon-edit" href="#"></a></li>
+                -->
+                % if request.user and comment.can_delete(request.user.username):
+                <li><a class="js-comment-delete delete-button mini-icon mini-icon-delete-note" act="delete" url="/gist/${ gist.id }/comments/${ comment.id }" target-id="${ comment.id }" href="javascript:void(0);"></a></li>
+                % endif
+              </ul>
+            </span>
+          </div>
+          <div class="comment-content">
+            <div class="edit-comment-hide">
+              <!-- <div class="comment-form-error">There has been an error</div> -->
+              <div class="comment-body markdown-body markdown-format js-comment-body">
+                  ${ render_markdown(comment.content) |n }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  % endfor
+</div>
+% if request.user:
+<form action="${ gist.url }/comments/" class="js-comment-form" data-pjax-remote="replace" method="post" accept-charset="UTF-8">
+  <input name="authenticity_token" type="hidden" value="xx">
+  <div class="discussion-bubble">
+    <img class="discussion-bubble-avatar" width="48" height="48" src="${ User(request.user.username).avatar_url }">
+    <div class="discussion-bubble-content bubble">
+      <div class="discussion-bubble-inner">
+        <div class="js-previewable-comment-form previewable-comment-form write-selected" data-preview-url="/preview">
+          <div class="comment-form-head tabnav">
+            <ul class="js-preview-tabs tabnav-tabs">
+              <li><a href="javascript:void(0);" class="tabnav-tab js-write-tab write-tab selected" action="write">Write</a></li>
+              <li><a href="javascript:void(0);" class="tabnav-tab js-preview-tab preview-tab" action="preview">Preview</a></li>
+            </ul>
+            <span class="tabnav-right">
+              <span class="tabnav-widget text"></span>
+            </span>
+          </div>
+          <div class="comment-form-error" style="display:none;">There has been an error.</div>
+          <div class="tab-content write-content js-write-content">
+            <div class="textarea-frame">
+              <textarea name="content" placeholder="Leave a comment" class="js-comment-field js-size-to-fit" style="height:37px;"></textarea>
+            </div>
+          </div>
+          <div class="tab-content preview-content">
+            <div class="comment">
+              <div class="comment-header normal-comment-header">
+                <img class="comment-header-gravatar" width="22" height="22" src="${ User(request.user.username).avatar_url }">
+                <a href="#" class="comment-header-author">${ request.user.username }</a>
+                <span class="comment-header-action-text">
+                  <a href="#">commented</a>
+                </span>
+                <span class="comment-header-right">
+                  <a href="#" class="comment-header-date">
+                    <time>just now</time>
+                  </a>
+                </span>
+              </div>
+              <div class="comment-content">
+                <div class="edit-comment-hide">
+                    <div class="comment-body markdown-body markdown-format preview-content-body js-preview-content">
+                      <p>Nothing to preview</p>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="gist-form-actions">
+    <button class="btn btn-primary js-comment-submit" type="submit" disabled>Comment</button>
+  </div>
+</form>
+% endif
+</%def>

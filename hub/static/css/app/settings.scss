@@ -1,0 +1,35 @@
+@import "css/mod/common";
+@import "css/mod/meta-nav";
+@import "css/mod/minibutton";
+
+.avatar {
+    display: inline-block;
+    width: 48px;
+    margin-right: 5px;
+}
+img.avatar{
+    width: 18px;
+    height: 18px;
+}
+.form-note {
+    margin-top: -1px;
+    display: inline-block;
+    padding: 5px;
+    font-size: 11px;
+    color: #494620;
+    background: #f7ea57;
+    border: 1px solid #c0b536;
+    border-top-color: #fff;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+ul.hook-list li a {
+    display: inline-block;
+    padding: 3px 0 3px 5px;
+    color: #999;
+    text-decoration: none;
+}
+
+.btn-details {
+    margin-right: 4px;
+}

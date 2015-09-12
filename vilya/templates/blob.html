@@ -1,0 +1,13 @@
+<%inherit file="/source.html" />
+<%namespace name="pjax" file="/widgets/pjax_source.html" />
+
+${parent.body()}
+
+<%def name="main()">
+    ${self.sourcenav_bar(active='files')}
+    <div id="pjax_container">
+    ${pjax.lastcommit_bar(project, ref_type, ref, lastcommit)}
+    ${pjax.breadcrumb(project, ref, path_breadcrumb, is_blob=True, ref_type=ref_type)}
+    ${pjax.blob_block()}
+    </div>
+</%def>

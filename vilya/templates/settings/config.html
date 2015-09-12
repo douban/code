@@ -1,0 +1,33 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.mako" />
+<%namespace name="utils" file="/settings/utils.html" />
+
+<%def name="title()">Config</%def>
+<%def name="suffix()">${project.name}</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/settings.css')}" />
+</%def>
+
+${pagehead.trac_header("settings", project, user)}
+
+${utils.settings_submenu(projname=project.name, active='conf')}
+
+<%def name='disp_conf(conf)'>
+<pre>
+    % for k in conf:
+        % if not isinstance(conf[k], dict):
+<b>${k}</b>: ${conf[k]}
+        % else:
+<b>${k}</b>:
+            % for sk in conf[k]:
+    ${sk}: ${conf[k][sk]}
+            % endfor
+        % endif
+    % endfor
+</pre>
+</%def>
+
+<p>Project configuration (using default values, possibly overriden by <tt>code_config.yaml</tt>)</p>
+${self.disp_conf(project.conf)}

@@ -1,0 +1,32 @@
+<%page args="target, issue, user, show_close, i_am_author, i_am_admin" />
+<%namespace name="issue_utils" file="/issue/utils.html"/>
+<%namespace name="issue_comments" file="/widgets/issue/issue_comment.html" />
+
+<div id="issue" data-url="${issue.url}">
+
+  <div id="content">
+    <% author = issue.creator %>
+    ${issue_utils.side_avatar(author)}
+
+    <%include file="/widgets/issue/issue_summary.html" args="target=target, issue=issue,
+                    user=user, i_am_author=i_am_author, i_am_admin=i_am_admin" />
+
+    <div class="participation" id="participants-block">
+        <%include file="/widgets/participation.html" args="participants=issue.participants" />
+    </div>
+    <div class="participation" id="room_peoples">
+        <p class="quickstat" style="display:none">people in room</p>
+    </div>
+
+    <div id="changelog" class="mod">
+        % for comment in issue.comments:
+            <div class="change js-edit-container">
+                ${issue_comments.render_inner(comment, target)}
+            </div>
+        % endfor
+    </div>
+
+    <%include file="/widgets/issue/issue_add_comment.html" args="target=target, issue=issue,
+                    user=user, show_close=show_close" />
+  </div>
+</div>

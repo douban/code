@@ -1,0 +1,262 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.mako" />
+<%namespace name="utils" file="/settings/utils.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/settings.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/home/settings.js')}"></script>
+</%def>
+
+<%def name="title()">Settings</%def>
+<%def name="suffix()">${project.name}</%def>
+
+${pagehead.trac_header("settings", project, user)}
+
+${utils.settings_submenu(projname=project.name, active='main')}
+
+<div class="raw">
+    <div class="span7">
+        <div class="well">
+        <h3>Settings</h3>
+        <form class="form-horizontal">
+            % if fork_from:
+            <div class="control-group">
+                <label class="control-label" for="origin_project">
+                    Forked From<span class="indicator"></span>
+                </label>
+                <div class="controls">
+                    <input type="text" id="origin_project" placeholder="" value="${fork_from.name}" readonly>
+                </div>
+            </div>
+            % endif
+            <div class="control-group">
+                <label class="control-label" for="name">Project Name<span class="indicator"></span></label>
+                <div class="controls">
+                    <input autocomplete="off" class="short js-repository-name" data-original-name="${project.realname}"
+                    id="rename_field" name="name" type="text" value="${project.realname}" readonly>
+                    <div>
+                        <label class="error form-note js-form-note" style="display:none"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="default_branch">Default Branch<span class="indicator"></span></label>
+                <div class="controls">
+                    <select id="default_branch" name="default_branch" data-project-name="${project.name}">
+                        % if project.repo:
+                            % for branch in project.repo.branches:
+                            <option value="${branch}" ${'selected="selected"' if project.repo.default_branch == branch else '' }>${branch}</option>
+                            % endfor
+                        % else:
+                        <option value="master" selected="selected">master</option>
+                        % endif
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for='product'>Product</label>
+                <div class="controls">
+                    <select name='product' id='product' data-project-name="${project.name}">
+                        % for team in teams:
+                        <option value='${team.uid}'
+                            % if team.uid == project.product:
+                                selected="selected"
+                            % endif
+                        >${team.name|n}</option>
+                        % endfor
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for='summary'>Summary</label>
+                <div class="controls">
+                    <textarea id='summary' name='summary'>${project.summary}</textarea>
+                    <a id="update_summary" class="btn" href="javascript:void(0);" data-project-name="${project.name}">Update</a>
+                </div>
+            </div>
+            %if not user.is_intern:
+            <div class="control-group">
+                <div class="controls">
+                    <label class="checkbox">
+                        <input id="intern_banned" name="intern_banned" data-project-name="${project.name}" type="checkbox" ${'checked' if project.intern_banned else ''}>Full-time staff only
+                    </label>
+                </div>
+            </div>
+            %endif
+            <div class="control-group">
+                <div class="controls">
+                    <label class="checkbox">
+                        <input id="can_push" name="can_push" data-project-name="${project.name}" type="checkbox" ${'' if project.can_push else 'checked'}>Merge only
+                    </label>
+                </div>
+            </div>
+        </form>
+        </div>
+        <div class="well">
+            <a id="settings-del-proj" class="right btn btn-danger" data-proj="${project.name}" href="javascript:void(0);">
+                Delete this project <i class="icon-trash icon-white"></i>
+            </a>
+            <a id="settings-transfer" data-toggle="modal" class="btn btn-danger" href="#transfer-project-modal">
+                Transfer project <i class="icon-random icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="span5">
+        <div class="well">
+            <h3>Committers</h3>
+            <ul>
+                % for committer in committers:
+                <li>
+                    <a href='${committer.url}' title="${committer.username}">
+                        <img src="${committer.avatar_url}" alt='${committer.username}' width="18" />
+                        ${committer.username}
+                    </a>
+                    % if project.is_owner(user):
+                        <a class="del-committer-btn close" href="#del-committer-modal" data-toggle="modal" title="Remove committer">
+                            &times;
+                        </a>
+                    % endif
+                </li>
+                % endfor
+                % if project.is_owner(user):
+                <li class="add-new-committer">
+                    <a href="#add-committer-modal" data-toggle="modal" title="Add new committer">
+                        &plus;
+                    </a>
+                </li>
+                % endif
+            </ul>
+        </div>
+        <div class="well">
+            <h3>Groups</h3>
+            <ul>
+                % for group in project.groups:
+                <li>
+                    <a href='${group.url}' title="${group.full_name}">
+                        ${group.full_name}
+                    </a>
+                    % if project.is_owner(user):
+                        <a class="del-group-btn close" href="#del-group-modal" data-toggle="modal" title="Remove group">
+                            &times;
+                        </a>
+                    % endif
+                </li>
+                % endfor
+                % if project.is_owner(user):
+                <li class="add-new-committer">
+                    <a href="#add-group-modal" data-toggle="modal" title="Add new group">
+                        &plus;
+                    </a>
+                </li>
+                % endif
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="add-committer-modal" class="committer-modal modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Add new committer</h3>
+    </div>
+    <div class="modal-body">
+        <form action="add_committer" method="post">
+            <fieldset>
+                <input type="text" name="username" placeholder="多个用户名请用空格隔开" />
+                <input type="submit" class="btn-primary btn" value="Add" data-disable-with="Adding..." />
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" data-dismiss="modal" aria-hidden="true" class="btn">Close</a>
+    </div>
+</div>
+
+<div id="del-committer-modal" class="committer-modal modal hide fade">
+    <form action="del_committer" method="post">
+        <div class="modal-body">
+            <fieldset>
+                <input type="hidden" class="username" name="username" />
+                <p>确定要从Committers中移除<span class="del-committer-name"></span>?</p>
+            </fieldset>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">让我再考虑一下</button>
+            <input data-disable-with="移除中..." type="submit" class="btn btn-primary" value="妥妥的！" />
+        </div>
+    </form>
+</div>
+
+<div id="transfer-project-modal" class="project-modal modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Transfer Project to ?</h3>
+    </div>
+    <div class="modal-body">
+        <form action="transfer_project" method="post">
+            <fieldset>
+                <input type="text" name="username" placeholder="please input a username" required="true" />
+                <input type="submit" class="btn-primary btn" value="Add" data-disable-with="Adding..." />
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" data-dismiss="modal" aria-hidden="true" class="btn">Close</a>
+    </div>
+</div>
+
+<div id="rename-project-modal" class="project-modal modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Rename Project to ?</h3>
+    </div>
+    <div class="modal-body">
+        <form action="rename_project" method="post">
+            <fieldset>
+                <input type="text" name="repo_name" placeholder="please input a repo name" required="true" />
+                <input type="submit" class="btn-primary btn" value="Rename" data-disable-with="Renaming" />
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" data-dismiss="modal" aria-hidden="true" class="btn">Close</a>
+    </div>
+</div>
+
+<div id="add-group-modal" class="committer-modal modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Add group</h3>
+    </div>
+    <div class="modal-body">
+        <form action="groups/" method="post">
+            <fieldset>
+                <input type="text" name="group" placeholder="" />
+                <input type="submit" class="btn-primary btn" value="Add" data-disable-with="Adding..." />
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" data-dismiss="modal" aria-hidden="true" class="btn">Close</a>
+    </div>
+</div>
+
+<div id="del-group-modal" class="committer-modal modal hide fade">
+    <form action="groups/destroy" method="post">
+        <div class="modal-body">
+            <fieldset>
+                <input type="hidden" class="group" name="group" />
+                <p>确定要从Groups中移除<span class="del-group-name"></span>?</p>
+            </fieldset>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">让我再考虑一下</button>
+            <input data-disable-with="移除中..." type="submit" class="btn btn-primary" value="妥妥的！" />
+        </div>
+    </form>
+</div>
+

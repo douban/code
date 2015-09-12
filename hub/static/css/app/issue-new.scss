@@ -1,0 +1,91 @@
+@import "css/mod/common";
+@import "css/mod/markdown-content";
+@import "css/mod/project-info";
+@import "css/mod/upload-widget";
+@import "css/lib/tag-it";
+@import "css/lib/jquery.atwho";
+
+/* highlight */
+@import "css/mod/pull-highlight";
+
+.pull-form input[type="text"] {
+    font-size: 14px;
+    padding: 5px 5px;
+    margin: 0 0 5px 0;
+    width: 98%;
+    color: #444;
+}
+.pull-form textarea {
+    height: 200px;
+}
+.pull-form-main .form-actions {
+    padding: 0;
+    margin-top: 10px;
+    text-align: right;
+    padding-bottom: 5px;
+    background-color: inherit;
+    border-top: none;
+}
+
+.previewable-comment-form .zen-enabled textarea {
+    padding: 10px 18px 10px 10px;
+}
+.previewable-comment-form textarea {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-height: 100px;
+    padding: 10px;
+    border: 1px solid #DDD;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+
+/* Write/Preview Control style for new PR component */
+ul.edit-preview-tabs {
+    margin: 0 0 5px 0;
+    line-height: 13px;
+}
+ul.edit-preview-tabs li {
+    list-style-type: none;
+    margin: 0;
+    display: inline-block;
+}
+ul.edit-preview-tabs a {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #666;
+    border: 1px solid transparent;
+    border-radius: 10px;
+}
+
+/* Description Component background & help text, from hub.css*/
+.comment-form {
+    position: relative;
+}
+
+.comment-form p.help {
+    margin: 0;
+    float: right;
+    line-height: 32px;
+    font-size: 12px;
+    color: #bbb;
+}
+
+/* tag */
+.tag-groups p{
+    margin: 0;
+}
+
+.tags input[type="text"] {
+    font-size: 14px;
+    padding: 5px 0px;
+    margin: 0 0 5px 5px;
+    width: 98%;
+    color: #444;
+}

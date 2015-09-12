@@ -1,0 +1,81 @@
+@import "css/mod/source-code-pro";
+
+.code pre, xmp, plaintext, listing {
+    display: block;
+    font-size: 13px;
+    font-family: 'Source Code Pro',Courier,Monaco,Consolas,Menlo,monospace;
+    white-space: pre;
+    margin: 0;
+    padding: 0;
+}
+
+.code pre {
+    line-height: 18px;
+}
+
+.font-consolas pre {
+    font-family: Consolas,'Source Code Pro',Courier,Monaco,Menlo,monospace;
+}
+
+.font-monaco pre {
+    font-family: Monaco,'Source Code Pro',Courier,Consolas,Menlo,monospace;
+}
+
+.font-courier pre {
+    font-family: Courier,'Source Code Pro',Monaco,Consolas,Menlo,monospace;
+}
+
+.font-dejavu pre {
+    font-family: 'DejaVu Sans Mono','Source Code Pro',Courier,Monaco,Consolas,Menlo,monospace;
+}
+
+.font-ubuntu pre {
+    font-family: 'Ubuntu Mono','Source Code Pro',Courier,Monaco,Consolas,Menlo,monospace;
+}
+
+// code tag??
+pre, code, tt {
+    font-size: 12px;
+    font-family: Consolas,Menlo,"Liberation Mono",Courier,monospace;
+    border: 0;
+}
+
+.highlight .normal {
+    background-color: #FFF;
+}
+
+.highlight .deletion {
+    color: black;
+    background-color: #FDD;
+    & .x, & .c {
+      color: black;
+      background-color: #ffaaaa;
+    }
+}
+
+.highlight .insertion {
+    color: black;
+    background-color: #DFD;
+    & .i, & .c {
+      color: black;
+      background-color: #aaffaa;
+    }
+}
+
+.highlight .skipped {
+    color: rgb(202, 202, 202);
+    background-color: rgb(249, 249, 249);
+
+    a {
+      color: rgb(202, 202, 202);
+      vertical-align: middle;
+
+      &:hover {
+        text-decoration: none;
+      }
+
+      &[data-type="after"], &[data-type="before"]  {
+        font-size: 20px;
+      }
+    }
+}

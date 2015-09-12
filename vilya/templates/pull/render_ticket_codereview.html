@@ -1,0 +1,56 @@
+<%!
+    from vilya.models.user import User
+%>
+
+<%namespace name="utils" file="/pull/utils.html"/>
+<%namespace name="diff_block_render" file="/pull/render_codereview_block.html"/>
+
+## CodeReview 特指 在 Discussion 里的diff patch linecomment 回显
+## 用于在pr/discussion里显示CodeReview
+<%def name="render_inner(pullreq, codereviews, shas=None, diff_by_linecomment_id=None)">
+    <%
+        first_linecomment = codereviews[0]
+        last_linecomment = codereviews[-1]
+        if diff_by_linecomment_id:
+            diff = diff_by_linecomment_id[first_linecomment.id]
+        else:
+            diff = pullreq.get_diff(ref=first_linecomment.from_sha, paths=first_linecomment.paths,
+                                    rename_detection=True, linecomments=codereviews)
+    %>
+
+    <div class="change-header">
+        <span class="change-header-right">
+            <a class="hidden-phone" \
+               href="${'/%s/pull/%s/files#%s' % (project, pullreq.ticket_id, first_linecomment.uid)}">
+                View full changes
+            </a>&nbsp;&nbsp;
+            ## TODO: 加上锚点链接
+            ${utils.related_time_html(first_linecomment.created_at)}
+        </span>
+        <a href="${User(first_linecomment.author).url}">${first_linecomment.author}</a> started a discussion in the diff
+    </div>
+
+    ## outdated
+    ## TODO: 再加一种 oid 判断 outdated
+    ## FIXME: add more message
+    % if not diff or (shas and last_linecomment.from_sha not in shas):
+        <div class="outdated_mark"><a href="javascript:void(0)">discussion outdated due to force push</a></div>
+        <div class="outdated_codereview">
+            % if diff:
+                ${diff_block_render.diff_block(pullreq, diff, first_linecomment=first_linecomment)}
+            % endif
+        </div>
+    % else:
+        ${diff_block_render.diff_block(pullreq, diff, first_linecomment=first_linecomment)}
+    % endif
+
+</%def>
+
+## template used by ajax
+## TODO: 把这个删掉，用ticket_thread 里的
+${utils.side_avatar(author)}
+<div class="change">
+    <div class="discussion-bubble-inner">
+        ${render_inner(pullreq, codereviews)}
+    </div>
+</div>

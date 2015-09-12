@@ -1,0 +1,61 @@
+<%!
+    from vilya.models.user import User
+    from vilya.models.consts import PULL_COMMENT_UID_PATTERN
+    from vilya.libs.text import render_markdown_with_project, replace_onimaru_to_link
+%>
+
+<%namespace name="utils" file="/pull/utils.html"/>
+
+<%def name="edit_prcomment_form(submit_url, content)">
+<div class="form-content js-write-bucket js-uploadable-container upload-enabled is-default focused" data-model="asset">
+    <form accept-charset="UTF-8" action="${submit_url}" class="js-comment-update" data-remote="true" data-type="json"  method="post">
+        <div class="fieldWithErrors">
+            <textarea class="js-comment-field js-size-to-fit" name="pull_request_comment" tabindex="1" style="height: 34px;">${content}</textarea>
+        </div>
+
+        <div class="form-actions">
+            <a href="javascript:void(0);" class="minibutton danger comment-cancel-button js-comment-cancel-button">Cancel</a>
+            <button type="submit" class="classy primary" tabindex="1" data-disable-with="" data-enable-with="Update Comment">Update Comment</button>
+        </div>
+    </form>
+</div>
+</%def>
+
+<%def name="render_inner(comment, project_name)">
+    <div class="change-header comment-header">
+        <span class="change-header-right">
+            <% uid = comment.uid %>
+            <a id="${uid}" href="#${uid}" class="change-header-date">${utils.related_time_html(comment.time)}</a>
+                % if current_user and comment.author == current_user.name:
+                <ul class="comment-header-actions">
+                <li>
+                    <a class="edit-pr-note js-comment-edit-button mini-icon mini-icon-edit"
+                       href="javascript:void(0);"></a>
+                </li>
+                <li>
+                    <a class="delete-pr-note-button js-comment-delete mini-icon mini-icon-delete-note"
+                       data-confirm="Are you sure you want to delete this?"
+                       href="${'/%s/pr_comment/%s/delete' % (project.name, comment.id)}"></a>
+                </li>
+                </ul>
+                % endif
+
+        </span>
+        <a href="${User(comment.author).url}">${comment.author}</a> commented
+    </div>
+    <div class="comment-content">
+        <div class="comment comment-body markdown-body markdown-format">
+            ${render_markdown_with_project(replace_onimaru_to_link(comment.content, project), project_name)|n}
+        </div>
+    % if current_user and comment.author == current_user.name:
+             ${edit_prcomment_form('/%s/pr_comment/%s/edit' % (project.name, comment.id), comment.content)}
+    % endif
+    </div>
+</%def>
+
+${utils.side_avatar(author)}
+<div class="change">
+    <div class="discussion-bubble-inner">
+        ${render_inner(comment, project.name)}
+    </div>
+</div>

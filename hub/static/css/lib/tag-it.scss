@@ -1,0 +1,44 @@
+ul.tagit {
+	overflow:auto;
+}
+ul.tagit li {
+	-moz-border-radius:5px 5px 5px 5px;
+	display: block;
+	float: left;
+	margin:2px 5px 2px 0;
+}
+ul.tagit li.tagit-choice {
+	background-color:rgba(0,168,156,1);
+	padding:2px 4px 3px;
+	color: #fff;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+}
+
+ul.tagit li.tagit-choice:hover{
+    color: rgba(255,255,255,0.8);
+    cursor: pointer;
+}
+ul.tagit li.tagit-new {
+	padding:2px 4px 3px;
+	padding:2px 4px 1px;
+	padding:2px 4px 1px 0;
+}
+
+ul.tagit li.tagit-choice input {
+	display:block;
+	float:left;
+	margin:2px 5px 2px 0;
+}
+ul.tagit li.tagit-choice a.tag-close {
+	color:#fff;
+	cursor:pointer;
+	font-weight:bold;
+	padding-left: 3px;
+	text-decoration:none;
+    text-shadow: none;
+}
+ul.tagit input[type="text"] {
+	width: 200px;
+}

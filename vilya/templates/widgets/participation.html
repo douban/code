@@ -1,0 +1,15 @@
+<%page args="participants" />
+<%!
+     import json
+     from vilya.models.user import User
+     from vilya.libs.text import plural
+%>
+
+<input type="hidden" id="participants" value="${json.dumps([p.user_id for p in participants])}" />
+<input type="hidden" id="all-teams" value="${json.dumps(teams)}" />
+<p><strong>${len(participants)}</strong> ${plural(len(participants), "participant", "participants")}</p>
+
+% for p in participants:
+    <% p = User(p.user_id) %>
+    <a class="avatar avatar-tiny" href="${p.url}" title="${p}"><img height="24" src="${p.avatar_url}" width="24"></a>
+% endfor

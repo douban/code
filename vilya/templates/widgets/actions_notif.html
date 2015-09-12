@@ -1,0 +1,174 @@
+<%page args="actions=[]" />
+<%namespace name="utils" file="/widgets/utils.html" />
+
+<%!
+    import json
+    from itertools import groupby
+
+    from vilya.models.project_issue import ProjectIssue
+    from vilya.models.project import CodeDoubanProject
+    from vilya.models.pull import PullRequest
+    from vilya.models.ticket import Ticket
+%>
+
+<%def name="disp_timeline(actions=[])">
+    <div class="notif-list">
+
+        <%
+            keyfunc_target = lambda x: x.get('target', 'other')
+            keyfunc_entry_id = lambda x: x.get('entry_id', '')
+
+            actions.sort(key=lambda x: (keyfunc_target(x), keyfunc_entry_id(x)))
+
+            merged_pr_uids = []
+        %>
+        % for target, item in groupby(actions, keyfunc_target):
+        <div class="notif-item" id="${target}">
+            <%
+                entry_list = list(item)
+            %>
+            <div class="item-header">
+                <form accept-charset="UTF-8" action="/hub/notification/mark" class="mark-item" method="post">
+                    % for action in entry_list:
+                        <input type="hidden" name="uids" value="${action.get('uid')}">
+                    % endfor
+                    <button>
+                        <i class="icon-ok"></i>
+                    </button>
+                </form>
+                <div class="title">
+                ${target}
+                </div>
+            </div>
+            <div class="item-body">
+            % for entry_id, entry in groupby(entry_list, keyfunc_entry_id):
+            <%
+                entry = list(entry)
+                _default = entry[0]
+                scope = _default.get('scope')
+                entry_title = _default.get('entry_title')
+
+                if 'issue' in _default.get('type'):
+                    entry_type = 'issue'
+                elif 'pull' in _default.get('type'):
+                    entry_type = 'pull'
+                else:
+                    entry_type = ''
+            %>
+
+            <div class="entry">
+                <div class="entry-title">
+                    <ul class="entry-actions">
+                        <li>
+                        <form accept-charset="UTF-8" action="/hub/notification/mark" class="mark-entry" method="post">
+                            % for action in entry:
+                                <input type="hidden" name="uids" value="${action.get('uid')}">
+                            % endfor
+                            <button>
+                                <i class="icon-ok"></i>
+                            </button>
+                        </form>
+                        </li>
+                        ## 目前只支持 project相关的 mute
+                        % if scope in ('project', ) and entry_type in ('issue', 'pull') and entry_id:
+                        <li>
+                        <form accept-charset="UTF-8" class="mute-entry" \
+                            action="/hub/notification/mute?type=${entry_type}&target=${target}&id=${entry_id}" method="post">
+                            <button>
+                                <i class="icon-volume-up"></i>
+                            </button>
+                        </form>
+                        </li>
+                        % endif
+                    </ul>
+                    <div class="title">
+                        % if entry_type == 'issue':
+                            <i class="icon-exclamation-sign"></i>
+                        % elif entry_type == 'pull':
+                            <i class="icon-refresh"></i>
+                        % else:
+                            <i class="icon-bullhorn"></i>
+                        % endif
+                        ${entry_title}
+
+                        ## FIXME: 这里拿 issue, Ticket, pullreq, 略重
+                        % if scope in ('project', ) and entry_type in ('issue', 'pull') and entry_id:
+                        <%
+                            state = ''
+                            time = None
+                            state_css = ''
+
+                            if entry_type == 'issue':
+                                issue = ProjectIssue.get_by_proj_name_and_number(target, entry_id)
+                                if issue:
+                                    if issue.is_closed:
+                                        state = 'closed'
+                                        time = issue.closed_at
+                                        state_css = 'label-important'
+                                    else:
+                                        state = 'opened'
+                                        time = issue.created_at
+                                        state_css = 'label-info'
+                                else:
+                                    state = 'ERROR'
+                            elif entry_type == 'pull':
+                                proj_id = CodeDoubanProject.get_id_by_name(target)
+                                if proj_id:
+                                    ticket = Ticket.get_by_projectid_and_ticketnumber(
+                                        proj_id, entry_id)
+                                    pullreq = PullRequest.get_by_proj_and_ticket(
+                                        proj_id, entry_id)
+                                    if ticket and pullreq:
+                                        if pullreq.merged:
+                                            state = 'merged'
+                                            time = ticket.closed
+                                            state_css = 'label-success'
+
+                                            merged_pr_uids += [action.get('uid') for action in entry]
+
+                                        elif ticket.closed:
+                                            state = 'closed'
+                                            time = ticket.closed
+                                            state_css = 'label-important'
+
+                                            ## FIXME: hack
+                                            merged_pr_uids += [action.get('uid') for action in entry]
+                                        else:
+                                            state = 'opened'
+                                            time = ticket.time
+                                            state_css = 'label-info'
+                                    else:
+                                        state = 'ERROR'
+                                else:
+                                    state = 'ERROR'
+
+                        %>
+                        <span class="label ${state_css}">
+                        ${state}
+                        ${utils.time2relaive_time(time)}
+                        </span>
+                        % endif
+                    </div>
+                </div>
+                <div class="entry-body" style="display: none">
+                    % for action in entry:
+                    <%include file="/widgets/notif_action.html" args="action=action"/>
+                    % endfor
+                </div>
+            </div>
+            % endfor
+            </div>
+        </div>
+        % endfor
+
+        ## for mark all merged PR
+        <form accept-charset="UTF-8" action="/hub/notification/mark" id="merged-pr-uids" method="post">
+            % for uid in merged_pr_uids:
+                <input type="hidden" name="uids" value="${uid}">
+            % endfor
+        </form>
+
+    </div>
+</%def>
+
+${disp_timeline(actions)}

@@ -1,0 +1,29 @@
+<%page args="repo" />
+<%
+languages = []
+size = sum([l['count'] for l in repo.languages])
+for lang in repo.languages:
+    lang['percentage'] = str(round(lang['count']/float(size) * 100, 2)) + '%'
+    languages.append(lang)
+%>
+
+% if languages:
+<div class="repository-lang-stats">
+  <div class="repository-lang-stats-graph">
+    % for lang in languages:
+      <span class="language-color" style="width:${ lang['percentage'] }; background-color:${ lang['color' ]};" itemprop="keywords">${ lang['name'] }</span>
+    % endfor
+  </div>
+  <ol class="list-tip">
+  % for lang in languages:
+    <li>
+      <a href="#">
+        <span class="color-block language-color" style="background-color:${ lang['color'] }"></span>
+        <span class="lang">${ lang['name'] }</span>
+        <span class="percent">${ lang['percentage'] }</span>
+      </a>
+    </li>
+  % endfor
+  </ol>
+</div>
+% endif

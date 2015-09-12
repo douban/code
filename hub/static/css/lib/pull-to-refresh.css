@@ -1,0 +1,71 @@
+.scrollable {
+	overflow-y: auto;
+	height: 100%;
+	-webkit-overflow-scrolling: touch;
+	position: relative;
+}
+
+.scrollable .wrap {
+	min-height: 100%;
+	padding-bottom: 1px;
+	background: #f5f5f5;
+	-webkit-transform: translateZ(0);
+}
+
+.pull-to-refresh {
+	line-height: 40px;
+	height: 40px;
+	width: 100%; 
+	
+	position: absolute; 
+	left: 0; 
+	top: -40px;
+
+	font-size: 0.85em;
+
+	z-index: -1;
+}
+
+.pull-to-refresh >.message {
+	height: 40px;
+	width: 100%;
+	overflow-y: auto;
+	position: relative;
+}
+
+.pull-to-refresh >.message >i.arrow, 
+.pull-to-refresh >.message >i.spinner {
+	-webkit-background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	background-size: 100% 100%;
+	display: inline-block;
+	margin-left: 10px;
+	background-position: center center;
+	
+}
+
+.pull-to-refresh >.message >i.arrow {
+	width: 20px;
+	height: 40px;
+	background-image: url('../img/arrow.png');
+}
+
+.pull-to-refresh >.message >i.spinner { 
+	width: 16px;
+	height: 16px;
+	background-image: url('../img/spinner.gif');
+}
+
+.pull-to-refresh >.message >span.pull,
+.pull-to-refresh >.message >span.release, 
+.pull-to-refresh >.message >span.loading {
+	text-align: center;
+
+	display: block;
+	height: 40px;
+	width: 100%;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}

@@ -1,0 +1,16 @@
+<%page args="badge_items=[], limit=None" />
+<ul>
+  %if badge_items:
+  %for idx, item in enumerate(badge_items):
+  % if limit and idx >= limit:
+  <a href="/people/${name}/badges">See more</a>
+  <% break %>
+  % endif
+  <li style="display:inline;">
+    <img class="badgeInfo lazy" data-original="${item.badge.get_image_url()}" width="48"
+         height="48" style="padding:2px;"
+         data-title="${item.badge.name}" data-reason="${item.reason or item.badge.summary}" data-trigger="hover" />
+  </li>
+  %endfor
+  %endif
+</ul>

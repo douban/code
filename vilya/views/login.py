@@ -1,24 +1,22 @@
-# -*- coding: utf-8 -*-
+# coding=utf-8
+import json
 
-from __future__ import absolute_import
-from quixote.errors import TraversalError, AccessError
 from vilya.libs.template import st
-from vilya.models.user import User
+from vilya.models.user import User, set_user
 
 _q_exports = []
 
 
-def __call__(request):
-    return _q_index(request)
-
-
 def _q_index(request):
     if request.method == 'POST':
-        name = request.get_form_var('login')
+        name = request.get_form_var('username')
         password = request.get_form_var('password')
         user = User.get_by_name(name)
         if user and user.validate_password(password):
-            user.set_session(request)
+            continue_url = request.get_form_var(
+                'continue', '') or request.get_form_var('Referer', '')
             request.user = user
-            return request.redirect('/')
+            set_user(user.id)
+            return json.dumps({"r": 0, "continue": continue_url or "/"})
+        return json.dumps({"r": 1})
     return st('login.html')

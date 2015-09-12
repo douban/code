@@ -4,7 +4,7 @@
 . common.sh
 
 echo "Install needed package.This may take some time..."
-sudo yum install -y -q git python-virtualenv python-devel memcached gcc gcc-c++
+sudo yum install -y -q git python-virtualenv python-devel memcached gcc gcc-c++ redis-server
 
 echo "Install mysql..."
 sudo yum install mysql-server mysql mysql-devel

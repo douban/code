@@ -1,0 +1,11 @@
+#tree, #blob { margin: 0 0 27px; }
+
+.tree-browser { width:100%; margin:0; border-radius:3px; border:1px solid #CACACA; }
+.tree-browser th{ text-align:left; font-weight:bold; padding:6px 3px; color:#555; text-shadow:0 1px 0 #fff; border-bottom:1px solid #d8d8d8; background:#fafafa; background:-moz-linear-gradient(#fafafa,#eaeaea); background:-webkit-linear-gradient(#fafafa,#eaeaea); -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa',endColorstr='#eaeaea')"; }
+.tree-browser td{ background:#f8f8f8; border-bottom:1px solid #eee; padding:7px 3px; color:#484848; vertical-align:middle; }
+.tree-browser tbody tr:last-child td { border-bottom:0; }
+.tree-browser .message { min-width:270px; max-width: 484px;}
+.tree-browser td a.message { color:#484848 }
+
+.tree-browser i, .file i, .commit-group-item i { filter:alpha(opacity=70);opacity:.7; }
+.file .error { text-align:center; margin:30px; color:#666; }

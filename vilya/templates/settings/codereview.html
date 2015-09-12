@@ -1,0 +1,65 @@
+<%inherit file="/base.html" />
+<%namespace name="utils" file="/settings/utils.html" />
+<%!
+    from vilya.models.consts import SETTING_ENABLE, FONTS
+%>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/settings/codereview.js')}"></script>
+</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/my-settings.css')}" />
+</%def>
+
+<%def name="title()">Code Review</%def>
+
+${utils.personal_settings_submenu("codereview")}
+
+<div class="raw">
+    <div class="span12">
+        <div class="settings-content">
+        <div class="mod">
+            <div id="settings-codereview" class="">
+                <h4>Inline comment</h4>
+                <p>
+                    Double-click a line to add an inline comment.
+                </p>
+                <ul class="compact-options">
+                    <li class="checkbox-container">
+                        <input id="dblclick_comment"
+                        name="dblclick_comment"
+                        tabindex="1"
+                        type="checkbox"
+                        value="dblclick_comment"
+                        ${"checked" if user.settings.dblclick_comment == SETTING_ENABLE else ''}>
+                        <label for="dblclick_comment" class="checkbox checked">Enable</label>
+                    </li>
+                </ul>
+            </div>
+            <hr class="horizontal_line">
+            <div id="settings-font">
+                <h4>Diff text font</h4>
+                <p>
+                    Choose diff text font.
+                </p>
+                <div class="control-group">
+                    <div class="controls">
+                        <select id="text_font">
+                            <% font_selected = user.settings.text_font %>
+                            % for name, label in FONTS['fonts'].iteritems():
+                                <option value="${name}" ${'selected="true"' if font_selected == name else ''}>
+                                ${label}
+                                </option>
+                            % endfor
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

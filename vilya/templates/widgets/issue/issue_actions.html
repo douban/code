@@ -1,0 +1,133 @@
+<%namespace name="tags_util" file="/widgets/tags.html" />
+<%def name="actions(issue, is_author=False ,is_admin=False, user=None)">
+    <ul class="actions">
+        % if issue.provide('vote'):
+        <li>
+          <%namespace file="/widgets/upvote_button.html" import="upvote_button" />
+          ${upvote_button(has_user_voted,vote_count)}
+        </li>
+        % endif
+        % if issue.provide('pledge'):
+          <li>
+            <a href="pledge" title="承诺贡献" class="btn btn-small btn-danger">
+              Pledge
+            </a>
+            <a class="btn btn-small counts-label" id="pledge-count" href="#">${ issue.pledged_amount }</a>
+          </li>
+        % endif
+        % if is_author:
+            <li><a href="javascript:void(0);" class="btn btn-small js-edit-button">Edit</a></li>
+        % endif
+            <li><a href="#add-tag-modal" data-toggle="modal" title="Add new tag" class="btn btn-small js-tag-button">Tag</a></li>
+        % if is_author or is_admin:
+            <li><a href="#assign-modal" data-toggle="modal" title="Assign someone to this issue" class="btn btn-small js-assign-button">Assign</a></li>
+        % endif
+        % if issue.provide('milestone'):
+            <li>
+                <a class="btn btn-small" href="#milestone-modal" role="button" data-toggle="modal" data-url="/">
+                    <i class="icon-white icon-road"></i>
+                    <span class="caret"></span>
+                </a>
+            </li>
+        % endif
+        <%
+            has_joined = issue.has_participated(user.name) if user else None
+        %>
+        <li>
+            %if has_joined:
+            <a href="javascript:void(0);" title="Join this issue" data-url="${issue.url}" data-type="leave" class="btn btn-small btn-danger join-issue-btn">Leave</a>
+            %else:
+            <a href="javascript:void(0);" title="Join this issue" data-url="${issue.url}" data-type="join" class="btn btn-small join-issue-btn">Join</a>
+            %endif
+
+        </li>
+
+        % if issue.provide('related-projects'):
+          <li>
+            <a href="relate" title="关联项目" class="btn btn-small">
+              Relate
+            </a>
+          </li>
+        % endif
+
+    </ul>
+</%def>
+
+<%def name="tag_modal()">
+<div id="add-tag-modal" class="tag-modal modal mod hide fade">
+    <form action="tag" method="post" style="margin-bottom: 0;">
+        <div class="mod-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4>Apply tags to this issue</h4>
+        </div>
+        <div class="mod-body">
+            ${tags_util.new_tags(issue.target.tags, issue.tags)}
+        </div>
+        <div class="mod-footer">
+            <button class="btn btn-primary">Save changes</button>
+            <button class="btn" data-dismiss="modal" aria-hidden="true" data-dismiss="modal">Close</button>
+        </div>
+    </form>
+</div>
+</%def>
+
+<%def name="assign_modal()">
+<div id="assign-modal" class="assign-modal modal mod hide fade">
+    <form action="assign" method="post" style="margin-bottom: 0;">
+        <div class="mod-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4>Assign someone to this issue</h4>
+        </div>
+        <div class="mod-body">
+            <fieldset>
+                <input type="text" name="assignee" placeholder="Assignee" />
+            </fieldset>
+        </div>
+        <div class="mod-footer">
+            <button class="btn btn-primary">Save changes</button>
+            <button class="btn" data-dismiss="modal" aria-hidden="true" data-dismiss="modal">Close</button>
+        </div>
+    </form>
+</div>
+</%def>
+
+<%def name="milestone_modal()">
+% if issue.provide('milestone'):
+<div id="milestone-modal" class="modal mod hide fade" tabindex="-1" role="dialog" aria-labelledby="milestone-label" aria-hidden="true">
+    <form action="milestone" method="post" style="margin-bottom: 0;">
+        <div class="mod-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 id="milestone-label">Set milestone</h4>
+        </div>
+        <div class="mod-body">
+            <input type="text" class="input-xlarge" id="milestone_title" name="milestone_title">
+            <input id="milestone_new" name="milestone" type="radio" value="new" checked>
+            <div class="submenu">
+                <ul class="milestone-menu">
+                    <li>
+                        <a href="#"><i class="icon-remove-sign"></i> Clear this milestone</a>
+                        <input id="milestone_clear" name="milestone" type="radio" value="clear">
+                    </li>
+                    % for ms in issue.target.issue_milestones:
+                    <li class="${'active' if ms.id == issue.milestone_id else ''}">
+                        <a href="#"><i class="icon-road"></i> ${ms.name}</a>
+                        <input id="milestone_${ms.id}" name="milestone" type="radio" value="${ms.id}">
+                    </li>
+                    % endfor
+                </ul>
+            </div>
+        </div>
+        <div class="mod-footer">
+            <button class="btn btn-primary">Save changes</button>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        </div>
+    </form>
+</div>
+% endif
+</%def>
+
+<%def name="modals()">
+    ${tag_modal()}
+    ${assign_modal()}
+    ${milestone_modal()}
+</%def>

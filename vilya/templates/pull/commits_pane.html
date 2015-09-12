@@ -1,0 +1,97 @@
+## TODO: 应该可以跟 templates/widgets/commit.html 合
+
+<%!
+     from itertools import groupby
+     from vilya.models.commit_statuses import CommitStatuses
+%>
+<%namespace name="utils" file="/pull/utils.html"/>
+<%namespace name="commit_render" file="/widgets/commit.html" />
+<%page args="commits=[], show_summary=True, minimal=False" />
+
+<% commits.reverse() %>
+
+% if minimal:
+    % if len(commits) > 0:
+        ${minimal_commits_bucket(commits)}
+    % endif
+% else:
+    % if len(commits) > 0:
+    <%
+    grouped_commits = groupby(commits, lambda c: c.commit_time.date())
+    n_authors = len(set(c.author.username for c in commits))
+    %>
+    ${commit_render.commits_bucket(commits, n_authors, grouped_commits, show_summary=show_summary)}
+    % endif
+    % if show_merge_guide:
+        ${utils.merge_guide()}
+    % endif
+% endif
+
+<%def name="minimal_commits_bucket(commits)">
+<table class="commits table table-striped table-condensed commits-condensed">
+    <tbody>
+        <%
+             commit_statuses = {}
+             for commit in commits:
+                 if commit and pullreq.from_proj:
+                     cs = CommitStatuses(pullreq.from_proj.id, commit.sha)
+                     latest_commit_status = cs.latest()
+                     commit_statuses[commit.sha] = latest_commit_status
+        %>
+        % for commit in commits:
+        % if commit:
+        <tr>
+            <td class="gravatar">
+                <img src="${commit.author.avatar_url}" class="avatar tiny hidden-phone">
+            </td>
+            <td class="author hidden-phone">
+                <span class="commit-author" >
+                    <a href="${commit.author.url}" class="user">
+                        ${commit.author}
+                    </a>
+                </span>
+            </td>
+            <td class="message">
+                <code>
+                    <a href="${commit.url}" class="message">${commit.rendered_message_header | n}</a>
+                </code>
+                % if commit.message_body:
+                <span class="hidden-text-expander inline">
+                    <a href="javascript:void(0);" class="js-details-target">…</a>
+                </span>
+                <div class="commit-desc">
+                    <pre>${commit.rendered_message_body | n}</pre>
+                </div>
+                % endif
+            </td>
+            <td class="status">
+              % if commit.sha in commit_statuses and commit_statuses[commit.sha]:
+              <a href="${commit_statuses[commit.sha].target_url}"
+                 target="_blank"
+                 title="${commit_statuses[commit.sha].description}"
+                 alt="${commit_statuses[commit.sha].description}">
+                % if commit_statuses[commit.sha].state == 'pending':
+                <span class="commit-status dirty"></span>
+                % elif commit_statuses[commit.sha].state != 'success':
+                <span class="commit-status error"></span>
+                % else:
+                <span class="commit-status success"></span>
+                % endif
+              </a>
+              % endif
+            </td>
+            <td class="date">
+                ## TODO: js time localize
+                <time>${commit.author_time.strftime('%Y-%m-%d %H:%M')}</time>
+            </td>
+            <td class="commit">
+                <code>
+                    <a href="${commit.url}">${commit.shortsha}</a>
+                </code>
+            </td>
+        </tr>
+        % endif
+        % endfor
+    </tbody>
+</table>
+</%def>

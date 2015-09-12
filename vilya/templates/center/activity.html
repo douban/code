@@ -1,0 +1,34 @@
+<%inherit file="/base.html"/>
+<%namespace file="/issue/utils.html" import="previewable_comment_form" />
+
+<%def name="head_style()">
+  <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+  <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+  <link rel="stylesheet" type="text/css" href="${static('/css/app/center.css')}"/>
+</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/center/main.js')}"></script>
+</%def>
+
+<%def name="title()">CODE Center</%def>
+
+<div class="row">
+    <div class="span12">
+        <% a = activity %>
+        <div class="action mod" id="activity-${a.id}" data-id="${a.id}">
+            <div class="title">
+                ${a.creator_id} opened
+                <span class="time js-relative-date" data-time="${a.created_at.strftime('%Y-%m-%dT%H:%M:%S+0800')}"></span>
+                <h2>${a.title}</h2>
+            </div>
+            <div class="desc">
+                <div class="content-body markdown-body markdown-format">
+                ${a.rendered_description | n}
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

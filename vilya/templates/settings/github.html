@@ -1,0 +1,39 @@
+<%inherit file="/base.html" />
+<%namespace name="utils" file="/settings/utils.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/my-settings.css')}" />
+</%def>
+
+<%def name="title()">Github</%def>
+
+% for error in errors:
+<div class="alert alert-error">
+  ${error}
+</div>
+% endfor
+
+${utils.personal_settings_submenu("github")}
+
+<div class="raw">
+    <div class="span12">
+        <div class="settings-content">
+        <div class="mod">
+            <ul id="settings-github" class="boxed-group-list standalone">
+                % for github in githubs:
+                <li class="clearfix settings-github">
+                <a href="https://github.com/${github.user_name}" target="_blank">https://github.com/${github.user_name}</a>
+                <span class="github-actions">
+                    <a href="/settings/github/${github.id}" class="btn btn-danger btn-small settings-remove-github" data-method="delete">Delete</a>
+                </span>
+                </li>
+                % endfor
+            </ul>
+            ${utils.personal_settings_add_form("github")}
+        </div>
+        </div>
+    </div>
+</div>

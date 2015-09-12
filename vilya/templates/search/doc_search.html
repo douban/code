@@ -1,0 +1,138 @@
+<%inherit file="/base.html" />
+<%!
+    from models.user import User
+    from hub.static import static
+%>
+
+<%namespace name="paginate" file="paginate.html" />
+<%block name="extra_head">
+  <link href="/static/css/search.css" type="text/css" rel="stylesheet">
+  <link href="/static/css/highlight.css" type="text/css" rel="stylesheet">
+</%block>
+
+<%def name="bottom_script()">
+  <script src="${static('/js/app/search/search.js')}"></script>
+</%def>
+
+<%def name="title()">Document Search</%def>
+<%def name="brand()">Code:search</%def>
+
+<div class="pagehead separation trans">
+  <div class="codesearch-head">
+    <h1>Document Search</h1>
+    <div id="code_search">
+      <form accept-charset="UTF-8" action="/hub/doc_search" class="search_repos" id="search_form" method="get">
+        <div class="commandbar">
+          <span class="message"></span>
+          <input class="search-page-input js-search-query" type="text" 
+                 name="q" value="${q}" id="command-bar"/>
+          <div class="display hidden"></div>
+        </div>
+        <button class="button" type="submit" tabindex="3">Search</button>
+      </form>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="row">
+  <div class="span12 right-content">
+    ${self.right_content(total, result)}
+  </div>
+</div>
+
+<%def name="right_content(total, result)">
+<div class="search-content">
+  <div class="sort-bar">
+    <form action="/hub/doc_search" method="get" data-pjax="" data-autosubmit="">
+      <input type="hidden" name="q" value="${q}">
+      <span class="sort-label">Sort:</span>
+      <select name="s">
+        <option value="">Best match</option>
+	%for order, key in {}:
+        <option value="${'order'}" data=""
+                %if s == order:
+                selected
+                %endif
+                >${'order.title()'}</option>
+        %endfor
+      </select>
+      <a href="#" class="sort-link sort-desc">
+        <span class="sort-icon"></span>
+      </a>  
+    </form>
+    <h3>We've found ${total} results.</h3>
+  </div>
+</div>
+</%def>
+
+<%def name="render_code(result)">
+<div class="code-list">
+  %for source, highlight in result:
+  <div class="code-list-item public">
+    <a href="/people/${source['author']}">
+      <% avatar_url = User(source['author']).avatar_url %>
+      <img class="avatar" height="28" width="28" src="${avatar_url}"/>
+    </a>
+    <span class="language">
+      %if source['type'] == 'docs':
+          Doc
+      %else:
+          Gist
+      %endif
+    </span>
+    <p class="title">
+    %if source['type'] == 'docs':
+      <a href="/${source['project_name']}">${source['project_name']}</a> – 
+      <a href="/${source['project_name']}/${source['url']}">
+        %if highlight.get('url', []):
+	    ${highlight['url'][0] | n}
+	%else:
+            ${source['url']}
+        %endif
+      </a>
+      %else:
+      <a href="/gist/${source['author']}">
+        %if highlight.get('author', []):
+          ${highlight['author'][0] | n}</a> -
+        %else:
+          ${source['author']}</a> -
+        %endif
+      <a href="${source['url']}">
+        %if highlight.get('description',[]):
+            ${highlight['description'][0] | n}
+        %else:
+            ${source['description']}
+        %endif
+      </a>
+      %endif
+      <br/>
+      <span class="updated-at">Last updated 
+	<time class="js-relative-date" datetime="${source['time']}" title="${source['time']}">
+	  ${source['time']}
+	</time>
+      </span>
+    </p>
+    <div class="bubble">
+      <div class="file-box">
+	<div class="data file">
+	  <% fragments = highlight.get('content', []) %>
+	  %if fragments:
+	    %for fragment in fragments:
+	      ...${fragment.replace("\n", "<br />") | n}...
+	      <br />
+	    %endfor
+	  %else:
+	    ${source['content'][:200].replace("\n", "<br />") | n}
+	  %endif
+        </div>
+      </div>
+    </div>
+  </div>
+  %endfor
+</div>
+</%def>
+
+${self.render_code(doc_results)}

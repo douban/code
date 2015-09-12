@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import absolute_import
-from quixote.errors import TraversalError, AccessError
+from quixote.errors import TraversalError
+
 from vilya.libs.template import st
 from vilya.models.project import Project
 from vilya.models.user import User

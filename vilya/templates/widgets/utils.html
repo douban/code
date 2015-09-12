@@ -1,0 +1,18 @@
+<%!
+    from datetime import datetime
+%>
+
+<%def name="time2relaive_time(time)">
+    <%
+    time = time or datetime.now()
+    timestr = time.strftime('%Y-%m-%d %H:%M:%S')
+    %>
+    ${str2relaive_time(timestr)}
+</%def>
+
+<%def name="str2relaive_time(date)">
+    <%
+         time = datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
+    %>
+    <span class="time js-relative-date" data-time="${time.strftime('%Y-%m-%dT%H:%M:%S+08:00')}">${date}</span>
+</%def>

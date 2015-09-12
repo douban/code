@@ -1,0 +1,25 @@
+ul, ol { 
+    list-style-type:none; 
+    display:block; 
+    margin:0; 
+}
+
+.clear { clear: both; }
+
+.clearfix { 
+    display: block;
+    &:after { 
+        content: "."; 
+        display: block; 
+        height: 0; 
+        clear: both; 
+        visibility: hidden; 
+    }
+}
+
+/* hacks for adopting new version of bootstrap */
+h3 {
+   line-height: 27px;
+}
+
+input[type="checkbox"] { margin:0; }

@@ -1,0 +1,58 @@
+<%def name="render_line(old,new,line)">
+<tr>
+    <%
+        new = str(new) if new else new
+        old = str(old) if old else old
+    %>
+    % if new and not old:
+    <td style="">&nbsp;</td>
+    <td style="color:#aaa;background:#B8FFBB;">${new}</td>
+    <td >&nbsp;</td>
+    <td ><pre style="margin:0">${line|n}</pre></td>
+    % elif old and not new:
+    <td style="color:#eee;background:#FFA2A5;">${old}</td>
+    <td style="">&nbsp;</td>
+    <td >&nbsp;</td>
+    <td><pre style="margin:0">${line|n}</pre></td>
+    % elif not old and not new:
+    <td></td>
+    <td></td>
+    <td >&nbsp;</td>
+    <td height="25"
+        style="padding-top:10px;background:#fff;text-align:left;">
+        <pre style="margin:0">${line|n}</pre>
+    </td>
+    % else:
+    <td style="color:#aaa;">${old}</td>
+    <td style="background:#eee;color:#aaa;">${new}</td>
+    <td >&nbsp;</td>
+    <td><pre style="margin:0;">${line|n}</pre></td>
+    % endif
+</tr>
+</%def>
+
+<body>
+    % if diff_content:
+    <div style="font-weight:bold; #999;padding:10px 0 5px;">
+       In ${path}
+    </div>
+    <table border="0" cellspacing="0" cellpadding="1"
+        style="font-family:Menlo, Courier, Mono;font-size:14px;
+        border-top:solid #666 2px; border-bottom:solid #666 2px;
+        padding:2px 0;">
+        <% from libs.diff import linehtml %>
+        % for line in diff_content:
+            ${render_line(line.old, line.new, linehtml(line.text))}
+        % endfor
+    </table>
+    % endif
+    <div style="word-break:break-all;
+        word-wrap:break-all;color:#333;
+        padding:10px 0;min-width:400px;">
+        <div style="margin:5px 0;white-space:pre-wrap;">${md_render(content) | n}</div>
+        ——
+        <div>
+            <a href="${url}">View it on Code</a><img src="${hook_url}" width="1" height="1" />
+        </div>
+    </div>
+</body>

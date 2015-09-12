@@ -1,0 +1,19 @@
+.upload-widget{
+
+    position: relative;
+    top: -50px;
+    width:360px;
+
+    input {
+        position: absolute;
+        width: 120px;;
+        opacity: 0.0001; 
+        cursor: pointer;
+        margin:0;
+    }
+
+    form {
+        width:120px;
+        float:left;
+    }   
+}

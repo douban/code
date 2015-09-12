@@ -1,0 +1,20 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.html" />
+
+<%def name="title()">${issue.title} - ${target.name}</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/issue.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/issue/main.js')}"></script>
+</%def>
+
+${pagehead.trac_header("issues", target, user)}
+
+<%include file="/widgets/issue/issue_body.html" args="target=target, issue=issue,
+                user=user, show_close=show_close, i_am_author=i_am_author, i_am_admin=i_am_admin" />

@@ -1,0 +1,92 @@
+@import "compass/css3";
+@import "css/mod/comment-form-preview";
+@import "css/mod/comment-form-content";
+@import "css/mod/minibutton";
+@import "css/mod/comment-form-button";
+@import "css/mod/comment-form-zen";
+@import "css/mod/loader";
+@import "css/mod/upload-widget";
+@import "css/lib/jquery.atwho";
+
+.side-avatar {
+    float: left;
+    padding: 0px 5px 5px;
+    vertical-align: top;
+    margin-left: 0;
+}
+
+.comment-form-head li {
+    line-height: 18px;
+}
+
+#form-file-upload {
+    position: relative;
+    top: -50px;
+    width:360px;
+}
+
+#form-file-upload #file {
+    position: absolute;
+    width: 240px;
+    margin-left: -80px;
+    opacity: 0.0001;
+    cursor: pointer;
+}
+
+.form-content {
+    padding: 10px;
+    display: none;
+    opacity: 1.0;
+}
+
+form#add-comment-form {
+    .form-content {
+        display: block;
+        background:rgba(255,255,255,1);
+        border: 0px solid;
+        @include border-radius(3px);
+
+        textarea#new_comment_content {
+            width: 100%;
+            background: rgba(255,255,255,1);
+        }
+
+        .tabnav {
+            border-bottom: none;
+            padding: 10px;
+        }
+
+        .write-content {
+            position: relative;
+            padding: 10px 10px 10px;
+        }
+    }
+}
+
+/* Zen Mode button hacks for FlatUI */
+.write-content .enable-fullscreen {
+  top: 15px;
+}
+
+.tab-content {
+    overflow: visible;
+}
+
+/* Issue for Responsive Mobile Hacks */
+
+@media (max-width: 767px){
+
+    .side-avatar {
+        padding: 0px;
+    }
+
+    form#add-comment-form {
+        .form-content {
+            .tabnav {
+                max-width: 100%;
+            }
+
+        }
+    }
+
+}

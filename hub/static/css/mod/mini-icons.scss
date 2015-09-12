@@ -1,0 +1,32 @@
+/* mini-icons - from Github */
+/* TODO: Completely remove this component from anywhere in Code */
+
+@font-face{
+	font-family: 'Octicons Regular';
+    src:url("/static/octicons/octicons-regular-webfont.eot") format("eot"),
+        url("/static/octicons/octicons-regular-webfont.eot#iefix") format("embedded-opentype"),
+        url("/static/octicons/octicons-regular-webfont.woff") format("woff"),
+        url("/static/octicons/octicons-regular-webfont.ttf") format("truetype"),
+        url("/static/octicons/octicons-regular-webfont.woff") format("woff");
+	font-weight:normal;
+	font-style:normal;
+} 
+
+.mini-icon,
+.mega-icon {
+	font-family: 'Octicons Regular';
+	font-weight: normal;
+	font-style: normal;
+	display: inline-block;
+	text-decoration: inherit;
+	-webkit-font-smoothing: antialiased;
+	line-height: 1;
+	text-decoration: none;
+}
+.mini-icon::before,
+.mega-icon::before {
+	-moz-transition: color .15s ease-in 0;
+	-webkit-transition: color .15s ease-in 0;
+	font-size: 16px;
+	text-decoration: none;
+}

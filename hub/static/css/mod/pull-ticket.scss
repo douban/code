@@ -1,0 +1,141 @@
+/* ticket style */
+#content.ticket { 
+ width: 63em; 
+ max-width: 100%;
+ margin-left: auto;
+}
+
+#field-description-help { float: right }
+#properties div.trac-resizable, #field-description { width: 100% }
+
+#ticket {
+ background: #ffd;
+ border: 1px outset #996;
+ margin-top: 1em;
+ padding: .5em 1em;
+ position: relative;
+}
+
+#ticket.ticketdraft {
+ background: #f8f8f8 url(../draft.png);
+}
+#ticketchange.ticketdraft {
+ padding: 0 1em;
+ margin: 1em 0;
+}
+#ticketchange.ticketdraft h3 {
+ margin-top: .5em;
+}
+.preview-notice { font-weight: bold; }
+
+.ticketdraft {
+ background: #f8f8f8 url(../draft.png);
+ border: 1px outset #996;
+ padding: 0 .2em;
+}
+
+h1 .status { color: #444; }
+#ticket h2.summary { margin: 0 0 .8em 0 }
+#ticket .date { color: #996; float: right; font-size: 85%; position: relative }
+#ticket .date p { margin: .3em }
+
+#ticket table.properties {
+ clear: both;
+ border-top: 1px solid #dd9;
+ border-collapse: collapse;
+ table-layout: fixed;
+ width: 100%;
+}
+#ticket table.properties tr { border-bottom: 1px dotted #eed }
+#ticket table.properties td, #ticket table.properties th {
+ font-size: 80%;
+ padding: .5em 1em;
+ vertical-align: top;
+}
+#ticket table.properties th {
+ color: #663;
+ font-weight: normal;
+ text-align: left;
+ width: 20%;
+}
+#ticket table.properties td { width: 30% }
+#ticket table.properties td p:first-child { margin-top: 0 }
+#ticket table.properties td p:last-child { margin-bottom: 0 }
+#ticket table.properties .description { border-top: 1px solid #dd9 }
+
+#ticket .description h3 {
+ border-bottom: 1px solid #dd9;
+ color: #663;
+ font-size: 100%;
+ font-weight: normal;
+}
+#ticket .description h3 .lastmod {
+ font-size: 90%;
+}
+#ticket .inlinebuttons { 
+ float: right;
+ position: relative;
+ bottom: 0.3em;
+ margin-left: 0.2em;
+}
+
+#changelog { border: 1px outset #996; padding: 1em }
+.trac-shade { background-color: #eee }
+#trac-comment-editor { margin-left: 2em; margin-bottom: 1em }
+#trac-comment-editor div.trac-resizable { width: 100% }
+#trac-comment-editor textarea { 
+ background: #ffffe0;
+ margin-left: -1px;
+ margin-right: -1px;
+ width: 100%;
+}
+#trac-comment-editor .wikitoolbar { margin-left: -1px }
+#trac-add-comment :link, #trac-add-comment :visited { color: #b00 }
+#changelog h3, #ticketchange h3 {
+ border-bottom: 1px solid #d7d7d7;
+ color: #999;
+ font-size: 100%;
+ font-weight: normal;
+}
+.threading, #changelog .inlinebuttons { float: right; margin-left: 0.2em }
+.threading { font-size: 85%; }
+.threading :link, .threading :visited { border-bottom: 0 }
+#changelog .trac-lastedit {
+ padding-left: 2.5em;
+ color: #999;
+ font-size: 80%;
+}
+#changelog .trac-lastedit :link, #changelog .trac-lastedit :visited { color: inherit }
+
+#changelog .changes, #ticketchange .changes { list-style: square; margin-left: 2em; padding: 0 }
+#changelog .comment, #ticketchange .comment { margin-left: 2em }
+
+form .field { margin-top: .75em; width: 100% }
+form .field fieldset.iefix { margin-left: 1px; margin-right: 1px }
+label[for=comment] { float: right }
+form .field .wikitoolbar { margin-left: -1px }
+form .field div.trac-resizable { width: 100% }
+
+#properties { white-space: nowrap; line-height: 160%; padding: .5em }
+#properties table { border-spacing: 0; width: 100%; padding: 0 .5em }
+#properties table th {
+ padding: .4em;
+ text-align: right;
+ width: 20%;
+ vertical-align: top;
+}
+#properties table th.col2 { border-left: 1px dotted #d7d7d7 }
+#properties table td { vertical-align: middle; width: 30% }
+#properties table td.fullrow { vertical-align: middle; width: 80% }
+
+#action { line-height: 2em }
+
+fieldset.radio { border: none; margin: 0; padding: 0 }
+fieldset.radio legend {
+ color: #000;
+ float: left;
+ font-size: 100%;
+ font-weight: normal;
+ padding: 0 1em 0 0;
+}
+fieldset.radio label { padding-right: 1em }

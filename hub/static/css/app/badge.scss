@@ -1,0 +1,44 @@
+@import "css/mod/common";
+@import "css/mod/timeline";
+
+div.section {
+    float: left;
+    width: 225px;
+    height: 155px;
+    display: inline;
+    padding: 60px 0;
+}
+div.section_center {
+    text-align:center;
+}
+div.badge_name {
+    margin: 20px;
+}
+div.badge_summary {
+    margin: 0 30px;
+    color: #999;
+    text-align: center;
+}
+div.badge_all_link {
+    margin: 30px 30px;
+}
+div.cl {
+    clear:both;
+}
+div.members {
+    .list {
+        display: table;
+    }
+    .user {
+        width: 80px;
+        display: inline-table;
+        img {
+            display: block;
+            margin: auto;
+        }
+        a {
+            display: block;
+            text-align: center;
+        }
+    }
+}

@@ -4,11 +4,12 @@ import os
 from os.path import join
 import logging
 logging.getLogger().setLevel(logging.DEBUG)
-from mako.lookup import TemplateLookup
+
 from mako import exceptions
-from vilya.config import CODE_DIR, MAKO_FS_CHECK
+from mako.lookup import TemplateLookup
 from vilya.libs.permdir import get_tmpdir
 from vilya.libs.import_obj import import_obj
+from vilya.config import CODE_DIR, MAKO_FS_CHECK
 
 
 MAKO_CACHE_DIR = join(get_tmpdir(), "tmp_mako_0606", "mako_cache")
@@ -24,6 +25,8 @@ code_templates = TemplateLookup(
     encoding_errors='ignore',
     default_filters=['h'],
     filesystem_checks=MAKO_FS_CHECK,
+    cache_enabled=True,
+    cache_impl='mccache',
     imports=["from vilya.libs.tplhelpers import static"]
 )
 

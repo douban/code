@@ -1,0 +1,44 @@
+@import "css/mod/common";
+
+/* TODO Refactor the following mods into components */
+@import "css/mod/pull-request";
+@import "css/mod/pull-comment";
+@import "css/mod/pull-codereview";
+@import "css/mod/pull-github";
+@import "css/mod/pull-highlight";
+@import "css/mod/pull-ticket";
+
+/* Like these */
+@import "css/mod/pullrequest-pull-head";
+@import "css/mod/pullrequest-pull-head-responsive";
+@import "css/mod/project-info";
+@import "css/mod/commits-condensed";
+@import "css/mod/file-diff-blob";
+@import "css/mod/merge-guide";
+@import "css/mod/diffs-pane";
+@import "css/mod/user-card";
+@import "css/mod/team-card";
+@import "css/mod/inline-comment";
+@import "css/mod/comment-form";
+@import "css/mod/text-truncate";
+@import "css/mod/markdown-content";
+@import "css/mod/upload-widget";
+@import "css/mod/quick-emoji";
+@import "css/mod/checkbox";
+
+// TODO:  refac pr and commit 's css
+.mini-icon-commit-comment:before {
+    content: "\f02b";
+}
+
+// hack // refactor this
+#files .file .meta .info {
+    max-width: 410px !important;
+
+    .patch-title {
+        padding: 0;
+        margin: 0;
+        border: 0;
+        box-shadow: none;
+    }
+}

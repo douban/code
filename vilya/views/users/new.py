@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import absolute_import
-from quixote.errors import TraversalError, AccessError
+
 from vilya.libs.template import st
 
 _q_exports = []

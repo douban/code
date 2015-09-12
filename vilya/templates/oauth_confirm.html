@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <title>Code - OAuth2 用户授权</title>
+  </head>
+  <body>
+    第三方应用 <strong>${ apikey.name }</strong> 请求连接你的 Code 账号:
+    <form id="resuse_form" method="post">
+      <input type="hidden" name="refuse" value="1">
+    </form>
+    <form method="post" >
+      <input type="hidden" name="cid" value="${ cid }">
+      <input type="submit" name="confirm" value="授权">
+      <input type="button" value="拒绝" onclick="javascript:document.forms['resuse_form'].submit();">
+    </form>
+  </body>
+</html>

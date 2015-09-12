@@ -1,0 +1,123 @@
+<%page args="action" />
+<%namespace name="utils" file="/widgets/utils.html" />
+
+<%!
+    from datetime import datetime
+    from vilya.libs.text import parse_emoji
+    from vilya.models.user import User
+%>
+
+${disp_action(action)}
+
+<%def name="disp_action(data)">
+    <div class="entry-item ${'unread' if not data.get('read') else ''}" id="${data.get('uid')}">
+        <div class="title">
+            <a href="/hub/notification/${data.get('uid')}?url=${data.get('url')}">
+                ${getattr(self, data.get('notif_template', ''))(data)}
+            </a>
+        </div>
+        <div class="desc">
+            ${people_avatar(data)}
+            <%
+                desc = data.get('content', '')
+                desc = parse_emoji(desc) if desc else ''
+            %>
+            <span class="emojstext">${desc | n}</span>
+        </div>
+    </div>
+</%def>
+
+## templates of notif
+
+<%def name="pull_request_notif(pr)">
+    % if pr.get("state","unmerge") == "unmerge":
+        <i class="icon-refresh"></i>
+        ${pr.get('sender')} opened ${pr.get('title')}
+    % else:
+        <i class="icon-ok"></i>
+        ${pr.get('owner')} ${pr.get("state")} ${pr.get('title')}
+    % endif
+    on ${pr.get('to_proj')}
+    ${disp_date(pr)}
+</%def>
+
+<%def name="pull_comment_notif(pr)">
+    <i class="icon-comment"></i>
+    ${pr.get('sender')} commented
+    on pull ${pr.get('ticket')}
+    on <span class="commit-ref to editor-expander btn btn-mini btn-inverse">${pr.get('proj')}</span>
+    ${disp_date(pr)}
+</%def>
+
+<%def name="pull_commit_notif(pr)">
+    <i class="icon-upload"></i>
+    ${pr.get('author', '')} committed
+    changeset ${pr.get('commit_id')[:7]}
+    to ${pr.get('repo_name', '')}:${pr.get('branch', '')}
+    ${disp_date(pr)}
+</%def>
+
+<%def name="issue_notif(data)">
+    % if data.get('state', 'open') == "open":
+        <i class="icon-refresh"></i>
+        ${ data.get('sender') } opened issue ${ data.get('title') }
+    % else:
+        <i class="icon-ok"></i>
+        ${ data.get('sender') } closed issue ${ data.get('title') }
+    % endif
+    on ${data.get('target_name')}
+    ${disp_date(data)}
+</%def>
+
+<%def name="issue_comment_notif(data)">
+    <i class="icon-comment"></i>
+    ${data.get('sender')} commented
+    on issue ${ data.get('title') }
+    on <span class="commit-ref to editor-expander btn btn-mini btn-inverse">${data.get('target_name')}</span>
+    ${disp_date(data)}
+</%def>
+
+<%def name="commit_comment_notif(pr)">
+    <i class="icon-comment"></i>
+    ${pr.get('sender', '')}
+    commented on ${pr.get('proj')}
+    in ${pr.get('ref','')[:10]}
+    ${disp_date(pr)}
+</%def>
+
+<%def name="recommend_notif(pr)">
+    <i class="icon-user"></i>
+    ${pr.get('sender')} recommend ${pr.get('to_user')}
+    ${disp_date(pr)}
+</%def>
+
+<%def name="team_add_member_notif(data)">
+    <i class="icon-plus"></i>
+    ${data.get('sender')} add ${data.get('to_user')} as ${data.get('identity')} of team ${data.get('team_name')}
+     ${disp_date(data)}
+</%def>
+
+## utils
+<%def name="disp_date(data)">
+    <%
+        timestr = data.get('date', datetime.now())
+        if isinstance(time, datetime):
+            timestr = time.strftime('%Y-%m-%d %H:%M:%S')
+    %>
+    ${utils.str2relaive_time(timestr)}
+</%def>
+
+<%def name="people_avatar(pr)">
+    <%
+        people_key = 'sender'
+        if pr.get('type') == 'pull_request' and pr.get('state', 'unmerge') != 'unmerge':
+            people_key = 'owner'
+        people = pr.get(people_key, '')
+    %>
+      % if people:
+          <%
+              avatar_url = User(people).avatar_url
+          %>
+          <img class="avatar small lazy" data-original="${avatar_url}" src="${avatar_url}"/>
+      % endif
+</%def>

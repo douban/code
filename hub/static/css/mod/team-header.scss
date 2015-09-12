@@ -1,0 +1,26 @@
+.pagehead {
+    .team-left {
+        margin: 0;
+        font-size: 30px;
+        line-height: 36px;
+        float: left;
+    }
+    .team-desc {
+        p {
+            small {
+                padding: 0 6px;
+                background: rgba(99,182,174,0.2);
+                color: rgba(99,182,174,1);
+            }
+            margin: 0;
+        }
+        margin-top: 12px;
+        margin-left: 5px;
+        margin-bottom: 0;
+        width: 60%;
+        float: left;
+    }
+    .team-right {
+        float: right;
+    }
+}

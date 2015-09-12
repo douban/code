@@ -1,0 +1,30 @@
+@import "css/mod/common";
+@import "css/lib/odometer";
+h2 {
+    margin: 0px 20px 20px 20px;
+}
+
+.data {
+    display: block;
+    margin: 20px;
+}
+
+.data h2 {
+    margin: 0 0 6px;
+    line-height: 1.1;
+    font-size: 15px;
+    color: #999;
+}
+
+.mod {
+     padding: 15px;
+     -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+     -ms-border-radius: 4px;
+     -o-border-radius: 4px;
+     border-radius: 4px;
+}
+
+.indent {
+    margin-left: -10px;
+}

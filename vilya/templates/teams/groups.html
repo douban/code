@@ -1,0 +1,71 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/team-groups.css')}" />
+</%def>
+
+<%def name="title()">${team.uid}</%def>
+
+${pagehead.team_header(team, user, 'groups')}
+
+% if user and team.is_owner(user.name):
+<div class="row">
+    <div class="span12" style="margin-bottom: 7px;">
+        <a class="btn btn-primary pull-right" href="${team.url}groups/new/">New group</a>
+    </div>
+</div>
+% endif
+
+<div class="row">
+    <div class="span12">
+    % if groups:
+        % for g in groups:
+            ${group_card(g)}
+        % endfor
+    % else:
+        <div class="mod">
+            Please create group first.
+        </div>
+    % endif
+    </div>
+</div>
+
+<%def name="group_card(group)">
+<div class="mod" itemprop="group" itemtype="http://schema.org/Organization">
+    <div class="top-bar hd">
+        % if user and team.is_owner(user.name):
+            % if group.is_member(user.name):
+            <a class="btn btn-danger pull-right" href="${group.url}owners/leave"
+                data-method="POST" data-confirm="Are you sure you want to leave this group?" aria-label="">
+                Leave
+            </a>
+            % else:
+            <a class="btn btn-success pull-right" href="${group.url}owners/join"
+                data-method="POST" aria-label="">
+                Join
+            </a>
+            % endif
+        % endif
+        <a class="group-link" href="${group.url}">
+            <h2>${group.name}</h2>
+        </a>
+    </div>
+    <a class="group-link" tabindex="3" href="${group.url}" itemprop="url">
+        <p class="group-description" itemprop="description">
+        ${len(group.members)} members · ${len(group.projects)} repositories
+        </p>
+    </a>
+    <div class="group-members">
+        % for m in group.members:
+        <a class="group-member tooltipped tooltipped-s" href="${m.url}"
+            itemprop="member" itemscope="" itemtype="http://schema.org/Person" aria-label="${m.name}">
+            <img class="avatar js-avatar" data-user="${m.name}" height="30" size="30" src="${m.avatar_url}" width="30">
+        </a>
+        % endfor
+    </div>
+</div>
+</%def>

@@ -1,0 +1,26 @@
+@import "css/mod/code-highlight";
+@import "css/mod/minibutton";
+@import "css/mod/side-item";
+@import "css/mod/file-blob";
+@import "css/mod/gist-miniicon";
+@import "css/mod/gist-comment";
+@import "css/mod/gist-item";
+@import "css/mod/gist-form";
+@import "css/mod/gist-render";
+@import "css/mod/markdown-content";
+
+body { margin:0; }
+.CodeMirror { height: 300px; }
+form { margin:0; }
+.container { width:100%; }
+#gist-form .file .meta { position: fixed; top: 0; width: 100%; }
+.input { margin-top: 43px; }
+#gist-form .editor-options { right:25px; }
+.btn { font-weight: bold; }
+.link-overlay { visibility: visible; }
+input.gist-name-textbox { width: 160px; }
+
+.bubble .blob { margin: 0 0 0 0; }
+.blob .file { min-height: 30px; position:relative; overflow:auto }
+
+.gist-options { top: 5px; position: absolute; right: 5px; }

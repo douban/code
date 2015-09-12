@@ -1,0 +1,56 @@
+<%def name="group_detail(group=None)">
+    <fieldset>
+        % if group:
+        <legend>Edit group</legend>
+        % else:
+        <legend>Create new group</legend>
+        % endif
+    </fieldset>
+    <div class="control-group">
+        <label class="control-label" for="group-name">Group name</label>
+        <div class="controls">
+            <input type="text" class="input-xlarge" id="group-name" placeholder="Name your group…" autofocus=""
+            name="group[name]" value="${group.name if group else ''}" ${ "disabled=\"disabled\"" if group else ''}>
+            <p class="help-block">You'll use this name to mention this group in conversations.</p>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="group-description">Description</label>
+        <div class="controls">
+            <input type="text" class="input-xlarge" id="group-description" value="${group.description if group else ''}"
+            placeholder="What is this group all about?" autocomplete="off" name="group[description]">
+            <p class="help-block">(optional)</p>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="group-permission">Permission</label>
+        <div class="controls">
+            <label class="radio">
+                <input type="radio" name="group[permission]" value="pull" ${"checked=\"\"" if group and group.permission_text == 'pull' else ''}
+                ${"checked=\"\"" if not group else ''}>
+                Read Access
+                <p class="help-block">This group will be able to view and clone its repositories.</p>
+            </label>
+            <label class="radio">
+                <input type="radio" name="group[permission]" value="push" ${"checked=\"\"" if group and group.permission_text == 'push' else ''}>
+                Write Access
+                <p class="help-block">This group will be able to read its repositories, as well as push to them.</p>
+            </label>
+            <!--
+            <label class="radio">
+                <input type="radio" name="group[permission]" value="admin">
+                Admin Access
+                <p class="help-block">This group will be able to push/pull to its repositories, as well as add other collaborators to them.</p>
+            </label>
+            -->
+        </div>
+    </div>
+    <hr>
+    % if group:
+    <input type="hidden" name="group[id]" value="${group.id}">
+    <button type="submit" class="btn btn-primary">Edit group</button>
+    % else:
+    <button type="submit" class="btn btn-primary">Create group</button>
+    % endif
+</%def>

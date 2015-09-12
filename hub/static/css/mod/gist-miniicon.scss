@@ -1,0 +1,25 @@
+.minibutton .mini-icon { vertical-align: -2px; }
+.mini-icon-gist::before{ content:"\f00e"; }
+.mega-icon-gist-secret::before { content: "\f28c"; color: #F8EEC7; }
+.mini-icon-gist-add::before { content:"\f07a"; }
+.mini-icon-gist-private::before { content:"\f00f"; }
+.mini-icon-gist-forked::before { content:"\f079"; }
+.mini-icon-gist-starred::before { content:"\f02a"; }
+.mini-icon-arr-up::before { content: "\f03d"; }
+.mini-icon-gist-secret::before { content:"\f08c"; }
+.mini-icon-gist-fork::before { content: "\f020"; }
+.mini-icon-gist-star::before { content:"\f02a"; }
+.mini-icon-arr-down::before { content: "\f03f"; }
+.mini-icon-commit-comment::before { content: "\f02b"; }
+.mini-icon-code::before { content: "\f05f"; }
+.mini-icon-link::before { content: "\f05c"; }
+.mini-icon-edit::before { content: "\f058"; }
+.mini-icon-delete-note::before, .mini-icon-remove-close::beforeremove-close::before { content: "\f050"; }
+.mini-icon-arr-right::before { content: "\f03e"; }
+.mini-icon-diff::before { content: "\f04d"; }
+.mini-icon-download::before { content: "\f00b"; }
+.mini-icon-logout::before { content: "\f032"; }
+.mega-icon-code-file::before, .mega-icon-download-unknown::before { content: "\f210"; }
+.mega-icon-arr-right::before { content: "\f23e"; }
+.mega-icon-gist-add::before { content: "\f27a"; }
+.discussion-bubble .discussion-bubble-content::before { content: ""; display: block; height: 0; width: 0; border: 10px solid #EEE; border-width: 10px 10px 10px 0; border-color: transparent #EEE transparent transparent; position: absolute; left: -10px; top: 15px; }

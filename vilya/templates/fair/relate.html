@@ -1,0 +1,49 @@
+<%inherit file="/base.html" />
+
+<%def name="title()">Issue关联项目</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/issue-new.css')}" />
+</%def>
+
+<div class="mod">
+  <form name="relate_project" action='' method="post">
+    <div class="page">
+      <table class='table table-bordered table-size'>
+        <tr>
+          <th class='text-right'>Issue</th>
+          <td class='text-left'>
+            <p><a href="${ issue.url }">${ issue.title }</a></p>
+          </td>
+        </tr>
+        <tr>
+          <th class='text-right'>已关联项目</th>
+          <td class='text-left'>
+            % if issue.related_projects:
+              % for prj in issue.related_projects:
+              <p>
+                <a href="${ prj.url }">${ prj.name }</a>
+                <input type='submit' name='delete_${ prj.id }' class='btn btn-mini btn-link' value='×' onclick="return confirm('确定要取消 ${ prj.name } 的关联吗？');" />
+                </a>
+              </p>
+              % endfor
+            % else:
+            <p>无</p>
+            % endif
+          </td>
+        </tr>
+        <tr>
+          <th class='text-right'><label for='repo'>添加关联项目</label></th>
+          <td class='text-left'>
+            <input type='text' id='repo' name='repo' />
+            <p>Code项目首页地址，例如 http://code.dapps.douban.com/code</p>
+              <input type='submit' name='add' class='btn input-button' value='添加关联' />
+          </td>
+        </tr>
+      </table>
+    </div>
+  </form>
+</div>

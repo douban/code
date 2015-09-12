@@ -1,0 +1,139 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.html" />
+
+<%def name="title()">Notifications</%def>
+<%def name="suffix()"></%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/notifications.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/explore/notify_timeline.js')}"></script>
+</%def>
+
+${pagehead.user_header(active="notification")}
+
+<%
+base_link = '/hub/notification/'
+
+if scope == 'project':
+    unread_link = '%s?scope=%s' % (base_link, 'project')
+    all_link = '%s?all=1&scope=%s' % (base_link, 'project')
+elif scope == 'team':
+    unread_link = '%s?scope=%s' % (base_link, 'team')
+    all_link = '%s?all=1&scope=%s' % (base_link, 'team')
+elif scope == 'fair':
+    unread_link = '%s?scope=%s' % (base_link, 'fair')
+    all_link = '%s?all=1&scope=%s' % (base_link, 'fair')
+elif scope == 'user':
+    unread_link = '%s?scope=%s' % (base_link, 'user')
+    all_link = '%s?all=1&scope=%s' % (base_link, 'user')
+else:
+    unread_link = '%s' % (base_link)
+    all_link = '%s?all=1' % (base_link)
+
+if all == '1':
+    all_scope_link = '%s?all=1' % (base_link, ) 
+    project_link = '%s?all=1&scope=%s' % (base_link, 'project')
+    team_link = '%s?all=1&scope=%s' % (base_link, 'team')
+    fair_link = '%s?all=1&scope=%s' % (base_link, 'fair')
+    user_link = '%s?all=1&scope=%s' % (base_link, 'user')
+else:
+    all_scope_link = base_link
+    project_link = '%s?scope=%s' % (base_link, 'project')
+    team_link = '%s?scope=%s' % (base_link, 'team')
+    fair_link = '%s?scope=%s' % (base_link, 'fair')
+    user_link = '%s?scope=%s' % (base_link, 'user')
+%>
+
+<h2>Notifications
+    <a href="/hub/notification/read_all" class="btn mark-all-as-read">
+        Mark all as read
+    </a>
+
+    <a data-type='merged_pr' class="btn mark-all-as-read">
+        Mark all merged PR as read
+    </a>
+</h2>
+<div class="row">
+    <div class="notif-sidebar span3">
+
+        <!-- sidebar -->
+        <ul class="nav nav-tabs nav-stacked">
+            <li class="${'active' if unread == True else ''}">
+            <a href="${unread_link}">
+                Unread
+                <% unread_count = user.unread_notification_count %>
+                <b class="counter">${unread_count}</b>
+            </a>
+            </li>
+            <li class="${'active' if unread == False else ''}">
+            <a href="${all_link}">
+                All notifications
+            </a>
+            </li>
+        </ul>
+
+        <div class="rule"></div>
+        <!-- scope -->
+        <ul class="nav nav-tabs nav-stacked">
+            <li class="${'active' if not scope else ''}">
+            <a href="${all_scope_link}">
+                All
+                <b class="counter">${count_dict['all']}</b>
+            </a>
+            </li>
+            <li class="${'active' if scope == 'project' else ''}">
+            <a href="${project_link}">
+                Project
+                <b class="counter">${count_dict['project']}</b>
+            </a>
+            </li>
+            <li class="${'active' if scope == 'team' else ''}">
+            <a href="${team_link}">
+                Team
+                <b class="counter">${count_dict['team']}</b>
+            </a>
+            </li>
+            <li class="${'active' if scope == 'fair' else ''}">
+            <a href="${fair_link}">
+                Fair
+                <b class="counter">${count_dict['fair']}</b>
+            </a>
+            </li>
+            <li class="${'active' if scope == 'user' else ''}">
+            <a href="${user_link}">
+                User
+                <b class="counter">${count_dict['user']}</b>
+            </a>
+            </li>
+        </ul>
+
+        <!-- targets list -->
+        % if actions:
+        <%
+            keyfunc_target = lambda x: x.get('target', 'other')
+            target_list = list({keyfunc_target(x) for x in actions})
+            target_list.sort()
+        %>
+        <div class="rule"></div>
+        <ul class="nav nav-list target-list">
+            % for target_name in target_list:
+            <li><a href="#${target_name}">${target_name}</a></li>
+            % endfor
+        </ul>
+        % endif
+
+    </div>
+    <div class="span9">
+    % if actions:
+        <%include file="/widgets/actions_notif.html" args="actions=actions, scope=scope"/>
+    % else:
+        <h2>No notifications, yet</h2>
+    % endif
+    </div>
+</div>

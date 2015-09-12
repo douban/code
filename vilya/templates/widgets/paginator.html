@@ -1,0 +1,66 @@
+<%page args="href='?page=%s', current=1, total=None, prev_text='«', next_text='»', winglen=3" />
+    <%
+        current = int(current)
+        if callable(href):
+            href_func = href
+        else:
+            href_func = lambda pageno: href % pageno
+
+        if total is None:
+            total = maxint
+        else:
+            total = int(total)
+            if current > total:
+                current = total
+    %>
+
+    %if total > 1:
+    <div class="pull-right">
+        <div class="pagination">
+          <ul>
+            %if current != 1:
+                <li><a href="${href_func(current - 1)}">${prev_text}</a></li>
+            %else:
+                <li class="disabled"><a href="javascript:void(0);">${prev_text}</a></li>
+            %endif
+
+            <%
+                break1 = current > winglen*2+2
+                break2 = total-current > winglen*2+1
+                start = break1 and min(current-winglen, total-winglen*2) or 1
+                end = break2 and max(current+winglen, winglen*2+1) or total
+            %>
+
+            <%def name="page(p)">
+                <li><a href="${href_func(p)}">${p}</a></li>
+            </%def>
+
+            %if break1:
+                ${page(1)}${page(2)}
+                <li class="disabled"><a href="javascript:void(0);">....</a></li>
+            %endif
+
+            %for i in xrange(start, end+1):
+                %if i == current:
+                <li class="active"><a href="${href_func(i)}">${i}</a></li>
+                %else:
+                <li><a href="${href_func(i)}">${i}</a></li>
+                %endif
+            %endfor
+
+            %if break2:
+                <li class="disabled"><a href="javascript:void(0);">....</a></li>
+                %if total != maxint:
+                    ${page(total-1)}${page(total)}
+                %endif
+            %endif
+
+            %if current != total:
+                <li><a href="${href_func(current + 1)}">${next_text}</a></li>
+            %else:
+                <li class="disabled"><a href="javascript:void(0);">${next_text}</a></li>
+            %endif
+          </ul>
+        </div>
+    </div>
+    %endif

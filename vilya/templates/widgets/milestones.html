@@ -1,0 +1,36 @@
+<%def name="milestone_list(milestones, milestone=None)">
+% if milestones:
+    <%
+        import copy
+        import urllib
+        form = copy.deepcopy(request.form)
+    %>
+    <div class="rule"></div>
+    <div class="milestone-list">
+        <div class="nav-header">
+            Milestones
+            % if milestone:
+            <div class="pull-right">
+            <%
+                if form.get("milestone") is not None:
+                    del form["milestone"]
+                m_query = urllib.urlencode(form)
+            %>
+            <a class="tag-admin" href="?${m_query}">clear</a>
+            </div>
+            % endif
+        </div>
+        <ul class="nav nav-tabs nav-stacked" data-tag-count=${len(milestones)}>
+            %for m in milestones:
+                <li ${ "class=active" if milestone and milestone.id == m.id else ""}>
+                    <%
+                        form.update({"milestone": m.target_number})
+                        m_query = urllib.urlencode(form)
+                    %>
+                    <a href="?${m_query}"><i class="icon-white icon-road"></i> ${m.name}</a>
+                </li>
+            %endfor
+        </ul>
+    </div>
+% endif
+</%def>

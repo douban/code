@@ -1,0 +1,74 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.mako" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/highlight.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/docs.css')}" />
+</%def>
+
+<%block name="extra_head">
+</%block>
+
+<%def name="title()">Create docs</%def>
+<%def name="suffix()">${project.name}</%def>
+
+${pagehead.trac_header("docs", project, user)}
+
+## IN FACT THIS PAGE should be merged with settings pages, later. Guibog
+
+<%def name="pages_doc()">
+    <div class="pages_doc">
+        Want a 3-clicks blog?<br />
+        Then <a href='/${project.name}/settings/pages'>come here</a> baby
+    </div>
+</%def>
+
+<br />
+
+${self.pages_doc()}
+<h2>Welcome to ${project.name} docs/wiki.</h2>
+
+<p>There is no content yet in ${project.name} docs/wiki. (Or there was a
+problem building the pages, see <a href="/${project.name}/settings/sphinx_docs">status page</a>.)</p>
+
+<p>To create content, simply add an <tt><a href="/${project.name}/blob/master/${docsdir}/index.rst">index.rst</a></tt> file
+in <tt>${docsdir}/</tt> folder with the following
+markup:</p>
+
+<%
+template_index_rst = """
+My nice doc
+===========
+
+.. toctree::
+   :glob:
+
+   *
+"""
+template_index_rst_esc = template_index_rst.replace("\n", r"\n")
+%>
+
+<pre>
+${template_index_rst}
+</pre>
+
+<a href="/${project.name}/edit/master/${docsdir}/?newfile=1&newfilename=index.rst&template_code=${template_index_rst_esc}" class="btn">One-click create index.rst</a>
+
+<p>You can add other <tt>.rst</tt> files in <tt>${docsdir}/</tt> folder.</p>
+
+<p>Then head to <a href="/${project.name}/settings/sphinx_docs">sphinx builder status page</a> in this project settings, and
+click the <i>Force direct rebuild</i> button. Any <tt>.rst</tt> files
+in the same directory will be added to
+the automagic Table of Content and the present page will be replaced with
+your documentation.</p>
+
+<p><tt>.rst</tt> files are using RestructuredText markup, similar to
+Markdown but more extensible. See <a href='http://docutils.sourceforge.net/docs/user/rst/quickref.html'>rst quickref</a>.
+
+<p>You can change the rst docs directory or disable docs in your
+<tt><a href='/${project.name}/blob/master/code_config.yaml'>code_config.yaml</a></tt>
+</p>
+
+<p>A cronjob should rebuild the online documentation for you, after
+you pushed some new or modified content.</p>

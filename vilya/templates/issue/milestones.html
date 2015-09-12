@@ -1,0 +1,46 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.html" />
+
+<%def name="title()">Milestones</%def>
+<%def name="suffix()">${project.name}</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/issues.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/issue/issues.js')}"></script>
+</%def>
+
+${pagehead.trac_header("issues", project, user)}
+
+<div class="row">
+    <div class="span9">
+        <div class="issue-list">
+            % for ms in milestones:
+            <div class="issue-item">
+                <ul class="" style="float: right;">
+                    <li style="display: inline;"><b class="counter">${ms.closed_task_count}</b> closed</li>
+                    <li style="display: inline;"><b class="counter">${ms.open_task_count}</b> open</li>
+                    <li style="display: inline;">&nbsp;</li>
+                </ul>
+                <h3>
+                    <a href="">${ms.name}</a>
+                </h3>
+                <ul class="" style="float: left;width: 50px;">
+                    <li style="display: inline;"><b class="counter">${ms.percentage_number}%</b></li>
+                    <li style="display: inline;">&nbsp;</li>
+                </ul>
+                <div class="milestone-bar">
+                    <div class="progress">
+                        <div class="bar" style="width: ${ms.percentage}%;"></div>
+                    </div>
+                </div>
+            </div>
+            % endfor
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<%inherit file="/base.html" />
+<%!
+    from vilya.models.user import User
+%>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/praise/main.js')}"></script>
+</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/people.css')}" />
+</%def>
+
+<%def name="body()">
+<% user = request.user %>
+<div class="row">
+  <div class="span12">
+    <h1 class="people-info">
+      <img src="${User(name).avatar_url}" width="48" height="48">
+      <div class="username"><a href="/people/${name}">${name}</a></div>
+      % if user:
+        % if user.username != name:
+          <div class="rec">
+            <a title="Recommend ${name}" class="add-rec" href="/people/${name}/add_rec"></a>
+          </div>
+        % endif
+     % endif
+    </h1>
+  </div>
+</div>
+<hr>
+<div class="right-info">
+  <a href="/praise">&gt; Recommendation Timeline</a>
+</div>
+% if recs:
+<h2>Praises to ${name} (${len(recs)})</h2>
+<%include file="/widgets/recs.html" args="recs=recs" />
+% else:
+<h2>
+  No praises to ${name} yet
+  % if user:
+    % if user.username != name:
+      , be the first
+      <div class="rec" style="display:inline-block;">
+        <a title="Praise ${name}" class="add-rec" href="/people/${name}/add_rec"></a>
+      </div>
+    % endif
+  % endif
+</h2>
+% endif
+</%def>

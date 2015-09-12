@@ -1,0 +1,200 @@
+<%inherit file="/base.html" />
+<%!
+    from vilya.models.user import User
+%>
+
+<%namespace name="pagehead" file="/widgets/pagehead.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/team-settings.css')}" />
+</%def>
+
+<%def name="title()">${team.uid}</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/team/main.js')}"></script>
+    <script src="${static('/js/app/team/settings.js')}"></script>
+</%def>
+
+${pagehead.team_header(team, user, 'settings')}
+
+<%
+    from models.consts import TEAM_OWNER, TEAM_MEMBER
+    owners = team.owner_ids
+    members = team.member_ids
+    creators = team.owner_ids
+    is_admin = user and team.is_admin(user.name)
+    is_creator = user and team.is_owner(user.name)
+%>
+<div class="row team-setting">
+    <div class="span7">
+        <div class="columns equacols">
+            <div class="column main well">
+              <div class="fieldgroup">
+                <h2>Profile</h2>
+                <div class="fields">
+                    <img id="profile_url" src="${team.profile_url()}">
+                    %if is_admin:
+                    <div class="add-pill-form add-username-form">
+                        <form  id="form-file-upload" class="upload-image-form" action="http://p.dapps.douban.com/j" enctype="multipart/form-data" method="post" data-team-uid="${team.uid}">
+                        <input type="file" name="file" accept="image/*">
+                        <button type="submit" class="minibutton" >UPLOAD</button>
+                        </form>
+                    </div>
+                    <div class="alert alert-success">
+                        建议上传较大图片
+                    </div>
+                    %endif
+                </div>
+              </div>
+            </div><!-- /.main -->
+            %for name, uids in (("Owners", owners), ("Members", members)):
+                ${group_settings(name, uids)}
+            %endfor
+         </div>
+    </div>
+    <div class="span5">
+       <div class="well">
+       <h2>Info</h2>
+       <form action='${team.url}settings' method='post'>
+           <table class='table table-bordered table-size'>
+               <tr>
+                   <td class="text-right">Team uid</td>
+                   ## TODO: disable perm of editing team uid
+                   %if is_admin:
+                   <td class='text-left'><input type='text' id='uid' name='uid' value='${team.uid}'/></td>
+                   %else:
+                   <th class="text-left">${team.uid}</th>
+                   %endif
+                   %if error == 'uid_not_exists':
+                   <p class="alert alert-error">请填写team ID</p>
+                   %endif
+                   %if error == 'invilid_uid':
+                   <p class="alert alert-error">uid只能使用字母数字及下划线</p>
+                   %endif
+                   %if error == 'uid_existed':
+                   <p class="alert alert-error">${input_uid}已经存在，请换一个名字</p>
+                   %endif
+               </tr>
+               <tr>
+                   <td class="text-right">Team Name</td>
+                   %if is_admin:
+                   <td class='text-left'><input type='text' id='name' name='name' value='${team.name}'/></td>
+                   %else:
+                   <th class="text-left">${team.name}</th>
+                   %endif
+                   %if error == 'name_not_exists':
+                   <p class="alert alert-error">请填写team名称</p>
+                   %endif
+                   %if error == 'name_existed':
+                   <p class="alert alert-error">${input_name}已经存在，请换一个名字</p>
+                   %endif
+               </tr>
+               <tr>
+                   <th class='text-right'><label for='description'>Description:</label></th>
+                   %if is_admin:
+                   <td class='text-left'><textarea type='text' id='description' name='description'/>${team.description}</textarea></td>
+                   %else:
+                   <th class="text-left">${team.description}</th>
+                   %endif
+               </tr>
+               <tr>
+                   <th class='text-right'><label for='doc_project'>Doc Project:</label></th>
+                   <td class='text-left'>
+                       % if projects:
+                       <select id="doc_project" name="doc_project" data-team-uid="${team.uid}">
+                           <% doc_project = team.doc_project %>
+                           % if not doc_project:
+                           <option value=""></option>
+                           % endif
+                           % for project in projects:
+                           <option value="${project.id}" ${'selected="selected"' if doc_project and project.id == doc_project.id else '' }>${project.name}</option>
+                           % endfor
+                       </select>
+                       % else:
+                           <p>Add project to your team first!</p>
+                       % endif
+                   </td>
+               </tr>
+               %if is_admin:
+               <tr>
+                   <td class='text-center' colspan='2'>
+                       <input type='submit' id='submit' data-disable-with="Updating..." class='btn input-button' value='Update' />
+                   </td>
+               </tr>
+               %endif
+           </table>
+       </form>
+       </div>
+       % if is_creator:
+       <div class="team-setting-item" >
+         <div class="fieldgroup">
+           <a id="settings_del_team" class="right btn btn-danger" data-team="${team.uid}" href="javascript:void(0);">Delete this team <i class="icon-trash icon-white"></i></a>
+         </div>
+       </div>
+       % endif
+    </div>
+</div>
+
+<%def name="group_settings(name, uids)">
+<div class="column main well">
+  <div class="fieldgroup">
+    <h2 ${'id=team-members' if name == 'Members' else ''}>${name}</h2>
+
+    % if name == "Owners":
+    <div class="alert alert-success">
+        Owners have admin rights to the team.
+    </div>
+    % endif
+
+    % if name == "Owners":
+    <div class="fields" id="add-admins-fields">
+    % else:
+    <div class="fields" id="add-members-fields">
+    % endif
+
+      <ul class="fieldpills usernames">
+        <li style="display:none;">
+        </li>
+        % if uids:
+            % for uid in uids:
+            <li>
+              <img height="20" src="${User(uid).avatar_url}" width="20">
+              <a href="/people/${uid}/">${uid}</a>
+                % if is_admin:
+                <a href="Javascript:void(0);" user_id="${uid}" team_uid="${team.uid}" class="remove-user remove action">(remove)</a>
+                % endif
+            </li>
+            % endfor
+        % endif
+      </ul>
+
+        % if is_admin:
+          % if name == "Owners":
+          <div class="add-pill-form" id="add-admins-form">
+          % else:
+          <div class="add-pill-form" id="add-members-form">
+          % endif
+
+          <input tabindex="5" placeholder="input user name to add" class="textfield input_user_id" type="text" team_uid="${team.uid}">
+
+          % if name == "Owners":
+          <input value="${TEAM_OWNER}" style="display:none" class="input_identity">
+          % else:
+          <input value="${TEAM_MEMBER}" style="display:none" class="input_identity">
+          % endif
+
+          <div id="add-user-autocomplete" class="autocomplete-results">
+            <ul class="js-navigation-container autocomplete-group"></ul>
+          </div>
+          <button type="submit" class="minibutton add_team_member_btn" tabindex="6">Add</button>
+
+          </div>
+        %endif
+    </div>
+  </div>
+</div><!-- /.main -->
+</%def>

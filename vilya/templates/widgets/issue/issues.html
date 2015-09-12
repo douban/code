@@ -1,0 +1,139 @@
+<%namespace name="utils" file="/widgets/utils.html" />
+<%!
+    from vilya.libs.text import trunc_utf8, plural
+    from vilya.models.user import User
+%>
+
+<%def name="render_issue(ticket)">
+<% target = ticket.target %>
+% if target:
+<div class="issue-item">
+    <%
+       summary_anchor = 'summary'
+       lastcomment_anchor = 'comment-%s' % ticket.comment_count
+    %>
+    <h3>
+        <a href="${ticket.url}">${ticket.title}</a>
+        <% tags = ticket.tags %>
+        % for tag in tags:
+            <span class="label labelstyle-${tag.tagname.hex_color}">${tag.name}</span>
+        % endfor
+    </h3>
+    <p>
+    <a href="${ticket.url}#${summary_anchor}">
+        <% description = ticket.description or '' %>
+        ${trunc_utf8(description, 80)}
+    </a>
+    </p>
+    <div class="meta">
+        <%
+            if is_closed_tab:
+                author = ticket.closer
+                info_pattern = 'closed #%d of'
+                time = ticket.closed_at
+            else:
+                author = ticket.creator
+                info_pattern = 'submitted #%d to'
+                time = ticket.created_at
+            info = info_pattern % ticket.number
+        %>
+        <a href="${author.url}">
+            <img class="avatar avatar-tiny" src="${author.avatar_url}">
+            ${author.name}
+        </a>
+        <span class="issue-info">
+            ${info}
+            <a href="${target.url}">
+                ${target.name}
+            </a>
+            ${utils.time2relaive_time(time)}
+
+            % if ticket.provide('related-projects'):
+                % if ticket.related_projects:
+                    % for prj in ticket.related_projects:
+                        <a href="${ prj.url }">
+                            <span class="label label-info">${ prj.name }</span>
+                        </a>
+                    % endfor
+                    已关联
+                % endif
+            % endif
+
+            % if ticket.provide('pledge'):
+                % if ticket.pledged_amount:
+                已有<span class="label label-success">${ ticket.pledged_amount }个PR</span>承诺
+                % endif
+            % endif
+        </span>
+
+        <a class="comment-count pull-right" href="${ticket.url}#${lastcomment_anchor}">
+        % if ticket.provide('vote'):
+          % if ticket.vote_count > 0:
+              ${ticket.vote_count} ${plural(ticket.vote_count, "vote", "votes")}
+          % endif
+          % if ticket.vote_count > 0 and ticket.comment_count > 0:
+              ,
+          % endif
+        % endif
+        % if ticket.comment_count > 0:
+            ${ticket.comment_count} ${plural(ticket.comment_count, "comment", "comments")}
+        % endif
+        </a>
+    </div>
+</div>
+% endif
+</%def>
+
+<%def name="issue_list(tickets, page=1, is_closed_tab=False, n_pages=1, key_word='')">
+
+<% ticket_total_len = len(tickets) %>
+<div class="issue-list">
+    % if len(tickets) == 0:
+    <div class="well">
+        <p>No issue to show</p>
+    </div>
+    % else:
+        % for i, ticket in enumerate(tickets):
+            % if i:
+                <div class="rule"></div>
+            % endif
+            ${render_issue(ticket)}
+        % endfor
+    % endif
+
+    <%
+      page_link = '?state=closed&' if is_closed_tab else '?'
+      if key_word:
+          page_link = page_link + 'q=%s&' % key_word
+      href = "%spage=%%s" % page_link
+    %>
+    <%include file="/widgets/paginator.html", args="href=href, current=page, total=n_pages" />
+</div>
+
+</%def>
+
+
+<%def name="tab_url(issues_url, list_type, show_closed=False, keyword='')" > \
+<%
+    if list_type in ['repo', 'team']:
+        page_type = ''
+    elif list_type in ['assigned', 'created_by', 'mentioned', 'search',
+                       'repos', 'participated']:
+        page_type = list_type
+    else:
+        page_type = ''
+
+    url = issues_url + page_type
+
+    query = {}
+    if show_closed:
+        query['state'] = 'closed'
+    if list_type == 'search':
+        query['q'] = keyword
+    if query:
+      from urllib import urlencode
+      url = '%s?%s' % (url, urlencode(query))
+
+    return url
+%>
+</%def>

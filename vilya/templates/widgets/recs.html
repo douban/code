@@ -1,0 +1,36 @@
+<%page args="recs=[], show_to_user=False" />
+<%!
+    from vilya.models.user import User
+%>
+
+## TODO: move user to view ...
+<%
+   user = request.user
+%>
+
+<ul class="recs">
+  % for rec in recs:
+  <li class="rec">
+    % if show_to_user:
+    <div class="to-user-info">
+      <img src="${User(rec.to_user).avatar_url}" width="48" height="48">
+      <a href="/people/${rec.to_user}/praises">${rec.to_user}</a>
+    </div>
+    % endif
+    <div class="vote-buttons ${'voted' if user and rec.is_voted(user.username) else ''}">
+      <a id="rec-${rec.id}-vote" data-rec-id="${rec.id}" title="I like this praise" class="rec-vote" href="/praise/vote/" ></a>
+      <div class="rec-score current" title="current votes">${rec.n_vote if rec.n_vote > 0 else u'•'}</div>
+      <div class="rec-score likes" title="current votes">${rec.n_vote + 1}</div>
+    </div>
+    <div class="item-right clearfix">
+      <blockquote>
+        <q>${rec.content}</q>
+      </blockquote>
+      <div class="from-user-info">
+        ${rec.created.strftime('%Y-%m-%d')} from <a href="/people/${rec.from_user}">${rec.from_user}</a>
+        <img src="${User(rec.from_user).avatar_url}" width="48" height="48">
+      </div>
+    </div>
+  </li>
+  % endfor
+</ul>

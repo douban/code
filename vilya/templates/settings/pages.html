@@ -1,0 +1,168 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.mako" />
+<%namespace name="utils" file="/settings/utils.html" />
+
+<%def name="title()">Pages</%def>
+<%def name="suffix()">${project.name}</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/settings.css')}" />
+</%def>
+
+${pagehead.trac_header("settings", project, user)}
+
+${utils.settings_submenu(projname=project.name, active='pages')}
+
+<%def name='wizard(project)'>
+<%
+docsdir = 'pages'
+config_file = """
+docs:
+    pages:
+        builder: raw
+        dir: pages
+        name: Pages
+"""
+
+config_file_esc = config_file.replace("\n", r"\n")
+configlink = "/%s/edit/master/?newfile=1&newfilename=code_config.yaml&template_code=%s" % (
+    project.name, config_file_esc)
+
+default_html = """
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Coming soon: a wonderful page about any topic.</h1>
+</body>
+
+<a href="../">Back to my project</a>
+</html>
+"""
+default_html_esc = default_html.replace("\n", r"\n")
+htmllink = "/%s/edit/master/%s/?newfile=1&newfilename=index.html&template_code=%s" % (
+    project.name, 'pages', default_html_esc)
+
+docslink = "/%s/docs/" % project.name
+explanations = """
+- The pages content is located in pages/ folder.
+- Page files can be created and edited online.
+- A cronjob regenerates the pages, but you can
+  force a rebuild when you just pushed or edited
+  some new content.
+"""
+%>
+    <p>Publish html pages and static files in your code project,
+    it's easy. See the <a href='http://code.dapps.douban.com/docs_demo_pages/docs/index.html'>Github pages-like demo</a>.</p>
+
+    <p>Want to do the same? You are three clicks away.</p>
+
+
+    <ol>
+        <li>
+            <p>Enable `docs´ in the config file with a `raw´ builder type.</p>
+            <p><a target="_blank" class="btn" href="${configlink}">Create code_config.yaml</a></p>
+        </li>
+        <li>
+            <p>Create the home page with some html content.</p>
+            <p><a target="_blank" class="btn" href="${htmllink}">Create <tt>pages/index.html</tt></a></p>
+        </li>
+        <li>
+            <p>Export the new content to the serving folder.</p>
+            <p><a class="btn" href='sphinx_docs?force_rebuild=direct'>
+            <span class="bigger mega-icon mega-icon-admin-tools"></span>
+            <b>Force rebuild docs</b></a></p>
+        </li>
+    </ol>
+
+    <p>Good! Now head to the <a href="${docslink}">Pages tab</a> and see the result.</p>
+
+    <h3>How does it work?</h3>
+    <pre>${explanations}</pre>
+</%def>
+
+<%def name="existing_page(project, docs, last_build)">
+    <%
+        buildloglk = 'sphinx_docs'
+    %>
+    % if ['pages'] != docs.builders:
+        <p><strong>Warning:</strong> Another documentation builder has been enabled and some content is already present.</p>
+        <p>Add a `pages´ builder in your `code_config.yaml´ to enable pages.</p>
+    % elif last_build.get('status') != 'success':
+        <p><strong>Zaogao:</strong> The last build did fail with status
+        `${last_build.get('status')}´.</p>
+        <p>You shoul check the <a href="${buildloglk}">build logs</a>.
+    % else:
+        <%
+            docstablk = '/%s/docs/%s' % (project.name, 'pages')
+            folderlk = '/%s/tree/master/%s' % (project.name, docs.get_builder('pages').dir)
+            rebuildlk = 'sphinx_docs?force_rebuild=direct'
+        %>
+        <p>Success! Bravo!</p>
+
+        <ul>
+            <li>
+                <p>See the result in <a href="${docstablk}">Docs tab</a>
+            </li>
+            <li>
+                <p>Display and edit the <a href="${folderlk}">${docs.get_builder('pages').dir} folder</a>
+            </li>
+            <li>
+                <p><a class="btn" href="${rebuildlk}">Force Rebuild
+                <span class="bigger mega-icon mega-icon-admin-tools"></span>
+                </a> if you just
+                edited or commited content.</p>
+            </li>
+            <li>
+                <p>Anything wrong? Check the <a href="${buildloglk}">build log</a>.</p>
+            </li>
+        </ul>
+    % endif
+</%def>
+
+<style>
+.setting-pages {
+    background: #739890 url("/static/img/smokinggal.jpg") no-repeat scroll bottom right;
+    border: 2px solid #394249;
+    border-radius: 5px;
+    padding: 7px;
+    min-height: 650px;
+}
+.setting-pages h2 {
+    border-bottom: 0px;
+    font-weight: normal;
+    font-size: 45px;
+    color: #333e44;
+    box-shadow: 0px +15px 25px -20px #333e44;
+    text-shadow: 0px +0px 1px #ffaea6;
+    padding: .2em 0 .3em 0;
+    margin-bottom: .5em;
+    text-align: center;
+}
+.setting-pages { font-family: Verdana; }
+.setting-pages a {
+    font-weight: bold; color: #435159;
+    text-shadow: -1px +0px 7px #f9f0e2;
+}
+.setting-pages p {
+    font-family: Verdana;
+    font-size: 110%;
+    font-weight: bold;
+    color: #fbfbf9;
+}
+.setting-pages li {
+    font-weight: bold;
+    color: #ffaea6;
+}
+.setting-pages pre { width: 30em; }
+.setting-pages strong { color: #ffaea6; }
+</style>
+
+<div class="markdown-body markdown-page setting-pages">
+    <h2>Blog &amp; Pages in Code!</h2>
+    % if not last_build:
+        ${self.wizard(project)}
+    % else:
+        ${self.existing_page(project, docs, last_build)}
+    % endif
+</div>

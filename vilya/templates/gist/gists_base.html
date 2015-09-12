@@ -1,0 +1,148 @@
+<%inherit file="/gist/base.html" />
+<%namespace name="gist_utils" file="/widgets/gist.html" />
+
+<%!
+    from vilya.models.user import User
+    from vilya.libs.reltime import compute_relative_time
+%>
+
+<%block name="extra_head">
+  <link href="/static/css/highlight.css" type="text/css" rel="stylesheet">
+  <link href="/static/css/code.css" type="text/css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="${static('/css/app/gist.css')}" />
+</%block>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/gist/gist.js')}"></script>
+</%def>
+
+
+<%def name="gists_content()">
+    <div class="pagehead separation trans">
+        ${ self.page_title() }
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="span2 root-pane">
+            ${ self.sub_menu() }
+        </div>
+        <div class="span10 right-content">
+            ${ self.right_content() }
+        </div>
+    </div>
+</%def>
+
+<%def name="page_title()"> xxxx </%def>
+<%def name="sub_menu()"> yyy  </%def>
+<%def name="right_content()">
+  <div class="tabnav">
+    <span class="tabnav-right">
+      <ul class="tabnav-tabs sort-tabs">
+        <li class="${'active' if sort == 'created' else ''}">
+        <%
+            new_direction = 'asc' if direction == 'desc' else 'desc'
+        %>
+        <a href="?sort=created&amp;direction=${new_direction}" class="tabnav-tab">
+            % if sort == 'created' and direction == 'asc':
+                <span class="mini-icon mini-icon-arr-up"></span>
+            % elif sort == 'created' and direction == 'desc':
+                <span class="mini-icon mini-icon-arr-down"></span>
+            % endif
+            Created
+          </a>
+        </li>
+        <li class="${'active' if sort == 'updated' else ''}">
+          <a href="?sort=updated&amp;direction=${new_direction}" class="tabnav-tab">
+              % if sort == 'updated' and direction == 'asc':
+                <span class="mini-icon mini-icon-arr-up"></span>
+              % elif sort == 'updated' and direction == 'desc':
+                <span class="mini-icon mini-icon-arr-down"></span>
+              % endif
+              Updated
+          </a>
+        </li>
+      </ul>
+    </span>
+  </div>
+
+  % for i in gists:
+  <div class="gist gist-item">
+    <ul class="meta">
+      <li>
+        <a href="${ i.url }" class="tooltipped downwards" original-title="Files">
+          <span class="mini-icon mini-icon-gist"></span> ${i.n_files} files
+        </a>
+      </li>
+      <li>
+        <a href="${ i.url }/forks" class="tooltipped downwards" original-title="Forks">
+          <span class="mini-icon mini-icon-gist-fork"></span> ${i.n_fork} forks
+        </a>
+      </li>
+      <li>
+        <a href="${ i.url }#comments" class="tooltipped downwards" original-title="Comments">
+          <span class="mini-icon mini-icon-commit-comment"></span> ${i.n_comments} comments
+        </a>
+      </li>
+      <li>
+        <a href="${ i.url }/stars" class="tooltipped downwards" original-title="Stars">
+          <span class="mini-icon mini-icon-gist-star"></span> ${i.n_star} stars
+        </a>
+      </li>
+    </ul>
+
+    <div class="byline">
+      <span class="creator">
+        <img src="${User(i.owner_id).avatar_url}">
+        <a href="/gist/${i.owner_id}">${i.owner_id}</a>
+        /
+        <a href="${ i.url }">${i.name}</a>
+      </span>
+      <div class="metadata">
+        <span class="datetime">Last Updated
+          <time class="js-relative-date">${compute_relative_time(i.updated_time)}</time>
+        </span>
+        ${ gist_utils.gist_forked_from(i) }
+      </div>
+      <span class="description">
+        ${ i.description }
+      </span>
+    </div>
+
+    <div class="snippet">
+      <div class="bubble ${ '' if i.is_public else 'secret' }">
+        <div class="file-box">
+      <a href="${ i.url }" class="link-overlay">
+            <span class="link">View <strong>gist:${i.name or i.id}</strong> <span class="mini-icon mini-icon-arr-right"></span></span>
+          </a>
+          <div class="data file">
+           % if i.files:
+             <%
+               path = i.files[0]
+               src = i.get_file(path)
+               abstract = src and '\n'.join(src.split('\n')[:10]) or ''
+             %>
+             ${ gist_utils.render_src(path, abstract) }
+           % else:
+             <div class="markdown-body"> This gist has no files yet </div>
+           % endif
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  % endfor
+    <div class="pagination-older-newer">
+        % if link_prev:
+            <a href="${link_prev}">&laquo; Newer</a>
+        % else:
+            <span class="disabled">&laquo; Newer</span>
+        % endif
+        % if link_next and len(gists) >= 5:
+            <a href="${link_next}">Older &raquo;</a>
+        % else:
+            <span class="disabled">Older &raquo;</span>
+        % endif
+    </div>
+</%def>

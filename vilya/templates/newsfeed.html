@@ -1,0 +1,52 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.html" />
+<%namespace name="tips" file="/widgets/tips.mako" />
+<%namespace name="side_list" file="/widgets/side_list.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/newsfeed.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/home/main.js')}"></script>
+    <script src="${static('/js/app/home/userfeed_timeline.js')}"></script>
+</%def>
+${pagehead.user_header(active='news')}
+
+<div class="row">
+    <div class="span7">
+        %if actions:
+            <%include file="/widgets/actions_feed.html" args="actions=actions, is_notification=False, show_avatar=True"/>
+        %else:
+            <div class="mod">
+                <div class="summary">
+                    Welcome to Code!&nbsp;&nbsp;<a href="/hub/teams">Explore interesting repos</a> to watch.
+                </div>
+                <div>
+                  <img src="http://p.dapps.douban.com/i/35f0094671c111e2b35524b6fdf76328.jpg">
+                  <br>
+                  <ul>
+                    <li>如果你是刚刚开始使用Code, 那么你可以尝试从新建一个项目<a href="/hub/create">开始</a></li>
+                    <li>如果你还不清楚什么是Pull Request, 那么你可以到这里先<a href="/hub/my_pull_requests/?list_type=explore">逛逛</a></li>
+                    <li>如果你想知道现在谁在和你一起写代码, 请来<a href="/hub/public_timeline">这里看看</a></li>
+                    <li>如果你想表达你的心情, 请使用<a href="/hub/emoji" title="All emoji">表情符号</a></li>
+                    <li>如果你想对Code本身更有了解, 那么请<a href="/code/docs/pages/index.html">订阅Code Blog</a></li>
+                    <li>在Code里, 会用到<a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a>来书写评论和写文档, 你可以到<a href="http://md.dapps.douban.com/">这里</a>先熟悉一下他</li>
+                  </ul>
+                </div>
+            </div>
+        %endif
+    </div>
+    <div class="span5 hidden-phone">
+    ${tips.tip()}
+    ${side_list.pull_request()}
+    ${side_list.issue_list(my_issues, is_closed_tab=is_closed_tab)}
+    </div>
+</div>
+
+<ul id="get-username" data-username="${username}"></ul>
+
+<%block name="extra_js" ></%block>

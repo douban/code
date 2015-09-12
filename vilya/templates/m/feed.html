@@ -1,0 +1,37 @@
+<%inherit file="/m/base.html" />
+
+<%def name="head_style()">
+<link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/lib/jquery.mobile-1.3.0.min.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/lib/pull-to-refresh.css" />
+<link rel="stylesheet" type="text/css" href="${static('/css/app/mfeed.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+<script src="/static/js/lib/jquery.mobile-1.3.0.min.js"></script>
+<script src="${static('/js/app/m/main.js')}"></script>
+</%def>
+
+<%def name="body()">
+<input type="hidden" id="is-public-timeline" value="${is_public or False}"/>
+<div class="timeline">
+    <div class="scrollable">
+        <div class="wrap">
+            <dl></dl>
+        </div>
+    </div>
+</div>
+<div data-role="footer" data-position="fixed" data-id="mfeed-footer" data-theme="c" class="ui-bar-c ui-footer ui-footer-fixed ui-fixed-overlay">
+	<div data-role="navbar" class="ui-navbar ui-navbar-c ui-navbar-noicons">
+		<ul class="ui-grid-a">
+            % if is_public:
+            <li class="ui-block-a"><a href="/m" data-theme="c" class="ui-btn ui-btn-down-c ui-btn-up-c">我关注的广播</a></li>
+			<li class="ui-block-b"><a href="/m/public_timeline" data-theme="c" class="ui-btn ui-btn-down-c ui-btn-up-c ui-btn-active">公共广播</a></li>
+            % else:
+			<li class="ui-block-a"><a href="/m" data-theme="c" class="ui-btn ui-btn-down-c ui-btn-up-c ui-btn-active">我关注的广播</a></li>
+			<li class="ui-block-b"><a href="/m/public_timeline" data-theme="c" class="ui-btn ui-btn-down-c ui-btn-up-c">公共广播</a></li>
+            % endif
+		</ul>
+	</div>
+</div>
+</%def>

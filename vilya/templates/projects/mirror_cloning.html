@@ -1,0 +1,21 @@
+<%inherit file="/base.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/mirror-cloning.css')}" />
+</%def>
+
+<%def name="title()">Cloning · ${project.name}</%def>
+
+
+<div class="raw">
+    <div class="span12">
+        <div class="center">
+            <h3>Cloning to ${project.name} from ${mirror.url}</h3>
+            <p>We're cloning a repository just for you.  It should take some seconds depends on your mirror url.</p>
+            <p><img alt="cloning" src="/static/img/cloning.png"></p>
+        </div>
+    </div>
+</div>

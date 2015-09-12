@@ -1,0 +1,123 @@
+@import "compass/css3";
+@import "css/mod/common";
+@import "css/mod/flatui-comment-content";
+.pagehead {
+    margin-bottom: 7px;
+}
+
+.rooms-right {
+    float: right;
+    width: 94px;
+}
+
+.pagehead h2 {
+    margin: 0;
+    font-size: 30px;
+    line-height: 36px;
+    float: left;
+}
+
+.clearfix {
+    display: block;
+}
+
+.all_rooms li {
+    position: relative;
+    list-style: none;
+    clear: both;
+    background: white;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.nav-tabs.nav-stacked > li > a {
+    padding: 14px 5px;
+}
+
+.del-room {
+    position: absolute;
+    right: 0;
+    z-index: 10;
+    margin: 0;
+    top: 13px;
+    color: rgba(99,182,174,0);
+}
+
+.all_rooms {
+    height: 686px;
+    overflow: auto;
+}
+
+.message {
+    height: 623px;
+    overflow: auto;
+    background: white;
+}
+
+#message_input {
+    height: 63px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#send_message_button {
+    height: 63px;
+    margin: 0;
+    padding: 0;
+}
+
+.dia_box {
+    margin-top: 20px;
+    line-height: 17px;
+    margin-left: 40px;
+    margin-bottom: 20px;
+}
+
+.dia_info {
+    margin-left: 18px;
+    text-align: left;
+}
+
+.info_date {
+    color: #808080;
+    vertical-align: -1px;
+    white-space: pre;
+    zoom: 1;
+}
+
+.dia_bg {
+    min-width: 144px;
+    max-width: 413px;
+    margin: 0 8px;
+    padding: 5px 9px;
+    @include border-radius(5px);
+    position: relative;
+    background: #f3f3f3;
+    border: solid 1px #eaeaea;
+    box-shadow: inset -1px 1px 1px rgba(255,255,255,.75);
+}
+
+.dia_txt {
+    min-width: 144px;
+    max-width: 413px;
+    margin: 0 8px;
+    padding: 5px 9px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.side-avatar {
+    float: left;
+    padding: 0px 5px 5px;
+    vertical-align: top;
+    margin-left: 0;
+    margin-top: 17px;
+}
+
+.side-avatar img {
+    width: 32px;
+    height: 32px;
+    @include border-radius(3px);
+}

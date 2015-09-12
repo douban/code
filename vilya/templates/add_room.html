@@ -1,0 +1,42 @@
+<%inherit file="/base.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/team.css')}" />
+</%def>
+
+<%def name="make_title()">
+create chat room
+</%def>
+
+<form name="add_room" action='/hub/chat/add_room' method="post">
+    <div class="page">
+        <h3>添加room</h3>
+        <table class='table table-size'>
+            <tr>
+                <th class='text-right'><label for='uid'>唯一ID</label></th>
+                <td class='text-left'>
+                  <input type='text' id='name' name='name' value="${name}"/>
+                  <p>room name，最长10个字符, 且不可与其他room重复，且能使用字母数字及下划线</p>
+                  % if error == 'too_long_name':
+                  <p class="alert alert-error">名字长度不能大于10</p>
+                  % endif
+                  % if error == 'name_not_exists':
+                  <p class="alert alert-error">请填写room name</p>
+                  % endif
+                  % if error == 'invilid_name':
+                  <p class="alert alert-error">name只能使用字母数字及下划线</p>
+                  % endif
+                  % if error == 'name_existed':
+                  <p class="alert alert-error">${name}已经存在，请换一个名字</p>
+                  % endif
+                </td>
+            </tr>
+            <tr>
+                <td class='text-center' colspan='2'>
+                    <input type='submit' id='submit' class='btn btn-success add_team_btn' value='Submit' />
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>

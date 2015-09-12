@@ -1,0 +1,12 @@
+docs:
+    pages:
+        builder: raw
+        dir: blog/output
+        name: Blog
+        sort: 1
+    docs:
+        builder: pickle
+        dir: docs
+        name: Docs
+        sort: 2
+onimaru: /public/code

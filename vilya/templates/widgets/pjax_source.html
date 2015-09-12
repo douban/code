@@ -1,0 +1,467 @@
+<%!
+    from vilya.libs.text import gravatar_url, parse_emoji, is_binary
+%>
+
+<%def name="breadcrumb(project, ref, path_breadcrumb, is_blob=False, ref_type=None)">
+    <div class="span12">
+        <div id="breadcrumb">
+            <a href="/${project.name}/tree/${ref}">${project.name}</a> /
+            <span id="J_SubPaths" class="sub-paths">
+            % if path_breadcrumb:
+                % for sub in path_breadcrumb[:-1]:
+                    <a href="/${project.name}/tree/${ref}/${sub.get('path')}">${sub.get('title')}</a>
+                    /
+                % endfor
+                <span class="final-path">${path_breadcrumb[-1].get('title')}</span>
+            % endif
+            </span>
+            %if is_blob and ref_type == 'tree':
+                <%
+                    commit = project.repo.get_commit(ref)
+                %>
+                % if commit:
+                    @ <a href="${commit.get_url_with_path(path_breadcrumb[-1].get('path'))}#diff-0">${commit.sha[:7]}</a>
+                % endif
+            % endif
+            <a style="float:right" href='/${project.name}/browsefiles'>
+                <span class="mini-icon mini-icon-u-list"></span>
+            </a>
+        </div>
+    </div>
+</%def>
+
+<%def name="lastcommit_bar(project, ref_type, ref, lastcommit)">
+% if lastcommit:
+    % if ref_type == 'branch':
+        <div class="span12 last-bar">
+            <p class="last-commit"><span class="mini-icon mini-icon-time"></span>
+                Latest commit to the <strong>${ref}</strong> branch
+            </p>
+            <div class="commit commit-tease js-details-container">
+                <p class="commit-title ">
+                    <a href="${lastcommit.url}" class="message emojstext">${parse_emoji(lastcommit.shortlog)|n}</a>
+                </p>
+                <div class="commit-meta">
+                    <a href="${lastcommit.url}" class="sha-block">commit <span class="sha">${lastcommit.sha[:10]}</span></a>
+                    <span class="js-clippy mini-icon mini-icon-clippy " data-clipboard-text="${lastcommit.sha}" data-copied-hint="copied!" data-copy-hint="Copy SHA"></span>
+
+                    <div class="authorship">
+                        <img class="user-avatar gravatar lazy" height="20" data-original="${gravatar_url(lastcommit.author.email)}" src="${gravatar_url(lastcommit.author.email)}" width="20" />
+                        <span class="author-name">
+                          % if lastcommit.has_author_link:
+                            <a href="${lastcommit.author.url}">${lastcommit.author}</a>
+                          % else:
+                            <span>${lastcommit.author}</span>
+                          % endif
+                        </span>
+                        authored
+                        <time class="js-relative-date updated" datetime="${lastcommit.time}" title="${lastcommit.time}">
+                            ${lastcommit.time}
+                        </time>
+                    </div>
+                </div>
+            </div>
+        </div>
+    % endif
+% endif
+</%def>
+
+<%def name="branch_switcher(project, ref_type, ref, branches, tags, active)">
+    <% disp_ref = ref[:10] if ref_type == 'tree' else ref %>
+    <div class="scope btn-group">
+        <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#">
+            <span><i class="muted">${ref_type}:</i> <b>${disp_ref}</b></span>
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <ul>
+                <b style='padding-left:.4em'>Branches</b>
+                % for branch in branches:
+                    % if active == 'files':
+                        <li><a href="/${project.name}/tree/${branch}">${branch}</a></li>
+                    % elif active == 'commits':
+                        <li><a href="/${project.name}/commits/${branch}">${branch}</a></li>
+                    % endif
+                % endfor
+            </ul>
+            <ul>
+                <b style='padding-left:.4em'>Tags</b>
+                % for tag in tags:
+                    % if active == 'files':
+                        <li><a href="/${project.name}/tree/${tag | u}">${tag}</a></li>
+                    % elif active == 'commits':
+                        <li><a href="/${project.name}/commits/${tag}">${tag}</a></li>
+                    % endif
+                % endfor
+            </ul>
+        </ul>
+    </div>
+</%def>
+
+<%def name="readme_block(file_name, readme_content)">
+    <div id="readme" class="span12">
+         <div class="items">
+             <div class="top-bar">
+                <h2>${file_name}</h2>
+            </div>
+            <div class="file markdown-body">
+                ${readme_content | n, decode.utf8 }
+            </div>
+        </div>
+    </div>
+</%def>
+
+<%def name="tree_block(tree=[])">
+    <div class="span12">
+        <div id="tree" data-path="${tree_path}" data-ref="${ref}">
+        % if tree:
+            <table class="tree-browser" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr class="header">
+                        <th></th>
+                        <th>name</th>
+                        <th>age</th>
+                        <th>message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    % for item in tree:
+                        <tr class="tree-item" id="${item['id']}">
+                            <td></td>
+                            <td class="content">
+                                % if item['type']  == 'tree':
+                                    <i class="icon-folder-close"></i>
+                                % elif item['type'] == 'submodule':
+                                    <i class="mini-icon mini-icon-submodule"></i>
+                                % else:
+                                    <i class="icon-file"></i>
+                                % endif
+                                % if item['type'] == 'submodule':
+                                    % if item['host'] == 'code':
+                                        <a href="${item['url']+'/tree/'+item['id']}">
+                                            ${item['name']+' @ '+item['id'][:7]}
+                                        </a>
+                                    % elif item['host'] == 'github':
+                                        <a href="${item['url']+'/tree/'+item['id']}">
+                                            ${item['name']+' @ '+item['id'][:7]}
+                                        </a>
+                                    % elif item['host'] == 'gist':
+                                        <a href="${'https://gist.github.com/%s/%s' % (item['x-gist-id'], item['id'])}">
+                                            ${item['name']+' @ '+item['id'][:7]}
+                                        </a>
+                                    % else:
+                                    <a href="${item['url']}">
+                                            ${item['name']+' @ '+item['id'][:7]}
+                                        </a>
+                                    % endif
+                                % else:
+                                    <a href="/${project.name}/${item['type']}/${ref}/${item['path']}">
+                                        ${item['name']}
+                                    </a>
+                                % endif
+                            </td>
+                            <td class="age"></td>
+                            <td class="message"></td>
+                        </tr>
+                    % endfor
+                </tbody>
+            </table>
+        % endif
+        </div>
+    </div>
+</%def>
+
+<%def name="blob_block()">
+    <div class="span12">
+        <div id="blob" data-path="${blob_path}" data-ref="${ref}" class="items">
+            <div class="top-bar">
+                <ul class="button-group actions">
+                    % if request.user:
+                        <li>
+                            <a class="grouped-button minibutton"
+                                href="/${project.name}/edit/${ref}/${blob_path}">
+                                Edit
+                            </a>
+                        </li>
+                    % endif
+                    % if not is_binary(blob_path):
+                    <li>
+                        <a class="grouped-button minibutton"
+                            href="/${project.name}/blame/${ref}/${blob_path}">
+                            Blame
+                        </a>
+                    </li>
+                    % endif
+                    <li>
+                        <a class="grouped-button minibutton"
+                            href="/${project.name}/raw/${ref}/${blob_path}">
+                            Raw
+                        </a>
+                    </li>
+                    <li>
+                        <a class="grouped-button minibutton"
+                            href="/${project.name}/commits/${ref}/${blob_path}">
+                            History
+                        </a>
+                    </li>
+                </ul>
+                <h2>${file_name}</h2>
+            </div>
+            <div class="file"></div>
+        </div>
+    </div>
+</%def>
+
+<%def name="commit_header(commit)">
+<div class="commit full-commit ">
+    <a href="/${project.name}/tree/${ref}" class="browse-button" title="Browse the code at this point in the history" rel="nofollow">Browse code</a>
+    <p class="commit-title">
+        ${commit.message}
+    </p>
+    <div class="commit-meta clearfix">
+      <span class="sha-block">commit <span class="sha">${ref}</span></span>
+      <span class="sha-block">
+         <%
+            parents = commit.parents
+         %>
+         parent
+         % for p in parents:
+            <a href="/${project.name}/commit/${p}" class="sha" data-hotkey="p">${p[:10]}</a>&nbsp;
+         % endfor
+      </span>
+      <div class="authorship">
+        <img class="gravatar" height="24" src="${gravatar_url(commit.author.email)}" width="24" />
+        % if commit.has_author_link:
+          <span class="author-name"><a href="/people/${commit.author.name}" rel="author">${commit.author.name}</a></span>
+        % else:
+          <span class="author-name">${commit.author.name}</span>
+        % endif
+        authored <time class="js-relative-date" datetime="" title="${commit.author_time}">${commit.author_time}</time>
+      </div>
+    </div>
+</div>
+</%def>
+
+<%def name="blame_block(name, ref, blame)">
+    <% rev_section = '' %>
+    <div class="file">
+        <div class="meta" id="${name}" data-path="${name}">
+            <div class="info">
+                <span class="diffstat tooltipped rightwards" title="somestats"><span class="diffstat-bar"><i class='plus'></i><i class='minus'></i></span></span>
+                <b>${name}</b>
+            </div>
+            <div class="actions">
+              <ul class="button-group">
+                  <li>
+                    <a href="/${project.name}/blob/${ref}/${name}" class="grouped-button minibutton bigger lighter" rel="nofollow">View file @ <code>${ref[:10]}</code></a>
+                  </li>
+              </ul>
+            </div>
+          </div>
+          <div class="data highlight blame">
+              <table width="100%" cellpadding="0" cellspacing="0">
+                % for hunk in blame.hunks:
+                    % for line in hunk.lines:
+                        % if line.idx == 0:
+                        <tr id="L${line.no}" class="section-first">
+                            <td nowrap rowspan=${len(hunk.lines)} class="commitinfo">
+                                <code>
+                                    <a href="${line.commit.get_url_with_path(line.path)}#diff-0">${line.commit.sha[:8]}</a>
+                                    <a href="${line.orig_path_url}">&#187;</a>
+                                    <a href="/people/${line.commit.author.name}">${line.commit.author.name}</a>
+                                </code>
+                                <br/>
+                                ## TODO: js time localize
+                                <span class="date">${line.commit.author_time.strftime('%Y-%m-%d %H:%M')}</span>
+                                <br/>
+                                <span class="message" title="${line.commit.message_header}">${line.commit.message_header[:30]}</span>
+                            </td>
+                        % else:
+                        <tr id="L${line.no}">
+                        % endif
+                            <td nowrap class="line-number">
+                                <a href="#L${line.no}">${line.no}</a>
+                            </td>
+                            <td nowrap class="line-data">${line.content|h}</td>
+                        </tr>
+                    % endfor
+                % endfor
+              </table>
+          </div>
+    </div>
+</%def>
+
+<%def name="edit_block()">
+    <%
+    if direct_edit_allowed:
+        submit_msg = "Commit changes"
+        commit_msg = "Edit %s" % file_name
+    else:
+        submit_msg = "Send pull request"
+        commit_msg = "Patch %s" % file_name
+    if newfile:
+        commit_msg = "Add new file"
+    %>
+
+    <div class='helpop'>
+        <a class="popic" target="_blank" href="${help_link}">
+            <img src="/static/img/helpgirl.png" swidth='110px' />
+        </a>
+    </div>
+    <div class="span12">
+        % if errors:
+            <div class="alert alert-error">
+                <strong>Warning!</strong> ${errors}
+            </div>
+        % endif
+        % if success:
+            <div class="alert alert-success">
+                <strong>Well done!</strong> ${success}
+            </div>
+        % endif
+        <form class="commit_form" action="" method="post">
+            <input type="hidden" name="filename" value="${blob_path}">
+            <input type="hidden" name="orig_hash" value="${orig_hash}">
+            <div style="border: 3px solid #ddd; border-radius: 4px">
+                <textarea id="code" name="code">${text if text else template_text}</textarea>
+            </div>
+            % if newfile:
+                <label><strong>
+                    New filename:
+                    <input type="hidden" name="newfile" value="1">
+                    ${path} <input type="text" class="input-xxlarge" name="newfilename" value="${newfilename}">
+                </strong></label>
+            % endif
+            <label>Commit summary:</label>
+            <input type="text" name="message" value="${commit_msg}" class="input-xxlarge">
+            <label>Extended description: (optional):</label>
+            <textarea name="desc" class="input-xxlarge"></textarea><br>
+            <input class="btn" type="submit" value="${submit_msg}">
+        </form>
+    </div>
+</%def>
+
+<%def name="commits_block()">
+
+    <div class="span12">
+        % if not revlist:
+            <span id="emptyrepo-hint">No more commits history.</span>
+        % else:
+        <div class="commit-history-header">
+            % if not path:
+                <h3 class="history pull-left">
+                    <a href="/${project.name}/">${project.name}</a> / Commit History
+                </h3>
+                <form id="search-commits" action="" method="get" class="pull-right" >
+                    <input name="query" value="${query if query else ''}" type="text" placeholder="Search commits by commit msg">
+                </form>
+            % else:
+                <h3 class="history">
+                    History for <a href="/${project.name}/">${project.name}</a> / ${path.decode('utf8')}
+                </h3>
+            % endif
+        </div>
+        <div class="commits-body">
+            <div id="commits-graph" data-graph="${graph_data|h}">
+            </div>
+            ${self.commit_block(project, path, revlist, comment_counts, release=release)}
+        </div>
+        % endif
+        ${self.pagination(project, link_prev, link_next)}
+        % if path and rename_from:
+            <div class="action-bubble">
+                <span class="action">
+                    <span class="state state-renamed">RENAMED</span>
+                </span>
+                <div class="bubble">
+                    <p>
+                        File renamed from
+                        <code><a href="/${project.name}/commits/${ref}/${rename_from}">${rename_from}</a></code>.
+                    </p>
+                </div>
+            </div>
+        % endif
+    </div>
+</%def>
+
+<%def name='pagination(project, link_prev, link_next)'>
+    <div class="pagination-older-newer">
+        % if link_prev:
+            <a href="${link_prev}">&laquo; Newer</a>
+        % else:
+            <span class="disabled">&laquo; Newer</span>
+        % endif
+        % if link_next:
+            <a href="${link_next}">Older &raquo;</a>
+        % else:
+            <span class="disabled">Older &raquo;</span>
+        % endif
+    </div>
+</%def>
+
+<%def name="commit_block(project, path, commits, comment_counts, release=None)">
+    <ol class="commit-group">
+        % for c in commits:
+            <li class="commit commit-group-item">
+                <a href="/people/${c.author.name}"><img class="gravatar" height="36" src="${gravatar_url(c.author.email)}" width="36" /></a>
+                <p class="commit-title ">
+                    <%
+                        shortlog = c.shortlog
+                    %>
+                    <a href="/${project.name}/commit/${c.sha}" class="message">${parse_emoji(shortlog) if shortlog else '&nbsp' | n}</a>
+
+                </p>
+                <div class="commit-meta">
+                    <div class="commit-links">
+                        <%
+                            if not path:
+                                commit_url = c.url
+                            else:
+                                commit_url = c.get_url_with_path(path.decode('utf-8')) + '#diff-0'
+                        %>
+                        <a href="${commit_url}"class="gobutton ">
+                            ${self.comment_popup(comment_counts[c.sha])}
+                            <span class="sha">${c.sha[:10]}</span>
+                        </a>
+                        <br>
+                        % if project.deploy_link_enabled:
+                        <a href="http://bridge.dapps.douban.com/app/${project.name}/deploy#${c.sha}" class="browse-button" title="Deploy via dae-deploy" rel="nofollow" target='_blank'>Deploy</a>
+                        <span style="color:#CCC">●</span>
+                        % endif
+                        <a href="/${project.name}/tree/${c.sha}" class="browse-button" title="Browse the code at this point in the history" rel="nofollow">Browse</a>
+                        <span style="color:#CCC">●</span>
+                        <a href="/${project.name}/compare/${c.sha[:10]}...master" data-ref="${c.sha[:10]}" class="compare-button" title="compare code from this commit to master" rel="nofollow">Compare</a>
+                    </div>
+                    <div class="authorship">
+                        % if c.has_author_link:
+                          <span class="author-name"><a href="/people/${c.author.name}">${c.author.name}</a></span>
+                        % else:
+                          <span class="author-name">${c.author.name}</span>
+                        % endif
+                        ## TODO: js time localize
+                        authored <time>${c.author_time.strftime('%Y-%m-%d %H:%M:%S')}</time>
+                        % if release and release['last_rev'] == c.sha:
+                        <a href="${release['url']}" title="up" rel="nofollow">
+                          <span class="label">
+                            上线于 <time class="js-relative-date" datetime="${release['release_time']}">${release['release_time']}</time> (by ${release['release_manager']})
+                          </span>
+                        </a>
+                        % endif
+                    </div>
+                </div>
+            </li>
+        % endfor
+    </ol>
+</%def>
+
+<%def name="comment_popup(comment_list)">
+    <% if len(comment_list) == 0: return '' %>
+    <span
+        class="comment-popover"
+        data-title="${len(comment_list)} comments"
+        data-content="${'<br />'.join('%s: %s' % (u, c) for u, c in comment_list)}"
+    >
+        <span class="mini-icon mini-icon-commit-comment"></span>
+        <strong>${len(comment_list)}</strong>
+    </span>
+</%def>

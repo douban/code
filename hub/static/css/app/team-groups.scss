@@ -1,0 +1,23 @@
+@import "css/mod/common";
+@import "css/mod/team-header";
+@import "css/mod/timeline";
+@import "css/mod/my-projects";
+
+.group-link {
+    text-decoration: none;
+}
+.group-link:focus {
+    outline: none;
+}
+.group-link:hover {
+    text-decoration: none;
+}
+.group-description {
+    overflow: hidden;
+    max-width: 80%;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #777;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

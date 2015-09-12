@@ -1,0 +1,30 @@
+.quick-emoji {
+    margin-right:10px;
+
+    .description{
+        text-align:center;
+        color:#999;
+    }
+
+    .emojis {
+        overflow-x:hidden;
+        overflow-y:scroll;
+        word-wrap:break-word; 
+        word-break:break-all;
+        width:290px;
+        height:260px;
+
+        a {
+            display:block;
+            float:left;
+            width:25px;
+            height:25px;
+            padding:2px;
+            border:1px solid white;
+            &:hover {
+                background:#eef;
+                border:1px solid #aad;
+            }
+        }
+    }
+}

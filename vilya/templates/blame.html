@@ -1,0 +1,25 @@
+<%inherit file="/source.html" />
+<%namespace name="pjax" file="/widgets/pjax_source.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/blame.css')}" />
+    <meta http-equiv="x-pjax-version" content="v1">
+</%def>
+
+${parent.body()}
+
+<%!
+    from vilya.libs.text import gravatar_url
+    from urllib import urlencode
+%>
+
+<%def name="main()">
+${self.sourcenav_bar(active="files")}
+    <div class="span12">
+        ${pjax.commit_header(commit)}
+        <div id="files" class="diff_view">
+            ${pjax.blame_block(blob_path, blob_ref, blame)}
+        </div>
+    </div>
+</%def>

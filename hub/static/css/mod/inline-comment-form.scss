@@ -1,0 +1,19 @@
+@import "css/mod/comment-form-button";
+@import "css/mod/comment-form-content";
+
+.show-inline-comment-form { margin:10px }
+tr.inline-comments.show-inline-comment-form .show-inline-comment-form { display: none; }
+.inline-comments .comment-count { overflow:hidden; padding:0 !important; border:solid #DDD; border-width:1px 0; vertical-align:top; text-align:center !important }
+.inline-comments .counter { display:inline-block; padding:2px 8px 6px; font-family:11px/1.2 bold Helvetica,arial,freesans,clean,sans-serif !important; color:#333 !important; border:1px solid #C0CCD0; border-top:0; border-radius:0 0 3px 3px; cursor:default !important }
+#files .file.show-inline-notes tr.inline-comments { display:table-row }
+.inline-comments .line-comments { overflow:auto; padding:0; border-top:1px solid #CCC; border-bottom:1px solid #DDD; background:#fff; font-family:Helvetica, arial, freesans, clean, sans-serif !important }
+.inline-comment-form { max-width:870px }
+.inline-comment-form form { margin:0 }
+
+.inline-comments .form-actions { padding:0 10px 10px; margin:0 }
+.form-content .form-actions { background-color:transparent; }
+.form-actions { text-align:right; padding-bottom:5px; background:#fff; border:none }
+.form-actions .optional { display:block; padding-top:8px; float:left; margin-right:15px; padding-top:3px }
+
+
+

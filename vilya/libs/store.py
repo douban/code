@@ -3,11 +3,13 @@
 import logging
 
 import libmc
-from MySQLdb import IntegrityError, connect
-from ORZ import OrzField, OrzBase, setup
+from MySQLdb import connect, IntegrityError  # noqa
+from ORZ import setup, OrzField, OrzBase  # noqa
 from douban.mc import create_decorators
 from douban.sqlstore import store_from_config
-from vilya.config import MEMCACHED_HOSTS, MEMCACHED_CONFIG, MYSQL_STORE
+from .dbclient import Beansdb
+from vilya.config import (
+    MEMCACHED_HOSTS, MEMCACHED_CONFIG, MYSQL_STORE, BEANSDBCFG)
 
 logging.getLogger().setLevel(logging.DEBUG)
 
@@ -26,12 +28,18 @@ def get_mc():
     return libmc.Client(MEMCACHED_HOSTS, **MEMCACHED_CONFIG)
 
 
+def get_db():
+    return Beansdb(BEANSDBCFG, 16)
+
+
 def stub_cache(*args, **kws):
     pass
 
 mc = get_mc()
+bdb = get_db()
 pcache = pcache2 = listcache = cache_in_obj = delete_cache = cache = stub_cache
 globals().update(create_decorators(mc))
+
 
 def mc_gets(mc_key, getter, ids):
     '''helpler for gets function'''
@@ -46,6 +54,20 @@ def connect_mysql():
 
 def make_dict(cursor, row):
     return dict(zip((str(d[0]) for d in cursor.description), row))
+
+
+def reset_mc():
+    pass
+
+
+def reset_beansdb():
+    pass
+
+
+def clear_local_cache():
+    reset_mc()
+    reset_beansdb()
+
 
 store = store_from_config(MYSQL_STORE, use_cache=False)
 setup(store, mc)

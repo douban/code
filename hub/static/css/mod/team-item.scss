@@ -1,0 +1,71 @@
+.bs-docs-team:after {
+    content: "Team";
+}
+.team-item {
+    position: relative;
+    margin: 15px 0;
+    padding: 14px 19px 14px 49px;
+    *padding-top: 14px;
+    background-color: transparent;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    &:after {
+        position: absolute;
+        top: -1px;
+        left: -1px;
+        padding: 3px 7px;
+        font-size: 12px;
+        font-weight: bold;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        color: #9da0a4;
+        -webkit-border-radius: 4px 0 4px 0;
+           -moz-border-radius: 4px 0 4px 0;
+                border-radius: 4px 0 4px 0;
+    }
+    h4.team-title {
+        margin: 0;
+        i {
+            margin-top: 5px;
+        }
+    }
+    ul.team-stats li {
+        float: left;
+        margin-left: 10px;
+    }
+    .team-item .summary {
+        margin-top: 10px;
+    }
+}
+
+.team-user-list {
+    height: 26px;
+    margin-bottom: 1px;
+    list-style: none;
+    display: block;
+    ul{
+        float: right;
+        margin-right: 10px;
+        margin-top: 0px;
+    }
+    li {
+        float: left;
+        margin-left: 10px;
+        line-height: 20px;
+        a {
+            display: block;
+            width: 26px;
+            height: 26px;
+            overflow: hidden;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+            text-decoration: none;
+            img {
+                width: 26px;
+                height: 26px;
+            }
+        }
+    }
+}

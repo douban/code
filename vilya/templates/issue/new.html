@@ -1,0 +1,60 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.html" />
+<%namespace file="/widgets/previewable_comment_form.html" import="previewable_comment_form" />
+<%namespace name="upload_widget" file="/widgets/upload_widget.html" />
+<%namespace name="tags_util" file="/widgets/tags.html" />
+<%!
+     import json
+%>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/issue-new.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/issue/new.js')}"></script>
+</%def>
+
+<%def name="title()">${project.name} - New Issue</%def>
+
+${pagehead.trac_header("issues", project, user)}
+
+<div class="new-issue">
+    <form accept-charset="UTF-8" action="/${project.name}/issues/create" method="post">
+        <input type="hidden" name="project" value="${project.name}" />
+        <input type="hidden" id="all-teams" value="${json.dumps(teams)}" />
+        <div class="tab-content">
+            <div class="tab-pane active" id="preview_discussion_bucket">
+                ${preview_discussion_bucket("", project)}
+            </div>
+        </div>
+    </form>
+
+    ${upload_widget.widget('form-file-upload')}
+</div>
+
+<%def name="suffix()">${project.name}</%def>
+
+<%def name="preview_discussion_bucket(title, to_proj)">
+    <div class="row">
+        <div class="span8 well">
+        ${previewable_comment_form(project=to_proj, class_="pull-form", title=title, zen=True)}
+        % if error=='empty':
+            <div class="alert alert-error">
+                Title and content must not be empty!
+            </div>
+        % endif
+        </div>
+        <div class="span3 pull-right well">
+            ${tags_util.new_tags(tags)}
+        </div>
+        <div class="span5 pull-right ${'well' if request.is_mobile else ''}">
+            <button type="submit" class="btn btn-primary btn-medium" tabindex="10" data-disable-invalid>
+                Add
+            </button>
+        </div>
+    </div>
+</%def>

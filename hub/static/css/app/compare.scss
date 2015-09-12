@@ -1,0 +1,22 @@
+@import "css/mod/common";
+
+/* TODO Refactor the following mods into components */
+@import "css/mod/pull-highlight";
+@import "css/mod/commits";
+@import "css/mod/pull-tabs";
+
+/* Like these */
+@import "css/mod/compare";
+@import "css/mod/project-info";
+@import "css/mod/commits-condensed";
+@import "css/mod/file-diff-blob";
+
+/* TODO FIXME 'View File' in file-blob requires styles
+in this file, but it hides the show-inline-notes check button
+therefore the below Hotfix is useless when you enables this */
+@import "css/mod/file-blame-blob";
+
+/* Hotfix for show-inline-notes option button */
+span .show-inline-notes label {
+     display: inline;
+}

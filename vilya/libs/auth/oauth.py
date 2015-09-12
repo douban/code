@@ -42,6 +42,7 @@ class OAuthConfirm(object):
             mc.delete(key)
             return True
 
+
 class OAuthError(PublishError):
 
     def __init__(self, code, msg):

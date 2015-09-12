@@ -1,0 +1,256 @@
+@import "css/mod/common";
+
+@import "css/mod/project-item";
+@import "css/mod/team-item";
+@import "css/mod/timeline";
+@import "css/mod/contribution";
+@import "css/mod/praise";
+@import "css/mod/text-truncate";
+
+@import "css/lib/cal-heatmap";
+
+/* for flat-ui new people profile page */
+.span3, .span4 {
+    margin-left: 0px;
+}
+
+.people-info{
+    img {
+        border-radius:3px;
+        padding: 3px;
+        border: 1px solid lightgray;
+    }
+
+    .username {
+        font-size:18px;
+        line-height:36px;
+        font-weight:bold;
+        height:auto;
+        text-shadow:1px 1px 0 white;
+        width:180px;
+    }
+
+    dl>dd {
+        width:170px;
+    }
+
+    .username, dl>dd {
+        @include text-truncate(180px);
+    }
+
+    .follow-btn {
+      margin: 10px auto;
+    }
+
+    .contact {
+        border-bottom: 1px solid #eee;
+    }
+
+    .avatar-group-item {
+        display: inline-block;
+        margin-bottom: 3px;
+        .avatar {
+            display: inline-block;
+            vertical-align: middle;
+            width: 31px;
+            height: 31px;
+        }
+    }
+
+    .follow-stats {
+        margin: 15px auto;
+
+        ul {
+            li {
+                float: left;
+                margin: 5px 5px;
+            }
+        }
+
+        strong {
+            text-align: center;
+            display: block;
+            font-size: 26px;
+        }
+
+        span {
+            font-size: 12px;
+        }
+
+        a {
+            &:hover {
+                color: lighten(rgba(0,168,156,1), 7%);
+                text-decoration: none;
+            }
+        }
+
+    }
+}
+
+.follow-list {
+    margin-bottom: 20px;
+
+    h1 a {
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    .user-list {
+        .follow-list-item {
+            float: left;
+            width: 250px;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            margin-right: 20px;
+            border-bottom: 1px solid #ddd;
+            height: 100px;
+
+            .avatar {
+                width: 64px;
+                height: 64px;
+            }
+            .email {
+                margin-top: 10px;
+            }
+
+            .follow-btn {
+                float: right;
+                margin: 20px 5px;
+                a {
+                    display: block;
+                    width: 50px;
+                    text-align: center;
+                }
+
+            }
+
+            .username{
+                display:inline-block;
+                @include text-truncate(90px);
+            }
+        }
+    }
+}
+
+.glory { padding: 10px 20px; }
+
+.rec, .badge-list, .rec-num {
+    display:inline-block;
+}
+
+.rec { margin-right: 20px; }
+
+/* fix for newer bootstrap to make it look just like old page */
+
+.dl-horizontal dt { float: none; width: 50px; text-align: left; }
+
+/* People Page */
+.add-rec { background: url('../../static/img/recommend.png') 0 10px no-repeat;	width:32px; height:36px; opacity:0.7; display:inline-block }
+.add-rec:hover { opacity:1 }
+.add-rec.mine:hover { opacity:0.7 }
+
+h1.people-info img, .rec img
+{ vertical-align:middle; position:relative; top:-2px; margin-right:5px; padding:2px; border:1px solid #DDD }
+
+h1.people-info img, h1.people-info .username,
+h1.people-info .follow-btn, h1.people-info .rec { float:left; margin-right:12px }
+
+h1.people-info .rec-num { display:inline-block; }
+h1.people-info .rec-num a { font-size:20px; color:#888; text-decoration:none }
+h1.people-info .rec-num a:hover { color:#08C }
+
+.right-info {
+  float:right;
+  font-size:14px;
+  margin-top:20px;
+  a {
+    color:#333;
+  }
+}
+
+#add-rec-form {
+  margin: 0;
+
+  textarea {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-height: 100px;
+    padding: 10px;
+    background: #FAFAFA;
+    border: 1px solid #DDD;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing:border-box;
+    box-sizing: border-box;
+    border-radius:3px;
+  }
+
+  .form-actions {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.form-actions {
+  text-align: right;
+  padding-bottom: 5px;
+  background: #fff;
+  border: none;
+
+  .optional {
+    display:block;
+    padding-top:8px;
+    float:left;
+    margin-right:15px;
+    padding-top:3px;
+  }
+
+  .primary {
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+    border-color: #74BB5A;
+    border-bottom-color: #509338;
+    background: #8ADD6D;
+    -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr='#8add6d', endColorstr='#60b044')";
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    background-image: -webkit-linear-gradient(top, #8ADD6D, #60B044);
+   }
+}
+
+
+.rec-wnd {
+  position: fixed;
+  top: 120px;
+  left: 453px;
+  width: 360px;
+  background-color: #fff;
+  border: 1px solid #BEBEBE;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+}
+
+.people-activity .info {
+  color:#888;
+  margin:15px 5px;
+}
+
+.pagination {
+  margin-right: 100px;
+
+  a {
+    float: left;
+    padding: 6px 15px 5px;
+    margin: 0;
+    font-size: 13px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 white;
+    border-bottom: 1px solid #DADADA;
+    border-top: none;
+    width: auto;
+  }
+}
+
+img.is-new {
+    float: right;
+}

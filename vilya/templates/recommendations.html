@@ -1,0 +1,26 @@
+<%inherit file="/base.html" />
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/praise/main.js')}"></script>
+</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/people.css')}" />
+</%def>
+
+<%def name="body()">
+<h2>Praises Timeline</h2>
+<hr>
+% if recs:
+<%include file="/widgets/recs.html" args="recs=recs, show_to_user=True" />
+<div class="rec-paginator clearfix">
+  % if start - limit >= 0:
+  <a class="prev" href="/praise?start=${start - limit}">&lt; prev</a>
+  % endif
+  <a class="next" href="/praise?start=${start + limit}">next &gt;</a>
+</div>
+% else:
+<h2>No praises yet.</h2>
+% endif
+</%def>

@@ -1,0 +1,149 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.mako" />
+<%namespace name="utils" file="/settings/utils.html" />
+
+<%def name="title()">Hooks</%def>
+<%def name="suffix()">${project.name}</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/tooltipster.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/settings.css')}" />
+</%def>
+
+${pagehead.trac_header("settings", project, user)}
+
+${utils.settings_submenu(projname=project.name, active='hooks')}
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/hook/main.js')}"></script>
+</%def>
+
+<div class="raw">
+    <div class="span4">
+        <h4>Available Service Hooks</h4>
+        ${hook_services()}
+    </div>
+    <div class="span8">
+        ${services()}
+    </div>
+</div>
+
+<%def name="hook_services()">
+    <ul class="hook-list">
+        <li style="display:none">
+            <a href="#default_minibucket" class="js-hook-target">Placeholder</a>
+        </li>
+        <li class="selected">
+            <span class="service-indicator octicon octicon-check active"></span>
+            <a href="#generic_minibucket" class="js-hook-target">WebHook URLs (${len(hooks)})</a>
+        </li>
+        <li>
+            <span class="service-indicator octicon octicon-check active"></span>
+            <a href="#peteris_minibucket" class="js-hook-target">Peteris</a>
+        </li>
+    </ul>
+</%def>
+
+
+<%def name="services()">
+    <div id="default_minibucket" class="featured-callout js-hook-group">
+    </div>
+    <div id="generic_minibucket" class="featured-callout js-hook-group">
+        <div class="items">
+            <div class="top-bar">
+               <h2>WebHook URLs</h2>
+            </div>
+            <ul class="item_list unstyled">
+                % for hook in hooks:
+                <li class="hook">${hook.url}
+                    % if project.is_owner(user):
+                        <a href="/${project.name}/settings/hooks/${hook.id}" class="action" data-method="delete" >Remove</a>
+                    % endif
+                </li>
+                % endfor
+            % if project.is_owner(user):
+                <li>
+                    <h4>Add new hook <small>  input a url with protocol (e.g. http://) </small></h4>
+                    <form action='/${project.name}/settings/hooks/new' id="new_hook" method="post">
+                        <label></label><input name="url" type="text">
+                        <input type="submit" value="Create" class="btn btn-success" data-disable-with="Waiting"/>
+                    </form>
+                    % for error in errors:
+                        <div class="alert alert-error">
+                        ${error}
+                        </div>
+                    % endfor
+                </li>
+            % endif
+            </ul>
+            <div class="bottom-bar"></div>
+        </div>
+
+        <div class="items">
+            <div class="top-bar">
+                <h2>Features Hooks</h2>
+            </div>
+            <ul class="item_list unstyled">
+                <li class="btn-group">
+                    <a class="btn disabled btn-small btn-details">Telchar
+                    </a>
+                    <a class="btn btn-small mute mute-on ${'btn-success' if enabled_telchar else ''}" data-href="/j/hooks/${project.id}/telchar">
+                        <b>ON</b>
+                    </a>
+                    <a class="btn btn-small mute mute-off ${'btn-warning' if not enabled_telchar else ''}" data-href="/j/hooks/${project.id}/telchar?close=1">
+                        <b>OFF</b>
+                    </a>
+                </li>
+            </ul>
+            <div class="bottom-bar"></div>
+        </div>
+        <div class="items">
+            <div class="top-bar">
+                <h2>How it works?</h2>
+            </div>
+            <ul class="item_list unstyled">
+                <li>
+                    <p>
+                        <small>
+                            After somebody push code to this repository,
+                            CodeDouban will send a POST request to each url of this repository's hooks,
+                            and each request will carry information of repository and commits into JSON formant.
+                        </small>
+                    </p>
+                    <p>
+                        <small>
+                            You can test your hook and get JSON data with <a href='http://requestb.in/' target='_blank' title="requestb.in">This Service</a>.
+                        </small>
+                    </p>
+                </li>
+            </ul>
+            <div class="bottom-bar">
+            </div>
+        </div>
+    </div>
+    <div id="peteris_minibucket" class="featured-callout js-hook-group" style="display: none;">
+        <div class="items">
+            <div class="top-bar">
+                <h2>How it works?</h2>
+            </div>
+            <ul class="item_list unstyled">
+                <li>
+                    <p>
+                        <small>
+                            After somebody push code to this repository,
+                            CodeDouban will send a POST request to each url of this repository's hooks,
+                            and each request will carry information of repository and commits into JSON formant.
+                        </small>
+                    </p>
+                    <p>
+                        <small>
+                            You can test your hook and get JSON data with <a href='http://requestb.in/' target='_blank' title="requestb.in">This Service</a>.
+                        </small>
+                    </p>
+                </li>
+            </ul>
+            <div class="bottom-bar">
+            </div>
+    </div>
+</%def>

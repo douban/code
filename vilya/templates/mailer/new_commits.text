@@ -1,0 +1,10 @@
+${sender} added new commits to pull request ${ticket.title}(#${ticket.ticket_id})
+————
+% for author, log, url, sha in delta_commits:
+${author} ${log} ${sha}
+% endfor
+% if more:
+And ${more_count} more commits
+% endif
+————
+${ticket_url}

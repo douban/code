@@ -1,0 +1,109 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.mako" />
+<%namespace name="utils" file="/settings/utils.html" />
+
+<%def name="title()">Docs</%def>
+<%def name="suffix()">${project.name}</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/settings.css')}" />
+</%def>
+
+<%def name="disp_last_build(last_build)">
+    <ul>
+        <li><b>Message: ${last_build.pop('message', 'OK')}</b></li>
+        <li>Status: ${last_build.pop('status', '???')}</li>
+        <li>Date: ${last_build.pop('date', '???')}</li>
+        % for b in last_build.pop('builds', []):
+            <li>
+                <b>Build ${b.pop('builder', '???')}</b>, returned ${b.pop('returncode', '')}<br>
+                <pre>${' '.join(b.pop('command', 'None'))}</pre>
+                <pre style='word-break: normal; word-wrap:normal; white-space:pre; overflow:auto'>${b.pop('error','???') or 'No errors detected'}</pre>
+            </li>
+        % endfor
+        % for k in last_build:
+            <li>${k}: ${last_build[k]}</li>
+        % endfor
+    </ul>
+</%def>
+
+${pagehead.trac_header("settings", project, user)}
+
+${utils.settings_submenu(projname=project.name, active='sphinx_docs')}
+
+<div class="markdown-body markdown-page">
+<a class="btn" href='?force_rebuild=direct' style='float:right'>
+    <b>
+        Force direct rebuild
+        <span class="bigger mega-icon mega-icon-admin-tools"></span>
+    </b>
+</a>
+
+<h3>Latest builds</h3>
+
+% if not enabled:
+    <b>Docs functionality is not enabled</b>, enable it in <tt>code_config.yaml</tt>, see help below.
+% elif not last_build:
+    No information found about last build
+% else:
+    ${self.disp_last_build(last_build)}
+% endif
+
+<h3>Help</h3>
+
+<p>Adding a powerful wiki-like documentation to your code project is easy.
+If you are familiar with sphinx, you will feel at home.</p>
+
+<ol>
+    <li><b>Enable sphinx_docs in your <tt>code_config.yaml</tt></b>:
+
+<pre>
+docs:                   # The docs section in this configuration file
+    mydocs:             # The name of the builder, will be used in url
+        builder: pickle # The builder type (pickle, raw, html)
+        dir: mydocs     # The folder for content files, defaults to builder name
+        name: Docs
+</pre>
+
+        <p>Adding this will enable the sphinx docs
+        functionality and create a "Docs" tab in your
+        project. Use "" or "." if you want the root
+        of your repository to be the docs folder. Other
+        configuration can be set there and
+        will be passed to sphinx builder.</p>
+    </li>
+
+    <li><b>Create the <tt>index.rst</tt> in your docs folder</b>:
+
+<pre>
+Niceproject documentation
+=========================
+
+.. toctree::
+   :glob:
+
+   *
+</pre>
+
+        <p>This will be the home page of your documentation. It should
+        contain at least one <tt>toctree</tt> directive.</p>
+    </li>
+
+    <li>
+        <b>Commit and push your modifications.</b> Click "Force rebuild" button
+        on this page ({project}/settings/sphinx_docs) and refresh it after
+        2 seconds. You should see the build logs. Click on "Docs" tabs to
+        check your lovely documentation.
+    </li>
+</ol>
+
+
+<h3>Configuration</h3>
+
+<p>Configuration parameters can be passed to sphinx builder from
+<tt>code_config.yaml</tt> file, in the <tt>sphinx_docs</tt> block, or
+you can create a <tt>conf.py</tt> file in your sphinx docs folder for
+more complex configuration. It will be read by sphinx builder.
+</p>
+</div>

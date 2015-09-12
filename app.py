@@ -3,7 +3,7 @@
 import re
 
 from web import app as web
-from smart_httpd import app as git_http
+from app_sina import app as git_http
 
 
 ROUTE_MAP = [(re.compile(r'/[^/]*\.git.*'), git_http),

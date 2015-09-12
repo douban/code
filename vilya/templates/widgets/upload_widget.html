@@ -1,0 +1,12 @@
+<%def name="widget(widgetid='upload-widget')">
+    <div id="${widgetid}" class="upload-widget">
+        <form class="upload-image-form" action="http://p.dapps.douban.com/j" enctype="multipart/form-data" method="post">
+            <input type="file" name="file" accept="image/*">
+            <a class="manual-file-chooser-text" href="#">选择图片上传</a>
+        </form>
+        <form class="upload-file-form" action="http://p.dapps.douban.com/j" enctype="multipart/form-data" method="post">
+            <input type="file" name="file" accept="*">
+            <a class="manual-file-chooser-text" href="#">选择文件上传</a>
+        </form>
+    </div>
+</%def>

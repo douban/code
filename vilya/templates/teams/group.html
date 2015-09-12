@@ -1,0 +1,175 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/team.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+  <script src="${static('/js/app/team/group.js')}"></script>
+</%def>
+
+<%def name="title()">${team.uid}</%def>
+
+${pagehead.team_header(team, user, 'groups')}
+
+<div class="row">
+    <div class="subhead group-header span12">
+        <div class="mod">
+            <div class="group-actions pull-right" style="margin-top: 21px;">
+                <div class="group-actions">
+                    % if user and team.is_owner(user.name):
+                    <div class="btn-group">
+                        % if group.is_member(user.name):
+                        <a class="btn" href="${group.url}members/destroy?member=${user.name}" data-method="POST"
+                            data-confirm="Are you sure you want to leave this group?" aria-label="">
+                            Leave
+                        </a>
+                        % else:
+                        <a class="btn" href="${group.url}members/?member=${user.name}" data-method="POST"
+                            aria-label="">
+                            Join
+                        </a>
+                        % endif
+                        <a class="btn" href="${group.url}settings/">
+                            <i class="icon-cog" style="padding-right: 0;"></i>
+                        </a>
+                    </div>
+                    % endif
+                </div>
+            </div>
+            <span class="labels pull-left" style="margin-top: 21px;">
+                <span class="label" aria-label="This group can read its repositories, as well as push to them.">
+                    Write
+                </span>
+            </span>
+            <h1 class="group-title js-group-id" data-id="${group.id}">
+                ${group.name}
+            </h1>
+            <div class="js-description-toggler description-toggler">
+                <p class="js-group-description group-description turn-on" itemprop="description">
+                <span class="description">
+                    <span class="link">This group has no description</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="span6">
+        <div class="mod">
+            <hr>
+            % if user and team.is_owner(user.name):
+            <p class="help-block">Please add member which in this team.</p>
+            <div class="input-append">
+                <input class="span2 js-group-member" id="" type="text" data-group="${group.id}" data-team="${team.id}"
+                    data-team-name="${team.uid}" data-group-name="${group.name}">
+                <a href="javascript:void(0);" title="Add people to group" class="btn js-add-group-member">
+                    <i class="icon-plus"></i>
+                    Add member
+                </a>
+            </div>
+            <hr>
+            % endif
+            <ul id="group-members">
+                % for m in group.members:
+                    ${group_user_detail(user, group, m)}
+                % endfor
+            </ul>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="mod">
+            <hr>
+            % if user and team.is_owner(user.name):
+            <!--
+            <p class="help-block">Please add project which in this team.</p>
+            <div class="input-append">
+                <input class="span2 js-group-project" id="name" type="text" data-group="${group.id}" data-team="${team.id}"
+                    data-team-name="${team.uid}" data-group-name="${group.name}">
+                <a href="javascript: void(0);" title="Add project to group" rel="facebox" class="btn js-add-group-project">
+                    <i class="icon-plus"></i>
+                    Add project
+                </a>
+            </div>
+            <hr>
+            -->
+            % endif
+            <ul id="group-projects">
+                % for p in group.projects:
+                    ${group_project_detail(user, group, p)}
+                % endfor
+            </ul>
+        </div>
+    </div>
+</div>
+
+<%def name="group_user_detail(current_user, group, user)">
+<li class="member-list-item" data-id="">
+    % if current_user and team.is_owner(current_user.name):
+    <form class="" action="${group.url}members/destroy" method="POST">
+        <button type="submit" class="btn btn-danger pull-right" style="margin-top: 9px;">Remove</button>
+        <input type="hidden" name="member" value="${user.name}">
+    </form>
+    % endif
+    <div class="member-info">
+        <a href="${user.url}" itemprop="url">
+            <img alt="${user.name}" class="member-list-avatar js-avatar" data-user="${user.name}" height="48" src="${user.avatar_url}" width="48">
+        </a>
+        <span class="member-username">
+            <a href="${user.url}">${user.name}</a>
+        </span>
+    </div>
+</li>
+</%def>
+
+<%def name="group_project_detail(current_user, group, project)">
+<li class="member-list-item" data-id="">
+    % if current_user and team.is_owner(current_user.name):
+    <form class="" action="${group.url}projects/destroy" method="POST">
+        <button type="submit" class="btn btn-danger pull-right">Remove</button>
+        <input type="hidden" name="project" value="${project.name}">
+    </form>
+    % endif
+    <div class="member-info">
+        <span class="member-username">
+            <a href="${project.url}">${project.name}</a>
+        </span>
+    </div>
+</li>
+</%def>
+
+<script id="tmpl-group-member" type="text/x-jquery-tmpl">
+<li class="member-list-item" data-id="">
+    <form class="" action="${group.url}members/destroy/" method="POST">
+        <button type="submit" class="btn btn-danger pull-right" style="margin-top: 9px;">Remove</button>
+        <input type="hidden" name="member" value="{{= name}}">
+    </form>
+    <div class="member-info">
+        <a href="{{= url}}" itemprop="url">
+            <img alt="{{= name}}" class="member-list-avatar js-avatar" data-user="{{= name}}" height="48" src="{{= avatar_url}}" width="48">
+        </a>
+        <span class="member-username">
+            <a href="{{= url}}">{{= name}}</a>
+        </span>
+    </div>
+</li>
+</script>
+
+<script id="tmpl-group-project" type="text/x-jquery-tmpl">
+<li class="member-list-item" data-id="">
+    <form class="" action="${group.url}projects/destroy" method="POST">
+        <button type="submit" class="btn btn-danger pull-right">Remove</button>
+        <input type="hidden" name="project" value="{{= name}}">
+    </form>
+    <div class="member-info">
+        <span class="member-username">
+            <a href="{{= url}}">{{= name}}</a>
+        </span>
+    </div>
+</li>
+</script>

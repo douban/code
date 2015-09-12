@@ -1,0 +1,34 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.html" />
+<%namespace name="side_list" file="/widgets/side_list.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/my-actions.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/home/main.js')}"></script>
+</%def>
+
+<%def name="title()">Your Actions</%def>
+<%def name="suffix()"></%def>
+
+<%namespace name="tips" file="/widgets/tips.mako" />
+${tips.tip()}
+${pagehead.user_header(active='yours')}
+
+<div class="row">
+	<div class="span8">
+		%if actions:
+			<%include file="/widgets/actions_feed.html" args="actions=actions, is_notification=False, show_avatar=True"/>
+		%else:
+			<h2>No actions yet.</h2>
+		%endif
+	</div>
+    <div class="span4">
+	  ${side_list.projects(your_projects, watched_projects)}
+    </div>
+</div>

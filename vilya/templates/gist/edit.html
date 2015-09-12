@@ -1,0 +1,82 @@
+<%inherit file="/gist/base.html" />
+<%namespace name="gist_utils" file="/widgets/gist.html" />
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/gist/edit.js')}"></script>
+</%def>
+
+<%block name="extra_head">
+  <link rel="stylesheet" href="/static/codemirror/codemirror.css" />
+  <link rel="stylesheet" type="text/css" href="${static('/css/app/gist.css')}" />
+</%block>
+
+<div class="pagehead separation trans">
+  <div class="title-actions-bar">
+    <h1 class="entry-title ${ 'public' if gist.is_public else 'secret' }">
+      <span class="repo-label">
+        <span>${ 'PUBLIC' if gist.is_public else 'SECRET' }</span>
+      </span>
+      <span class="mega-icon ${ 'mega-icon-gist' if gist.is_public else 'mega-icon-gist-secret' }"></span>
+       Editing
+      <strong><a href="${ gist.url }">${ gist.name }</a></strong>
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<form action="" id="gist-form" method="post" accept-charset="UTF-8">
+  <div class="edit container">
+    <div id="gists">
+      <div class="discussion-bubble">
+        <img class="discussion-bubble-avatar" width="48" height="48" src="${ gist.owner.avatar_url }">
+        <div class="discussion-bubble-content bubble">
+          <div class="discussion-bubble-inner">
+            <textarea class="js-size-to-fit" name="desc" placeholder="Gist description…">${ gist.description }</textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="files">
+      <div class="js-gist-files">
+        % for sha1, path in gist.list_sha1_with_files:
+          ${ self.gist_file(sha1, path) }
+        % endfor
+      </div>
+    </div>
+
+    <div id="add-gist">
+      <a href="javascript:;" class="btn js-add-gist-file">Add Another File</a>
+      <button type="button" class="btn btn-danger js-delete-button js-delete-gist"> <span>Delete Gist</span> </button>
+    </div>
+    ${ gist_utils.dropzone() }
+
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit"> <span>Update Gist</span> </button>
+      <a class="btn" href="/gist/${ gist.id }" data-pjax-back="">Cancel</a>
+    </div>
+  </div>
+</form>
+
+${ gist_utils.editor_template() }
+
+<%def name="gist_file(sha1, path)">
+<div data-path="${ path }" data-gist="${ gist.id }" class="bubble js-gist-file">
+    <input type="hidden" name="oid" value="${ sha1 }">
+    <div class="file">
+      <div class="meta">
+        <div class="name">
+          <input class="gist-name-textbox" type="text" name="gist_name"
+             placeholder="name this file..." value="${ path }">
+        </div>
+        <div class="editor-options">
+        </div>
+      </div>
+
+      <div class="input">
+        <textarea class="gist-file-content" name="gist_content" style="display:none;"></textarea>
+      </div>
+    </div>
+  </div>
+</%def>

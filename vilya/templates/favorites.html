@@ -1,0 +1,85 @@
+<%!
+    from vilya.models.user import User
+    from vilya.models.ticket import Ticket
+    from vilya.models.project_issue import ProjectIssue
+    from vilya.models.project import CodeDoubanProject
+    from vilya.models.consts import K_PULL, K_ISSUE
+%>
+<%inherit file="/base.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/favorites.css')}" />
+</%def>
+
+<%namespace name="issues" file="/widgets/issue/issues.html" />
+
+<%def name="title()">Favorites</%def>
+
+<h2>Favorites</h2>
+
+<div class="raw">
+    <div class="span12">
+        <div class="mod">
+        <ul class="list-unstyled">
+            % for i, fav in enumerate(favs):
+            <li>
+                % if fav.kind == K_PULL:
+                <%
+                     ticket = Ticket.get(fav.target_id)
+                %>
+                <% ticket_project = CodeDoubanProject.get(ticket.project_id) %>
+                <% ticket_url = '/%s/pull/%s/' % (ticket_project.name, ticket.ticket_number) %>
+                <h3>
+                    %if ticket.title:
+                    %if show_ticket_project_name:
+                    <a href="${ticket_url}">[${ticket_project.name}]${ticket.title}</a>
+                    %else:
+                    <a href="${ticket_url}">${ticket.title}</a>
+                    %endif
+                    %else:
+                    <a href="${ticket_url}">这位亲太懒，没写标题，点我吧！！</a>
+                    %endif
+                </h3>
+                <p>
+                    <a href="${ticket_url}">
+                        ${ticket.description}
+                    </a>
+                </p>
+                <div class="meta">
+                    <% author = User(ticket.author) %>
+                    <a href="${author.url}" class="gravatar">
+                        <img class="user-avatar user-avatar-mini" src="${author.avatar_url}">
+                    </a>
+                    <a href="${author.url}">${author.name}</a>
+                    submitted to
+                    <a href="/${ticket_project.name}">
+                        ${ticket_project.name}
+                    </a>
+                    <time class="js-relative-date" datetime="${ticket.time.strftime('%Y-%m-%dT%H:%M:%S+0800')}" title="${ticket.time}">${ticket.time}</time>
+                    <a href="${ticket_url}" class="pull-right">
+                        <span class="muted">
+                            <% comments_len = len(ticket.get_comments()) + len(ticket.get_codereviews()) %>
+                            ${comments_len} comments
+                        </span>
+                    </a>
+                </div>
+                % elif fav.kind == K_ISSUE:
+                <%
+                     ticket = ProjectIssue.get_by_issue_id(fav.target_id)
+                %>
+                % if ticket:
+                ${issues.render_issue(ticket)}
+                % endif
+                % endif
+                % if i < len(favs) - 1:
+                <hr/>
+                % endif
+            </li>
+            % endfor
+        </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+
+Build #${number} ${'failed' if state == 'failure' else 'passed'}
+
+--
+${sha[:8]}
+% if commit:
+${commit.author_name}
+
+${commit.message}
+% endif
+——
+View it on Code: ${ticket_url}
+

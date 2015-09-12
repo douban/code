@@ -1,0 +1,270 @@
+<%def name="trac_header(active, project, user, newpull=False)">
+<%!
+    from vilya.models.ticket import Ticket
+    from vilya.models.project import CodeDoubanProject
+%>
+<div class="pagehead" style="${project.conf['style'].get('projhead', '')}">
+    <%
+        target_project = project.get_forked_from() or project
+        forked_from = target_project.name
+        forked_count = CodeDoubanProject.get_forked_count(project.id)
+        watched_count = CodeDoubanProject.get_watched_count(project.id)
+    %>
+    <h2 class="pull-left">
+        <a href="/${project.name}">${project.name}</a>
+        % if project.fork_from:
+            <small class="fork-flag">
+                forked from <a href="/${forked_from}">${forked_from}</a>
+            </small>
+        % endif
+
+        % if project.name == project.realname:
+          <% owner = project.owner %>
+          <a href="${owner.url}">
+            <img src="${owner.avatar_url}" title="${owner.name}" width="30" height="30" style="padding: 3px 3px 3px 10px" />
+          </a>
+        % endif
+
+        % if project.dashboard_enabled:
+            <a href="http://electro.dapps.douban.com/admin/project/${project.name}/">
+                <img src="http://electro.dapps.douban.com/api/maturity/${project.name}/level/badge">
+            </a>
+        % endif
+    </h2>
+    <div class="metanav pull-right">
+        % if user:
+        <%
+            current_ref = ref or project.default_branch
+        %>
+        <a class="btn btn-success" id="issue-btn" href="/${project.name}/issues/new"><i class="icon-plus"></i>Issue</a>
+        % if project.has_push_perm(user.username):
+        <a class="btn btn-success" id="pullrequest-btn" href="/${project.name}/pull/new?head_ref=${current_ref}"><i class="icon-plus"></i>Pull Request</a>
+        % endif
+
+        % if CodeDoubanProject.has_watched(project.id, user):
+        <a class="btn unwatch" id="watch-btn" proj_id=${project.id}><i class="icon-eye-close"></i>Unwatch</a>
+        % else:
+        <a class="btn watch" id="watch-btn" proj_id=${project.id}><i class="icon-eye-open"></i>Watch</a>
+        % endif
+        <a class="btn counts-label" href="/${project.name}/watchers">${watched_count}</a>
+
+        <% is_empty = project.repo.is_empty %>
+        % if not is_empty and not (project.is_owner(user) and "/" in project.name):
+        <a class="btn" id="fork-btn" href="/hub/create?fork_from=${project.id}"><i class="icon-random"></i>Fork</a>
+        <a class="btn counts-label" href="/${project.name}/forkers">${forked_count}</a>
+        % endif
+        % endif
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<div class="navbar navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+      <ul class="nav nav-tables">
+        <li class="${'active' if active == 'source' else ''} first"><a href="/${project.name}">Code</a></li>
+        % if project.dashboard_enabled:
+        <li class="${'active' if active == 'dashboard' else ''}">
+            <a href="/${project.name}/dashboard">Dashboard</a>
+        </li>
+        % endif
+        % if project.conf['docs']:
+            % for doc, vals in sorted(project.conf['docs'].items(), key=lambda x: x[1].get('sort', x[0])):
+                <li class="hidden-phone"><a class="tab_docs" href="/${project.name}/docs/${doc}">${vals.get('name', doc)}</a></li>
+            % endfor
+        % endif
+        <li class="${'active' if active == 'pulls' else ''}">
+            <a href="/${project.name}/pulls">
+                Pull Requests
+                <% opened_tickets = [t for t in Ticket.gets_by_proj(project.id) if t.closed is None] %>
+                <span class="counter">${len(opened_tickets)}</span>
+            </a>
+        </li>
+
+        <li class="${'active' if active == 'issues' else ''}">
+            <a href="${project.url}issues">Issues
+                <span class="counter">${'%s' % project.n_open_issues}</span>
+            </a>
+        </li>
+
+        % if project.is_owner(user):
+            <li class="${'active' if active == 'settings' else ''}"><a href="/${project.name}/settings" >Settings</a></li>
+        % endif
+        <li class="${'active' if active == 'graph' else ''} hidden-phone"><a href="/${project.name}/graph" >Graphs</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+% if active == 'source':
+    <div id="project-info">
+        <div class="summary">
+        % if project.summary:
+            <p>${project.summary}</p>
+        % else:
+            <p>这个家伙比较懒，目前此项目没有任何描述...</p>
+        % endif
+        </div>
+        <div class="git-url">
+            <strong>Team:</strong>
+            <span><a href="/hub/product/${project.product}">${project.product.upper()}</a></span>
+            <input type="text" class="git-url" value="${project.repository}" readonly />
+            <a class="copy-git-url" data-clipboard-text="${project.repository}" data-copied-hint="copied!" data-copy-hint="Copy git url"><img src="/static/img/clippy.png" /></a>
+        </div>
+    </div>
+% endif
+</%def>
+
+<%def name="user_header(active)">
+    <% pr_counter = user.n_open_pull_requests if user and user.n_open_pull_requests > 0 else '' %>
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container">
+                <ul class="nav nav-tables">
+                    <li class="${'active' if active=='news'  else ''}">
+                    <a href="/">
+                        Feed
+                    </a>
+                    </li>
+                    <li class="${'active' if active=='pulls' else ''}">
+                    <a href="/hub/my_pull_requests">
+                        % if request.is_mobile:
+                            PRs
+                        % else:
+                            Pull Requests
+                        % endif
+                        % if pr_counter:
+                            <span class="counter">${pr_counter}</span>
+                        % endif
+                    </a>
+                    </li>
+                    <li class="${'active' if active=='yours' else ''} hidden-phone"><a href="/hub/yours">Your Actions</a></li>
+                    <li class="${'active' if active=='issues' else ''}"><a href="/hub/my_issues">Issues</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</%def>
+
+<%def name="team_header(team, user, active)">
+    <div class="clearfix">
+        <div class="pagehead">
+        <h1 class="team-left">
+            <a href="${team.url}">${team.name}</a>
+        </h1>
+        % if team.description:
+        <div class="team-desc">
+            <p>
+                <small>${team.short_description}</small>
+            </p>
+        </div>
+        % endif
+        <div class="team-right">
+            <%
+                had_joined = team.had_joined(user.name) if user else None
+            %>
+            %if user:
+                %if had_joined:
+                <a href="Javascript:void(0);" data-type="leave" data-team="${team.uid}" data-teamid="${team.id}" class="btn btn-danger join-or-leave-btn">Leave</a>
+                %else:
+                <a href="Javascript:void(0);" data-type="join" data-team="${team.uid}" data-teamid="${team.id}" class="btn join-or-leave-btn btn-success">Join</a>
+                %endif
+            %else:
+            <a href="Javascript:void(0);" data-team="${team.uid}" data-teamid="${team.id}" class="btn btn-success">Join</a>
+            %endif
+            <a class="btn" id="members" href="${team.url}settings#team-members">Members</a>
+            <span class="counter">${team.n_members}</span>
+        </div>
+        </div>
+    </div>
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container">
+                <ul class="nav nav-tables">
+                    <li class="${'active' if active=='team'  else ''}"><a href="${team.url}">Team</a></li>
+                    <%
+                        team_doc_project = team.doc_project
+                    %>
+                    % if team_doc_project and team_doc_project.conf['docs']:
+                        % for doc, vals in sorted(team_doc_project.conf['docs'].items(), key=lambda x: x[1].get('sort', x[0])):
+                            <li class="hidden-phone"><a class="tab_docs" href="/${team_doc_project.name}/docs/${doc}">${vals.get('name', doc)}</a></li>
+                        % endfor
+                    % endif
+                    <li class="${'active' if active=='pulls' else ''}">
+                        <a href="${team.url}pulls">
+                            Pull Requests
+                                <span class="counter">${team.n_tickets}</span>
+                        </a>
+                    </li>
+                    <li class="${'active' if active=='issues' else ''} hidden-phone"><a href="${team.url}issues">Issues</a></li>
+                    <li class="${'active' if active=='groups' else ''} hidden-phone"><a href="${team.url}groups/">Groups</a></li>
+                    <li class="${'active' if active=='news'  else ''}"><a href="${team.url}news/">News Feed</a></li>
+                    <li class="${'active' if active=='settings' else ''} hidden-phone"><a href="${team.url}settings/">Settings</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</%def>
+
+<%def name="fair_header(user, active)">
+    <div class="clearfix">
+        <div class="pagehead">
+        <h1 class="team-left">
+            自由项目孵化区
+        </h1>
+        <script>
+          function toggle_fair_intro() {
+            document.cookie = "fair-intro-box=closed; Expires=Wed, 09 Jun 2021 10:18:14 GMT; path=/";
+            $('#fair-intro-box').toggle();
+          }
+        </script>
+        <div class="team-right">
+          <button type="button" class="close" onclick="toggle_fair_intro()">?</button>
+        </div>
+        </div>
+        <div style="margin: 12px 0 0 0;">
+          &nbsp; 工程师说要有光，于是就有了光。
+        </div>
+
+        <div id="fair-intro-box" class="alert alert-block"
+          % if request.get_cookie('fair-intro-box') == 'closed':
+            style="margin: 10px 0 10px 0; display: none;"
+          % else:
+            style="margin: 10px 0 10px 0;"
+          % endif
+          >
+          <button type="button" class="close" onclick="toggle_fair_intro()">&times;</button>
+          <p>
+          以前，如果你需要一个东西，但它还不存在，你可以自己做一个。
+          现在，你可以召集志同道合的同事，一起来实现它。
+          </p>
+
+          <p>
+          寻找志同道合的同事，需要扩大影响，让更多人看到项目和需求才有可能；
+          有些东西涉及范围广，需要深入讨论，获得合适的方案；
+          有些可能只是一个想法、点子，要从需求讨论起，才能确定是否需要自主开发。
+          这些都需要一个公共讨论区，容纳所有工程师一起参与。fair就是这个空间。
+          </p>
+
+          <p>
+          这里是全天开放的<strong><a href="http://zh.wikipedia.org/zh-cn/%E5%A4%A7%E6%95%99%E5%A0%82%E5%92%8C%E5%B8%82%E9%9B%86">市集</a></strong>，这里是收集意见的管道，这里是发布原始项目的舞台，这里是展示美好设想的列表，这里是寻找合作者的空间。
+          </p>
+
+          <p>
+          言之有物，是这里的唯一要求。
+          </p>
+        </div>
+    </div>
+    <div class="clearfix">
+    </div>
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container">
+                <ul class="nav nav-tables">
+                    <li class="${'active' if active=='news'  else ''}"><a href="/fair/news">News Feed</a></li>
+                    <li class="${'active' if active=='issues' else ''} hidden-phone"><a href="/fair/">Issues</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</%def>

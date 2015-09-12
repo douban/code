@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from libs.store import mc
+from vilya.libs.store import mc
 
 
 class MLockMeta(type):

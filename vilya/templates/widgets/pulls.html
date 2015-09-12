@@ -1,0 +1,102 @@
+<%def name="pulls_ticket_list(tickets, page=1, open_tab_link='',
+close_tab_link='', is_closed_tab=False, show_ticket_project_name=False,
+n_pages=1, n_tickets=30, key_word='', project_name='')">
+
+<%!
+    from vilya.models.user import User
+    from vilya.models.project import CodeDoubanProject
+%>
+
+<div class="row pulls">
+    % if is_closed_tab:
+    <h2>${n_tickets} closed request</h2>
+    % else:
+    <h2>${n_tickets} open request</h2>
+    % endif
+    <ul class="nav nav-tabs">
+        <li class="${'active' if is_closed_tab != True else ''}">
+            <a href="${open_tab_link}" class="filter-tab ${'selected' if is_closed_tab != True else ''}">Open</a>
+        </li>
+        % if close_tab_link != open_tab_link:
+        <li class="${'active' if is_closed_tab == True else ''}">
+            <a href="${close_tab_link}" class="filter-tab ${'selected' if is_closed_tab == True else ''}">Closed</a>
+        </li>
+        % endif
+      	% if project_name:
+      	<li class="divider-vertical hidden-phone"></li>
+      	<form id="pulls-search" action="/${project_name}/pulls/search" method="get" class="navbar-search pull-right">
+            <i class="icon-search"></i>
+            <input type="text" value="${key_word if key_word else ''}" name="q" accesskey="f" class="search-query"
+            placeholder="Search..." autocomplete="off"/>
+            % if is_closed_tab:
+              <input type="hidden" value="closed" name="status">
+            % endif
+      	</form>
+      	<li class="divider-vertical hidden-phone"></li>
+      	% endif
+    </ul>
+    % if len(tickets) == 0:
+    <div class="well">
+        <p>No pull requests to show</p>
+    </div>
+    % else:
+    % for ticket in tickets:
+        <% ticket_project = CodeDoubanProject.get(ticket.project_id) %>
+        %if ticket_project:
+        <div class="mod">
+            <% ticket_url = '/%s/pull/%s/' % (ticket_project.name, ticket.ticket_number) %>
+            <h3>
+                %if ticket.title:
+                    %if show_ticket_project_name:
+                    <a href="${ticket_url}">[${ticket_project.name}]${ticket.title}</a>
+                    %else:
+                    <a href="${ticket_url}">${ticket.title}</a>
+                    %endif
+                %else:
+                    <a href="${ticket_url}">这位亲太懒，没写标题，点我吧！！</a>
+                %endif
+            </h3>
+            <p>
+                <a href="${ticket_url}">
+                    ${ticket.description}
+                </a>
+            </p>
+            <div class="meta">
+                <% author = User(ticket.author) %>
+                <a href="${author.url}" class="gravatar">
+                    <img class="user-avatar user-avatar-mini" src="${author.avatar_url}">
+                </a>
+                <a href="${author.url}">${author.name}</a>
+                submitted to
+                <a href="/${ticket_project.name}">
+                    ${ticket_project.name}
+                </a>
+                <time class="js-relative-date" datetime="${ticket.time.strftime('%Y-%m-%dT%H:%M:%S+0800')}" title="${ticket.time}">${ticket.time}</time>
+                <a href="${ticket_url}" class="pull-right">
+                    <span class="muted">
+                    <% comments_len = len(ticket.get_comments()) + len(ticket.get_codereviews()) %>
+                    ${comments_len} comments
+                    </span>
+                </a>
+            </div>
+        </div>
+        % endif
+    % endfor
+    % endif
+    <%
+    if key_word:
+      page_link = 'search?q=%s' % key_word
+      if is_closed_tab:
+        page_link = '%s&status=closed' % page_link
+    elif is_closed_tab:
+      page_link = 'closed'
+    else:
+      page_link = ''
+    if key_word:
+      href = "%s&page=%%s" % page_link
+    else:
+      href = "%s?page=%%s" % page_link
+    %>
+    <%include file="/widgets/paginator.html", args="href=href, current=page, total=n_pages" />
+</div>
+</%def>

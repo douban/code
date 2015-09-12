@@ -1,0 +1,26 @@
+.gist-item { display: inline-block; display: block; margin-bottom: 2em; position: relative; }
+.gist-item ul.meta > li .mini-icon { line-height: 0.6; opacity: 0.5; }
+.gist-item ul.meta { position: absolute; right: 0; }
+.gist-item ul.meta > li { font-size: 12px; font-weight: bold; list-style-type: none; display: inline-block; margin-left: 12px; }
+.gist-item ul.meta > li > a { display: block; text-decoration: none; color: #666; }
+.gist-item .byline { margin: 3px 0 11px; }
+.gist-item .creator img { border-radius: 3px; width: 28px; height: 28px; position: absolute; top: 0; left: 0; margin-left: 3px; }
+.gist-item .creator { color: rgba(51, 51, 51, 0.75); font-size: 13px; font-weight: 300; padding-left: 40px; position: relative; width: 480px; }
+.gist-item .creator a { font-weight: bold; }
+.gist-item .metadata { font-size: 11px; margin-left: 40px; }
+.gist-item .metadata .datetime { color: #999; }
+.gist-item .description { color: rgba(51, 51, 51, 0.75); display: block; font-size: 12px; vertical-align: text-top; margin-top: 6px; margin-left: 40px; width: 480px; }
+.bubble { background: #EEE; border-radius: 3px; margin-bottom: 1em; padding: 3px; }
+table { font-size: inherit; font: 100%; }
+tbody { display: table-row-group; vertical-align: middle; border-color: inherit; }
+.file-box { background-color: #DDD; border: 1px solid #CCC; margin-bottom: 1em; position: relative; }
+.file-box .data { background-color: ghostWhite; font-size: 12px; overflow: auto; }
+.file-box .highlight { border: none; padding: 0; }
+.file-box .data tr:last-child td.line_numbers, .file-box .data tr:last-child .line_data { padding-bottom: 12px; }
+.file-box .data tr:first-child td.line_numbers, .file-box .data tr:first-child .line_data { padding-top: 12px; }
+.highlight { background: white; }
+.bubble .file-box:only-child { border-bottom: 1px solid #CCC; }
+.bubble .file-box .data { background: ghostWhite; }
+.gist-item .file-box { position: relative; }
+.bubble .file-box { background: #ECECEC; margin-bottom: 0; }
+.bubble.secret { background-color: #F8EEC7; }

@@ -1,0 +1,16 @@
+<%def name="upvote_button(has_user_voted,vote_count,btn_id='upvote')">
+        % if has_user_voted:
+            <a id="${btn_id}" class="btn btn-small btn-danger upvoted" href="upvote">
+                <i class="icon-white icon-chevron-down"></i>
+                &nbsp;&nbsp;&nbsp;
+                <span>Unvote</span>
+            </a>
+        % else:
+            <a id="upvote" class="btn btn-small" href="upvote">
+                <i class="icon-white icon-chevron-up"></i>
+                &nbsp;&nbsp;&nbsp;
+                <span>Vote</span>
+            </a>
+        % endif
+        <a class="btn btn-small counts-label" id="vote-count" href="#">${vote_count}</a>
+</%def>

@@ -1,0 +1,35 @@
+<%def name="topbar(project=None, team=None)">
+% if project or team:
+<%
+  target = project if project else team
+%>
+<div class="issues-topbar">
+    <div class="new-issue">
+        <a class="btn btn-small btn-primary" href="${target.url}issues/new">
+            <span>Create New Issue</span>
+        </a>
+    </div>
+
+    <div class="sortby-issues">
+      <span>Sort By:</span>
+      <div class="btn-group">
+        % if order=='hot':
+        <a class="btn btn-small" href="?order=date">
+            DATE
+        </a>
+        <a class="btn btn-small btn-success active" href="?order=hot">
+            <i class="icon-ok icon-white"></i>HOT
+        </a>
+        % else:
+        <a class="btn btn-small btn-success active" href="?order=date">
+            <i class="icon-ok icon-white"></i>DATE
+        </a>
+        <a class="btn btn-small" href="?order=hot">
+            HOT
+        </a>
+        % endif
+      </div>
+    </div>
+</div>
+% endif
+</%def>

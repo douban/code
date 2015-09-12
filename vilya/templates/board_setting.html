@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Board - ${ project_name }</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link href="/static/css/board.css" type="text/css" rel="stylesheet">
+    <script src="/static/js/lib/jquery.min.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <div id="header">
+        <h1 class="title">${ project_name }</h1>
+        <p></p>
+      </div>
+      <div id="content" style="width: 700px;">
+        <div class="grBox">
+          <h4 class="title">Setting</h4>
+        </div>
+        <div class="rBox">
+          % if project.board:
+          <div class="alert alert-error" style="text-align: center;">
+            无论神马原因，我都得提醒你——修改是会把原来的配置覆写！！！
+          </div>
+          % else:
+          <div class="alert alert-success" style="text-align: center;">
+            首先请你确认已经登陆 Trello，然后依次顺序向下大步走~
+          </div>
+          % endif
+          <form method="post" class="form-horizontal">
+            <fieldset>
+              <div class="control-group">
+                <label class="control-label"> Key </label> 
+                <div class="controls">
+                  <input type="text" id="user_key" name="user_key" class="span3 input_h_28" /> 
+                  <span><a id="getKey" onclick="getKey();" target="_blank">获取<i class="icon-share-alt"></i></a></span>
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label"> Token </label> 
+                <div class="controls">
+                  <input type="text" id="user_token" name="user_token" class="span3 input_h_28" />
+                  <span><a id="getToken" onclick="getToken();" target="_blank">获取<i class="icon-share-alt"></i></a></span>
+                </div>
+              </div>
+              <div id="boards" class="control-group" style="display:none;">
+                <label class="control-label"> Boards</label> 
+                <div class="controls">
+                </div>
+              </div>
+              <div class="form-actions">
+                <input type="submit" value="提交" class="btn" style="display:none;" />
+                <input type="button" value="获取Board列表来选择" class="btn" onclick="getBoards();" />
+              </div>
+            </fieldset>
+            
+          </form>
+        </div>
+        <div style="clear:both;"></div>
+        <div class="note" style="display:none">
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript">
+    function getKey(){
+      var url = 'https://trello.com/1/appKey/generate';
+      $('#getKey').attr('href', url);
+      $('#getKey').click();
+    }
+    function getToken(){
+      var key = $('#user_key').val();
+      if(key){
+        var getTokenUrl = 'https://trello.com/1/authorize?key=',
+            params = '&name=Douban+code&expiration=never&response_type=token';
+        $('#getToken').attr('href', getTokenUrl + key + params)
+        $('#getToken').click();
+      } else {
+          alert('= = ！你还没写 Key 好嘛!');
+          return false;
+      }
+    }
+    function getBoards(){
+      $('form .form-actions input[type=button]').hide();
+      var key = $('#user_key').val(),
+          token = $('#user_token').val(),
+          url = 'https://api.trello.com/1/members/me/boards';
+      if(!(key&&token)){
+          alert('话说 Key 和 Token 缺一不可～')
+          $('form .form-actions input[type=button]').show();
+          return false;
+      }
+      $.ajax({url: url, 
+              type: 'GET',
+              data: {key: key, token: token, filters: 'open'},
+              dataType: 'json',
+              success: function(boards){
+                         $('#boards').show();
+                         boards.forEach(function(board, i){
+                           is_checked = i == 0 ? 'checked' : '';
+                           label = '<label class="radio"> <input type="radio" name="board_index" value="' + i + '"' + is_checked + '>' + board.name + '</label>';
+                           board_id = '<input type="hidden" name="board_id' + i + '" value="' + board.id + '" >';
+                           board_name = '<input type="hidden" name="board_name' + i + '" value="' + board.name + '" >';
+                           $('#boards .controls').append(label + board_id + board_name);
+
+                           $('form .form-actions input[type=submit]').show();
+                         });
+                       }
+      });
+    }
+  </script>
+</html>

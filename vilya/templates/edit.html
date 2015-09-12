@@ -1,0 +1,24 @@
+<%inherit file="/source.html" />
+<%namespace name="pjax" file="/widgets/pjax_source.html" />
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/src/src.js')}"></script>
+    <script src="${static('/js/app/src/editor.js')}"></script>
+</%def>
+
+<%block name="extra_head">
+<link rel="stylesheet" href="/static/codemirror/codemirror.css" />
+</%block>
+
+${parent.body()}
+
+<%def name="prefix()">Editing </%def>
+
+<%def name="main()">
+    ${self.sourcenav_bar()}
+    <div id="pjax_container">
+    ${pjax.lastcommit_bar(project, ref_type, ref, lastcommit)}
+    ${pjax.breadcrumb(project, ref, path_breadcrumb)}
+    ${pjax.edit_block()}
+    </div>
+</%def>
