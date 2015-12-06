@@ -1,0 +1,58 @@
+@import "css/mod/flatui-comment-form";
+
+/* hacks for markdown paragraph content for flatui */
+.markdown-body p, .markdown-body blockquote, .markdown-body ul, .markdown-body ol, .markdown-body dl, .markdown-body table, .markdown-body pre {
+  margin: 15px 0px 0px 0px;
+}
+
+#summary.mod .header {
+    position: relative;
+}
+
+.mini-icon-edit:before { content: "\f058" }
+.mini-icon-delete-note::before, .mini-icon-remove-close::before { content:"\f050" }
+
+.content .form-content input.title-field {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom:5px;
+    width: 99%;
+}
+
+.content .form-content textarea {
+    min-height: 100px;
+    max-width: 100%;
+    width: 99%;
+    margin: 0;
+}
+
+.form-actions {
+    background-color: transparent;
+    border: none;
+    text-align: right;
+    margin: 0px;
+    padding: 10px 0px 0px;
+}
+
+.change-header-right {
+    float: right;
+    a.change-header-date {
+        color: lightgray;
+    }
+}
+
+ul.comment-header-actions {
+    margin-left: 10px;
+    display: inline;
+    li {
+        display: inline;
+    }
+}
+
+.comment-body {
+    padding: 0px;
+}
+
+.markdown-body {
+    padding: 0px;
+}

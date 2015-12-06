@@ -1,0 +1,63 @@
+/* Echo out a label for the example */
+.bs-docs-project:after {
+  content: "Proj";
+}
+
+.bs-docs-fork:after {
+  content: "Fork";
+}
+
+.project-item {
+  overflow:hidden;
+  word-wrap: break-word;
+  word-break: normal;
+  min-height: 80px;
+  position: relative;
+  margin: 15px 0;
+  padding: 14px 19px 14px 49px;
+  *padding-top: 14px;
+  background-color: transparent;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+
+  &:after {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    color: #9da0a4;
+    -webkit-border-radius: 4px 0 4px 0;
+       -moz-border-radius: 4px 0 4px 0;
+            border-radius: 4px 0 4px 0;
+  }
+
+  h4.project-title {
+    margin: 0;
+    i {
+      margin-top: 5px;
+    }
+  }
+  ul.project-stats {
+    li {
+        float: left;
+        margin-left: 10px;
+    }
+  }
+  .summary {
+    margin-top: 10px;
+  }
+  .commit-graph {
+    position: absolute;
+    left: 10px;
+    bottom: 0;
+    z-index: -9999;
+    height: 80px;
+    width: 440px;
+  }
+}

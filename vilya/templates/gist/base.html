@@ -1,0 +1,46 @@
+<%inherit file="/base.html" />
+<%!
+    from vilya.models.user import User
+%>
+
+<%block name="extra_head">
+  <link rel="stylesheet" type="text/css" href="${static('/css/app/gist.css')}" />
+</%block>
+
+
+<%def name="title()">Gists</%def>
+<%def name="brand()">Code:gist</%def>
+
+
+<%def name="nav()">
+  <li><a href="/gist/discover">Discover Gist</a></li>
+</%def>
+
+<%def name="nav_collapse()">
+  % if user:
+    <li>
+      <a href="/gist/${user.username}" class="name">
+        <img height="20" src="${user.avatar_url}" width="20"> ${user.username}
+      </a>
+    </li>
+    <li>
+      <a title="Create a New Gist" href="/gist">
+        <span class="mini-icon mini-icon-gist-add"></span>
+      </a>
+    </li>
+    <li>
+      <a href="/">
+        <span class="mini-icon" title="Go to Code">
+          <img height="22" width="22" src="/static/img/logo1.svg">
+        </span>
+      </a>
+    </li>
+    <li>
+      <a href="${User.create_logout_url(request.url)}" title="Sign Out">
+        <span class="mini-icon mini-icon-logout"></span>
+      </a>
+    </li>
+  % else:
+    <li><a href="${User.create_login_url(request.url)}">Login</a></li>
+  % endif
+</%def>

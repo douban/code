@@ -1,0 +1,47 @@
+<%page args="target, issue, user, show_close" />
+<%namespace name="upload_widget" file="/widgets/upload_widget.html" />
+
+<div id='typing' style="display:none"><span></span><img src="/static/img/typing.gif"></div>
+
+% if user:
+    <form id="add-comment-form" action="${issue.url}comment" method="post" class="previewable-comment-form write-selected">
+        <input type="hidden" name="issue" value="1" />
+        ${cm_form_content()}
+        <div class="form-actions">
+            % if issue.is_closed:
+                <button type="submit" id="open" value="1" class="btn">Open</button>
+            % elif show_close:
+                <button type="submit" id="close" value="1" class="btn">Close</button>
+            % endif
+            <button type="submit" class="btn btn-primary" tabindex="1">Comment</button>
+        </div>
+    </form>
+    ${upload_widget.widget('form-file-upload')}
+% endif
+
+<%def name="cm_form_content()">
+    <div class="form-content mod">
+        <div class="tab-content">
+            <div class="comment-form-head tabnav">
+                <ul class="js-preview-tabs nav nav-tabs">
+                    <li class="active"><a href="#write_bucket" data-toggle="tab" class="tabnav-tab write-tab" action="write">Write</a></li>
+                    <li><a href="#preview_bucket" data-toggle="tab" class="tabnav-tab preview-tab" action="preview">Preview</a></li>
+                    <%namespace name="quick_emoji" file="/widgets/quick_emoji.html" /> 
+                    ${quick_emoji.buttons()}
+                </ul>
+            </div>
+            <div id="write_bucket" class="write-content tab-pane active">
+                <a href="#" class="go-zen enable-fullscreen js-enable-fullscreen tooltipped leftwards hidden-phone " original-title="Zen Mode" title="Zen Mode">
+                    <span class="mini-icon mini-icon-fullscreen"></span>
+                </a>
+                <textarea id="new_comment_content" name="content" class="wikitext mousetrap" placeholder="Leave a comment" rows="7" cols="78" tabindex="1" data-project-name="${target.name}" data-current-user="${user.username}" required></textarea>
+            </div>
+            <div id="preview_bucket" class="tab-pane preview-content tab-pane">
+                <div class="content-body markdown-body" data-api-url="/preview">
+                    <p>Loading preview...</p>
+                </div>
+            </div>
+            <div class="loader"><div class="spinner"></div></div>
+        </div>
+    </div>
+</%def>

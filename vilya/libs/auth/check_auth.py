@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-
 from datetime import datetime
+
+from vilya.models.api_key import ApiKey
+from vilya.models.api_token import ApiToken
 from vilya.libs.auth.oauth import OAuthError
 from vilya.libs.auth import errors as err
 from vilya.libs.auth import AuthCode
@@ -28,6 +30,14 @@ def check_auth(request):
     # ApiToken 是否存在
     if not token:
         raise OAuthError(*err.auth_invalid_access_token)
+
+    # ApiKey 是否存在
+    if not token.key:
+        raise OAuthError(*err.auth_invalid_apikey)
+
+    # ApiKey 是否可用
+    if token.key.status == ApiKey.STATUS_BLOCKED:
+        raise OAuthError(*err.auth_apikey_blocked)
 
     # ApiToken 是否过期
     if datetime.now() > token.expire_time:

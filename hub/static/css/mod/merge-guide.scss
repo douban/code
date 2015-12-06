@@ -1,0 +1,155 @@
+@import "css/mod/minibutton";
+
+.pullrequest .merge-guide { margin: 20px 0; }
+.commit-preview {
+    margin: 10px 0 0 0;
+
+    .message, .commit-preview p.error {
+        clear: both;
+        padding: 5px;
+        background: #eaf2f5;
+        border: 1px solid #bedce7;
+    }
+
+    .message pre {
+        font-size: 11px;
+        color: #333;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+}
+
+.merge-branch {
+
+    .mergeable {
+        padding: 8px 10px;
+        border: 1px solid #ddd;
+        border-radius: 2px;
+    }
+
+    .mergeable.merging {
+        background-color: #589ab3;
+        background-image: -moz-linear-gradient(#82bccd, #589ab3);
+        background-image: -webkit-linear-gradient(#82bccd, #589ab3);
+        background-image: linear-gradient(#82bccd, #589ab3);
+        background-repeat: repeat-x;
+        border-color: #7699ad;
+        border-bottom-color: #648192;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        background-repeat: repeat-x;
+        border-color: #8bc384;
+    }
+
+    &.mergeable-clean .mergeable {
+        background-color: #6eda62;
+        background-image: -moz-linear-gradient(#9ee692, #6eda62);
+        background-image: -webkit-linear-gradient(#9ee692, #6eda62);
+        background-image: linear-gradient(#9ee692, #6eda62);
+
+        p.message {
+            color: #0b5f00;
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.4);
+
+            span.blue { color: blue; }
+        }
+    }
+
+    &.mergeable-dirty .mergeable, & .dirty-cleanup .mergeable {
+        position: relative;
+        background-color: #f6e69f;
+        background-image: -moz-linear-gradient(#f6e69f, #f6e69f);
+        background-image: -webkit-linear-gradient(#f6e69f, #f6e69f);
+        background-image: linear-gradient(#f6e69f, #f6e69f);
+        background-repeat: repeat-x;
+        border-color: #888;
+    }
+
+    &.mergeable-error .mergeable, & .dirty-cleanup .mergeable {
+        position: relative;
+        background-color: #da4f49;
+        background-image: -moz-linear-gradient(#da4f49, #da4f49);
+        background-image: -webkit-linear-gradient(#da4f49, #da4f49);
+        background-image: linear-gradient(#da4f49, #da4f49);
+        background-repeat: repeat-x;
+        border-color: #888;
+    }
+
+    .minibutton {
+        float: right;
+        margin: -3px 0 0 15px;
+    }
+
+    p.message {
+        margin: 0;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .merge-form .merge-error-message {
+        display: none;
+        margin: 10px 0 0 0;
+        padding: 5px 7px;
+        color: #bd2c00;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 19px;
+        background: rgba(255,255,255,0.8);
+        border-radius: 2px;
+    }
+
+    .commit-preview {
+        position: relative;
+        display: table-row;
+        font-size: 12px;
+
+        .author {
+            display: table-cell;
+            width: 36px;
+            padding: 8px 10px;
+            vertical-align: top;
+            background: #d3e5eb;
+            border: 1px solid #bedce7;
+            border-right: none;
+        }
+
+        .gravatar {
+            float: left;
+            margin: 2px 8px 0 0;
+        }
+
+        .message {
+            display: table-cell;
+            width: 805px;
+            padding: 8px 10px;
+            vertical-align: top;
+            background-color: #e7f0f3;
+            background-image: -moz-linear-gradient(#f6f9fa, #e7f0f3);
+            background-image: -webkit-linear-gradient(#f6f9fa, #e7f0f3);
+            background-image: linear-gradient(#f6f9fa, #e7f0f3);
+            background-repeat: repeat-x;
+            border: 1px solid #bedce7;
+
+            pre {
+                font-family: Monaco, "Liberation Mono", Courier, monospace;
+                font-size: 12px;
+                color: #5b6f74;
+            }
+
+            textarea {
+                margin-top: 5px;
+                box-sizing: border-box;
+                width: 100%;
+                height: 50px;
+                padding: 4px;
+                font-family: Monaco, "Liberation Mono", Courier, monospace;
+                font-size: 12px;
+                color: #666;
+                background-color: #fafafa;
+            }
+        }
+    }
+}
+
+.merge-form { display:none; }
+

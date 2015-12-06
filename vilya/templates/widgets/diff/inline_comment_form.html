@@ -1,0 +1,65 @@
+## TODO: add linecomment form
+
+<%def name="inline_comment_form_template(submit_url)">
+
+<script id="templ-inline-comments-row" type="text/x-jquery-tmpl">
+    <tr class="inline-comments">
+        <td class="line_numbers comment-count" colspan="2">
+            <span class="counter"><span class="mini-icon mini-icon-commit-comment"></span>0</span>
+        </td>
+        <td class="js-line-comments line-comments">
+            <div class="comment-holder js-comments-holder"></div>
+            <div class="show-inline-comment-form">
+                <a href="javascript:void(0);" class="minibutton js-show-inline-comment-form">Add a line note</a>
+            </div>
+        </td>
+    </tr>
+</script>
+
+<script id="templ-inline-comment-form" type="text/x-jquery-tmpl">
+    <div class="inline-comment-form">
+        <form accept-charset="UTF-8" action="${submit_url}" class="js-inline-comment-form" method="post">
+
+            <input type="hidden" name="from_sha" value="{{= from_sha}}">
+            <input type="hidden" name="old_path" value="{{= old_path}}">
+            <input type="hidden" name="new_path" value="{{= new_path}}">
+            <input type="hidden" name="from_oid" value="{{= from_oid}}">
+            <input type="hidden" name="to_oid" value="{{= to_oid}}">
+            <input type="hidden" name="old_no" value="{{= old_no}}">
+            <input type="hidden" name="new_no" value="{{= new_no}}">
+
+            <div class="js-previewable-comment-form previewable-comment-form write-selected tab-content">
+                <div class="comment-form-head tabnav">
+                    <ul class="js-preview-tabs tabnav-tabs">
+                        <li><a href="#write_bucket" class="tabnav-tab write-tab selected" action="write">Write</a></li>
+                        <li><a href="#preview_bucket" class="tabnav-tab preview-tab" action="preview">Preview</a></li>
+                    </ul>
+                </div>
+                <div class="comment-form-error" style="display:none;"></div>
+                <div id="write_bucket" class="write-content js-write-bucket tab-pane active">
+                    <textarea name="content" tabindex="1" id="comment_body" placeholder="Leave a comment, it will be parsed with Markdown" class="js-comment-field mousetrap" required></textarea>
+                </div>
+                <div id="preview_bucket" class="tab-pane preview-content tab-pane">
+                    <div class="content-body markdown-body" data-api-url="/preview?repository=${project.id}">
+                        <p>Loading preview...</p>
+                    </div>
+                </div>
+                <div class="loader"><div class="spinner"></div></div>
+            </div>
+
+            <div class="form-actions">
+                <span class="optional">
+                    <a href="javascript:void(0);" tabindex="3" class="minibutton js-hide-inline-comment-form dangerous">Close form</a>
+                    <span class="ajaxindicator" style="display:none">
+                        <img alt="Octocat-spinner-16px" src="/static/img/octocat-spinner-16px.gif" />
+                    </span>
+                </span>
+                <button type="submit" class="classy primary" tabindex="2" data-disable-invalid data-disable-with>
+                    Comment on this line
+                </button>
+            </div>
+        </form>
+    </div>
+</script>
+
+</%def>

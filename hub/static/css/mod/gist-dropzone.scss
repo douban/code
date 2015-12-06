@@ -1,0 +1,4 @@
+#dropzone { display: none; background: rgba(0,0,0,0.25); height: 100%; position: fixed; top: 0; left: 0; width: 100%; z-index: 100; }
+#dropzone #dropzone-pill { background: rgba(0,0,0,0.75); border-radius: 6px; color: #fff; font-weight: bold; text-align: center; margin-left: -100px; margin-top: -60px; padding: 20px; width: 160px; height: 80px; position: absolute; top: 50%; left: 50%; }
+#dropzone .mega-icon-code-file::before, .mega-icon-download-unknown::before, #dropzone .mega-icon-arr-right::before, #dropzone .mega-icon-gist-add::before { font-size: 32px; }
+#dropzone p { display: block; -webkit-margin-before: 1em; -webkit-margin-after: 1em; -webkit-margin-start: 0px; -webkit-margin-end: 0px; }

@@ -1,0 +1,61 @@
+<%inherit file="/base.html" />
+<%namespace name="pledge_util" file="/widgets/issue/pledge.html" />
+
+<%def name="title()">Issue承诺贡献</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/issue-new.css')}" />
+</%def>
+
+<div class="mod">
+  <form name="pledge" action='' method="post">
+    <div class="page">
+      <table class='table table-bordered table-size'>
+        <tr>
+          <th class='text-right'>Issue</th>
+          <td class='text-left'>
+            <p><a href="${ issue.url }">${ issue.title }</a></p>
+          </td>
+        </tr>
+        % if issue.creator == request.user:
+        <tr>
+          <th class='text-right'>
+            <div>已承诺贡献PR<div>
+            <div class="label label-success">仅issue创建者可见</div>
+          </th>
+          <td class='text-left'>
+            % if issue.pledged:
+              % for user, amount in issue.pledged:
+                ${ pledge_util.user_pledge_avatar(user, amount) }
+              % endfor
+            % else:
+              无
+            % endif
+          </td>
+        </tr>
+        % endif
+        <tr>
+          <th class='text-right'><label for='amount'>承诺贡献PR</label></th>
+          <td class='text-left'>
+            <% amount = issue.pledged_by(request.user) %>
+            <input type='text' id='amount' name='amount' value="${ amount }" />
+            % if error:
+              <div class="alert alert-error" style="margin: 10px 0px;">
+                ${ error }
+              </div>
+            % endif
+            <div class="alert alert-info">
+              过多承诺可能导致无法完成，或影响本职工作。
+              请注意量力而行。
+              建议一个月最多承诺 5 个 Pull Request。
+            </div>
+            <input type='submit' name='edit' class='btn input-button' value='确认' />
+          </td>
+        </tr>
+      </table>
+    </div>
+  </form>
+</div>

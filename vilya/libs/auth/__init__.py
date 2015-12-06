@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from base64 import b64decode
+
 from quixote.errors import AccessError
 from quixote import get_request
+
 from vilya.models.user import User
 
 
@@ -17,9 +19,7 @@ class AuthCode(object):
             self.login = login
             self.passwd = passwd
             self.user = User.get_by_name(login)
-        except ValueError:
-            pass
-        except TypeError:
+        except (ValueError, TypeError):
             pass
 
     def confirm(self):
@@ -27,8 +27,7 @@ class AuthCode(object):
         passwd = self.passwd
         if username == 'code' and passwd == 'code':
             return True
-        # FIXME: user login
-        if username and passwd:
+        if self.user and self.user.validate_password(passwd):
             return True
         raise UnauthorizedError
 

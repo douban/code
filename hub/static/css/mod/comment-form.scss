@@ -1,0 +1,19 @@
+@import "css/mod/comment-form-preview";
+@import "css/mod/comment-form-content";
+@import "css/mod/minibutton";
+@import "css/mod/comment-form-button";
+@import "css/mod/comment-form-zen";
+@import "css/mod/loader";
+@import "css/lib/jquery.atwho";
+
+.side-avatar { margin-left: 0; }
+
+/* fix li header for newer version of bootstrap */
+.comment-form-head li {
+    line-height: 18px;
+}
+
+#new_comment .form-content { width: 880px; margin-left: 60px; }
+
+.discussion-bubble-avatar { position: relative; float: left; border-radius: 3px; }
+.discussion-bubble-inner { min-height: 60px; border: 1px solid #CACACA; background-color: white; }

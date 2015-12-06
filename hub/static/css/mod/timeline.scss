@@ -1,0 +1,114 @@
+@import "css/mod/user-card";
+@import "css/mod/team-card";
+
+/* Timeline */
+@media (max-width: 767px){
+    .timeline { padding: 10px; }
+}
+
+.timeline {
+    margin-top:0px;
+    word-wrap: break-word;
+    word-break: normal;
+
+    li {
+        position: relative;
+        list-style: none;
+        clear: both;
+        background: rgba(255,255,255,1);
+        padding: 10px 20px 10px 32px;
+        margin: 0 0 0px;
+        border-bottom: 1px solid #eaeaea;
+
+        .title {
+            margin-bottom: 0.5em;
+             i {
+                position: absolute;
+                left: 5px;
+                padding: 2px 5px 0;
+                color: #999;
+                font-size: 10px;
+            }
+        }
+    }
+
+    .time {
+        float: right;
+        color: #ccc;
+        font-size: 12px;
+    }
+
+    code {
+        white-space: normal;
+    }
+}
+
+.timeline .padding {
+    height: 2em;
+    font-weight: bold;
+}
+.timeline .more_items {
+    margin-left: 10px;
+    font-weight: bold;
+}
+.timeline .time {
+    color: #bbb;
+}
+.timeline .desc {
+    padding: 0 0 1em 0;
+    color: #666;
+    word-wrap: break-word;
+}
+.timeline .desc .right_side {
+    float: right;
+    margin-right: 30px;
+}
+
+.timeline .pagination {
+    display: none;
+    background: rgba(99, 182, 174, 1);
+}
+.pagination {
+    display: block;
+    margin: 7px 0;
+    overflow: hidden;
+    border: 1px solid #EAEAEA;
+    border-bottom-color: #CACACA;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 3px;
+    background-image: -webkit-linear-gradient(top, white, #EFEFEF);
+}
+.timeline .pagination a {
+    color: rgba(255,255,255,1);
+}
+.pagination a {
+    padding: 8px;
+    width: 100%;
+    text-align: center;
+    line-height: 1.4;
+}
+.pagination a:last-child, .pagination span:last-child {
+    border-right: none;
+    border-bottom-right-radius: 3px;
+}
+.pagination a:first-child, .pagination span:first-child {
+    border-left: none;
+    border-bottom-left-radius: 3px;
+}
+.pagination a, .pagination span {
+    float: left;
+    margin: 0;
+    color: #777;
+    font-size: 13px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 white;
+    border-bottom: 1px solid #DADADA;
+}
+.timeline .loader img {
+    display: block;
+    width: 16px;
+    height: 16px;
+    margin: 0 auto;
+    position: relative;
+}

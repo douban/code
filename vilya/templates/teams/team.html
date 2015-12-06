@@ -1,0 +1,52 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.html" />
+<%namespace name="side_list" file="/widgets/side_list.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/team.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+    ## FIXME: 加载了两个js，模块化不应该在这里吧
+    <script src="${static('/js/app/team/main.js')}"></script>
+    <script src="${static('/js/app/team/teamfeed_timeline.js')}"></script>
+</%def>
+
+<%def name="title()">${team.uid}</%def>
+
+${pagehead.team_header(team, user, 'team')}
+
+<div class="row">
+    <div class="span8">
+        <%
+            team_doc_project = team.doc_project
+            readme = team_doc_project.readme if team_doc_project else None
+        %>
+        % if readme:
+            <div id="readme">
+                <div class="mod">
+                    <div class="file markdown-body">
+                        ${readme | n, decode.utf8}
+                    </div>
+                </div>
+            </div>
+        % else:
+            <div class="mod timeline">
+                <div class="summary">
+                    Welcome to ${team.name}!&nbsp;&nbsp;<a href="/teams">Explore interesting teams</a> to join. 
+                </div>
+                <div>
+                  <img src="http://p.dapps.douban.com/i/35f0094671c111e2b35524b6fdf76328.jpg">
+                </div>
+            </div>
+        % endif
+    </div>
+    <div class="span4">
+        ${side_list.show_chatroom(team)}
+        ${side_list.team_projects(projects, team, is_admin)}
+        ${side_list.show_team_members(team)}
+    </div>
+</div>

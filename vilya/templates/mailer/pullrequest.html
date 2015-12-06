@@ -1,0 +1,43 @@
+<body>
+<div>
+% if status=='unmerge':
+<p>${ticket.author} send you a new pull request(<a href="${url}">#${ticket_id}</a>)</p>
+
+<h4>${ticket.title}</h4>
+% endif
+
+% if content:
+<div style="border-top: 1px dotted #999;border-bottom: 1px dotted #999;padding: 1em 0 1em 0;font-weight: bold;color: #000;">
+${md_render(content)|n}
+</div>
+% endif
+
+<p>view, comment on, or merge it at:</p>
+
+<a href="${url}">${url}</a>
+
+% if status=='unmerge':
+<div style="margin-top: 1em;">
+    <h4>Patch Links:</h4>
+    <ul>
+        <li><a href="${diffurl}.patch">${diffurl}.patch</a></li>
+        <li><a href="${diffurl}.diff">${diffurl}.diff</a></li>
+    </ul>
+    <h4>Commit Summary:</h4>
+    <ul>
+    % for c in pullreq.commits:
+        <li>${c.shortlog}</li>
+    % endfor
+    </ul>
+    <h4>File Changes:</h4>
+    <ul>
+    % for patch in pullreq.get_diff().patches:
+        <li>${patch.status} ${patch.old_file_path} (${patch.additions}+/${patch.deletions}-)</li>
+    % endfor
+    </ul>
+</div>
+% endif
+
+<a href="${url}">View it on Code</a>
+</div>
+</body>

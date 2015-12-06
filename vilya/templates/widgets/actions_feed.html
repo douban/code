@@ -1,0 +1,74 @@
+<%page args="actions=[], is_notification=False, show_avatar=False, is_public_timeline=False, is_render_actions=False, is_collapsed=True" />
+
+<%def name="actions_timeline(actions, show_avatar)">
+    <%
+    is_notification = False
+    statuses = []
+    prev_sender = None
+    for action in actions:
+        sender = action.get('author') or action.get('sender') or action.get('repo_name')
+        if not prev_sender or prev_sender != sender:
+            prev_sender = sender
+            statuses.append([action])
+        elif prev_sender == sender:
+            statuses[-1].append(action)
+    endfor
+    MAX_SHOWN_ACTION_NUM = 2
+    %>
+    %for status in statuses:
+        %if len(status) <= MAX_SHOWN_ACTION_NUM or not is_collapsed:
+          %for action in status:
+            <%include file="/widgets/feed_action.html" args="action=action, is_notification=is_notification, show_avatar=show_avatar"/>
+          %endfor
+        %else:
+          %for i, action in enumerate(status):
+              %if i == 0:
+                <%include file="/widgets/feed_action.html" args="class_first='expand-first', action=action, is_notification=is_notification, show_avatar=show_avatar"/>
+              %else:
+                <%include file="/widgets/feed_action.html" args="style_none='display: none', action=action, is_notification=is_notification, show_avatar=show_avatar"/>
+              %endif
+          %endfor
+          <li class="expand-last">
+              <div class="title">
+                  <i class="icon-list"></i>
+                  <a href="javascript:void(0);" class="expand-rest">expand</a> rest ${len(status) - 1} actions about ${status[0].get('author') or status[0].get('sender') or status[0].get('repo_name')}
+              </div>
+          </li>
+        %endif
+    %endfor
+</%def>
+
+<%def name="notif_timeline(actions, show_avatar)">
+    % for action in actions:
+    <%include file="/widgets/feed_action.html" args="action=action, is_notification=True, show_avatar=show_avatar"/>
+    % endfor
+</%def>
+
+<%def name="disp_timeline(actions=[], is_notification=False, show_avatar=False, is_public_timeline=False)">
+    <div class="timeline">
+      %if is_public_timeline:
+        <h2>Public Timeline Feed</h2>
+      %elif is_notification:
+        <h2>Notifications
+                <a href="/hub/notification/read_all" class="btn mark-all-as-read">
+                    Mark all as read
+                </a>
+        </h2>
+      %endif
+        <ul>
+          %if is_notification:
+            ${notif_timeline(actions, show_avatar)}
+          %else:
+            ${actions_timeline(actions, show_avatar)}
+          %endif
+        </ul>
+        <div class="loader" ><img src="/static/img/ajax-loader.gif"/></div>
+        <div class="pagination"><a href="javascript:void(0);">More</a></div>
+    </div>
+</%def>
+
+%if is_render_actions:
+  ${actions_timeline(actions, show_avatar)}
+%else:
+  ${disp_timeline(actions, is_notification, show_avatar, is_public_timeline)}
+%endif

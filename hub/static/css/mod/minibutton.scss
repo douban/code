@@ -1,0 +1,15 @@
+.minibutton {position:relative;display:inline-block;padding:0 10px 0 10px;color:#333;font-family:Helvetica,arial,freesans,clean,sans-serif;font-size:13px;font-weight:bold;line-height:24px;text-shadow:0 1px 0 #fff;white-space:nowrap;border:1px solid #d4d4d4;border-bottom-color:#bcbcbc;border-radius:3px;background:#fafafa;background:-moz-linear-gradient(#fafafa,#eaeaea);background:-webkit-linear-gradient(#fafafa,#eaeaea);-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa',endColorstr='#eaeaea')";cursor:pointer;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
+.minibutton.green{color:#fff;text-shadow:0 -1px 0 rgba(0,0,0,0.3);background:#36b825;background:-moz-linear-gradient(#36b825,#28881b);background:-webkit-linear-gradient(#36b825,#28881b);-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr='#36b825',endColorstr='#28881b')";border-color:#4a993e;}
+.minibutton:hover.btn-windows:before,.button-group .btn-windows.grouped-button:before:hover{background-position:-17px 3px;}
+.minibutton:disabled,.minibutton.disabled{opacity:.5;cursor:default;}
+button.minibutton::-moz-focus-inner{margin:-1px -3px;}input[type=text]+.minibutton{margin-left:5px;}
+
+.minibutton:hover, .button-group .grouped-button:hover {
+    color: white;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+    border-color: #518CC6;
+    border-bottom-color: #2A65A0;
+    background: #599BDC;
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#599bdc',endColorstr='#3072b3')";
+}

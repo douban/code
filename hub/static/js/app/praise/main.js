@@ -1,0 +1,1 @@
+require(['mod/praise'], function ($) {});

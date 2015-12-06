@@ -1,0 +1,37 @@
+<%!
+    from vilya.models.user import User
+%>
+<%inherit file="/base.html" />
+<%namespace name="utils" file="/pull/utils.html"/>
+<%namespace name="pagehead" file="/widgets/pagehead.mako" />
+<%def name="title()">${project.name} Forkers</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/watchers.css')}" />
+</%def>
+
+<%block name="extra_head">
+</%block>
+
+${pagehead.trac_header("", project, user)}
+
+%if projects:
+<div class="gray">Maybe we should have Network Graphs...</div>
+<div class="userlist">
+%for p in projects:
+<div class="user">
+    <div class="info">
+        <a href="${p.owner.url}"><img src="${p.owner.avatar_url}" class="user-avatar gravatar lazy"/></a>
+        <a href="${p.owner.url}">${p.owner.name}</a>
+        <a href="${p.url}">${p.name}</a>
+        %if user and p.owner.name == user.name:
+        <span class="gray">You</span>
+        %endif
+    </div>
+</div>
+%endfor
+</div>
+%else:
+<div class="gray">No project in this page. Tell someone!</div>
+%endif

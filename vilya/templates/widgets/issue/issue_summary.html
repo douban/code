@@ -1,0 +1,122 @@
+<%page args="target, issue, user, i_am_author, i_am_admin" />
+<%namespace name="utils" file="/widgets/utils.html"/>
+<%namespace name="issue_actions" file="/widgets/issue/issue_actions.html"/>
+<%namespace name="pledge_util" file="/widgets/issue/pledge.html" />
+<%namespace name="tags_util" file="/widgets/tags.html" />
+
+<%!
+    from vilya.libs.text import (render_markdown_with_project, parse_onimaru,
+        render_markdown_with_team, parse_emoji, replace_onimaru_to_link)
+    from vilya.models.user_fav import UserFavItem
+    from vilya.models.consts import K_ISSUE
+%>
+
+<div id="summary" class="mod tasklist-enabled js-edit-container">
+    ## tags color css
+    ${tags_util.color_style()}
+    <div class="header">
+        % if user:
+        <% is_faved = UserFavItem.is_liked_by_user(user.username, K_ISSUE, issue.issue_id) %>
+        <a href="javascript:;" id="fav-button" class="${'faved' if is_faved else ''}" data-tid="${issue.issue_id}" data-tkind="${K_ISSUE}" title="Favorite"></a>
+        % endif
+        <div class="date">
+            <p>
+                <% author = issue.creator %>
+                <a href="${author.url}">${author}</a> opened ${utils.time2relaive_time(issue.created_at)}
+            </p>
+        </div>
+        <h2>${parse_onimaru(parse_emoji(issue.title), target) | n}</h2>
+        <% tags = issue.tags %>
+        % if tags:
+        <p>
+            % for tag in tags:
+                <span class="label labelstyle-${tag.tagname.hex_color}">${tag.name}</span>
+            % endfor
+        </p>
+        % endif
+    </div>
+    <div class="description content">
+        <div class="content-body markdown-body markdown-format">
+            % if issue.type == 'project':
+                ${render_markdown_with_project(replace_onimaru_to_link(issue.description, target), target.name) if issue.description else 'No description given.'|n}
+            % else:
+                ${render_markdown_with_team(issue.description, target) if issue.description else 'No description given.'|n}
+            % endif
+            <%include file="/widgets/markdown_checklist.html" args="content=issue.description" />
+        </div>
+
+        % if issue.provide('related-projects'):
+          % if issue.related_projects:
+            <div id="related-projects-block" style="color: grey">
+              已关联项目
+              % for prj in issue.related_projects:
+              <a href="${ prj.url }">
+                <span class="label">${ prj.name }</span>
+              </a>
+              % endfor
+            </div>
+          % endif
+        % endif
+
+        % if issue.provide('pledge'):
+            % if issue.pledged_amount:
+              <div id="pledge-block" style="color: grey; padding: 3px 0">
+                已承诺PR
+                % for user, amount in issue.pledged:
+                  ${ pledge_util.user_pledge_avatar(user, amount) }
+                % endfor
+              </div>
+            % endif
+        % endif
+
+        % if i_am_author:
+        <div class="form-content js-write-bucket">
+            <form id="issue-content-edit-form" class="tasklist-form" action="/j/issue/${issue.issue_id}/edit" method="post">
+                <input class="title-field" id="issue_title" name="title" size="30" type="text" value="${issue.title}">
+                <textarea class="js-comment-field js-size-to-fit" cols="40" id="issue_body" name="content" rows="20" style="height: 34px;">${issue.description}</textarea>
+                <div class="form-actions">
+                    <a href="#" class="btn btn-small js-cancel-button pull-left">Cancel</a>
+                    <button type="submit" class="btn btn-small btn-primary">Update Issue</button>
+                </div>
+            </form>
+        </div>
+        % endif
+    </div>
+
+    <hr>
+     % if issue.provide('milestone') and issue.has_milestone:
+    <div class="milestone-body">
+        <div class="milestone-bar-title">
+            <label>Milestone:</label>
+            <span>${issue.milestone_name}</span>
+        </div>
+        <div class="milestone-bar">
+            <div class="progress">
+                <div class="bar" style="width: ${issue.milestone_percentage}%;"></div>
+            </div>
+        </div>
+    </div>
+    % endif
+    <div class="summary-bottom">
+        % if issue.is_closed:
+        <span class="state">
+          <span class="btn btn-danger">Closed</span>
+          <% closer = issue.closer %>
+          <a id="issue-closer" href="${closer.url}">${closer}</a> closed ${utils.time2relaive_time(issue.closed_at)}
+        </span>
+        % endif
+        ${issue_actions.actions(issue, i_am_author, i_am_admin, user)}
+        % if issue.assignee_id:
+        <span class="assignee">
+            <% assignee = issue.assignee %>
+            <a id="issue-assignee" class="avatar avatar-tiny" href="${assignee.url}" title="${assignee}">
+                <img height="24" src="${assignee.avatar_url}" width="24">
+            </a>
+            <span>is assigned</span>
+        </span>
+        % endif
+        <div style="clear: both"></div>
+    </div>
+</div>
+
+${issue_actions.modals()}

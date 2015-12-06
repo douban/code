@@ -1,0 +1,27 @@
+<%inherit file="/base.html" />
+<%namespace name="side_list" file="/widgets/side_list.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/my-pullrequests.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/home/main.js')}"></script>
+</%def>
+
+<%def name="title()">Pull Requests</%def>
+<%def name="suffix()"></%def>
+
+${pagehead.user_header(active='pulls')}
+
+<div class="row">
+    ${side_list.tabs_fixed_on_left(tab_info, list_type)}
+    <div class="span9">
+        <%namespace name="pulls" file="/widgets/pulls.html" />
+        ${pulls.pulls_ticket_list(tickets, n_tickets=ticket_total_len)}
+    </div>
+</div>

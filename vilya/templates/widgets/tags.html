@@ -1,0 +1,269 @@
+<%def name="tag_list(group_tags, issue_target=None, key_word='')">
+    <%
+        import copy
+        import urllib
+        form = copy.deepcopy(request.form)
+        tags = form.get('tags', '')
+        selected_tag_names = tags.split(',') if tags else []
+        if key_word:
+            form.update(dict(q=key_word))
+        tag_type = issue_target.tag_type
+    %>
+    % if group_tags:
+    ${color_style()}
+    <div class="rule"></div>
+    <div class="issue-tags">
+        <div class="nav-header">Tags
+        % if request.user and issue_target.is_admin(request.user.name):
+        <b class="tag-admin tag-admin-unuse">Manage</b>
+        % endif
+        </div>
+
+        <ul class="nav nav-list nav-list-filter">
+            % for group_name in sorted(group_tags.iterkeys()):
+            <li><span class="group-tag-title">${group_name}</span></li>
+                % for tag, counter, state in group_tags[group_name]:
+                % if group_name != 'used':
+                <li>
+                % endif
+                    % if tag.name in selected_tag_names:
+                    ## 已选中
+                    <%
+                        ## FIXME: 如果有个tag叫','呢....
+                        url_tag_names = filter(lambda x: x != tag.name, selected_tag_names)
+                        if url_tag_names:
+                            form.update(dict(tags=','.join(url_tag_names)))
+                        else:
+                            del form['tags']
+                        m_query = urllib.urlencode(form)
+                        url = request.url + '?' + m_query if m_query else request.url
+                    %>
+                    <span class="active" flag-tag="${tag.name}">
+                        <a class="label tag-filter" href="${url}">
+                            ${tag.name}<i class='icon-remove'></i>
+                        </a>
+                    </span>
+                    % else:
+                    ## 未选中
+                    <%
+                        form.update(dict(tags=','.join(selected_tag_names + [tag.name])))
+                        m_query = urllib.urlencode(form)
+                        url = request.url + '?' + m_query if m_query else request.url
+                    %>
+                    <span flag-tag="${tag.name}">
+                        <a href="${url}"><span class="label labelstyle-${tag.hex_color}">${tag.name}</span></a>
+                    </span>
+                    % endif
+                % if group_name != 'used':
+                </li>
+                % endif
+                % endfor
+            % endfor
+        </ul>
+
+        <!-- admin -->
+        <ul class="nav nav-list nav-list-edit" style="display:none;" data-tag-count=${sum((len(group_tags[key]) for key in group_tags))}>
+            % for group_name in sorted(group_tags.iterkeys()):
+                % for tag, counter, state in group_tags[group_name]:
+                    <li class="tag">
+                    <div class="tag-item" data-tag-name="${tag.name}" data-tag-type="${tag_type}"
+                        data-target-id="${issue_target.id}">
+                        <a href="#edit-${tag.id}-modal" data-toggle="modal" title="Set tag color"
+                            class="js-tag-color-button">
+                            <span class="label labelstyle-${tag.hex_color}">
+                            ${tag.name}
+                            </span>
+                        </a>
+                        <i style="background:none;" class='icon-remove icon-white tag-remove'></i>
+                    </div>
+                    </li>
+                % endfor
+            % endfor
+        </ul>
+        <div>
+            % for group_name in sorted(group_tags.iterkeys()):
+                % for tag, counter, state in group_tags[group_name]:
+                    ${edit_tag_modal(tag)}
+                % endfor
+            % endfor
+        </div>
+    </div>
+    % endif
+
+</%def>
+
+<%def name="color_style()">
+<style type="text/css" media="screen">
+span.labelstyle-e11d21, .linked-labelstyle-e11d21 {  background-color: #e11d21 !important;  color: #fff !important;}.labelstyle-e11d21.selected {  background-color: #e11d21 !important;  color: #fff !important;}.label-select-menu .labelstyle-e11d21.selected {  background:rgba(225, 29, 33, 0.12) !important;  color: #991316 !important;}
+span.labelstyle-eb6420, .linked-labelstyle-eb6420 {  background-color: #eb6420 !important;  color: #fff !important;}.labelstyle-eb6420.selected {  background-color: #eb6420 !important;  color: #fff !important;}.label-select-menu .labelstyle-eb6420.selected {  background:rgba(235, 100, 32, 0.12) !important;  color: #994114 !important;}
+span.labelstyle-fbca04, .linked-labelstyle-fbca04 {  background-color: #fbca04 !important;  color: #332900 !important;}.labelstyle-fbca04.selected {  background-color: #fbca04 !important;  color: #332900 !important;}.label-select-menu .labelstyle-fbca04.selected {  background:rgba(251, 202, 4, 0.12) !important;  color: #997b02 !important;}
+span.labelstyle-009800, .linked-labelstyle-009800 {  background-color: #009800 !important;  color: #fff !important;}.labelstyle-009800.selected {  background-color: #009800 !important;  color: #fff !important;}.label-select-menu .labelstyle-009800.selected {  background:rgba(0, 152, 0, 0.12) !important;  color: #009900 !important;}
+span.labelstyle-006b75, .linked-labelstyle-006b75 {  background-color: #006b75 !important;  color: #fff !important;}.labelstyle-006b75.selected {  background-color: #006b75 !important;  color: #fff !important;}.label-select-menu .labelstyle-006b75.selected {  background:rgba(0, 107, 117, 0.12) !important;  color: #008b99 !important;}
+span.labelstyle-207de5, .linked-labelstyle-207de5 {  background-color: #207de5 !important;  color: #fff !important;}.labelstyle-207de5.selected {  background-color: #207de5 !important;  color: #fff !important;}.label-select-menu .labelstyle-207de5.selected {  background:rgba(32, 125, 229, 0.12) !important;  color: #155399 !important;}
+span.labelstyle-0052cc, .linked-labelstyle-0052cc {  background-color: #0052cc !important;  color: #fff !important;}.labelstyle-0052cc.selected {  background-color: #0052cc !important;  color: #fff !important;}.label-select-menu .labelstyle-0052cc.selected {  background:rgba(0, 82, 204, 0.12) !important;  color: #003d99 !important;}
+span.labelstyle-5319e7, .linked-labelstyle-5319e7 {  background-color: #5319e7 !important;  color: #fff !important;}.labelstyle-5319e7.selected {  background-color: #5319e7 !important;  color: #fff !important;}.label-select-menu .labelstyle-5319e7.selected {  background:rgba(83, 25, 231, 0.12) !important;  color: #361099 !important;}
+span.labelstyle-f7c6c7, .linked-labelstyle-f7c6c7 {  background-color: #f7c6c7 !important;  color: #332829 !important;}.labelstyle-f7c6c7.selected {  background-color: #f7c6c7 !important;  color: #332829 !important;}.label-select-menu .labelstyle-f7c6c7.selected {  background:rgba(247, 198, 199, 0.12) !important;  color: #997a7b !important;}
+span.labelstyle-fad8c7, .linked-labelstyle-fad8c7 {  background-color: #fad8c7 !important;  color: #332c28 !important;}.labelstyle-fad8c7.selected {  background-color: #fad8c7 !important;  color: #332c28 !important;}.label-select-menu .labelstyle-fad8c7.selected {  background:rgba(250, 216, 199, 0.12) !important;  color: #988479 !important;}
+span.labelstyle-fef2c0, .linked-labelstyle-fef2c0 {  background-color: #fef2c0 !important;  color: #333026 !important;}.labelstyle-fef2c0.selected {  background-color: #fef2c0 !important;  color: #333026 !important;}.label-select-menu .labelstyle-fef2c0.selected {  background:rgba(254, 242, 192, 0.12) !important;  color: #989173 !important;}
+span.labelstyle-bfe5bf, .linked-labelstyle-bfe5bf {  background-color: #bfe5bf !important;  color: #2a332a !important;}.labelstyle-bfe5bf.selected {  background-color: #bfe5bf !important;  color: #2a332a !important;}.label-select-menu .labelstyle-bfe5bf.selected {  background:rgba(191, 229, 191, 0.12) !important;  color: #7f997f !important;}
+span.labelstyle-bfdadc, .linked-labelstyle-bfdadc {  background-color: #bfdadc !important;  color: #2c3233 !important;}.labelstyle-bfdadc.selected {  background-color: #bfdadc !important;  color: #2c3233 !important;}.label-select-menu .labelstyle-bfdadc.selected {  background:rgba(191, 218, 220, 0.12) !important;  color: #849799 !important;}
+span.labelstyle-c7def8, .linked-labelstyle-c7def8 {  background-color: #c7def8 !important;  color: #282d33 !important;}.labelstyle-c7def8.selected {  background-color: #c7def8 !important;  color: #282d33 !important;}.label-select-menu .labelstyle-c7def8.selected {  background:rgba(199, 222, 248, 0.12) !important;  color: #7a8898 !important;}
+span.labelstyle-bfd4f2, .linked-labelstyle-bfd4f2 {  background-color: #bfd4f2 !important;  color: #282c33 !important;}.labelstyle-bfd4f2.selected {  background-color: #bfd4f2 !important;  color: #282c33 !important;}.label-select-menu .labelstyle-bfd4f2.selected {  background:rgba(191, 212, 242, 0.12) !important;  color: #788699 !important;}
+span.labelstyle-d4c5f9, .linked-labelstyle-d4c5f9 {  background-color: #d4c5f9 !important;  color: #2b2833 !important;}.labelstyle-d4c5f9.selected {  background-color: #d4c5f9 !important;  color: #2b2833 !important;}.label-select-menu .labelstyle-d4c5f9.selected {  background:rgba(212, 197, 249, 0.12) !important;  color: #827999 !important;}
+span.labelstyle-cccccc, .linked-labelstyle-cccccc {  background-color: #cccccc !important;  color: #333333 !important;}.labelstyle-cccccc.selected {  background-color: #cccccc !important;  color: #333333 !important;}.label-select-menu .labelstyle-cccccc.selected {  background:rgba(204, 204, 204, 0.12) !important;  color: #999999 !important;}
+span.labelstyle-84b6eb, .linked-labelstyle-84b6eb {  background-color: #84b6eb !important;  color: #1c2733 !important;}.labelstyle-84b6eb.selected {  background-color: #84b6eb !important;  color: #1c2733 !important;}.label-select-menu .labelstyle-84b6eb.selected {  background:rgba(132, 182, 235, 0.12) !important;  color: #557699 !important;}
+span.labelstyle-e6e6e6, .linked-labelstyle-e6e6e6 {  background-color: #e6e6e6 !important;  color: #333333 !important;}.labelstyle-e6e6e6.selected {  background-color: #e6e6e6 !important;  color: #333333 !important;}.label-select-menu .labelstyle-e6e6e6.selected {  background:rgba(230, 230, 230, 0.12) !important;  color: #999999 !important;}
+span.labelstyle-cc317c, .linked-labelstyle-cc317c {  background-color: #cc317c !important;  color: #fff !important;}.labelstyle-cc317c.selected {  background-color: #cc317c !important;  color: #fff !important;}.label-select-menu .labelstyle-cc317c.selected {  background:rgba(204, 49, 124, 0.12) !important;  color: #99245c !important;}
+span.labelstyle-ffffff, .linked-labelstyle-ffffff {  background-color: #ffffff !important;  color: #333333 !important;}.labelstyle-ffffff.selected {  background-color: #ffffff !important;  color: #333333 !important;}.label-select-menu .labelstyle-ffffff.selected {  background:rgba(255, 255, 255, 0.12) !important;  color: #999999 !important;}
+</style>
+</%def>
+
+<%def name="edit_tag_modal(tag=None)">
+<div id="edit-${tag.id}-modal" class="modal mod hide fade" tabindex="-1" role="dialog" aria-labelledby="color-label" aria-hidden="true">
+<div class="edit-color-label-form js-label-editor">
+    <form action="tags/${tag.name}" method="post" style="margin-bottom: 0;" class="">
+        <div class="mod-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 id="milestone-label">Edit tag</h4>
+        </div>
+        <div class="mod-body">
+            <div class="fieldWithErrors">
+                <input class="name-input" id="label_name" name="name" size="30" type="text" value="${tag.name}">
+            </div>
+            ${color_chooser()}
+            <div class="color-editor js-color-editor">
+                <div class="color-editor-bg js-color-editor-bg" style="background-color: ${tag.hex_color};"></div>
+                <div class="fieldWithErrors">
+                    <input class="color-editor-input js-color-editor-input hexfield" data-original-color="#${tag.hex_color}" id="label_color"
+                    maxlength="7" name="color" size="7" type="text" value="#${tag.hex_color}"
+                    style="color: #${tag.hex_color}; border-color: #${tag.hex_color};" readonly>
+                </div>
+                <span class="invalid-color-indicator">?</span>
+            </div>
+        </div>
+        <div class="mod-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn btn-primary js-label-editor-submit">Save changes</button>
+        </div>
+    </form>
+</div>
+</div>
+</%def>
+
+<%def name="color_chooser()">
+<ul class="color-chooser js-color-chooser">
+    <li>
+    <span class="color-cooser-color js-color-cooser-color labelstyle-e11d21" style="background-color: #e11d21 !important;" data-hex-color="e11d21" data-selected="">
+    </span>
+    </li>
+    <li>
+    <span class="color-cooser-color js-color-cooser-color labelstyle-eb6420" style="background-color: #eb6420 !important;" data-hex-color="eb6420">
+    </span>
+    </li>
+    <li>
+    <span class="color-cooser-color js-color-cooser-color labelstyle-fbca04" style="background-color: #fbca04 !important;" data-hex-color="fbca04">
+    </span>
+    </li>
+    <li>
+    <span class="color-cooser-color js-color-cooser-color labelstyle-009800" style="background-color: #009800 !important;" data-hex-color="009800">
+    </span>
+    </li>
+    <li>
+    <span class="color-cooser-color js-color-cooser-color labelstyle-006b75" style="background-color: #006b75 !important;" data-hex-color="006b75">
+    </span>
+    </li>
+    <li>
+    <span class="color-cooser-color js-color-cooser-color labelstyle-207de5" style="background-color: #207de5 !important;" data-hex-color="207de5">
+    </span>
+    </li>
+    <li>
+    <span class="color-cooser-color js-color-cooser-color labelstyle-0052cc" style="background-color: #0052cc !important;" data-hex-color="0052cc">
+    </span>
+    </li>
+    <li>
+    <span class="color-cooser-color js-color-cooser-color labelstyle-5319e7" style="background-color: #5319e7 !important;" data-hex-color="5319e7">
+    </span>
+    </li>
+</ul>
+<ul class="color-chooser js-color-chooser">
+    <li>
+    <span class="color-cooser-color js-color-cooser-color labelstyle-f7c6c7" style="background-color: #f7c6c7 !important;" data-hex-color="f7c6c7">
+    </span>
+    </li>
+    <li>
+    <span class="color-cooser-color js-color-cooser-color labelstyle-fad8c7" style="background-color: #fad8c7 !important;" data-hex-color="fad8c7">
+    </span>
+    </li>
+    <li>
+    <span class="color-cooser-color js-color-cooser-color labelstyle-fef2c0" style="background-color: #fef2c0 !important;" data-hex-color="fef2c0">
+    </span>
+    </li>
+    <li>
+    <span class="color-cooser-color js-color-cooser-color labelstyle-bfe5bf" style="background-color: #bfe5bf !important;" data-hex-color="bfe5bf">
+    </span>
+    </li>
+    <li>
+    <span class="color-cooser-color js-color-cooser-color labelstyle-bfdadc" style="background-color: #bfdadc !important;" data-hex-color="bfdadc">
+    </span>
+    </li>
+    <li>
+    <span class="color-cooser-color js-color-cooser-color labelstyle-c7def8" style="background-color: #c7def8 !important;" data-hex-color="c7def8">
+    </span>
+    </li>
+    <li>
+    <span class="color-cooser-color js-color-cooser-color labelstyle-bfd4f2" style="background-color: #bfd4f2 !important;" data-hex-color="bfd4f2">
+    </span>
+    </li>
+    <li>
+    <span class="color-cooser-color js-color-cooser-color labelstyle-d4c5f9" style="background-color: #d4c5f9 !important;" data-hex-color="d4c5f9">
+    </span>
+    </li>
+</ul>
+</%def>
+
+<%def name="new_tags(available_tags, used_tags=None)">
+<%
+    import json
+    used_tags = [] if not used_tags else used_tags
+%>
+<input type="hidden" id="json-tags" class="input-medium" value="${json.dumps([tag.name for tag in used_tags], ensure_ascii=False)}" />
+<ul id='issue-tags' class='tagit'>
+</ul>
+<div class="tag-groups">
+    <div>
+        <p><b>Type</b></p>
+        <ul>
+            <li><a href="javascript:void(0);" class="label">type:bug</a></li>
+            <li><a href="javascript:void(0);" class="label">type:feature</a></li>
+            <li><a href="javascript:void(0);" class="label">type:task</a></li>
+        </ul>
+    </div>
+    <div>
+        <p><b>Stage</b></p>
+        <ul>
+            <li><a href="javascript:void(0);" class="label">stage:need_discuss</a></li>
+            <li><a href="javascript:void(0);" class="label">stage:todo</a></li>
+            <li><a href="javascript:void(0);" class="label">stage:fixed_in_branch</a></li>
+            <li><a href="javascript:void(0);" class="label">stage:blessed</a></li>
+        </ul>
+    </div>
+    <div>
+        <p><b>Priority</b></p>
+        <ul>
+            <li><a href="javascript:void(0);" class="label">priority:high</a></li>
+            <li><a href="javascript:void(0);" class="label">priority:normal</a></li>
+            <li><a href="javascript:void(0);" class="label">priority:low</a></li>
+        </ul>
+    </div>
+    <div>
+    % if available_tags:
+        <p><b href="#">Used</b></p>
+        % for tag in available_tags:
+        % if tag.group_uid == 'used':
+        <a href="javascript:void(0);" class="label">${tag.name}</a>
+        % endif
+        % endfor
+    % endif
+    </div>
+</div>
+</%def>

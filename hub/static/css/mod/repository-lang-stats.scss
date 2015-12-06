@@ -1,0 +1,86 @@
+.metabox {
+  display: inline-block;
+  height: 8px;
+  background: #ccc;
+  text-indent: -9999px;
+  font-size: 12px;
+}
+.repository-lang-stats {
+  font: 13px Helvetica, arial, freesans, clean, sans-serif;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  position: relative;
+  float: right;
+  width: 135px;
+  opacity: 0.5;
+  padding-bottom: 10px;
+}
+.repository-lang-stats:hover {
+  opacity: 1;
+}
+.repository-lang-stats:hover .list-tip {
+  display: block;
+}
+.repository-lang-stats a {
+  color: #4183c4;
+  text-decoration: none;
+}
+.repository-lang-stats-graph {
+  height: 10px;
+  overflow: hidden;
+}
+.repository-lang-stats-graph span {
+  display: inline-block;
+  height: 6px;
+  background: #ccc;
+  text-indent: -9999px;
+  float: left;
+}
+ol.list-tip, ul.list-tip {
+  border-radius: 3px;
+  box-shadow: 0 0 5px #ccc;
+  border: 1px solid #ddd;
+  background: #fff;
+  position: absolute;
+  padding-left: 0px;
+  top: 20px;
+  left: -20px;
+  width: 175px;
+  z-index: 100;
+  display: none;
+  margin-top: 0px;
+}
+ol.list-tip:before, ul.list-tip:before {
+  content: "▲";
+  font-size: 14px;
+  margin: 0 auto;
+  width: 14px;
+  display: block;
+  margin-top: -13px;
+  color: #fff;
+  text-shadow: -1px -1px 2px #ccc;
+}
+ol.list-tip li, ul.list-tip li {
+  margin: 0;
+  line-height: 100%;
+  list-style: none;
+  border-bottom: 1px solid #eee;
+  font-weight: bold;
+}
+ol.list-tip li a, ol.list-tip li .other, ul.list-tip li a, ul.list-tip li .other {
+  color: #333;
+  padding: 8px 10px;
+  display: block;
+}
+ol.list-tip li span.color-block, ul.list-tip li span.color-block {
+  display: inline-block;
+  width: 8px;
+  height: 10px;
+  margin-right: 5px;
+}
+ol.list-tip li span.percent, ul.list-tip li span.percent {
+  float: right;
+  color: #999;
+}

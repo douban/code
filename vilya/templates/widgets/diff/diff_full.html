@@ -1,0 +1,12 @@
+<%page args="diff, current_user" />
+<%namespace name="diff_render" file="/widgets/diff/diff.html" />
+
+## TODO: rename，单patch的ajax模版而已，不单单是 fulltext
+
+% if diff and diff.length > 0:
+    <% patch = diff.patches[0] %>
+    % if not patch.binary:
+        <% is_commentable = True if current_user else False %>
+        ${diff_render.patch_lines(patch, is_commentable=is_commentable)}
+    %endif
+% endif

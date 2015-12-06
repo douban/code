@@ -6,42 +6,31 @@ import sys
 import time
 import traceback
 from quixote.qwip import QWIP
-from quixote.publish import Publisher
+from quixote.publish import SessionPublisher
+
+from werkzeug.debug import DebuggedApplication
 
 from vilya import views as controllers
 from vilya.config import DEVELOP_MODE
 from vilya.libs.gzipper import make_gzip_middleware
 from vilya.libs.permdir import get_tmpdir
-from vilya.libs.auth.check_auth import check_auth
 from vilya.libs.import_obj import import_obj_set
 from vilya.libs.template import st
+from vilya.libs.auth.check_auth import check_auth
 from vilya.models.user import User
 from vilya.views.util import is_mobile_device
 
 
-PERFORMANCE_METRIC_MARKER = '<!-- _performtips_ -->'
-
-
-def show_performance_metric(request, output):
-    idx = output.find(PERFORMANCE_METRIC_MARKER)
-    if idx > 0:
-        pt = int((time.time() - request.start_time) * 1000)
-        cls = pt > 250 and 'red' or pt > 100 and 'orange' or 'green'
-        block = '<li class="hidden-phone"><span style="color:%s"> %d ms </span></li>' % (cls, pt)
-        output = (output[:idx] + block + output[idx + len(PERFORMANCE_METRIC_MARKER):])
-    return output
-
-
-class CODEPublisher(Publisher):
+class CODEPublisher(SessionPublisher):
 
     def __init__(self, *args, **kwargs):
-        Publisher.__init__(self, *args, **kwargs)
+        SessionPublisher.__init__(self, *args, **kwargs)
         self.configure(DISPLAY_EXCEPTIONS='plain',
                        SECURE_ERRORS=0,
                        UPLOAD_DIR=get_tmpdir() + '/upload/')
 
     def start_request(self, request):
-        Publisher.start_request(self, request)
+        SessionPublisher.start_request(self, request)
         os.environ['SQLSTORE_SOURCE'] = request.get_url()
 
         resp = request.response
@@ -56,13 +45,15 @@ class CODEPublisher(Publisher):
         request.url = request.get_path()
         request.is_mobile = is_mobile_device(request)
         request.start_time = time.time()
-        request.user = User.check_session(request)
+        request.user = None
+        check_auth(request)  # OAuth
+        if request.user is None:
+            request.user = User.get_current_user()
 
         import_obj_set("request", request)
 
     def try_publish(self, request, path):
-        output = Publisher.try_publish(self, request, path)
-        output = show_performance_metric(request, output)
+        output = SessionPublisher.try_publish(self, request, path)
         return output
 
     def finish_failed_request(self, request):
@@ -70,7 +61,7 @@ class CODEPublisher(Publisher):
             exc_type, exc_value, tb = sys.exc_info()
             raise exc_type, exc_value, tb
         else:
-            return Publisher.finish_failed_request(self, request)
+            return SessionPublisher.finish_failed_request(self, request)
 
     def _generate_cgitb_error(self, request, original_response,
                               exc_type, exc_value, tb):
@@ -81,5 +72,5 @@ class CODEPublisher(Publisher):
 def create_publisher():
     return CODEPublisher(controllers)
 
-
 app = make_gzip_middleware(QWIP(create_publisher()))
+app = DebuggedApplication(app, evalex=True)

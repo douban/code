@@ -1,0 +1,31 @@
+
+ul.filter-list .filter-item {
+  border-radius: 3px 3px 3px 3px;
+  color: #777777;
+  display: block;
+  font-size: 14px;
+  margin: 0 0 5px;
+  overflow: hidden;
+  padding: 8px 10px;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+ul.filter-list .filter-item:hover {
+    background: none repeat scroll 0 0 #EEEEEE;
+}
+
+ul.filter-list .filter-item.selected {
+  background: none repeat scroll 0 0 #4183C4;
+  color: #FFFFFF;
+}
+
+ul.filter-list .filter-item .count {
+  float: right;
+  font-weight: bold;
+}
+
+.issues-tab {
+  margin-top: 27px;
+}

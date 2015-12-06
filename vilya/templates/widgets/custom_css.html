@@ -1,0 +1,17 @@
+<%!
+    from vilya.models.consts import FONTS
+%>
+
+<%
+    text_font = user.settings.text_font if user else ''
+    font_family = FONTS['fonts'][text_font] if text_font else FONTS['fonts'][FONTS['default']]
+%>
+
+% if font_family:
+    .code pre {
+        ## TODO:
+        ## font-size: 13px;
+        ## line-height: 18px;
+        font-family: '${font_family|h}', 'Source Code Pro',Courier,Monaco,Consolas,Menlo,monospace !important;
+    }
+% endif

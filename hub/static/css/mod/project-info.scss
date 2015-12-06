@@ -1,0 +1,75 @@
+@import "css/mod/meta-nav";
+@import "css/mod/repository-lang-stats";
+
+/* fix project title for newer version of bootstrap*/
+.pagehead .pull-left {
+    margin: 0;
+    font-size: 30px;
+    line-height: 36px;
+}
+
+/* Hotfix for FlatUI */
+.pagehead h2.pull-left {
+    margin: 0;
+}
+
+#project-info {
+    border: 1px solid #c5d5dd;
+    border-radius: 3px;
+    width: 100%;
+}
+#project-info > div {
+    padding: 10px;
+}
+#project-info p {
+    margin: 0px;
+}
+#project-info > div.team-label {
+    border-top: 1px solid #ccc;
+}
+
+#project-info > div.git-url {
+    border-top: 1px solid #ccc;
+}
+
+#project-info input.git-url{
+    width: 480px;
+    margin: 0px;
+    cursor: auto;
+}
+
+#project-info .ssh {
+    div.ssh-url {
+        display: inline;
+    }
+    div.http-url {
+        display: none;
+    }
+}
+
+#project-info .http {
+    div.ssh-url {
+        display: none;
+    }
+    div.http-url {
+        display: inline;
+    }
+}
+
+.sourcenav-bar { margin-top:12px; border-bottom:1px solid #DDD; }
+.sourcenav-bar #back-old-browser { padding-top:8px; float:right; }
+.sourcenav-bar ul.tab { padding-left: 20px; }
+.sourcenav-bar ul.tab li { display: inline-block; vertical-align: top; cursor: pointer; }
+.sourcenav-bar ul.tab li a { color: #666; text-decoration: none; padding: 8px 12px; display: inline-block; border-left: 1px solid transparent; border-top: 1px solid transparent; border-right: 1px solid transparent; margin-bottom: -1px; }
+.sourcenav-bar ul.tab li a.active { color: #333; font-weight: bold; border-left: 1px solid #DDD; border-top: 1px solid #DDD; border-right: 1px solid #DDD; border-top-left-radius: 3px; border-top-right-radius: 3px; background-color: white; }
+
+.sourcenav-bar .scope {
+    float: left;
+    margin-right: 10px;
+}
+.sourcenav-bar .scope i {
+    font-style: normal;
+}
+
+#breadcrumb { margin:10px 0; font-size:18px; font-weight:bold; color:#999; }
+#breadcrumb .final-path { color:#000; }

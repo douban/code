@@ -1,0 +1,138 @@
+<%inherit file="/source.html" />
+<%namespace name="inline_comment_form" file="/widgets/diff/inline_comment_form.html" />
+<%namespace name="thread_form" file="/pull/ticket_thread.html" />
+<%namespace name="pull_util" file="/pull/utils.html" />
+
+## 跟pr的diff统一
+<%namespace name="diff_render" file="/widgets/diff/diff.html" />
+<%namespace name="commit_render" file="/widgets/commit.html" />
+
+<%namespace name="utils" file="/pull/utils.html"/>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/src/src.js')}"></script>
+    <script src="${static('/js/app/src/commit.js')}"></script>
+</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/commit.css')}" />
+</%def>
+
+${parent.body()}
+
+<%!
+    from vilya.libs.text import render_markdown, parse_emoji, replace_onimaru_to_link
+    from vilya.libs.text import parse_emoji
+    from vilya.models.user import User
+%>
+
+<%def name="title()">${self.commit_title(truncate=True)}</%def>
+
+<%def name="suffix()">${ref[:8]} · ${project.name}</%def>
+
+<%def name="commit_title(truncate=False)">
+    <% message = commit.rendered_message %>
+    % if truncate:
+        ${len(message) > 50 and message[:50] + '..' or message}
+    % else:
+        ${message | n}
+    % endif
+</%def>
+
+<%def name="main()">
+
+    ${self.sourcenav_bar(active="commits")}
+
+    <div class="span12">
+        % if not diff:
+            <span id="emptyrepo-hint">You appear to be browsing a merge commit (or this commit has too many diffs to be displayed).</span>
+        % else:
+            <%
+                ntotal = diff.length
+                nadds = diff.additions
+                ndels = diff.deletions
+            %>
+
+            <!-- commit summary -->
+            ${commit_render.commit(commit, ref, project, path=path)}
+
+            <!-- diff stat -->
+            <a name="diff-stat"></a>
+            <div id='toc' class="js-details-container">
+                ${diff_render.diff_topic(diff)}
+            </div>
+
+            <!-- diff files -->
+            % if nadds+ndels > 10000 or ntotal > 100:
+                <div class="timeout">
+                    <h3>
+                        <strong>Sorry,</strong> this commit is taking too long to generate.
+                    </h3>
+                    <p>Try the <a href="/${project.name}/commit/${ref}.diff">raw diff</a> instead.</p>
+                </div>
+            % else:
+                <div id="files" class="diff-view commentable">
+                    ## TODO: commit 目前 side by side diff 时不显示 linecomment
+                    ## 因为样式会乱，暂时把 show inline comments toggle 去掉了
+                    <% is_commentable = True if current_user else False %>
+                    ${diff_render.diff_files(diff.patches, project, is_commentable=is_commentable)}
+                </div>
+            % endif
+
+        % endif
+        ${self.disp_comments(project, ref, comments, current_user)}
+    </div>
+    ${self.bottom_template()}
+</%def>
+
+## 是comment，不是 linecomment
+## TODO: comment 相关的移到 widgets/comment
+<%def name="disp_comments(project, ref, comments, current_user)">
+    <div class="commit full-comment " id="all-comments">
+        % for comment in comments:
+            ${self.disp_one_comment(project, comment, current_user)}
+        % endfor
+    </div>
+    % if current_user:
+        ${self.add_comment(project, ref, commit, current_user)}
+    % endif
+</%def>
+
+<%def name="disp_one_comment(project, comment, current_user)">
+    <div class="commit-meta clearfix comment-row">
+        ${utils.side_avatar(comment.author)}
+        <div class="comment-header" style="height: 23px;">
+            <% content = comment.content %>
+            <% uid = comment.uid %>
+            <span class="author-name"><a href="/people/${comment.author}" rel="author">${comment.author}</a></span>
+            <span>commented</span>
+            <span clsss="comment-header-right" style="float: right; height: 15px;">
+            <time class="js-relative-date" data-time="${comment.created.strftime('%Y-%m-%dT%H:%M:%S+0800')}" title="${comment.created}">${comment.created}</time>
+            % if current_user and comment.author == current_user.name:
+                <% comment_url = '/%s/comments/%s' % (project.name, comment.comment_id) %>
+                <a class="mini-icon-delete-note mini-icon delete-btn"  href='${comment_url}'></a>
+            % endif
+            </span>
+        </div>
+        <div style='margin-left:27px; margin-right:27px; margin-top:5px; word-wrap:break-word'>
+            <span class="emojstext">${render_markdown(replace_onimaru_to_link(content, project))|n}</span>
+        </div>
+    </div>
+</%def>
+
+<%def name="add_comment(project, ref, commit, current_user)">
+    <form action='/${project.name}/comments/new' id="new_comment" method="post" class="previewable-comment-form write-selected">
+        <input name="ref" value="${ref}" type="hidden" />
+        <input name="commit_author" value="${commit.author.name}" type="hidden" />
+        ${pull_util.side_avatar(current_user)}
+        ${thread_form.cm_form_content()}
+        <div class="form-actions">
+            <button type="submit" class="classy primary" tabindex="2" data-disable-with="">Comment</button>
+        </div>
+    </form>
+</%def>
+
+<%def name="bottom_template()">
+    ${inline_comment_form.inline_comment_form_template('/%s/line_comments/create' % project.name)}
+</%def>

@@ -1,0 +1,21 @@
+% if diff_content:
+In ${path}:
+——————————
+<%
+from libs.diff import linehtml
+%>
+% for idx_in_file, line in enumerate(diff_content):
+${linehtml(line.text) | n}
+% endfor
+
+——————————
+% endif
+
+${author | n} said:
+——
+
+${content | n}
+
+——
+
+${url}

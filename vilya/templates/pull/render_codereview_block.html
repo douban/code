@@ -1,0 +1,43 @@
+<%namespace name="diff_patch" file="/widgets/diff/diff_patch.html" />
+<%namespace name="diff_render" file="/widgets/diff/diff.html" />
+
+
+## for pr/discussion-tab
+## TODO: 原则：避免依赖linecomment数据结构中的position，因为在不同参数生成的patch中可能不是准确的
+<%def name="diff_block(pullreq, diff, first_linecomment, ref=None)">
+    <div id="files" class="diff-view uncommentable">
+        % if diff and diff.length > 0:
+            <% 
+                patch = diff.patches[0] 
+            %>
+            <div class="file js-details-container">
+                <!-- header -->
+                ${diff_patch.patch_heading(patch, is_discussion=True)}
+                <!-- code review -->
+                <div class="data highlight">
+                    <table class="diff-table">
+                        % if not patch.binary:
+                            % for hunk in patch.hunks:
+                                % if hunk.contain(first_linecomment.linenum):
+                                    % for line in hunk.lines:
+                                        % if line.linenum == first_linecomment.linenum:
+                                            % if line.review_heading:
+                                                ${diff_render.hunk_heading(patch, hunk, is_discussion=True)}
+                                            % endif
+                                            % for review_line in line.review_lines:
+                                            ${diff_render.hunk_line(review_line,
+                                                                    is_discussion=True,
+                                                                    is_commentable=False)}
+                                            % endfor
+                                            <% break %>
+                                        % endif
+                                    % endfor
+                                % endif
+                            % endfor
+                        % endif
+                    </table>
+                </div><!-- /code review -->
+            </div>
+        % endif
+    </div>
+</%def>

@@ -1,0 +1,10 @@
+## TODO: remove this. no use.
+
+<%namespace name="pjax" file="/widgets/pjax_source.html" />
+
+    <div class="span12">
+        ${pjax.commit_header(commit)}
+        <div id="files" class="diff_view">
+            ${pjax.blame_block(blob_path, blob_ref, blame)}
+        </div>
+    </div>

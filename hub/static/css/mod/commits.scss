@@ -1,0 +1,524 @@
+/* For other page that still depends on commits.scss */
+@import "css/mod/comment-form";
+@import "css/mod/diffs-pane";
+
+div.container div.raw {
+    overflow: visible;
+}
+
+#commits-graph {
+    position: absolute;
+    left: -200px;
+    width: 200px;
+}
+
+.commits-body {
+    position: relative;
+}
+
+h3.commit-group-heading {
+    margin:15px 0 0 0;
+    padding:5px 8px;
+    font-size:13px;
+    color:#3a505b;
+    text-shadow:0 1px white;
+    background:#e6f1f6;
+    border:1px solid #c5d5dd;
+    border-top-right-radius:4px;
+    border-top-left-radius:4px;
+}
+
+h3.history {
+    margin-top:15px;
+}
+
+.commit-group {
+    list-style-type:none;
+    margin:15px 0;
+    background:#f7fbfc;
+    border:1px solid #c5d5dd;
+    border-top-right-radius:4px;
+    border-top-left-radius:4px;
+    border-bottom-right-radius:4px;
+    border-bottom-left-radius:4px;
+}
+
+.commit-group-item {
+    position:relative;
+    padding:8px 8px 8px 52px;
+    border-top:1px solid #e2eaee;
+}
+
+.commit-group-item:first-child {
+    border-top:none;
+}
+
+.commit-group-item:last-child {
+    border-bottom-right-radius:4px;
+    border-bottom-left-radius:4px;
+}
+
+.commit-group-item:nth-child(2n) {
+    background:#fff;
+}
+
+.commit-group-item.navigation-focus {
+    background:#fcfce2;
+}
+
+.commit-group-item .gravatar {
+    float:left;
+    margin-left:-44px;
+    border-radius:4px;
+}
+
+.commit-group-item .commit-title {
+    margin:1px 0 1px 0;
+    font-size:14px;
+    font-weight:bold;
+    color:#333;
+}
+
+.commit-group-item .commit-title a {
+    color:#333;
+}
+
+.commit-group-item .commit-desc pre {
+    margin-top:5px;
+    margin-bottom:10px;
+    font-size:12px;
+    color:#596063;
+    border-left:1px solid #e5e5e5;
+    padding-left:8px;
+}
+
+.commit-group-item .authorship {
+    font-size:12px;
+    color:#888;
+}
+
+.commit-group-item .authorship a {
+    color:#444;
+}
+
+.commit-group-item .authorship .author-name {
+    color:#444;
+}
+
+.commit-group-item .authorship .committer {
+    display:block;
+    font-size:11px;
+}
+
+.commit-group-item .authorship .committer .mini-icon {
+    position:relative;
+    top:2px;
+}
+
+.commit-group-item .commit-links {
+    position:absolute;
+    top:7px;
+    right:8px;
+    width:243px;
+    text-align:right;
+}
+
+.commit-group-item .mini-icon-clippy {
+    visibility:hidden;
+    float:left;
+    margin-right:7px;
+    margin-top:5px;
+}
+
+.commit-group-item:hover .mini-icon-clippy {
+    visibility:visible;
+}
+
+.commit-group-item .gobutton {
+    float:right;
+    height:18px;
+    padding:0 7px;
+    line-height:22px;
+    font-size:11px;
+    color:#4e575b;
+    text-shadow:0 1px rgba(255,255,255,0.5);
+    background:#eff6f9;
+    background:-moz-linear-gradient(#eff6f9,#ddecf3);
+    background:-webkit-linear-gradient(#eff6f9,#ddecf3);
+    -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr='#eff6f9',endColorstr='#ddecf3')";
+    border:1px solid #cedee5;
+    border-radius:3px;
+    min-width:70px;
+    text-align: center;
+}
+
+.commit-group-item .gobutton .comment-popover {
+    color: #91A6B1;
+    border-right:1px solid #ddd;
+    padding-right: 4px;
+}
+
+.commit-group-item.navigation-focus .gobutton {
+    color:#5a5b4e;
+}
+
+.commit-group-item:nth-child(2n+1) .gobutton {
+    border-color:#d5dcdf;
+    background:#f2f5f6;
+    background:-moz-linear-gradient(#f2f5f6,#e3eaed);
+    background:-webkit-linear-gradient(#f2f5f6,#e3eaed);
+    -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr='#f2f5f6',endColorstr='#e3eaed')";
+}
+
+.commit-group-item.navigation-focus .gobutton {
+    border-color:#e7e86d;
+    background:#f9fac9;
+    background:-moz-linear-gradient(#f9fac9,#f3f494);
+    background:-webkit-linear-gradient(#f9fac9,#f3f494);
+    -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9fac9',endColorstr='#f3f494')";
+}
+
+.commit-group-item .gobutton:hover {
+    text-decoration:none;
+    border-color:#cedee5;
+    background:#fbfdfe;
+    background:-moz-linear-gradient(#fbfdfe,#eaf4f8);
+    background:-webkit-linear-gradient(#fbfdfe,#eaf4f8);
+    -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr='#fbfdfe',endColorstr='#eaf4f8')";
+}
+
+.commit-group-item .gobutton>.sha,.commit-group-item.navigation-focus .gobutton:hover>.sha {
+    display:inline-block;
+    height:22px;
+    margin-right:-3px;
+}
+
+.commit-group-item .gobutton>.sha .mini-icon,.commit-group-item.navigation-focus .gobutton:hover>.sha .mini-icon {
+    position:relative;
+    top:2px;
+    border-radius:30px;
+    border:1px solid #CFDEE5;
+    background-color:rgba(255,255,255,0.5);
+    color:#91a6b1;
+    margin-left:5px;
+    width:16px;
+}
+
+.commit-group-item.navigation-focus .gobutton>.sha .mini-icon {
+    border:1px solid #E7E86D;
+    color:#c3c45c;
+}
+
+.commit-group-item .gobutton.with-comments {
+    padding-left:5px;
+}
+
+.commit-group-item .gobutton.with-comments .sha,.commit-group-item.navigation-focus .gobutton.with-comments:hover .sha {
+    padding-left:8px;
+    border-left:1px solid #cfdee5;
+}
+
+.commit-group-item.navigation-focus .gobutton.with-comments .sha {
+    border-left-color:#e1e29e;
+}
+
+.commit-group-item .gobutton .comment-count,.commit-group-item.navigation-focus .gobutton:hover .comment-count {
+    float:left;
+    height:22px;
+    padding-right:9px;
+    line-height:24px;
+    font-weight:bold;
+    border-right:1px solid #f6fafc;
+}
+
+.commit-group-item .gobutton .comment-count .mini-icon,.commit-group-item.navigation-focus .gobutton:hover .comment-count .mini-icon {
+    position:relative;
+    top:2px;
+    color:#91A6B1;
+}
+
+.commit-group-item.navigation-focus .gobutton .comment-count .mini-icon {
+    color:#C3C45C;
+}
+
+.commit-group-item .browse-button, .commit-group-item .compare-button {
+    clear:left;
+    margin-top:1px;
+    font-size:11px;
+    font-weight:bold;
+    text-align:right;
+    color:#999;
+}
+
+.commit-group-item .browse-button .mini-icon {
+    position:relative;
+    top:2px;
+}
+
+.commit-group-item .browse-button:hover {
+    color:#4183C4;
+    background-position:100% -95px;
+}
+
+
+@import "css/mod/diff-base";
+
+#files.commentable tr td pre:hover { background-color:#FFC; }
+
+.full-commit {
+    margin: 10px 0;
+    padding: 8px 8px 0;
+    background: #E6F1F6;
+    border: 1px solid #C5D5DD;
+    border-radius: 4px;
+}
+
+.full-commit .commit-meta {
+    margin-left: -8px;
+    width: 100%;
+    padding: 8px;
+    background: white;
+    border-top: 1px solid #D8E6EC;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.full-commit .commit-desc {
+    display: block;
+    margin: -4px 0 10px 0;
+}
+
+.full-commit .commit-desc pre {
+    max-width: 100%;
+    font-size: 14px;
+    text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.full-commit .browse-button {
+    float: right;
+    margin: -3px -3px 0 0;
+    height: 26px;
+    padding: 0 10px;
+    line-height: 26px;
+    font-size: 13px;
+    font-weight: bold;
+    text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+    background: #EFF6F9;
+    background: -moz-linear-gradient(#EFF6F9,#DDECF3);
+    background: -webkit-linear-gradient(#EFF6F9,#DDECF3);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#eff6f9',endColorstr='#ddecf3')";
+    border: 1px solid #CEDEE5;
+    border-radius: 3px;
+}
+
+.full-commit p.commit-title {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #213F4D;
+    text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.clearfix {
+    display: block;
+}
+
+.full-commit .sha-block {
+    float: right;
+    margin-left: 15px;
+    color: #888;
+    font-size: 12px;
+}
+
+.full-commit .authorship {
+    margin-top: -2px;
+    margin-left: -4px;
+    margin-bottom: -4px;
+    font-size: 14px;
+    color: #999;
+}
+
+.full-commit .authorship .gravatar {
+    margin-top: -2px;
+    margin-right: 3px;
+    vertical-align: middle;
+    border-radius: 3px;
+}
+#files {
+    position: relative;
+}
+
+#files .file, .file-box {
+    border: 1px solid #CCC;
+    margin-bottom: 13px;
+    position: relative;
+    background-color: #DDD;
+}
+
+#files .file .meta, .file-box .meta {
+    overflow: hidden;
+    padding: 5px 10px;
+    font-size: 12px;
+    height: 33px;
+    text-align: left;
+    color: #555;
+    text-shadow: 0 1px 0 white;
+    border-bottom: 1px solid #D8D8D8;
+    background: #FAFAFA;
+    background: -moz-linear-gradient(#FAFAFA,#EAEAEA);
+    background: -webkit-linear-gradient(#FAFAFA,#EAEAEA);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa',endColorstr='#eaeaea')";
+}
+
+#files .file .meta .info, .file-box .meta .info {
+    float: left;
+    height: 33px;
+    line-height: 33px;
+    font-family: Consolas,Menlo,"Liberation Mono",Courier,monospace;
+}
+
+#files .file .meta .actions, .file-box .meta .actions {
+    float: right;
+    height: 33px;
+    line-height: 33px;
+    margin-top: 1px;
+}
+
+#files .file .meta .actions li:first-child, .file-box .meta .actions li:first-child {
+    background: transparent;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+#files .file .meta .actions li, .file-box .meta .actions li {
+    list-style-type: none;
+    float: left;
+    margin: 0 0 0 7px;
+}
+
+.button-group li {
+    margin: 0!important;
+}
+
+.pagination-older-newer a {
+    padding: .1em .3em;
+    margin: .2em;
+    text-decoration: none;
+    color: #369;
+    float:none;
+}
+
+.pagination-older-newer a:hover, .pagination a:active {
+    background-color: transparent;
+    color: #36f;
+}
+
+.pagination-older-newer span.disabled {
+    padding: .1em .3em;
+    margin: .2em;
+    color: #bbb;
+    float:none;
+}
+
+.commit .sha-block, .commit .sha {
+    padding-right: 3px;
+    font-size: 11px;
+    font-family: Consolas,Menlo,"Liberation Mono",Courier,monospace;
+}
+
+#files .file .data .line_numbers, .file-box .data .line_numbers {
+    background-color: #ECECEC;
+    color: #AAA;
+    padding: 0 6px;
+    border-right: 1px solid #DDD;
+    text-align: right;
+    cursor: pointer;
+}
+#files .file .data .line_numbers a {
+    color: #AAA;
+}
+
+.mini-icon-added:before{content:"\f06b";}
+.mini-icon-removed:before{content:"\f06c";}
+.mini-icon-modified:before{content:"\f06d";}
+.mini-icon-moved:before,.mini-icon-renamed:before{content:"\f06e";}
+.mini-icon-commit-comment:before{content:"\f02b";}
+
+.mega-icon-beer:before{content:"\f269";}
+.mega-icon-commit-comment:before{content:"\f22b";}
+
+#files .file .meta .info span.icon,
+#files .file .meta .info span.diffstat,
+.file-box .meta .info span.icon {
+    line-height: 0;
+    float: left;
+    margin: 5px 5px 0 0;
+    padding: 3px;
+    background: #F7F7F7;
+    border: 1px solid #CCC;
+    border-right-color: #E5E5E5;
+    border-bottom-color: #E5E5E5;
+    border-radius: 3px;
+}
+#files .file .meta .info span.diffstat {
+    height: 16px;
+    padding: 3px 6px;
+}
+#files .file .meta .info span:first-child,
+#files .file .meta .info .icon + span,
+.file-box .meta .info span:first-child,
+.file-box .meta .info .icon + span {
+    border-left: 0 none;
+    box-shadow: inset 0 0 0 transparent;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.commit-meta.comment-row .mini-icon { color:#939AA0; margin: 0 2px 0 1px; top: 2px; text-decoration: none; }
+#files .file .data.empty, .file-box .data.empty {
+padding: 10px 15px;
+color: #777;
+}
+.timeout {
+width: 873px;
+height: 528px;
+border: 1px solid #C5D5DD;
+background: url("/static/img/timeout.jpg") #E6F1F6 no-repeat;
+background-position: 90% 50%;
+padding: 0 32px 0 33px;
+border-radius: 3px;
+}
+.timeout h3 {
+color: white;
+font-size: 18px;
+font-weight: bold;
+text-shadow: darkGray 1px 1px 0;
+padding: 15px 0 15px 0;
+}
+.timeout h3 strong {
+font-size: 30px;
+display: block;
+}
+.timeout p {
+color: white;
+}
+
+.side-avatar {
+position: absolute;
+float: left;
+margin-left: -60px;
+}
+
+div.generated, div.binary {
+text-align: center;
+background-color: #ddd;
+padding: 30px;
+}
+
+.commit-history-header {
+  margin-bottom: 55px;
+
+  #search-commits {
+    margin: 15px 5px;
+  }
+}

@@ -1,0 +1,22 @@
+<!--
+部分邮件客户端不支持外联样式表（link）和内联样式表(style标签)
+保险起见请使用inline style
+参见:
+http://www.campaignmonitor.com/css/
+-->
+<html>
+<body>
+<div style="white-space:pre-wrap">
+% if status_line:
+${md_render(status_line)|n}
+——
+% endif
+% if content:
+${md_render(content)|n}
+——
+% endif
+<a href="${url}" target="_blank">View it on Code</a>
+<img src="${hook_url}" width='1' height='1' />
+</div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+@import "css/mod/pagination";
+
+.new-issue {
+    float: left;
+}
+
+.sortby-issues {
+    float: right;
+}
+
+.issues-topbar {
+    overflow: hidden;
+    display: block;
+}
+
+.issue-list {
+    background: rgba(255,255,255,1);
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eaeaea;
+
+    & > :first-child {
+        margin-top: 0px;
+    }
+
+    .issue-item {
+        padding: 15px;
+        border-bottom: 1px solid #eaeaea;
+    
+        h3{
+            font-size: 16px;
+            font-weight: 400;
+            overflow: hidden;
+            word-break: break-all;
+            margin: 0;
+    
+            a{
+                color: #273338;
+            }
+        }
+        
+        p{
+            a{
+                color: #999;
+            }
+        }
+        
+        h3, p {
+            a:visited, a:visited:hover {
+            }
+        }
+        .meta{
+            margin-top: 20px;
+        }
+    }
+    a.comment-count,
+    a.comment-count:link,
+    span.issue-info {
+        color: #bbb;
+    }
+
+    .rule {
+        clear: both;
+        height: 0px;
+        padding: 0;
+        overflow: hidden;
+        background: transparent;
+    }
+}

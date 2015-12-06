@@ -1,0 +1,64 @@
+<%!
+    from vilya.views.uis.board import get_ticket_link
+%>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Board - ${ project_name }</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link href="/static/css/board.css" type="text/css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="wrap">
+      <div id="header">
+        <h1 class="title">${ project_name }</h1>
+        <p></p>
+      </div>
+      <div id="content">
+      % if card_data:
+        % for lst, cards in card_data.iteritems():
+            <section>
+              <h2 class="list_name">${lst.name}</h2>
+              % for card in cards:
+                <div class="grBox">
+                  <h4 class="title">${ get_ticket_link(project.name, card.name)}</h4>
+                </div>
+                <div class="rBox">
+                  <div class="card_labels">
+                    % for label in card.labels:
+                      <a href="#" title="${label['name']}">
+                        <div class="card_label" style="background: ${label['color']};"></div>
+                      </a>
+                    % endfor
+                  </div>
+                  <p>
+                    ${ get_ticket_link(project.name, card.desc) or '...'}
+                    <a target="_blank" href="${card.url}" title="跳转到 Trello 查看该 Card 详情">
+                      <i class="icon-share-alt "></i>
+                    </a>
+                  </p>
+                  <div class="card_members">
+                    % for member_id in card.member_ids:
+                      <div class="member">
+                        <img src="${member_avatars.get(member_id, '')}" width="30" height="30">
+                      </div>
+                    % endfor
+                  </div>
+                </div>
+              % endfor
+            </section>
+        % endfor
+
+        <div style="clear:both;"></div>
+      % else:
+        <div class="note">
+          <p>这个项目还没有数据</p>
+        </div>
+      % endif
+      </div>
+    </div>
+    <div id="back_proj">
+      <a href="../"> 返回 ${project_name} </a>
+    </div>
+  </body>
+</html>

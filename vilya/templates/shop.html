@@ -1,0 +1,51 @@
+<%inherit file="/base.html" />
+
+<%def name="bottom_script()">
+</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/teams.css')}" />
+</%def>
+
+<%def name="title()">Shop</%def>
+
+<div class="pagehead">
+  <h4>
+  欢迎订购Code Shirt，每人可以免费认领男女各一件，如果需要更多，目前Code Shirt 1฿ or 1PR一件。<a href="http://bit.ly/123I2u7" target="_blank">免费订购</a>
+  </h4>
+</div>
+
+<div class="row">
+    <div class="span8">
+        <ul class="featured-team-list cf">
+            %for id, desc in t_shirts:
+            <li>
+                <header>
+                  <h2>${desc}</h2>
+                </header>
+                <div>
+                <a href="http://www.douban.com/photos/photo/${id}/">
+                    <img alt="${desc}" src="/static/img/tshirts/p${id}.jpg">
+                </a>
+                </div>
+                <div class="content">
+                  <footer class="cf">
+                    Price: 1฿ or 1PR
+                  </footer>
+                </div>
+            </li>
+            %endfor
+        </ul>
+    </div>
+</div>
+<div class="row">
+  <div class="span2">&nbsp;</div>
+  <div class="span8" style="text-align:center">
+    Code tshirt只接受<a href="http://zh.wikipedia.org/wiki/%E6%AF%94%E7%89%B9%E5%B8%81" target="_blank">比特币</a>付款:<br>
+    <ul>
+      <li><img src="/static/img/tshirts/qrcode.png"></li>
+      <li>1JE9fhFpbAPSUZqvyWx9T1x9yTutspeMXs</li>
+    </ul>
+  </div>
+</div>

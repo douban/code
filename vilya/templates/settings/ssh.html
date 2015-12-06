@@ -1,0 +1,48 @@
+<%inherit file="/base.html" />
+<%namespace name="utils" file="/settings/utils.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/my-settings.css')}" />
+</%def>
+
+<%def name="title()">SSH Keys</%def>
+
+% for error in errors:
+<div class="alert alert-error">
+  ${error}
+</div>
+% endfor
+
+${utils.personal_settings_submenu("ssh")}
+
+<div class="raw">
+    <div class="span12">
+        <div class="settings-content">
+        <div class="mod">
+            <ul id="settings-github" class="boxed-group-list standalone">
+                % for key in sshkeys:
+                <li class="clearfix settings-github">
+                <a>${'%s (%s)' % (key.title, key.finger)}</a>
+                <span class="github-actions">
+                    <a href="/settings/ssh/${key.id}" class="btn btn-danger btn-small settings-remove-github" data-method="delete">Delete</a>
+                </span>
+                </li>
+                % endfor
+            </ul>
+            <form action="." class="new_user_ssh" id="new_user_ssh" method="post">
+                <dl class="form new-ssh-form">
+                    <dt><p class="help-block">Add another SSH key</p></dt>
+                <dd>
+                    <textarea class="span6" id="ssh" name="ssh" rows="9">${key_lines}</textarea>
+                    <p class="help-block">请贴入 ~/.ssh/id_rsa.pub 或 ~/.ssh/id_dsa.pub 的内容。</p>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </dd>
+                </dl>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>

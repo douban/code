@@ -1,0 +1,322 @@
+<%!
+    from itertools import groupby
+    from vilya.libs.diff import linehtml
+    from vilya.models.consts import LINECOMMENT_INDEX_EMPTY
+    from vilya.models.consts import SETTING_ENABLE
+%>
+<%namespace name="diff_patch" file="/widgets/diff/diff_patch.html" />
+<%namespace name="diff_linecomment" file="/widgets/diff/diff_linecomment.html" />
+
+
+## diff_files => pull/files-tab, commit, gist/rev
+## files_bucket => pull/new, compare
+## diff_block(patch_heading, hunk_heading, hunk_line) => pull/discussion-tab
+
+## pullreq diff
+## project diff
+## gist diff
+
+## TODO: refactor CSS/JS about diff
+
+## New diff widget
+## TODO: project 参数，塞进 patch 跟 linecomment
+<%def name="diff_files(patches, project, is_commentable=False)">
+% for idx, patch in enumerate(patches):
+    <div id="${'diff-%s' % idx}" class="file js-details-container">
+        <!-- meta -->
+        ${diff_patch.patch_heading(patch, idx, project)}
+        <!-- diff patch -->
+        <div class="data highlight inline" ${'style="display:none"' if patch.generated else '' |n}>
+            % if patch.image:
+                ${diff_patch.patch_image(patch, idx) |n}
+            % else:
+                % if patch.repo.provide('fulltext'):
+                    ${diff_patch.patch_skipped(patch) |n}
+                % endif
+                <table class="diff-table">
+                    % if patch.binary:
+                        ${diff_patch.patch_binary() |n}
+                    % else:
+                        ${patch_lines(patch, is_commentable=is_commentable) |n}
+                    % endif
+                </table>
+            % endif
+        </div>
+        % if patch.generated:
+        <div class="data empty generated">
+            <a href="javascript:void(0)" class="generated">This is a genereated file. Diff Suppressed.</a>
+        </div>
+        % endif
+        <!-- side by side -->
+        <% ignore = patch.image or patch.binary %>
+        % if patch.repo.provide('side_by_side'):
+            ${patch_side(patch, ignore=ignore) |n}
+        % endif
+    </div>
+% endfor
+</%def>
+
+<%def name="patch_lines(patch, is_commentable=False)">
+    ## TODO: wrap user setting model
+    <%
+        if current_user and current_user.settings.dblclick_comment == SETTING_ENABLE:
+            dblclick_comment = True
+        else:
+            dblclick_comment = False
+    %>
+    % if not patch.is_toobig:
+        % for hunk in patch.hunks:
+            ${hunk_heading(patch, hunk) |n}
+            % for line in hunk.lines:
+                ${hunk_line(line, is_commentable=is_commentable, dblclick_comment=dblclick_comment) |n}
+            % endfor
+        % endfor
+    % else:
+        <tr>${patch.additions} additions, ${patch.deletions} deletions not show</tr>
+    % endif
+</%def>
+
+<%def name="hunk_heading(patch, hunk, is_discussion=False)">
+    % if hunk.old_start != 1 and hunk.new_start != 1:
+        <% line = hunk.heading %>
+        ## TODO: is_discussion 合并. 注意$('pre.tips') 可以双击展开
+        % if is_discussion:
+            <tr>
+                ${line_num('...', patch.old_file_path, 'old') |n}
+                ${line_num('...', patch.new_file_path, 'new')  |n}
+                <td class="code">
+                    <pre class="line normal">${linehtml(line.text) | n}</pre>
+                </td>
+            </tr>
+        % else:
+            <tr class="file-diff-line">
+                ${line_num('...', patch.old_file_path, 'old') |n}
+                ${line_num('...', patch.new_file_path, 'new') |n}
+                <td class="code">
+                    % if patch.repo.provide('moreline'):
+                        ${hunk_skipped(hunk) |n}
+                    % else:
+                        <pre class="line normal">${linehtml(line.text) | n}</pre>
+                    % endif
+                </td>
+            </tr>
+        % endif
+    % endif
+</%def>
+
+<%def name="hunk_skipped(hunk)">
+    ${expand_data(hunk)}
+    ## TODO: css class, color
+    <pre class="line skipped" align="center">\
+<a href="javascript:void(0);" data-type="before">˄</a> \
+<a href="javascript:void(0);" data-type="all">(${hunk.skipped_old_end - hunk.skipped_old_start + 1}L)</a> \
+<a href="javascript:void(0);" data-type="after">˅</a></pre>
+</%def>
+
+## TODO: is_discussion
+<%def name="hunk_line(line, is_discussion=False, is_commentable=False, dblclick_comment=False)">
+    ## TODO: is_discussion 合并
+    % if is_discussion:
+        <tr>
+            ${line_num(line.old, line.old_file_path, 'old') |n}
+            ${line_num(line.new, line.new_file_path, 'new') |n}
+            <td class="code">
+                ${line_data(line)}
+                <pre class="line ${line.attr_text |n}">${linehtml(line.text) | n}</pre>
+            </td>
+        </tr>
+    % else:
+        <tr class="file-diff-line">
+            ${line_num(line.old, line.old_file_path, 'old') |n}
+            ${line_num(line.new, line.new_file_path, 'new') |n}
+            ## FIXME:
+            % if is_commentable:
+            <td class="code js-open-comment-form ${'dblclick-comment' if dblclick_comment else ''}">
+            % else:
+            <td class="code">
+            % endif
+                % if is_commentable:
+                ${line_data(line) |n}
+                <!-- add-bubble -->
+                <b class="add-bubble mini-icon mini-icon-add-comment" title="Add a line note"></b>
+                % endif
+                <pre class="line ${line.attr_text |n}">${linehtml(line.text) |n}</pre>
+            </td>
+        </tr>
+    % endif
+    ${render_linecomments(line.linecomments) |n}
+</%def>
+
+<%def name="patch_side(patch, ignore=None)" cached="True"
+    cache_key="${'mako:%s:%s:%s:patch_side:v2' % (patch.repo.project.id, patch.old_file_sha, patch.new_file_sha)}">
+% if ignore:
+    <div class="data empty side">
+        <a href="javascript:void(0)">Diff Suppressed.</a>
+    </div>
+% else:
+    <div class="data highlight side">
+        ${diff_side_file(patch, 'old') |n}
+        ${diff_side_file(patch, 'new') |n}
+    </div>
+% endif
+</%def>
+
+## TODO: ! moreline、fulltext 先不支持side by side，待重写side by side
+## TODO: 在里面使用 hunk_heading、hunk_line
+<%def name="diff_side_file(patch, side='old')">
+<div class="file-col">
+    <table class="diff-table">
+        % for hunk in patch.hunks:
+            <tr class="file-diff-line">
+                <td class="line_numbers normal">
+                    ...
+                </td>
+                <td class="code">
+                    <pre class="line normal">${linehtml(hunk.heading.text) | n}</pre>
+                </td>
+            </tr>
+            % for index, line in enumerate(hunk.side_lines(side)):
+                <tr class="file-diff-line">
+                    <td class="line_numbers ${line.attr_text |n}">
+                        ## TODO: side by side line commment
+                        <%doc>
+                        ${line_data(line)}
+                        <b class="add-bubble mini-icon mini-icon-add-comment commit-data"
+                            data-path="${patch.old_file_path}" data-new-path="${patch.new_file_path}"
+                            data-position="${index}" data-ref="${ref if ref else patch.new_sha}"
+                            data-old="${line.old}" data-new="${line.new}"
+                            data-commit-author="" title="Add a line note"></b>
+                        </%doc>
+                        % if side == 'old':
+                            ${line.old if line.old else ''}
+                        % else:
+                            ${line.new if line.new else ''}
+                        % endif
+                    </td>
+##                  <td class="code js-open-comment-form">
+                    <td class="code">
+                        <pre class="line ${line.attr_text |n}">${linehtml(line.text) | n}</pre>
+                    </td>
+                </tr>
+                ${render_linecomments(line.linecomments, colspan=1) |n}
+            % endfor
+        % endfor
+    </table>
+ </div>
+</%def>
+
+<%def name="render_linecomments(comments=[], colspan=2)">
+% if comments:
+<tr class="inline-comments">
+    <td class="line_numbers comment-count" colspan="${colspan}">
+        <span class="counter">
+            <span class="mini-icon mini-icon-commit-comment">
+            </span>
+            ${len(comments)}
+        </span>
+    </td>
+    <td class="js-line-comments line-comments">
+        <div class="comment-holder js-comments-holder">
+            <%
+                comments.sort(key=lambda x: x.created_at)
+            %>
+            % for comment in comments:
+                ${diff_linecomment.render_comment(comment=comment,
+                                                  current_user=current_user) |n}
+            % endfor
+        </div>
+        <div class="show-inline-comment-form">
+            <a href="javascript:void(0);" class="minibutton js-show-inline-comment-form">Add a line note</a>
+        </div>
+    </td>
+</tr>
+% endif
+</%def>
+
+## diff stats
+<%def name="diff_topic(diff)">
+<div id="toc" class="js-details-container">
+    <p class="explain">
+        <i class="icon-file"></i>
+        Showing <strong>${diff.length} changed file${'s' if diff.length > 1 else ''}</strong>
+        with <strong>${diff.additions} addition${'s' if diff.additions > 1 else ''}</strong>
+        and <strong>${diff.deletions} deletion${'s' if diff.deletions > 1 else ''}</strong>.
+        <a href="javascript:void(0);" class="minibutton js-details-target">Show Diff Stats</a>
+    </p>
+    <ol class="content">
+        % for idx, patch in enumerate(diff.patches):
+            <li>
+                ${diff_patch.patch_stat(idx, patch, 'stats')}
+                % if patch.status == 'M':
+                    <span class="mini-icon mini-icon-modified" title="modified"></span>
+                % elif patch.status == 'A':
+                    <span class="mini-icon mini-icon-added" title="added"></span>
+                % elif patch.status == 'D':
+                    <span class="mini-icon mini-icon-removed" title="removed"></span>
+                % elif patch.status == 'C':  ## FIXME: moved == renamed ?
+                    <span class="mini-icon mini-icon-moved" title="moved"></span>
+                % elif patch.status == 'R':
+                    <span class="mini-icon mini-icon-renamed" title="renamed"></span>
+                % endif
+                % if patch.status == 'R':
+                    <a href="#diff-${idx}">${patch.old_file_path}  →  ${patch.new_file_path}</a>
+                % else:
+                    <a href="#diff-${idx}">${patch.old_file_path}</a>
+                % endif
+            </li>
+        % endfor
+    </ol>
+</div>
+</%def>
+
+<%def name="line_num(num, path, type)">
+<%
+    anchor = 'LO' if type == 'old' else 'LN'
+    num = str(num) if num else num
+%>
+% if num:
+    <td id="${'%s#%s%s' % (path, anchor, num)}" class="line_numbers">
+        ## FIXME: 为什么点击后没有 bootstrap 的 a:focus 样式??
+        <a id="${'%s%s%s' % (path, anchor, num)}" href="${'#%s#%s%s' % (path, anchor, num)}">${num}</a>
+    </td>
+% else:
+    <td class="line_numbers">
+    </td>
+% endif
+</%def>
+
+<%def name="files_bucket(diff, project, MAX_DIFFS_SHOWN_COUNT=2000)">
+% if diff and diff.length > 0:
+<div id="diff">
+    % if diff.length > MAX_DIFFS_SHOWN_COUNT:
+    <div class="diff-cutoff">
+        This diff is big! We're showing status information only for the first ${MAX_DIFFS_SHOWN_COUNT} files.
+    </div>
+    % endif
+    ${diff_topic(diff)}
+    % if diff.length <= MAX_DIFFS_SHOWN_COUNT:
+    <div class="breakout">
+        <div id="files" class="diff-view uncommentable">
+            ${diff_files(diff.patches, project, is_commentable=False) |n}
+        </div>
+    </div>
+    % endif
+</div>
+% endif
+</%def>
+
+## line data
+## js get data attr from this, and fillup js-form-template
+<%def name="line_data(line)">
+<input type="hidden" class="line-data"
+    data-old="${line.old}"
+    data-new="${line.new}">
+</%def>
+
+<%def name="expand_data(hunk)">
+<input type="hidden" class="expand-data"
+    data-old-start="${hunk.skipped_old_start}"
+    data-new-start="${hunk.skipped_new_start}"
+    data-old-end="${hunk.skipped_old_end}"
+    data-new-end="${hunk.skipped_new_end}">
+</%def>

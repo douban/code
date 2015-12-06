@@ -1,0 +1,125 @@
+<%inherit file="/base.html"/>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css">
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/stat.css')}"/>
+</%def>
+
+<%def name="bottom_script()">
+  <script src="${static('/js/app/stat/main.js')}"></script>
+</%def>
+
+<%def name="title()">Statistic</%def>
+
+<div class="row">
+  <div class="span6">
+    <div class="mod">
+      <h2>Project</h2>
+      <div class="row">
+        <div class="span3">
+          <div class="data">
+            <h2>TOTAL</h2>
+            <span class="odometer project_count"></span>
+          </div>
+        </div>
+        <div class="indent span3">
+          <div class="data">
+            <h2>FORK</h2>
+            <span class="odometer project_fork_count"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="span6">
+    <div class="mod">
+      <h2>Gist</h2>
+      <div class="row">
+        <div class="span3">
+          <div class="data">
+            <h2>TOTAL</h2>
+            <span class="odometer gist_count"></span>
+          </div>
+        </div>
+        <div class="indent span3">
+          <div class="data">
+            <h2>FORK</h2>
+            <span class="odometer gist_fork_count"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span6">
+    <div class="mod">
+      <h2>Pull Request</h2>
+      <div class="row">
+        <div class="span3">
+          <div class="data">
+            <h2>TOTAL</h2>
+            <span class="odometer pr_count"></span>
+          </div>
+        </div>
+        <div class="indent span3">
+          <div class="data">
+            <h2>COMMENT</h2>
+            <span class="odometer pr_comment_count"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="span3">
+          <div class="data">
+            <h2>OPEN</h2>
+            <span class="odometer pr_open_count"></span>
+          </div>
+        </div>
+        <div class="indent span3">
+          <div class="data">
+            <h2>CLOSED</h2>
+            <span class="odometer pr_closed_count"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="span6">
+    <div class="mod">
+      <h2>Issue</h2>
+      <div class="row">
+        <div class="span3">
+          <div class="data">
+            <h2>TOTAL</h2>
+            <span class="odometer issue_count"></span>
+          </div>
+        </div>
+        <div class="indent span3">
+          <div class="data">
+            <h2>COMMENT</h2>
+            <span class="odometer issue_comment_count"></span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span3">
+          <div class="data">
+            <h2>OPEN</h2>
+            <span class="odometer issue_open_count"></span>
+          </div>
+        </div>
+        <div class="indent span3">
+          <div class="data">
+            <h2>CLOSED</h2>
+            <span class="odometer issue_closed_count"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/team-pulls.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+<script src="${static('/js/app/team/main.js')}"></script>
+</%def>
+
+<%def name="title()">Pull Requests</%def>
+
+${pagehead.team_header(team, user, 'pulls')}
+
+<%namespace name="pulls" file="/widgets/pulls.html" />
+${pulls.pulls_ticket_list(tickets, page=page, open_tab_link='%spulls/' % team.url, close_tab_link='%spulls/closed' % team.url, is_closed_tab=is_closed_tab, show_ticket_project_name=True, n_pages=n_pages, n_tickets=ticket_total_len)}

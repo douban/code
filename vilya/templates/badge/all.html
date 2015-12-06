@@ -1,0 +1,30 @@
+<%inherit file="/base.html" />
+
+<%def name="title()">All Badges</%def>
+<%def name="suffix()"></%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/badge.css')}" />
+</%def>
+
+<div class="mod">
+%for badge in badges:
+<div class="section">
+  <div class="section_center">
+    <a href="${badge.url}"> <img src="${badge.get_image_url()}"> </a>
+    <div class="badge_name">
+      <a href="${badge.url}"> <h3>${badge.name}</h3> </a>
+    </div>
+  </div>
+  <div class="badge_summary">
+    ${badge.summary}
+  </div>
+</div>
+%endfor
+
+<div class="cl"></div>
+</div>

@@ -1,0 +1,36 @@
+<%!
+    from vilya.models.user import User
+%>
+
+
+<%def name="side_avatar(user)">
+    <span class="side-avatar">
+        <%
+             user = user if isinstance(user, User) else User(user)
+        %>
+        <a href="${user.url}">
+        <img height="48" src="${user.avatar_url}" width="48" alt="${user}" title="${user}" class="discussion-bubble-avatar">
+        </a>
+    </span>
+</%def>
+
+## TODO: safari下无法正常显示相对时间，用widgets/utils里的
+<%def name="related_time_html(time)">
+    <time class="js-relative-date" data-time="${time.strftime('%Y-%m-%dT%H:%M:%S+08:00')}" title="${time}">${time}</time>
+</%def>
+## FIXME: for pull merge_time
+<%def name="related_time_html_(time)">
+    <time class="js-relative-date" data-time="${time}" title="${time}">${time}</time>
+</%def>
+
+<%def name="merge_guide()">
+<div class="merge-guide">
+  % if not pullreq.merged:
+  <div id="merge-guide" data-url="/${project}/pull/${pullreq.ticket_id}/check_merge">
+    <div class="alert alert-info">
+      Checking if this pull request is auto mergable
+    </div>
+  </div>
+  % endif
+</div>
+</%def>

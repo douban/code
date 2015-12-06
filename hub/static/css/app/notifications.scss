@@ -1,0 +1,171 @@
+@import "compass/css3";
+@import "css/mod/common";
+@import "css/mod/minibutton";
+
+
+@media (max-width: 767px){
+    .notif-list { padding: 10px; }
+}
+
+.mark-all-as-read { 
+    margin-left: 10px;
+    float:right;
+}
+
+.notif-sidebar {
+    margin-bottom: 20px;
+
+    .rule {
+        clear: both;
+        height: 0px;
+        padding:0;
+        margin:0;
+        overflow: hidden;
+        border: none;
+        background: transparent;
+        border-bottom: 3px solid rgba(99, 182, 174, 0.2);
+    }
+
+    // TODO: hover style, fix when scroll
+    .target-list {
+        background: #fff;
+        font-size: 12px;
+    }
+}
+
+.notif-list {
+    margin-top:0px;
+    word-wrap: break-word;
+    word-break: normal;
+
+    form {
+        margin: 0;
+    }
+
+    .title > a:hover {
+        text-decoration: none;
+    }
+
+    .unread {
+        background-color: #EAF2F5!important;
+        border-radius: 3px;
+    }
+
+    .notif-item {
+        margin: 0 0 20px 0;
+        background: #fff;
+        @include box-shadow(1px 1px 5px 0.8px rgba(0,0,0,0.3));
+
+        .item-header {
+            background: rgba(99, 182, 174, 0.6);
+
+            .mark-item {
+                float: right;
+
+                button {
+                    padding: 8px;
+                    background-color: transparent;
+                    color: #555;
+                    border: solid #d5d5d5;
+                    border-width: 0 1px;
+                    box-shadow: inset 1px 0 0 rgba(255,255,255,0.5);
+                }
+            }
+
+            .title {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+        .item-body {
+            .entry {
+                padding: 10px;
+                border-bottom: 1px solid #eee;
+
+                .entry-title {
+                    padding: 0 10px;
+
+                    .title {
+                        margin-right: 100px;
+                        font-size: 15px;
+                        cursor: pointer;
+
+                        i {
+                            margin-right: 10px;
+                        }
+                        
+                        .label {
+                            text-shadow: none;
+                            margin-left: 5px;
+                        }
+                    }
+
+                    .entry-actions {
+                        float: right;
+                        margin: 0;
+                        padding: 5px;
+
+                        li {
+                            float: right;
+                            margin-left: 10px;
+
+                            button {
+                                background-color: transparent;
+                                color: rgb(153, 153, 153);
+                                border: none;
+                                padding: 0;
+                            }
+                        }
+                    }
+                }
+
+                .entry-body {
+                    & > :last-child {
+                        border-bottom: none !important;
+                    }
+
+                    .entry-item {
+                        position: relative;
+                        clear: both;
+                        //background: #fff;
+                        padding: 10px 20px 10px 32px;
+                        border-bottom: 1px solid #eaeaea;
+
+                        .title {
+                            margin-bottom: 0.5em;
+                             i {
+                                position: absolute;
+                                left: 5px;
+                                padding: 2px 5px 0;
+                                color: #999;
+                                font-size: 10px;
+                            }
+                            .time{
+                            	float: right;
+                            	color: #bbb;
+                            	font-size: 12px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    .padding { height:2em; font-weight:bold; }
+    .desc { color:#666; word-wrap: break-word; }
+    .desc .right_side {float:right; margin-right:30px;}
+
+}
+
+/* // TODO: pagination
+.timeline .pagination { display:none; background: rgba(99, 182, 174, 1);}
+.pagination { display:block; margin:7px 0; overflow:hidden; border:1px solid #EAEAEA; border-bottom-color:#CACACA; border-top:none; border-bottom:none; border-radius: 3px; background-image: -webkit-linear-gradient(top, white, #EFEFEF); }
+.timeline .pagination a {color: rgba(255,255,255,1);}
+.pagination a { padding:8px; width:100%; text-align:center; line-height: 1.4; }
+.pagination a:last-child, .pagination span:last-child { border-right:none; border-bottom-right-radius:3px; }
+.pagination a:first-child, .pagination span:first-child { border-left:none; border-bottom-left-radius:3px; }
+.pagination a, .pagination span { float:left; margin:0; color:#777; font-size:13px; text-decoration:none; text-shadow:0 1px 0 white; border-bottom:1px solid #DADADA; }
+.timeline .loader img{display:block;  width:16px; height:16px; margin:0 auto; position: relative; } 
+*/

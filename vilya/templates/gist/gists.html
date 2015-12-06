@@ -1,0 +1,28 @@
+<%inherit file="/gist/gists_base.html" />
+<%!
+    from vilya.models.user import User
+%>
+
+<%def name="page_title()">
+  <h1>Discover Gists</h1>
+</%def>
+
+<%def name="sub_menu()">
+  <div class="menu-container">
+    <%
+      menus = (('discover', 'All Gists'), ('forked', 'Forked'), ('starred', 'Starred'))
+      path = request.get_path().split('/')[-1]
+    %>
+    <ul class="menu">
+      % for link, text in menus:
+      <li>
+          <a href="/gist/${ link }" class="${ link == path and 'selected' or ''}">
+            <span class="mini-icon mini-icon-gist${ link != 'discover' and '-' + link or '' }"></span> ${ text }
+          </a>
+      </li>
+      % endfor
+    </ul>
+  </div>
+</%def>
+
+${ self.gists_content() }

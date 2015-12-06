@@ -1,0 +1,63 @@
+<%def name="tree_files(tree_path, ref, tree=[])">
+    <div class="span12">
+        <div id="tree" data-path="${tree_path}" data-ref="${ref}">
+        % if tree:
+            <table class="tree-browser" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr class="header">
+                        <th></th>
+                        <th>name</th>
+                        <th>age</th>
+                        <th>message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    % for item in tree:
+                        <tr class="tree-item" id="${item['id']}">
+                            <td></td>
+                            <td class="content">
+                                % if item['type']  == 'tree':
+                                    <i class="icon-folder-close"></i>
+                                % elif item['type'] == 'submodule':
+                                    <i class="mini-icon mini-icon-submodule"></i>
+                                % else:
+                                    <i class="icon-file"></i>
+                                % endif
+                                % if item['type'] == 'submodule':
+                                    <% sm = item['submodule']%>
+                                    % if not sm['url']:
+                                        ## no .gitmodules
+                                        ${item['name']}
+                                    % elif sm['host'] == 'code':
+                                        <a href="${sm['url']+'/tree/'+item['id']}">
+                                            ${item['name']+' @ '+item['id'][:7]}
+                                        </a>
+                                    % elif sm['host'] == 'github':
+                                        <a href="${sm['url']+'/tree/'+item['id']}">
+                                            ${item['name']+' @ '+item['id'][:7]}
+                                        </a>
+                                    % elif sm['host'] == 'gist':
+                                        <a href="${'https://gist.github.com/%s/%s' % (sm['x-gist-id'], item['id'])}">
+                                            ${item['name']+' @ '+item['id'][:7]}
+                                        </a>
+                                    % else:
+                                        <a href="${sm['url']}">
+                                                ${item['name']+' @ '+item['id'][:7]}
+                                        </a>
+                                    % endif
+                                % else:
+                                    <a href="/${project.name}/${item['type']}/${ref}/${item['path']}">
+                                        ${item['name']}
+                                    </a>
+                                % endif
+                            </td>
+                            <td class="age"></td>
+                            <td class="message"></td>
+                        </tr>
+                    % endfor
+                </tbody>
+            </table>
+        % endif
+        </div>
+    </div>
+</%def>

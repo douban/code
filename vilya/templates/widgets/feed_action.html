@@ -1,0 +1,424 @@
+<%page args="action, is_notification=False, show_avatar=False, style_none='', class_first=''" />
+<%namespace name="utils" file="/widgets/utils.html" />
+
+<%!
+    from datetime import datetime
+    from vilya.libs.text import parse_emoji, render_markdown_for_feed
+    from vilya.models.user import User
+%>
+
+<%def name="gist_created_action(data)">
+    <i class="icon-plus-sign"></i>
+    ${ people(data, 'author') } created gist
+    <a href="${ data.get('url') }">${ data.get('name') }</a>
+    ${ disp_date(data) }
+</%def>
+
+<%def name="gist_forked_action(data)">
+    <i class="icon-random"></i>
+    ${ people(data, 'author') } forked
+    <a href="${ data.get('forked_from_url') }">${ data.get('forked_from_name') }</a>
+    to
+    <a href="${ data.get('url') }">${ data.get('name') }</a>
+    ${ disp_date(data) }
+</%def>
+
+<%def name="gist_commented_action(data)">
+    <i class="icon-comment"></i>
+    ${ people(data, 'author') } commented on gist
+    <a href="${ data.get('url') }">${ data.get('name') }</a>
+    ${ disp_date(data) }
+</%def>
+
+<%def name="gist_starred_action(data)">
+    <i class="icon-star"></i>
+    ${ people(data, 'author') } starred gist
+    <a href="${ data.get('url') }">${ data.get('name') }</a>
+    ${ disp_date(data) }
+</%def>
+
+<%def name="gist_updated_action(data)">
+    <i class="icon-refresh"></i>
+    ${ people(data, 'author') } updated gist
+    <a href="${ data.get('url') }">${ data.get('name') }</a>
+    ${ disp_date(data) }
+</%def>
+
+<%def name="push_action(pr)">
+    <%
+         repo_name = pr.get('repo_name', '')
+         branch = pr.get('branch', '')
+         is_new_branch = pr.get('is_new_branch', '')
+         is_delete_branch = pr.get('is_delete_branch', '')
+         proj_url = '/' + repo_name
+         proj_with_branch_url = proj_url + '/tree/%s' % branch if branch else ''
+         username = pr.get('username')
+    %>
+    % if username:
+        %if is_new_branch:
+            <i class="icon-ok-circle"></i>
+            ${ people(pr, 'username') } created
+            branch <a href="${proj_with_branch_url}">${branch}</a> at <a href="${proj_url}">${repo_name}</a>
+        %elif is_delete_branch:
+            <i class="icon-trash"></i>
+            ${ people(pr, 'username') } deleted
+            branch ${branch} at <a href="${proj_url}">${repo_name}</a>
+        %else:
+            <i class="icon-arrow-up"></i>
+            ${ people(pr, 'username') } pushed to
+            <a href="${proj_with_branch_url}">${repo_name}:${branch}</a>
+        %endif
+    % else:
+        %if is_new_branch:
+            <i class="icon-ok-circle"></i>
+            new branch <a href="${proj_with_branch_url}">${branch}</a> at <a href="${proj_url}">${repo_name}</a>
+        %elif is_delete_branch:
+            <i class="icon-trash"></i>
+            branch ${branch} at <a href="${proj_url}">${repo_name}</a> was deleted
+        %else:
+            <i class="icon-arrow-up"></i>
+            <a href="${proj_with_branch_url}">${repo_name}:${branch}</a> got a push
+        %endif
+    %endif
+    ${ disp_date(pr) }
+</%def>
+
+<%def name="push_desc(pr)">
+    <%
+         MAX_SHOWN_COMMITS_NUM = 3
+         commits = pr.get('commits')
+    %>
+    % for commit in commits[:MAX_SHOWN_COMMITS_NUM]:
+        <%
+            avatar_url = User(commit.get('username')).avatar_url
+        %>
+        <i class="icon-upload"></i>
+        <span title="${commit.get('username')}">
+            <img class="avatar small lazy" data-original="${avatar_url}" src="${avatar_url}"/>
+        </span>
+        <a href="${commit.get('url')}">${commit.get('commit_id', '')[:7]}</a>
+    ${commit.get('message')}
+    <br>
+    % endfor
+    % if len(commits) > MAX_SHOWN_COMMITS_NUM:
+    <a href="/${pr.get('repo_name', '')}/compare/${pr.get('before', '')}...${pr.get('after', '')}">
+        ${len(commits) - MAX_SHOWN_COMMITS_NUM} more commits »
+    </a>
+    % endif
+</%def>
+
+<%def name="code_review_action(pr)">
+    <i class="icon-comment"></i>
+    ${people(pr, 'author')} commented
+    on <a href="${pr.get('url')}">pull ${pr.get('ticket')}</a>
+    on <a href="/${pr.get('proj', '').split(':')[0]}">${pr.get('proj')}</a>
+    ${disp_date(pr)}
+</%def>
+
+<%def name="pull_request_action(pr)">
+    % if pr.get("status","unmerge") == "unmerge":
+        <i class="icon-refresh"></i>
+        ${people(pr, 'commiter')}
+        opened <a href="${pr.get('url')}">${pr.get('title')}</a>
+    % else:
+        <i class="icon-ok"></i>
+        ${people(pr, 'owner')}
+        ${pr.get('status')}
+        <a href="${pr.get('url')}">${pr.get('title')}</a>
+    % endif
+    on <a href="/${pr.get('to_proj', '').split(':')[0]}">${pr.get('to_proj')}</a>
+    ${disp_date(pr)}
+</%def>
+
+<%def name="commit_action(pr)">
+    <i class="icon-upload"></i>
+    ${people(pr, 'author')} committed
+    <a href="${pr.get('url')}">changeset ${pr.get('commit_id')[:7]}</a>
+    to <a href="/${pr.get('repo_name', '')}">${pr.get('repo_name', '')}:${pr.get('branch', '')}</a>
+    ${disp_date(pr)}
+</%def>
+
+<%def name="commit_comment_action(pr)">
+    <i class="icon-comment"></i>
+    ${people(pr, 'sender')}
+    commented on
+    <a href="/${pr.get('proj','')}">${pr.get('proj', '#ERR!')}</a>
+    in <a href="${pr.get('url')}">${pr.get('ref','')[:10]}</a>
+    ${disp_date(pr)}
+</%def>
+
+<%def name="recommend_action(pr)">
+    <i class="icon-user"></i>
+    ${people(pr, 'sender')} recommend <a href="${pr.get('url')}">${pr.get('to_user')}</a>
+    ${disp_date(pr)}
+</%def>
+
+<%def name="repo_create_action(data)">
+    <i class="icon-book"></i>
+    ${ people(data, 'author') } created repository
+    <a href="${ data.get('url') }">${ data.get('name') }</a>
+    ${ disp_date(data) }
+</%def>
+
+<%def name="repo_watch_action(data)">
+    <i class="icon-eye-open"></i>
+    ${ people(data, 'author') } watched
+    <a href="${ data.get('url') }">${ data.get('name') }</a>
+    ${ disp_date(data) }
+</%def>
+
+<%def name="repo_fork_action(data)">
+    <i class="icon-random"></i>
+    ${ people(data, 'author') } forked
+    <a href="${ data.get('forked_from_url') }">${ data.get('forked_from_name') }</a>
+    to
+    <a href="${ data.get('url') }">${ data.get('name') }</a>
+    ${ disp_date(data) }
+</%def>
+
+<%def name="team_created_action(data)">
+    <i class="icon-flag"></i>
+    ${ people(data, 'author') } created team
+    <a href="${ data.get('url') }">${ data.get('name') }</a>
+    ${ disp_date(data) }
+</%def>
+
+<%def name="team_joined_action(data)">
+    <i class="icon-plus"></i>
+    ${ people(data, 'author') } joined team
+    <a href="${ data.get('url') }">${ data.get('name') }</a>
+    ${ disp_date(data) }
+</%def>
+
+<%def name="issue_action(data)">
+    % if data.get('state', 'open') == "open":
+        <i class="icon-refresh"></i>
+        ${ people(data, 'author') } opened
+    % else:
+        <i class="icon-ok"></i>
+        ${ people(data, 'author') } closed
+    % endif
+    <a href="${ data.get('url') }"> issue ${ data.get('title') }</a>
+    on <a href="${data.get('target_url')}">${data.get('target_name')}</a>
+    ${disp_date(data)}
+</%def>
+
+<%def name="issue_comment_action(data)">
+    <i class="icon-comment"></i>
+    ${ people(data, 'author') } commented
+    <a href="${ data.get('url') }"> issue ${ data.get('title') }</a>
+    on <a href="${data.get('target_url')}">${data.get('target_name')}</a>
+    ${disp_date(data)}
+</%def>
+
+<%def name="follow_user_action(data)">
+    <i class="icon-plus"></i>
+    ${ people(data, 'author') }
+    started following
+    ${ people(data, 'followee') }
+    ${ disp_date(data) }
+</%def>
+
+<%def name="disp_date(data)">
+    <%
+        timestr = data.get('date', datetime.now())
+        if isinstance(time, datetime):
+            timestr = time.strftime('%Y-%m-%d %H:%M:%S')
+    %>
+    ${utils.str2relaive_time(timestr)}
+</%def>
+
+## TODO: 字段都改为 sender 后可改
+<%def name="people(pr, type_)">
+    <a class="user-link" href="/people/${pr.get(type_, '')}">${pr.get(type_, '')}</a>
+</%def>
+
+## TODO: 字段都改为 sender 后可改
+<%def name="people_avatar(pr)">
+    <%
+        people_key = 'author'
+        if pr.get('type') == 'team_add_member':
+            people_key = 'actor'
+        if pr.get('type') == 'pull_request':
+            people_key = 'commiter' if pr.get('status', 'unmerge') == 'unmerge' else 'owner'
+        people = pr.get(people_key, '')
+    %>
+      % if people:
+          <%
+              avatar_url = User(people).avatar_url
+          %>
+          <img class="avatar small lazy" data-original="${avatar_url}" src="${avatar_url}"/>
+      % endif
+</%def>
+
+<%def name="disp_pr(pr, style_none, class_first)">
+    % if not is_notification:
+    <%
+        config = disp_config[action.get('type')]
+    %>
+    % endif
+    <!-- TODO: css_class -->
+    <li style="${style_none}" class="${'unread' if is_notification and not pr.get('read') else ''} ${class_first}" id="${pr.get('uid')}">
+        <div class="title">
+        % if is_notification and pr.get('uid'):
+            <a href="/hub/notification/${pr.get('uid')}?url=${pr.get('url')}">
+                ${getattr(self, pr.get('notif_template', ''))(pr)}
+            </a>
+        % else:
+            ${config['fct_action'](pr)}
+        % endif
+        </div>
+
+        <!-- content -->
+        <div class="desc">
+            % if is_notification:
+                % if show_avatar:
+                    ${people_avatar(pr)}
+                % endif
+                <%
+                    desc = pr.get('content', '')
+                %>
+                <span class="emojstext">${render_markdown_for_feed(desc) | n}</span>
+
+            % else:
+                % if not isinstance(config['desc_field'], str):
+                    ${config['desc_field'](pr)}
+                % else:
+                    % if show_avatar:
+                        ${people_avatar(pr)}
+                    % endif
+                    <%
+                        desc = pr.get(config['desc_field'], '')
+                    %>
+                    <span class="emojstext">${render_markdown_for_feed(desc) | n}</span>
+                % endif
+            % endif
+        </div>
+
+    </li>
+</%def>
+
+<%
+# css_class not be used yet.
+# type 'issue_change' seems no use.
+# def 'commit_notif' seems no use.
+# TODO: desc_field === 'content'
+# TODO: split *feed* and *notif*, & models.actions determine which template to render?
+disp_config = {
+    'code_review': {
+        'css_class': 'action',
+        'fct_notif': code_review_notif,
+        'fct_action': code_review_action,
+        'desc_field': 'text',
+    },
+    'commit': {
+        'css_class': 'action',
+        'fct_notif': commit_notif,
+        'fct_action': commit_action,
+        'desc_field': 'message',
+    },
+#    'issue_change': {
+#        'css_class': 'action',
+#        'fct_notif': issue_change_notif,
+#        'fct_action': issue_change_action,
+#        'desc_field': 'message',
+#    },
+    'pull_request': {
+        'css_class': 'pulls',
+        'fct_notif': pull_request_notif,
+        'fct_action': pull_request_action,
+        'desc_field': 'description',
+    },
+    'commit_comment': {
+        'css_class': 'action',
+        'fct_notif': commit_comment_notif,
+        'fct_action': commit_comment_action,
+        'desc_field': 'message',
+    },
+    'recommend': {
+        'css_class': 'action',
+        'fct_notif': recommend_notif,
+        'fct_action': recommend_action,
+        'desc_field': 'content',
+    },
+    'team_add_member': {
+        'css_class': 'action',
+        'fct_notif': team_add_member_notif,
+        'desc_field': 'description',
+    },
+    'push': {
+        'css_class': 'action',
+        'fct_action': push_action,
+        'desc_field': push_desc,
+    },
+    'gist_created': {
+      'css_class': 'action',
+      'fct_action': gist_created_action,
+      'desc_field': 'desc',
+    },
+    'gist_forked': {
+      'css_class': 'action',
+      'fct_action': gist_forked_action,
+      'desc_field': 'desc',
+    },
+    'gist_commented': {
+      'css_class': 'action',
+      'fct_action': gist_commented_action,
+      'desc_field': 'content',
+    },
+    'gist_starred': {
+      'css_class': 'action',
+      'fct_action': gist_starred_action,
+      'desc_field': 'desc',
+    },
+    'gist_updated': {
+      'css_class': 'action',
+      'fct_action': gist_updated_action,
+      'desc_field': 'desc',
+    },
+    'repo_create': {
+      'css_class': 'action',
+      'fct_action': repo_create_action,
+      'desc_field': 'desc',
+    },
+    'repo_watch': {
+      'css_class': 'action',
+      'fct_action': repo_watch_action,
+      'desc_field': 'desc',
+    },
+    'repo_fork': {
+      'css_class': 'action',
+      'fct_action': repo_fork_action,
+      'desc_field': 'desc',
+    },
+    'team_created': {
+      'css_class': 'action',
+      'fct_action': team_created_action,
+      'desc_field': 'desc',
+    },
+    'team_joined': {
+      'css_class': 'action',
+      'fct_action': team_joined_action,
+      'desc_field': 'desc',
+    },
+    'issue': {
+      'css_class': 'action',
+      'fct_notif': issue_notif,
+      'fct_action': issue_action,
+      'desc_field': 'text',
+    },
+    'issue_comment': {
+      'css_class': 'action',
+      'fct_notif': issue_comment_notif,
+      'fct_action': issue_comment_action,
+      'desc_field': 'text',
+    },
+    'follow_user': {
+      'css_class': 'action',
+      'fct_action': follow_user_action,
+      'desc_field': 'text',
+    },
+}
+%>
+
+${disp_pr(action, style_none, class_first)}

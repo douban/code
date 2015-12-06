@@ -1,0 +1,30 @@
+<%inherit file="/base.html" />
+
+<form action='' method='post'>
+    <div class="page">
+        <table class='table table-bordered table-size'>
+           % if project:
+           <input type="hidden" name="proj_id" value="${project.id}">
+            <tr>
+                <th colspan='2' class='text-center'>
+                  <label for='name'>Are you sure to <em>${action}</em> this project?  <a href="/${project.name}">${project.name}</a></label>
+                </th>
+            </tr>
+            <tr>
+                <th class='text-right'><label for='name'>Project Name:</label></th>
+                <td class='text-left'><input type='text' id='name' name='name' value="${project.name}"/>${errors}</td>
+            </tr>
+           % else:
+            <tr>
+                <th class='text-right'><label for='name'>Project Name:</label></th>
+                <td class='text-left'><input type='text' id='name' name='name' />${errors}</td>
+            </tr>
+           % endif
+            <tr>
+                <td class='text-center' colspan='2'>
+                    <input type='submit' id='submit' class='btn input-button' value='Submit' />
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>

@@ -1,0 +1,58 @@
+@import "compass/css3";
+@import "css/mod/navbar-search";
+
+.issues-sidebar {
+    background: #fff;
+    @include box-shadow(0 1px 2px rgba(0, 0, 0, .075));
+    margin-bottom: 20px;
+
+    .nav {
+        margin: 0px;
+        @include border-radius(0px);
+        @include box-shadow(none);
+    }
+
+    .issue-tags {
+        @include border-radius(0px);
+    }
+
+    & > *:first-child {
+        @include border-corner-radius(top, left, 3px);
+        @include border-corner-radius(top, right, 3px);
+    }
+
+    & > *:last-child {
+        @include border-corner-radius(bottom, left, 3px);
+        @include border-corner-radius(bottom, right, 3px);
+    }
+
+    .rule {
+        clear: both;
+        height: 0px;
+        padding:0;
+        margin:0;
+        overflow: hidden;
+        border: none;
+        background: transparent;
+        border-bottom: 3px solid rgba(99, 182, 174, 0.2);
+    }
+
+    .label {
+        margin:2px 0px;
+        a {
+            color: rgba(99, 182, 174, 1);
+            text-decoration: none;
+            &:hover {
+                background: #63b6ae;
+                color: white;
+                @include text-shadow(0 -1px 0 rgba(0, 0, 0, 0.2));
+                @include border-radius(4px);
+            }
+        }
+    }
+
+    .well{
+        margin-bottom:0;
+        overflow:hidden;
+    }
+}

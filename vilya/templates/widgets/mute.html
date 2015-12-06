@@ -1,0 +1,35 @@
+<%def name="mute_button(type, proj_name, target_id, user, float='pull-right')">
+% if user:
+    <%
+        from vilya.models.mute import Mute
+        is_muted = Mute.is_muted(type, proj_name, target_id, user)
+    %>
+    <div class="btn-group mute-buttons hidden-phone ${float}">
+    <a class="btn disabled btn-small">
+        Notification
+    </a>
+    % if is_muted:
+    <a class="btn btn-small mute-on" href="/api/mute/${type}/${proj_name}/${target_id}?cancel=y">
+        <b>ON</b>
+    </a>
+    <a class="btn btn-warning btn-small mute-off" href="/api/mute/${type}/${proj_name}/${target_id}">
+        <b>OFF</b>
+    </a>
+    % else:
+    <a class="btn btn-success btn-small mute-on" href="/api/mute/${type}/${proj_name}/${target_id}?cancel=y">
+        <b>ON</b>
+    </a>
+    <a class="btn btn-small mute-off" href="/api/mute/${type}/${proj_name}/${target_id}">
+        <b>OFF</b>
+    </a>
+    % endif
+    </div>
+% endif
+</%def>
+
+<%def name="watch_ci_button()">
+    <div class="btn-group pull-right checkbox-container" style="padding-right: 10px;">
+        <input type="checkbox" id="watch-ci" />
+        <label for="watch-ci">Watch CI</label>
+    </div>
+</%def>

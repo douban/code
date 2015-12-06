@@ -1,0 +1,47 @@
+<%inherit file="/base.html" />
+
+<%def name="title()">Badge Timeline</%def>
+<%def name="suffix()"></%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/badge.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/badge/main.js')}"></script>
+</%def>
+
+<div class="timeline mod">
+  <dl>
+    <h1>Badge Timeline</h1>
+  </dl>
+  <div class="more">
+  </div>
+</div>
+
+<%text>
+<script id="timeline_template" type="text/x-jquery-templ">
+<div class="title">
+    <i class="icon-upload"></i>
+    <span class="time"> ${item_time} </span>
+    <a href="/people/${recipient}/">${recipient}</a>
+    received the badge
+    <a href="/badge/${badge_id}">${badge_name}</a>
+</div>
+<div class="desc">
+    <div class="right_side">
+        <a href="/badge/${badge_id}"><img src="/static/img/badges/${badge_id}.png" width="38px" height="38px"/></a>
+    </div>
+    <div class="avatar">
+      <img class="avatar medium lazy" alt="${recipient}" src="${avatar}"/>
+    </div>
+    ${summary}<br>${reason}
+    <div class="clearfix">
+    </div>
+</div>
+</script>
+</%text>

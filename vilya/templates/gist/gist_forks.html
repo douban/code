@@ -1,0 +1,23 @@
+<%inherit file="/gist/gist_base.html" />
+
+<%def name="right_content(gist)">
+  <ul class="forks user-list">
+    % for _gist in gist.forks:
+    <% u = _gist.owner %>
+    <li>
+      <a href="/gist/${ u.username }" >
+        <img src="${ u.avatar_url }" width="24" height="24">
+      </a>
+      <a href="/gist/${ u.username }" > ${ u.username }</a>
+      <span class="actions">
+        <a href="${ _gist.url }" class="minibutton">
+          <span class="mini-icon mini-icon-gist-fork"></span>
+           View Fork
+        </a>
+      </span>
+    </li>
+    % endfor
+  </ul>
+</%def>
+
+${ self.gist_content(request, gist) }

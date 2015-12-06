@@ -1,0 +1,38 @@
+@import "css/mod/common";
+@import "css/mod/minibutton";
+@import "css/mod/docs-nav";
+@import "css/mod/docs-page";
+@import "css/mod/meta-nav";
+@import "css/mod/markdown-content";
+
+.button-group { display:inline-block; overflow:hidden; border:1px solid #d4d4d4; border-radius:3px; border-bottom-color:#bcbcbc; background:#f5f5f5; background:-moz-linear-gradient(#f5f5f5,#e5e5e5); background:-webkit-linear-gradient(#f5f5f5,#e5e5e5); -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5',endColorstr='#e5e5e5')";}
+.button-group li{ margin:0!important; float:left; }
+.button-group li:first-child .grouped-button { border-left:none; border-bottom-left-radius:2px; border-top-left-radius:2px; }
+.button-group li:last-child .grouped-button { border-right:none; border-bottom-right-radius:2px; border-bottom-left-radius:2px; }
+.button-group .grouped-button { float:left;background:none; border-bottom:none; border-top:none; border-left:1px solid rgba(0,0,0,0.1); border-right:1px solid rgba(255,255,255,0.5); border-radius:0; cursor:pointer; }
+
+.inner-toc-wrapper { background-color: white; clear: both; float: right; margin: 4px 0 2px 8px; padding: 0 0 8px 8px; }
+.inner-toc { border-left:8px solid #D9F3DC; padding-left:.6em; font-size:18px; line-height: 30px; }
+.inner-toc a { color: #34833E; }
+.inner-toc ul li { line-height:1.5em; }
+
+.actions { float:right; margin-bottom:5px; }
+
+.search { float: right }
+
+/* Patching for sphinx */
+
+a.headerlink { visibility: hidden; color: #D9F3DC; }
+
+h1:hover > a.headerlink, h2:hover > a.headerlink, h3:hover > a.headerlink,
+h4:hover > a.headerlink, h5:hover > a.headerlink, h6:hover > a.headerlink,
+dt:hover > a.headerlink { visibility: visible; }
+p.admonition-title { font-weight: bold; }
+
+.admonition, div.warning, div.sidebar { padding: 2px 5px 2px 18px; background-color: #ccc; border-radius: 8px; }
+.admonition { background-color: #D9F3DC; }
+.admonition p.admonition-title { color: #34833E; }
+.warning { background-color: #FCD2D1; }
+.warning p.admonition-title { color: #f4433E; }
+.genindex a { display: block }
+.genindex a.sublink { margin-left: 3em }

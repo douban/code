@@ -1,0 +1,18 @@
+<%page args="commit" />
+<div class="commit-preview">
+    <div class="actor">
+        <p class="name">
+            <span class="avatar"><img src="${commit.author.avatar_url}" height="16" width="16" /></span>
+            <a href="${commit.author.url}">${commit.author.name}</a>
+            <span class="tag">(author)</span>
+            &middot;
+            <span class="date"><time class="timeago" datetime="${commit.time.isoformat()}" title="${commit.time.isoformat()}">${commit.time.strftime("%Y-%m-%d %H:%M:%S")}</time></span>
+        </p>
+    </div>
+    <div class="message">
+        <pre>${commit.message}</pre>
+        <p class="commit-id">
+            <a href="${commit.url}" target="_blank">${commit.sha}</a>
+        </p>
+    </div>
+</div>

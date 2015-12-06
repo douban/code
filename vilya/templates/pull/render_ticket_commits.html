@@ -1,0 +1,46 @@
+<%!
+    from vilya.models.user import User
+%>
+<%namespace name="utils" file="/pull/utils.html"/>
+
+<%def name="render_inner(pullreq, ticket_commits, shas)">
+    <%
+         commits = ticket_commits.commits.split(',')
+         cs = []
+         outdated = []
+         for commit in commits:
+            if pullreq.merged or pullreq.from_proj == None:
+                c = pullreq.to_proj.repo.get_commit(commit)
+            else:
+                c = pullreq.from_proj.repo.get_commit(commit)
+                if c is None:
+                    c = pullreq.to_proj.repo.get_commit(commit)
+            if commit in shas:
+                cs.append(c)
+            else:
+                if c:
+                    outdated.append(c)
+    %>
+    <div class="change-header">
+        <span class="change-header-right">${utils.related_time_html(ticket_commits.time)}</span>
+        <a href="${User(ticket_commits.author).url}">${ticket_commits.author}</a>
+        added ${'a commit' if len(commits) == 1 else 'some commits'}
+    </div>
+    % if cs:
+        <%include file="/pull/commits_pane.html" args="commits=cs, show_summary=False, minimal=True" />
+    % else:
+        <div class="outdated_mark">
+            <a href="javascript:void(0)">commits outdated due to force push</a>
+        </div>
+        <div class="outdated_commits">
+          <%include file="/pull/commits_pane.html" args="commits=outdated, show_summary=False, minimal=True" />
+        </div>
+    % endif
+</%def>
+
+${utils.side_avatar(author)}
+<div class="change">
+    <div class="discussion-bubble-inner">
+        ${render_inner(pullreq, ticket_commits, shas)}
+    </div>
+</div>

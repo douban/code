@@ -1,0 +1,67 @@
+<%inherit file="/base.html" />
+<%!
+    from vilya.models.user import User
+    from vilya.models.team import Team
+%>
+
+<%def name="bottom_script()">
+</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/teams.css')}" />
+</%def>
+
+<%def name="title()">Teams</%def>
+<div class="pagehead" >
+    <h2 class="">Teams</h2>
+    <div class="metanav teams-right">
+        <div class="add_team">
+            <a href="/hub/add_team" class="btn btn-success">New team</a>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="row">
+    <div class="span8">
+        <ul class="featured-team-list cf">
+            %for team in teams:
+            <li>
+                <a class="hiring-ribbon" href="${team.url}">
+                <span>Join Us</span>
+                </a>
+                <header>
+                <a class="team-link" href="${team.url}">
+                    <div class="avatar"><img alt="Lore_logo_420px" src="/static/img/team_logo.svg"></div>
+                    <h2>${team.name}</h2>
+                    <h3>${team.short_description}</h3>
+                </a>
+                </header>
+                <div class="image">
+                <a href="${team.url}">
+                    <img alt="961x477" src="${team.profile_url()}">
+                </a>
+                </div>
+            <div class="content">
+                <footer class="cf">
+                    <%
+                        members = team.user_ids
+                    %>
+                    <span class="more-members">${len(members)}</span>
+                    <ul class="members cf">
+                    %for uid in members[:8]:
+                    <li><a href="/people/${uid}/" class="record-exit" data-target-type="team-member" title="${uid}"><img alt="/people/${uid}/" class="avatar" src="${User(uid).avatar_url}"></a></li>
+                    %endfor
+                    </ul>
+                </footer>
+            </div>
+            </li>
+            %endfor
+        </ul>
+    </div>
+</div>
+
+<!-- paginator -->
+<div>
+    <%include file="/widgets/paginator.html", args="current=page, total=n_pages" />
+</div>

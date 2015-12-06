@@ -1,0 +1,30 @@
+.list-browser-filter-tabs { 
+    display: block; 
+    float: left; 
+    padding: 5px 5px 0; 
+    overflow: hidden; 
+    .filter-tab { 
+        display: inline-block; 
+        padding: 0 8px; 
+        height: 24px; 
+        line-height: 24px; 
+        font-size: 12px; 
+        font-weight: bold; 
+        color: #888; 
+        -webkit-font-smoothing: antialiased; 
+        text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3); 
+        text-decoration: none; 
+        border: 1px solid #CCC; 
+        border-bottom: 0; 
+        border-radius: 3px 3px 0 0; 
+        background: rgba(255, 255, 255, 0.2); 
+        cursor: pointer; 
+    }
+    & .selected { 
+        color: #333; 
+        background: white; 
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+        border-color: #B4B4B4; 
+        border-bottom: 1px solid white; 
+    }
+}

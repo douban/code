@@ -1,0 +1,84 @@
+.team-card {
+    position:absolute;
+    padding: 6px 10px;
+    min-height:68px;
+    width: 236px;
+    background-color:#fff;
+    border:1px solid #BEBEBE;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    .pic {
+        float: right;
+        max-height: 50px;
+        margin: 6px 0 0 10px;
+    }
+    .content {
+        word-wrap: break-word;
+        .title {
+            margin: 6px 0;
+            font-size: 15px;
+            overflow: hidden;
+            white-space:  nowrap;
+        }
+        .info {
+            position: relative;
+            margin-top: 10px;
+            font-size: 13px;
+            .desc {
+                white-space:  nowrap;
+                overflow: hidden;
+            }
+        }
+    }
+}
+
+.member {
+    border-top: solid 1px #eaeaea;
+    padding-top: 8px;
+    height: 26px;
+    .more-members {
+        float: right;
+        width: 24px;
+        height: 24px;
+        line-height: 26px;
+        text-align: center;
+        border: 1px solid #eaeaea;
+        background: #eaeaea;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        -o-border-radius: 4px;
+        border-radius: 4px;
+    }
+    .members li {
+        float: left;
+        a {
+            display: block;
+            width: 26px;
+            height: 26px;
+            overflow: hidden;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            -ms-border-radius: 4px;
+            -o-border-radius: 4px;
+            border-radius: 4px;
+            img {
+                width: 26px;
+                height: 26px;
+            }
+        }
+    }
+}
+
+.cf {
+    zoom: 1;
+    &:before {
+        content: "";
+        display: table;
+    }
+    .cf:after {
+        clear: both;
+        content: "";
+        display: table;
+    }
+}

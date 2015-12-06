@@ -1,0 +1,83 @@
+@import "css/mod/common";
+@import "css/mod/minibutton";
+@import "css/mod/meta-nav";
+
+#gitstats-total {
+    display: inline-block;
+    display: block;
+}
+#gitstats-total .total-details {
+    clear: right;
+}
+#gitstats-total .total-details div:first-child {
+    border-left: none;
+}
+#gitstats-total .total-details div {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px 0 0 0;
+    text-align: center;
+    border-left: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    color: #999;
+}
+.grid .col {
+    display: table-cell;
+    width: 1%;
+}
+#gitstats-total .total-details div .num {
+    font-weight: bold;
+    font-size: 16px;
+    display: block;
+    color: #333;
+}
+#gitstats-total .total-details div .lbl {
+    display: block;
+    font-weight: bold;
+    padding: 10px 0;
+    color: #777;
+    border-top: 1px solid #f7f7f7;
+    margin-top: 10px;
+    font-size: 11px;
+}
+.ext-lines-container {
+    display: inline;
+}
+.ext-files-container {
+    display: inline;
+}
+.lable p {
+    font-weight: bold;
+    font-size: 16px;
+    width: 465px;
+    float: left;
+    text-align: center;
+    padding-bottom: 5px;
+}
+div.ext {
+    height: 480px;
+}
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.x.axis path {
+    display: none;
+}
+
+.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+.lines-container g text {
+    font-size: 9px;
+}
+
+.chart rect {
+    fill: #DFDFDF;
+    stroke: white;
+}

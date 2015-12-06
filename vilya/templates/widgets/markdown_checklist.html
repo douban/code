@@ -1,0 +1,18 @@
+<%page args="content=''" />
+<%!
+    from vilya.libs.text import get_checkbox_count
+%>
+
+<%
+if content:
+    checks = get_checkbox_count(content)
+else:
+    checks = None
+ %>
+% if checks:
+<% percentage = int(checks[0]/float(checks[1])*100) %>
+<span class="progress-percentage">${percentage}%</span>
+<div class="progress progress-info">
+    <div class="bar" style="width:${percentage}%"></div>
+</div>
+% endif

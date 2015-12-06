@@ -1,19 +1,9 @@
 <%inherit file="/layouts/base.html" />
-<style>
-.form-signin {
-    max-width: 330px;
-    padding: 15px;
-    margin: 0 auto;
-}
-</style>
-<div>
-    <form accept-charset="UTF-8" action="/login" method="post" class="form-signin" role="form">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <input autocapitalize="off" autofocus="autofocus" class="form-control" id="login_field" name="login" tabindex="1" type="text" placeholder="Username">
-        <input class="form-control" id="password" name="password" tabindex="2" type="password" placeholder="Password" required="">
-        <label class="checkbox">
-            <input type="checkbox" value="remember-me"> Remember me
-        </label>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" tabindex="3">Sign in</button>
-    </form>
-</div>
+
+<%def name="bottom_script()">
+    <script src="/static/js/mod/login.js"></script>
+</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css" />
+</%def>

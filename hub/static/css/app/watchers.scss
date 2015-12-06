@@ -1,0 +1,26 @@
+@import "css/mod/common";
+@import "css/mod/minibutton";
+@import "css/mod/meta-nav";
+
+.userlist{
+    padding: 5px;
+}
+
+.gray {
+    color: #ccc;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.userlist .user {
+    margin-top: 15px;
+}
+
+.userlist .user img {
+    width: 32px;
+    height: 32px;
+}
+
+.userlist a {
+    margin-right: 10px;
+}

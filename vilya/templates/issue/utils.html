@@ -1,0 +1,48 @@
+<%!
+    from vilya.models.user import User
+%>
+
+<%def name="side_avatar(user)">
+    <%
+        user = user if isinstance(user, User) else User(user)
+    %>
+    <span class="side-avatar" data-placement="bottom" data-original-title="${user}">
+        <a href="${user.url}">
+        <img src="${user.avatar_url}" alt="${user}" class="discussion-bubble-avatar user-avatar lazy" data-original="${user.avatar_url}">
+        </a>
+    </span>
+</%def>
+
+## TODO: safari下无法正常显示相对时间，用widgets/utils里的
+<%def name="related_time_html(time)">
+    <time class="js-relative-date" data-time="${time.strftime('%Y-%m-%dT%H:%M:%S+08:00')}" title="${time}">${time}</time>
+</%def>
+
+<%def name="previewable_comment_form(title=None, class_='', zen=True, preview_url='/preview')">
+<div class="comment-form previewable-comment-form write-selected ${class_}">
+    %if title is not None:
+    <input type="text" name="title" tabindex="3" class="title required valid" value="${title}" placeholder='Title' required />
+    %endif
+    <p class="help">Comments are parsed with <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown</a></p>
+    <ul class="js-preview-tabs nav nav-pills">
+        <li class="active"><a href="#write_bucket" data-toggle="tab" class="write-tab" action="write">Write</a></li>
+        <li><a href="#preview_bucket" data-toggle="tab" class="preview-tab" action="preview">Preview</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="write_bucket" class="tab-pane active write-content ${'zen-enabled' if zen else ''}">
+            % if zen:
+            <a href="#" class="go-zen enable-fullscreen hide-phone" original-title="Zen Mode" title="Zen Mode">
+                <span class="mini-icon mini-icon-fullscreen"></span>
+            </a>
+            % endif
+            <textarea name="body" id="pull_body" class="js-comment-field" tabindex="4" data-suggester-list="pull_body_mentions" ></textarea>
+        </div>
+        <div id="preview_bucket" class="tab-pane preview-content">
+            <div class="content-body markdown-body" data-api-url="${preview_url}">
+                <p>Loading preview...</p>
+            </div>
+        </div>
+    </div>
+</div>
+</%def>

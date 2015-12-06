@@ -1,0 +1,106 @@
+<%inherit file="/source.html" />
+
+<%namespace name="diff_render" file="/widgets/diff/diff.html" />
+<%namespace name="commit_render" file="/widgets/commit.html" />
+<%namespace name="comment_render" file="/widgets/comment.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/compare.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/src/compare.js')}"></script>
+</%def>
+
+${parent.body()}
+
+<%def name="main()">
+
+    ${self.sourcenav_bar(active="files")}
+
+    <div class="span12">
+        <div id="compare" data-base="" data-head="">
+            <h2>Compare View</h2>
+            <div class="compare-range">
+                <a href="/${project.name}/compare/${sha2}...${sha1}" class="switch tooltipped" title="Switch base of comparison">switch</a>
+                <a href="#compare-popup" class="commit-ref from" title="${sha1}">${sha1}</a>
+                <em>...</em>
+                <a href="#compare-popup" class="commit-ref to" title="${sha2}">${sha2}</a>
+            </div>
+            % if n_commits > 0 :
+                <p class="subtext">Last commit <time class="js-relative-date" datetime="${lasttime}" title="${lasttime}">${lasttime}</time></p>
+            % endif
+        </div>
+        <div class="rule" style="margin-top:0">
+        </div>
+
+        % if n_commits > 6 :
+
+            <!-- Tabs' Nav -->
+            <ul class="smalltabs pull-tabs nav">
+                <li class="active">
+                    <a href="#commits_bucket" data-toggle="tab">
+                        <i class="icon-upload"></i>
+                        Commits <span class="counter">${n_commits}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#files_bucket" data-toggle="tab">
+                        <i class="icon-file"></i>
+                        Files Changed <span class="counter">${n_files}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#comments_bucket" data-toggle="tab">
+                        <i class="icon-comment"></i>
+                        Comments<span class="counter">${n_comments}</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Tabs' Contents -->
+            <div class="tab-content">
+                <div id="commits_bucket" class="tab-pane active">
+                    ${commit_render.commits_bucket(commits, n_authors, grouped_commits)}
+                </div>
+                <div id="files_bucket" class="tab-pane">
+                    ## FIXME: 这个页面的 Show Diff Stats 貌似是无效的，缺js
+                    ${diff_render.files_bucket(diff, project)}
+                </div>
+                <div id="comments_bucket" class="tab-pane">
+                    ${comment_render.comments_bucket(project ,comments)}
+                </div>
+            </div>
+        % elif n_commits > 0: ## 若少于7个commits 就不分tab展示
+            <div id="commits_bucket" class="tab-content">
+                ${commit_render.commits_bucket(commits, n_authors, grouped_commits)}
+            </div>
+            <div id="files_bucket" class="tab-content">
+                ${diff_render.files_bucket(diff, project)}
+            </div>
+            <div id="comments_bucket" class="tab-pane">
+                ${comment_render.comments_bucket(project ,comments)}
+            </div>
+        % else:
+            <div>
+                ${commit_render.commits_anything(project, sha1, sha2)}
+            </div>
+        % endif
+    </div>
+
+    <script id="templ-compare-chooser" type="text/x-jquery-tmpl">
+      <div class="popup">
+        <div class="content">
+          <h2>Choose a ref to <span class="mode-lower">{{= mode}}</span> at</h2>
+          <p><span class="mode-upper">{{= mode}}</span>ing point can be a commit SHA, branch name or tag name.</p>
+          <input class="ref-autocompleter" type="text" />
+          <div class="form-actions">
+            <button type="submit" id="{{= mode}}-submit" class="refresh minibutton">Save &amp; Refresh</button>
+          </div>
+          <a href="#" class="close"><span class="mini-icon mini-icon-remove-close"></span></a>
+        </div>
+      </div>
+    </script>
+
+</%def>

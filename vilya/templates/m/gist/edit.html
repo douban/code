@@ -1,0 +1,45 @@
+<%inherit file="/m/base.html" />
+<%!
+    from vilya.models.user import User
+%>
+
+<%def name="head_style()">
+<link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+<link rel="stylesheet" href="/static/codemirror/codemirror.css" />
+<link rel="stylesheet" type="text/css" href="${static('/css/app/m/gist.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+<script src="${static('/js/app/gist/edit.js')}"></script>
+</%def>
+
+<%def name="body()">
+<form action="" id="gist-form" method="post" accept-charset="UTF-8">
+    <div class="edit container">
+        <div id="files">
+            <div class="js-gist-files">
+                % for sha1, path in gist.list_sha1_with_files:
+                <div data-path="${ path }" data-gist="${ gist.id }" class="bubble js-gist-file">
+                    <input type="hidden" name="oid" value="${ sha1 }">
+                    <div class="file">
+                        <div class="meta">
+                            <div class="name">
+                                <input class="gist-name-textbox" type="text" name="gist_name"
+                                       placeholder="name this file..." value="${ path }">
+                            </div>
+                            <div class="editor-options">
+                                <button type="submit" class="btn js-create-gist" name="gist_public" value="1">Done</button>
+                                <a class="btn" href="/gist/${ gist.id }" data-pjax-back="">Cancel</a>
+                            </div>
+                        </div>
+                        <div class="input">
+                            <textarea class="gist-file-content" name="gist_content" style="display:none;"></textarea>
+                        </div>
+                    </div>
+                </div>
+                % endfor
+            </div>
+        </div>
+    </div>
+</form>
+</%def>

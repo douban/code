@@ -1,0 +1,52 @@
+<%!
+    from vilya.libs.text import highlight_code, format_md_or_rst
+%>
+<%def name="editor_template()">
+<script type="text/html" id="bubble-gist-file">
+  <div class="bubble js-gist-file">
+    <input type="hidden" name="oid" value="">
+    <div class="file">
+      <div class="meta">
+        <div class="name">
+          <input class="gist-name-textbox" type="text" name="gist_name" placeholder="name this file...">
+        </div>
+        <div class="editor-options">
+        </div>
+      </div>
+
+      <div class="input">
+        <textarea class="gist-file-content" name="gist_content" style="display:none;"></textarea>
+      </div>
+    </div>
+  </div>
+</script>
+</%def>
+
+<%def name="gist_forked_from(gist)">
+  <% forked_from = gist.forked_from %>
+  % if forked_from:
+  <span class="text">
+    - forked from
+    <a href="${ forked_from.url}">${ forked_from.owner_id }/${ forked_from.name }</a>
+  </span>
+  % endif
+</%def>
+
+<%def name="render_src(path, src)">
+  % if path.endswith(('md', 'mkd', 'markdown')):
+    <div class="markdown-body">${ format_md_or_rst(path, src) | n, decode.utf8 }</div>
+  % else:
+    ${ highlight_code(path, src) | n, decode.utf8 }
+  % endif
+</%def>
+
+<%def name="dropzone()">
+<div id="dropzone">
+  <div id="dropzone-pill">
+    <span class="mega-icon mega-icon-code-file"></span>
+    <span class="mega-icon mega-icon-arr-right"></span>
+    <span class="mega-icon mega-icon-gist-add"></span>
+    <p>Drop one or more files here to prefill your gist!</p>
+  </div>
+</div>
+</%def>

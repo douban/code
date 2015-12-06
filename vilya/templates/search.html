@@ -1,0 +1,33 @@
+<%!
+    from vilya.models.user import User
+%>
+
+<%inherit file="/base.html" />
+
+
+<h2>${q} - Search Results</h2>
+<br>
+%if results:
+<table class="table">
+  <tbody>
+    % for project in results:
+    <%
+       owner = project.owner
+       avatar_url = User(project.owner_id).avatar_url
+       %>
+    <tr>
+      <td class="avatar"><a title="${owner.name}" href="/people/${owner.name}"><img src="${avatar_url}"/></a></td>
+      <td class="title">
+	    <h4><a href='${project.url}'>${project.name}</a></h4>
+	    <br/>
+	    <span class='repo_path'>${project.summary}</span>
+      </td>
+      <td class="owner"><a href="/people/${owner.name}">${owner.name}</a></td>
+      <td class="product">${project.product}</td>
+    </tr>
+    % endfor
+  </tbody>
+</table>
+%else:
+<div class="info">No matching results.</div>
+%endif

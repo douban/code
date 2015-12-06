@@ -1,0 +1,135 @@
+<%inherit file="/base.html" />
+<%!
+    from vilya.libs.text import gravatar_url
+    from vilya.models.user import User
+    from vilya.models.consts import (PEOPLE_PROJECT, ORGANIZATION_PROJECT,
+        MIRROR_PROJECT, MIRROR_EMAIL)
+%>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/project-create.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/create/main.js')}"></script>
+</%def>
+
+<%def name="title()">
+Create New Repository
+</%def>
+
+<div class="mod">
+    <form action="" method="post">
+        <input type="hidden" name="product" value="">
+
+        <div class="row">
+            <div class="span2">&nbsp;</div>
+            <div class="span1" id="owner">
+                <label><strong>Owner</strong></label>
+                <img class="user-avatar lazy" src="${user.avatar_url}" width="24" height="24">
+            </div>
+            <div class="span1" id="mirror">
+                <label><strong>Mirror</strong></label>
+                <img class="user-avatar lazy" src="${gravatar_url(MIRROR_EMAIL)}" width="24" height="24">
+            </div>
+            <div class="span1 splash">
+                <span style="font-size:21px">&nbsp;&nbsp;/</span>
+            </div>
+            <div class="span5">
+                <label><strong>Repo</strong></label>
+                % if fork_from:
+                <input type="text" id="name" name="name" value="${fork_from.realname}" placeholder="Repository name" readonly>
+                <input type="hidden" name="fork_from" value="${fork_from.id}">
+                <strong>Fork From:</strong>
+                <a href="/${fork_from.name}">${fork_from.name}</a>
+                % else:
+                <input type="text" id="name" name="name" placeholder="Repository name">
+                % endif
+                <span class="text-error">${errors}</span>
+            </div>
+            <div class="span2">&nbsp;</div>
+        </div>
+
+        <div class="mirror-with-proxy">
+            <div class="row">
+                <div class="span2">&nbsp;</div>
+                <div class="span8">
+                    <label class="checkbox">
+                        <input type="checkbox" name="with_proxy" id="with_proxy" value="1">
+                        <span class="help-inline">Clone this with http proxy (GFW)</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="mirror-url">
+            <div class="row">
+                <div class="span2">&nbsp;</div>
+                <div class="span8">
+                    <strong>Repo URL(only support http:// or https://):</strong>
+                    <input type="text" id="url" name="url" value="" class="input-xxlarge">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span2">&nbsp;</div>
+            <div class="span8">
+                <strong>Description (optional):</strong>
+                % if fork_from:
+                <input type="text" id="summary" name="summary" value="${fork_from.summary}" class="input-xxlarge" readonly>
+                % else:
+                <input type="text" id="summary" name="summary" value="" class="input-xxlarge">
+                % endif
+                <hr>
+            </div>
+            <div class="span2">&nbsp;</div>
+        </div>
+
+        % if not fork_from:
+        <div class="row">
+            <div class="span2">&nbsp;</div>
+            <div class="span8">
+                <label class="radio">
+                    <input type="radio" name="org_proj" value="${ PEOPLE_PROJECT }" id="people_proj" checked>
+                    <strong>Personal Project</strong>
+                    <span class="help-block">Create a repository under your name.</span>
+                </label>
+                <label class="radio">
+                    <input type="radio" name="org_proj" value="${ ORGANIZATION_PROJECT }" id="org_proj">
+                    <strong>Team Project</strong>
+                    <span class="help-block">Create a top-level repository.</span>
+                </label>
+                <label class="radio">
+                    <input type="radio" name="org_proj" value="${ MIRROR_PROJECT }" id="mirror_proj">
+                    <strong>Mirror Project</strong>
+                    <span class="help-block">Create a repository under the name "Mirror".</span>
+                </label>
+                %if not request.user.is_intern:
+                <label class="checkbox">
+                    <input name="intern_banned" type="checkbox">
+                    <span class="help-inline">Full-time staff only</span>
+                </label>
+                %endif
+                <hr>
+            </div>
+            <div class="span2">&nbsp;</div>
+        </div>
+        % endif
+
+        <div class="row">
+            <div class="span2">&nbsp;</div>
+            <div class="span8">
+                % if not fork_from:
+                <input type="submit" value="Create repository" class="btn btn-success btn-large">
+                % else:
+                <input type="submit" value="Fork repository" class="btn btn-success btn-large">
+                % endif
+            </div>
+            <div class="span2">&nbsp;</div>
+        </div>
+    </from>
+</div>

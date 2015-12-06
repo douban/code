@@ -1,0 +1,81 @@
+<%inherit file="/base.html" />
+
+<%def name="title()">${badge.name}</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/badge.css')}" />
+</%def>
+
+<div class="mod">
+<div class="section">
+  <div class="section_center">
+    <img src="${badge.get_image_url()}">
+    <div class="badge_name">
+      <h3>${badge.name}</h3>
+    </div>
+  </div>
+  <div class="badge_summary">
+    ${badge.summary}
+  </div>
+  % if current_user and current_user.name in ['liwanjin', 'xutao']:
+  <div class="badge_summary">
+    <a class="btn btn-small btn-primary" href="#award-modal" role="button" data-toggle="modal" data-url="/">
+        <i class="icon-white icon-plus"></i>
+        <span>Award</span>
+    </a>
+  </div>
+  %endif
+  <div class="badge_all_link">
+    <a href="/badge/all">&lt;&lt; 全部徽章</a>
+  </div>
+</div>
+
+<div class="members">
+    <h3>获得该徽章的开发者: </h3>
+    <hr>
+    <div class="list">
+    %for user in users:
+    <div class="user">
+        <img class="user-avatar lazy" data-original="${user.avatar_url}" src="${user.avatar_url}" width="28" height="28">
+        <a href="/people/${user.name}/">${user.name}</a>
+        &nbsp;
+    </div>
+    %endfor
+    </div>
+</div>
+
+<div class="cl"></div>
+</div>
+
+% if current_user and current_user.name in ['liwanjin', 'xutao']:
+<div id="award-modal" class="modal mod hide fade" tabindex="-1" role="dialog" aria-labelledby="award-label" aria-hidden="true">
+    <form action="people" method="post" style="margin-bottom: 0;" class="form-horizontal">
+        <div class="mod-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 id="milestone-label">Award people</h4>
+        </div>
+        <div class="mod-body">
+            <div class="control-group">
+                <label class="control-label" for="people_name">Username</label>
+                <div class="controls">
+                    <input type="text" class="input-xlarge" id="people_name" name="name">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="people_reason">Reason</label>
+                <div class="controls">
+                    <input type="text" class="input-xlarge" id="people_reason" name="reason">
+                </div>
+            </div>
+        </div>
+        <div class="mod-footer">
+            <button class="btn btn-primary">Save</button>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        </div>
+    </form>
+</div>
+%endif

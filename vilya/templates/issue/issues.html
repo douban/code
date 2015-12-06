@@ -1,0 +1,91 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.html" />
+<%namespace name="issues" file="/widgets/issue/issues.html" />
+
+<%def name="title()">Issues</%def>
+<%def name="suffix()">${project.name}</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/issues.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/issue/issues.js')}"></script>
+</%def>
+
+${pagehead.trac_header("issues", project, user)}
+<% ticket_total_len = len(issue_list) %>
+
+<div class="row">
+    <div class="span3">
+    <div class="issues-sidebar">
+        <div class="well">
+            <form id="issues-search" action="${project.url}issues/search" method="get" class="navbar-search">
+                <input type="text" value="${key_word if key_word else ''}" name="q" accesskey="f" class="search-query input-medium"
+                placeholder="Search Issue..." autocomplete="off" />
+            </form>
+        </div>
+        <div class="rule"></div>
+        <ul class="nav nav-tabs nav-stacked">
+            <li class="${'active' if is_closed_tab != True else ''}">
+            <a href="${ issues.tab_url(project.url+'issues/', list_type, show_closed=False, keyword=key_word) }">
+                Open
+                % if not is_closed_tab:
+                <b class="counter">${ticket_total_len} of ${total_issues}</b>
+                % endif
+            </a>
+            </li>
+            <li class="${'active' if is_closed_tab == True else ''}">
+            <a href="${ issues.tab_url(project.url+'issues/', list_type, show_closed=True, keyword=key_word) }">
+                Closed
+                % if is_closed_tab:
+                <b class="counter">${ticket_total_len} of ${total_issues}</b>
+                % endif
+            </a>
+            </li>
+        </ul>
+        <div class="rule"></div>
+        <ul class="nav nav-tabs nav-stacked">
+            <li class="${'active' if list_type == 'repo' else ''}">
+            <a href="${ issues.tab_url(project.url+'issues/', 'repo', show_closed=state!='open') }">
+                Everyone's issues
+                <b class="counter">${n_everyone_issues}</b>
+            </a>
+            </li>
+            <li class="${'active' if list_type == 'assigned' else ''}">
+            <a href="${ issues.tab_url(project.url+'issues/', 'assigned', show_closed=state!='open')}">
+                Assigned to you
+                <b class="counter">${n_assigned_issues}</b>
+            </a>
+            </li>
+            <li class="${'active' if list_type == 'created_by' else ''}">
+            <a href="${ issues.tab_url(project.url+'issues/', 'created_by', show_closed=state!='open') }">
+                Created by you
+                <b class="counter">${n_created_issues}</b>
+            </a>
+            </li>
+            <li class="${'active' if list_type == 'mentioned' else ''}">
+            <a href="${ issues.tab_url(project.url+'issues/', 'mentioned', show_closed=state!='open') }">
+                Mentioning you
+                <b class="counter">0</b>
+            </a>
+            </li>
+        </ul>
+        <%namespace name="milestone_list" file="/widgets/milestones.html" />
+        ${milestone_list.milestone_list(project.issue_milestones, milestone)}
+        <%namespace name="tags" file="/widgets/tags.html" />
+        ${tags.tag_list(show_tags, project, key_word)}
+    </div>
+    </div>
+    <div class="span9">
+      <%namespace name="issues_topbar" file="/widgets/issue/issues_topbar.html" />
+      ${issues_topbar.topbar(project=project)}
+
+      ${issues.issue_list(issue_list, page=page,
+        is_closed_tab=is_closed_tab, n_pages=n_pages,
+        key_word=key_word)}
+    </div>
+</div>

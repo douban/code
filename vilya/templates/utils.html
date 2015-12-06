@@ -1,0 +1,17 @@
+
+<%def name="personal_submenu(active)">
+    <%
+        subtabs = [
+            ('watching', '/watching', 'Watched Repositories'),
+        ]
+    %>
+    <div class="raw">
+        <div class="span12">
+            <ul class="nav nav-tabs">
+                % for key, lk, tx in subtabs:
+                    <li class="${'active' if active == key else ''}"><a href="${lk}">${tx}</a></li>
+                % endfor
+            </ul>
+        </div>
+    </div>
+</%def>

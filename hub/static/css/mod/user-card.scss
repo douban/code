@@ -1,0 +1,6 @@
+.user-card { position:absolute; padding: 3px 5px 5px; min-height:68px; width: 210px; background-color:#fff; border:1px solid #BEBEBE; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) }
+.user-card .desc { margin-left:3px }
+.user-card .avatar-wrap { width: 46px; height: 36px; float: left; margin-right: 6px; border-right:1px solid #BEBEBE;}
+.user-card .badge-item { float:left; width:30px; height:30px; border:none; padding:2px; background-color:white; line-height:0; margin-right:.7em }
+.user-card .title { padding: 0 0 .25em 0 }
+.user-card .desc .avatar { float:left; width:30px; height:30px; padding:2px; background-color:white; line-height:0; margin-right:.7em }

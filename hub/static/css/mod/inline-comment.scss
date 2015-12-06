@@ -1,0 +1,19 @@
+@import "css/mod/inline-comment-form";
+@import "css/mod/comment-form-preview";
+
+.inline-comments .comment-holder { max-width:850px; margin:10px }
+.inline-comments .comment { margin:5px 0 !important; border:1px solid #CACACA }
+.comment-header { height:33px; padding:0 10px 0 6px; border-bottom:1px solid #CCC; background:#F8F8F8; font-size:12px; background-image: -webkit-linear-gradient(top, #F4FAF6, #D8E5DD); }
+.comment-header .comment-header-gravatar { display:inline-block; margin-right:3px; vertical-align:middle; border-radius:3px }
+.comment-header .comment-header-author { display:inline-block; max-width:600px; height:33px; line-height:33px; font-weight:bold; color:#222; text-shadow:1px 1px 0 rgba(255, 255, 255, 0.7); overflow:hidden; white-space:nowrap; text-overflow:ellipsis; vertical-align:middle }
+.comment-header .comment-header-right { float:right }
+.comment-header .comment-header-date { display:inline-block; margin:0; height:33px; font-size:11px; ine-height:33px; font-style:normal; color:#777; text-shadow:1px 1px 0 rgba(255, 255, 255, 0.7); line-height:33px }
+.mini-icon-delete-note::before, .mini-icon-remove-close::before { content:"" }
+.mini-icon-edit:before { content: "" }
+.comment-header .comment-header-actions { display:inline-block; vertical-align:middle; font-size:13px; margin-left:7px }
+.comment-header .mini-icon { color:#939AA0; margin:0 2px 0 1px; position:relative; top:2px }
+.comment-header .comment-header-actions li .mini-icon { -moz-transition:all 0.15s ease-in 0; -webkit-transition:all 0.15s ease-in 0;text-decoration:none }
+.comment-header .comment-header-date { color:#939AA0; text-decoration:none }
+.comment-content { padding:0; color:#333; font-size:12px; background:#FBFBFB }
+.comment-content .comment-body { padding:10px; font-size:13px; overflow:auto; width:100%; -moz-box-sizing:border-box; box-sizing:border-box }
+.comment-header .comment-header-actions li { list-style-type: none; float: left; margin: 0 0 0 8px; }

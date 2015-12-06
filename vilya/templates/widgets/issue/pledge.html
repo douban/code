@@ -1,0 +1,11 @@
+<%def name="user_pledge_avatar(user, amount)">
+<div style="position: relative; display: inline-block;">
+  <a href="${ user.url }">
+    <img height="48" src="${ user.avatar_url }" width="48" alt="${ user.name }"
+      title="${ user.name }" class="discussion-bubble-avatar" />
+  </a>
+  <span style="display: block; position: absolute; right: 0; bottom: 0;
+    text-align: center; opacity: .8; background-color: #1abc9c; color: white;
+    padding: 0 2px">${ amount }</span>
+</div>
+</%def>

@@ -1,0 +1,70 @@
+<%inherit file="/base.html" />
+<%namespace name="utils" file="/settings/utils.html" />
+<%!
+    from vilya.models.consts import NOTIFY_ON
+%>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/settings/notification.js')}"></script>
+</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/my-settings.css')}" />
+</%def>
+
+<%def name="title()">Notification</%def>
+
+${utils.personal_settings_submenu("notification")}
+
+<div class="raw">
+    <div class="span12">
+        <div class="settings-content">
+        <div class="mod">
+            <div id="settings-notifications" class="">
+                <h4>Participating</h4>
+                <p>
+                    When you participate in a discussion or someone brings you in with an
+                    <a href="https://github.com/blog/821" class="user-mention">@mention</a>.
+                </p>
+                <ul class="compact-options">
+                    <li class="checkbox-container">
+                        <input id="participating_web" name="participating_web" tabindex="2" type="checkbox" value="participating_web" ${"checked" if user.settings.participating_web == NOTIFY_ON else ''} disabled>
+                        <label for="participating_web" class="checkbox checked"> Web<span class="label default">Default</span></label>
+                    </li>
+                    <li class="checkbox-container">
+                        <input id="participating_email" name="participating_email" tabindex="2" type="checkbox" value="participating_email" ${"checked" if user.settings.participating_email == NOTIFY_ON else ''}>
+                        <label for="participating_email" class="checkbox checked">Email</label>
+                    </li>
+                    <li class="checkbox-container">
+                        <input id="participating_irc" name="participating_irc" tabindex="2" type="checkbox" value="participating_irc" ${"checked" if user.settings.participating_irc == NOTIFY_ON else ''}>
+                        <label for="participating_irc" class="checkbox checked">IRC</label>
+                    </li>
+                </ul>
+                <hr class="horizontal_line">
+                <h4>Watching</h4>
+                <p>
+                    Updates to any repositories or threads you’re
+                    <a href="/watching">watching</a>.
+                </p>
+                <ul class="compact-options">
+                    <li class="checkbox-container">
+                        <input id="watching_web" name="watching_web" tabindex="2" type="checkbox" value="watching_web" ${"checked" if user.settings.watching_web == NOTIFY_ON else ''} disabled>
+                        <label for="watching_web" class="checkbox checked">Web<span class="label default">Default</span></label>
+                    </li>
+                    <li class="checkbox-container">
+                        <input id="watching_email" name="watching_email" tabindex="2" type="checkbox" value="watching_email" ${"checked" if user.settings.watching_email == NOTIFY_ON else ''}>
+                        <label for="watching_email" class="checkbox checked">Email</label>
+                    </li>
+                    <li class="checkbox-container">
+                        <input id="watching_irc" name="watching_irc" tabindex="2" type="checkbox" value="watching_irc" ${"checked" if user.settings.watching_irc == NOTIFY_ON else ''}>
+                        <label for="watching_irc" class="checkbox checked">IRC</label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

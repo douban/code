@@ -1,0 +1,191 @@
+@import "css/mod/common";
+@import "css/mod/team-header";
+@import "css/mod/drop-down-list";
+
+.columns {
+    display: block;
+    &:after {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+    &.equacols .column {
+        width: 520px;
+        float: left;
+    }
+}
+
+.equacols {
+    .column>.fieldgroup:first-child {
+        margin-top: 0;
+    }
+    .fieldgroup .fields {
+        text-align: center;
+        background-image: url("");
+    }
+}
+.fieldgroup {
+    position: relative;
+    margin-top: 10px;
+    width: 440px;
+    .fields {
+        margin: 10px 0 0 0;
+        padding: 10px;
+        background: url("") 0 0 no-repeat;
+    }
+    h2 {
+        margin: 15px 0 0 0;
+        font-size: 18px;
+        font-weight: normal;
+        color: #666;
+    }
+}
+ul.fieldpills {
+    position: relative;
+    margin: 0;
+    li {
+        position: relative;
+        list-style-type: none;
+        margin: 3px 0;
+        min-height: 24px;
+        line-height: 24px;
+        padding: 4px 5px;
+        background: #eee;
+        font-size: 12px;
+        font-weight: bold;
+        color: #333;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+    }
+    &.usernames li img {
+        margin-right: 2px;
+        padding: 1px;
+        background: #fff;
+        border: 1px solid #ddd;
+        vertical-align: middle;
+    }
+}
+a {
+    text-decoration: none;
+    &.action {
+        color: #d00;
+        text-decoration: underline;
+    }
+}
+.team-setting {
+    input[type="text"] {
+        min-height: 34px;
+        padding: 7px 8px;
+        outline: none;
+        color: #333;
+        background-color: #fff;
+        background-repeat: no-repeat;
+        background-position: right center;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        transition: all 0.15s ease-in;
+        -webkit-transition: all 0.15s ease-in 0;
+        vertical-align: middle;
+    }
+}
+.add-pill-form {
+    margin-top: 15px;
+    padding: 4px 5px;
+    background: #f5f5f5;
+    font-size: 12px;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    position: relative;
+    height: 40px;
+    input[type=text] {
+        font-size: 14px;
+        width: 350px;
+        padding: 2px 5px;
+        color: #666;
+        width: 332px;
+        margin-bottom: 1px;
+    }
+}
+.autocomplete-results {
+    display: none;
+    position: absolute;
+    max-height: 20em;
+    list-style: none;
+    background: #fff;
+    border: 1px solid #c1c1c1;
+    border-radius: 3px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    overflow-y: auto;
+    font-size: 13px;
+    z-index: 99;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.autocomplete-group {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 0 0 3px 3px;
+    &:first-child {
+        border-radius: 3px;
+    }
+}
+.button, .minibutton {
+    position: relative;
+    display: inline-block;
+    padding: 7px 15px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #333;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.9);
+    white-space: nowrap;
+    background-color: #eaeaea;
+    background-image: -moz-linear-gradient(#fafafa, #eaeaea);
+    background-image: -webkit-linear-gradient(#fafafa, #eaeaea);
+    background-image: linear-gradient(#fafafa, #eaeaea);
+    background-repeat: repeat-x;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    border-bottom-color: #c5c5c5;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.075);
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-appearance: none;
+}
+.minibutton {
+    padding: 0 10px;
+    line-height: 24px;
+    box-shadow: none;
+}
+.button:hover, .button:active, .minibutton:hover, .minibutton:active {
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+    background-color: #3072b3;
+    background-image: -moz-linear-gradient(#599bcd, #3072b3);
+    background-image: -webkit-linear-gradient(#599bcd, #3072b3);
+    background-image: linear-gradient(#599bcd, #3072b3);
+    background-repeat: repeat-x;
+    border-color: #2a65a0;
+}
+.team-setting-item {
+    margin-top: 15px;
+    border-radius: 5px;
+    h2 {
+        margin: 15px 0 15px 0;
+        font-size: 18px;
+        font-weight: normal;
+        color: #666;
+    }
+}

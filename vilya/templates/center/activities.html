@@ -1,0 +1,36 @@
+<%inherit file="/base.html"/>
+
+<%def name="head_style()">
+  <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+  <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+  <link rel="stylesheet" type="text/css" href="${static('/css/app/center-activity.css')}"/>
+</%def>
+
+<%def name="title()">CODE Center</%def>
+
+<div class="row">
+    <div class="span2">
+        <ul class="nav nav-tabs nav-stacked">
+            <li ${"class=active" if type is None else ''}><a href="?page=${page}">All</a></li>
+            <li ${"class=active" if type == '1' else ''}><a href="?type=1&page=${page}">Deployment</a></li>
+            <li ${"class=active" if type == '2' else ''}><a href="?type=2&page=${page}">Monitor</a></li>
+            <li ${"class=active" if type == '3' else ''}><a href="?type=3&page=${page}">Statistic</a></li>
+            <li ${"class=active" if type == '4' else ''}><a href="?type=4&page=${page}">Configuration</a></li>
+        </ul>
+    </div>
+    <div class="span10">
+        % for a in activities:
+        <div class="mod" style="margin-bottom: 0;">
+            <h4><a href="/hub/center/${a.url}">${a.title}</a></h4>
+            <p>${a.short_description}</p>
+        </div>
+        % endfor
+        <%
+            href = '?page=%s'
+            if type:
+                href='?type=%s&page=%%s' % type
+        %>
+        <%include file="/widgets/paginator.html", args="href=href, current=page, total=n_pages" />
+    </div>
+</div>

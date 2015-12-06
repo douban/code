@@ -1,0 +1,64 @@
+<%inherit file="/base.html" />
+<%!
+    from vilya.models.project import CodeDoubanProject
+%>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/mirrors.css')}" />
+</%def>
+
+<%def name="title()">Mirror Projects</%def>
+
+<div class="container">
+    <div class="span12">
+        <div class="mod">
+            <h3>
+                Mirror Projects(${len(your_projects)})
+            </h3>
+            <ul class="project-list">
+                %for proj in your_projects:
+                ${project_item(proj)}
+                %endfor
+            </ul>
+        </div><!-- /.mod -->
+    </div><!-- /.span12 -->
+</div><!-- /.container -->
+
+<%def name="project_item(project)">
+  <%
+  is_forked = (project.fork_from is not None)
+  forked_project = project.get_forked_from() if is_forked else None
+  forked_cnt = CodeDoubanProject.get_forked_count(project.id)
+  watched_cnt = CodeDoubanProject.get_watched_count(project.id)
+  last_updated = ''
+  %>
+  <li class="project-item ${'bs-docs-fork' if is_forked else 'bs-docs-project'}">
+    <ul class="project-stats pull-right">
+      <li><i class="icon-eye-open"></i> ${watched_cnt}</li>
+      <li><i class="icon-random"></i> ${forked_cnt}</li>
+    </ul>
+    <h4 class="project-title">
+      <i class="${'icon-random' if is_forked else 'icon-leaf'}"></i>
+      <a href="/${project.name}/">${project.name}</a>
+    </h4>
+    %if is_forked and isinstance(forked_project, CodeDoubanProject):
+      <small class="forked-flag">
+        forked from <a href="/${forked_project.name}/">${forked_project.name}</a>
+      </small>
+    %endif
+    <div class="body">
+      <p class="summary">
+        ${project.summary}
+      </p>
+      %if last_updated:
+      <small class="muted">
+        Last updated <time class="js-relative-date updated" datetime="${last_updated}" title="${last_updated}">${last_updated}</time>
+      </small>
+      %endif
+      <div class="commit-graph" id="graph-${project.id}" data-source="/${project.name}/graph/commits"></div>
+    </div>
+    </li>
+</%def>

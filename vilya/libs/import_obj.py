@@ -1,6 +1,7 @@
-#coding:utf-8
+# coding:utf-8
 
 __import_obj_local__ = {}
+
 
 class import_obj(object):
 
@@ -44,8 +45,10 @@ class import_obj(object):
     def __nonzero__(self):
         return bool(self._real)
 
+
 def import_obj_set(key, value):
     __import_obj_local__[key].__dict__["_real"] = value
+
 
 if __name__ == "__main__":
     c = import_obj("c")

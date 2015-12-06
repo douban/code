@@ -1,0 +1,70 @@
+<%!
+    from vilya.views.uis.board import get_ticket_link
+    from vilya.models.user import User
+%>
+<%!
+%>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Ticket Board - ${ project_name }</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link href="/static/css/board.css" type="text/css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="wrap">
+      <div id="header">
+        <h1 class="title">${ project_name }</h1>
+        <p></p>
+      </div>
+      <div id="content">
+      % if tickets:
+        % for status, tkts in tickets:
+            <section>
+              <h2 class="list_name">${status}</h2>
+              % for tkt in tkts:
+                <% tkt_info = tkt.values %>
+                <div class="grBox">
+                  <h4 class="title">${tkt_info['summary']}</h4>
+                </div>
+                <div class="rBox">
+                  <p>
+                    ${ get_ticket_link(project_name, tkt_info['description']) or '...'}
+                    <a target="_blank" href="../ticket/${tkt.id}" title="跳转到 Ticket 查看详情">
+                      <i class="icon-share-alt "></i>
+                    </a>
+                  </p>
+                  <div class="card_members">
+                    <%
+                       member_ids = []
+                       owner, reporter, cc = tkt_info['owner'], tkt_info['reporter'], tkt_info['cc'].split(',')
+                       if owner != 'somebody':
+                           member_ids.append(owner)
+                       if reporter:
+                           member_ids.append(reporter)
+                       if len(cc) > 1:
+                           member_ids.extend(cc)
+                    %>
+                    % for member_id in set(member_ids):
+                      <div class="member">
+                        <img src="${User(member_id).avatar_url}" width="30" height="30">
+                      </div>
+                    % endfor
+                  </div>
+                </div>
+              % endfor
+            </section>
+        % endfor
+        <div style="clear:both;"></div>
+      % else:
+        <div class="note">
+          <p>这个项目还没有数据</p>
+        </div>
+      % endif
+      </div>
+    </div>
+    <div id="back_proj">
+      <a href="../"> 返回 ${project_name} </a>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,68 @@
+#toc li {
+    border-bottom: 1px solid #DDD;
+    list-style-type: none;
+    padding: 5px;
+}
+
+#toc {
+    margin: 15px 0;
+}
+
+#toc .diffstat {
+    float: right;
+}
+#toc .mini-icon-modified {
+    color: #677A85;
+}
+
+span.diffstat {
+    white-space: nowrap;
+    text-align: right;
+    font-family: Helvetica,arial,freesans,clean,sans-serif;
+    color: #666;
+    font-weight: bold;
+    font-size: 11px;
+}
+span.diffstat a {
+    text-decoration: none;
+    color: #666;
+}
+span.diffstat .diffstat-bar {
+    position: relative;
+    left: -3px;
+    display: inline-block;
+    height: 12px;
+    text-decoration: none;
+    text-align: left;
+    color: #EEE;
+    font-family: 'Octicons Regular';
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    text-decoration: inherit;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    letter-spacing: -7px;
+}
+span.diffstat .diffstat-bar.diff-added,
+span.diffstat .diffstat-bar i.plus {
+    color: #61C423;
+    font-style: normal;
+}
+span.diffstat .diffstat-bar.diff-added,
+span.diffstat .diffstat-bar i.minus {
+    color: #C52323;
+    font-style: normal;
+}
+
+p.explain {
+    font-size: 12px;
+    color: #666;
+    margin: 1em 0;
+}
+
+p.explain .minibutton {
+    float: right;
+    top: -4px;
+}

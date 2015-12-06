@@ -1,0 +1,25 @@
+.raw { overflow: visible }
+div.helpop {
+    float: right;
+    width:137px; height:140px;
+    margin-top: -140px;
+    margin-right: 20px;
+    overflow:hidden; position:relative;
+}
+div.helpop .popic {
+    display:block;
+    position:absolute;
+    bottom:-115px;
+    -webkit-transition: all 300ms ease-out;
+    -moz-transition: all 300ms ease-out;
+    -o-transition: all 300ms ease-out;
+    -ms-transition: all 300ms ease-out;
+}
+
+div.helpop:hover .popic {
+    bottom:-10px;
+    -webkit-transition: all 300ms ease-out;
+    -moz-transition: all 300ms ease-out;
+    -o-transition: all 300ms ease-out;
+    -ms-transition: all 300ms ease-out;
+}

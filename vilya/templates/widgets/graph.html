@@ -1,0 +1,46 @@
+<%def name="contributors(data, project)">
+    <%
+        from vilya.libs.text import gravatar_url, email_normalizer
+    %>
+    <ul style="padding: 12px 12px 12px 13px;">
+        %for author_name, author_data in data.authors.iteritems():
+            <%
+                name = author_data['email'].split('@')[0]
+                email = email_normalizer(name, author_data['email'])
+            %>
+            <li style="display:inline;">
+            <a href="/${project.name}/commits/master/?author=${author_name}"><img class='contributor' data-commits="${author_data['commits']}" data-added="${author_data['lines_added']}" data-removed="${author_data['lines_removed']}" src="${gravatar_url(email)}" width="47" height="47" data-trigger="hover"></a>
+            </li>
+        %endfor
+    </ul>
+</%def>
+
+
+<%def name="committers(project)">
+
+  <%def name="user_block(u)">
+
+    % if u.name in data.authors:
+      <% lines_added = data.authors[u.name]['lines_added'] %>
+      <% lines_removed = data.authors[u.name]['lines_removed'] %>
+    % else:
+      <% lines_added = 0 %>
+      <% lines_removed = 0 %>
+    % endif
+    <li style="display:inline; white-space: nowrap;">
+    <a href="${u.url}">
+      <img class='contributor' src="${u.avatar_url}" alt="${u.name}" data-added="${lines_added}" data-removed="${lines_removed}" title="${u.name}" width="24" height="24">
+      ${u.name}
+    </a>
+    </li>
+  </%def>
+
+  <ul style="padding: 10px;">
+    ${user_block(project.owner)}(owner)
+    %for user in project.committers:
+      % if user.name != project.owner.name:
+        ${user_block(user)}
+      % endif
+    %endfor
+  </ul>
+</%def>

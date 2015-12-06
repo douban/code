@@ -1,0 +1,15 @@
+<%namespace name="pjax" file="/widgets/pjax_source.html" />
+<%namespace name="tree_render" file="/widgets/tree.html" />
+% if not is_empty:
+    ${pjax.lastcommit_bar(project, ref_type, ref, lastcommit)}
+    ${pjax.breadcrumb(project, ref, path_breadcrumb)}
+    ${tree_render.tree_files(tree_path, ref, tree)}
+    ## ${pjax.tree_block(tree)}
+    % if readme_content:
+        ${pjax.readme_block(file_name, readme_content)}
+    % endif
+% else:
+    <div class="span12">
+        <span id="emptyrepo-hint">You appear to be browsing an empty repository.</span>
+    </div>
+% endif

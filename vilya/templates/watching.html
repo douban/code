@@ -1,0 +1,56 @@
+<%inherit file="/base.html" />
+<%namespace name="utils" file="/utils.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/watching.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/watching/main.js')}"></script>
+</%def>
+
+<%def name="title()">Watched Repositories</%def>
+
+${utils.personal_submenu("watching")}
+
+<div class="raw">
+    <div class="span12">
+        <div class="settings-content">
+        <div class="mod">
+            ${show_watched_projects(watched_projects)}
+        </div>
+        </div>
+    </div>
+</div>
+
+<%def name="show_watched_projects(watched_projects)">
+    %if len(watched_projects) > 1:
+        <div class="nav nav-tabs nav-stacked">
+              <div class="top-bar">
+                  Watched Projects(
+                  <span class="counts-label" id="watched-count">
+                      ${len(watched_projects)}
+                  </span>
+                  )
+              </div>
+              <hr class="horizontal_line">
+              <ul class="nav nav-list">
+              %for proj in watched_projects:
+                %if proj:
+                <li class="inline-list">
+                    <a href="/${proj.name}" class="item">${proj.name}</a>
+                    <a class="btn unwatch watch-btn" proj_id=${proj.id}>
+                        <i class="icon-eye-open"></i>
+                        Unwatch
+                    </a>
+                </li>
+                %endif
+              %endfor
+              </ul>
+              <div class="bottom-bar"></div>
+        </div>
+    %endif
+</%def>

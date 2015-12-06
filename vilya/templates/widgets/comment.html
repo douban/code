@@ -1,0 +1,36 @@
+<%!
+    from vilya.libs.text import gravatar_url
+%>
+
+## used by compare
+<%def name="comments_bucket(project, comments)">
+    <div class="new-comments">
+        <p class="explain">Showing you all comments on commits in this comparison.</p>
+        % for comment in comments:
+            <div class="avatar-bubble">
+                <span class="avatar"><img height="48" src="${gravatar_url(comment.author)}" width="48" /></span>
+                <div class="bubble">
+                    <div class="comment normal-comment">
+                        <div class="cmeta">
+                            <p class="author">
+                                <span class="mini-icon mini-icon-commit-comment"></span>
+                                <strong class="author"><a href="/people/${comment.author}">${comment.author}</a></strong>
+                            <em class='action-text'><a href="">commented on <code><a href='/${project.name}/commit/${comment.ref}'>${comment.ref[:8]}</a></code></a></em>
+                            </p>
+                            <p class="info">
+                                <em class="date"><a href=""><time class="js-relative-date" datetime="" title="${comment.created}">${comment.created}</time></a></em>
+                            </p>
+                        </div>
+                        <div class="body">
+                            <div class="formatted-content">
+                                <div class="content-body markdown-body markdown-format">
+                                    <p>${comment.content}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        % endfor
+    </div>
+</%def>

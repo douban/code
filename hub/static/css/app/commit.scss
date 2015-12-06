@@ -1,0 +1,23 @@
+@import "css/mod/common";
+
+@import "css/mod/project-info";
+@import "css/mod/pull-highlight";
+@import "css/mod/commits";
+@import "css/mod/file-diff-blob";
+@import "css/mod/comment-form";
+@import "css/mod/markdown-content";
+@import "css/mod/inline-comment";
+@import "css/mod/user-card";
+@import "css/mod/team-card";
+@import "css/mod/quick-emoji";
+@import "css/mod/comment";
+
+.quick-emoji .emojis {
+    height: 120px;
+}
+
+#files .comment p {
+    padding: 5px;
+    margin: 0;
+    //color:#333;
+}

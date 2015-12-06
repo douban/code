@@ -1,0 +1,42 @@
+<%def name="render(page, pages, search_url)">
+<%
+SHOWALLNUM = 8
+SHOWNUM = 5
+SHOWMIDNUM = 3        
+page_list = []
+if page != 1:
+    page_list = [(u'Prev', page - 1)]
+if SHOWALLNUM >= pages:
+    for i in xrange(1, pages + 1):
+        page_list += [(i, i)]
+elif SHOWNUM >= page:
+    for i in range(1, SHOWNUM + 3):
+        page_list += [(i, i)]
+    page_list += [('...', '#'), (pages, pages)]
+elif pages - SHOWNUM < page:
+    page_list += [(1, 1), ('...', '#')]
+    for i in range(pages - SHOWNUM - 1, pages + 1):
+        page_list += [(i, i)]
+else:
+    page_list += [(1, 1), ('...', '#')]
+    for i in range(page - SHOWMIDNUM, page + SHOWMIDNUM + 1):
+        page_list += [(i, i)]
+    page_list += [('...', '#'), (pages, pages)] 
+if pages != page:
+    page_list += [(u'Next', page + 1)]
+
+%>
+%if pages > 1:
+<div class="pagination">
+  %for num, url in page_list:
+    %if num == page:
+      <span class="current">${ num }</span>
+    %elif num == '...':
+      <span class="page">...</span>
+    %else:
+      <a class="pager_link" href="${ '%s&page=%s' % (search_url, url) }">${ num }</a>
+    %endif
+  %endfor
+</div>
+%endif
+</%def>

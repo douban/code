@@ -1,0 +1,76 @@
+## PR merge guide widget
+
+<div class="merge-pr">
+
+    % if auto_mergable:
+        <%
+            if latest_commit_status and latest_commit_status.state == 'pending':
+                st = 'dirty'
+            elif latest_commit_status and latest_commit_status.state != 'success':
+                st = 'error'
+            else:
+                st = 'clean'
+        %>
+
+        <div class="merge-branch mergeable-${st}" data-mst="${st}">
+            <div class="mergeable clean">
+                % if latest_commit_status:
+                    <div>
+                        <strong>${latest_commit_status.state}</strong>
+                        -- ${latest_commit_status.description}
+                        (<a target="_blank" href="${latest_commit_status.target_url}">Detail</a>)
+                    </div>
+                % endif
+
+                % if show_merge_btn:
+                    <a href="javascript:void(0);" id="merge-pr-confirm-btn" class="green minibutton js-details-target">
+                        <span class="mini-icon mini-icon-merge"></span>Merge pull request
+                    </a>
+                % endif
+
+                <p class="message">
+                    % if pullreq.is_up_to_date():
+                        Branch ${pullreq.to_branch} is already up-to-date with ${pullreq.from_branch}!
+                    % elif latest_commit_status and latest_commit_status.state != 'success':
+                        Merge with caution!
+                    % else:
+                        This pull request can be automatically merged.
+                    % endif
+                    % if not can_fastforward:
+                        <span style="float:right">
+                            Not updated with upstream/master
+                        </span>
+                    % endif
+                </p>
+
+            </div>
+            <form action="/${project}/pull/${pullreq.ticket_id}/merge" class="merge-form js-merge-pull-request js-discussion-update" data-remote="true" method="post">
+                <div class="commit-preview">
+                    <div class="author">
+                        <div class="gravatar">
+                            <img height="30" src="${user.avatar_url}" width="30">
+                        </div>
+                    </div>
+                    <div class="message">
+                        <pre>${"Merge pull request #%s from %s:%s" % (pullreq.ticket_id, pullreq.from_proj, pullreq.from_ref)}</pre>
+                        <textarea name="commit_message">${ticket.title}</textarea>
+                    </div>
+                </div>
+                <div class="mergeable merging clearfix">
+                    <button type="submit" class="minibutton blue">Confirm Merge</button>
+                    <a href="javascript:void(0);" id="merge-pr-cancel-btn" class="minibutton blue js-details-target">Cancel</a>
+                    <p class="merge-error-message js-merge-error-message"></p>
+                </div>
+            </form>
+        </div>
+    % else:
+        <div class="merge-branch mergeable-error">
+            <div class="mergeable dirty">
+                <div class="shade"></div>
+                <p class="message">
+                    This pull request cannot be automatically merged.
+                </p>
+            </div>
+        </div>
+    % endif
+</div>

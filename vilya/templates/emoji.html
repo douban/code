@@ -1,0 +1,23 @@
+<%!
+    from vilya.libs.emoji import EMOJIS, parse_emoji
+%>
+
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+  <head>
+    <link rel="stylesheet" type="text/css" href="/static/css/emoji.css" />
+    <style>
+      body { width:600px; height:550px; padding:15px }
+      .pair { float:left; width:150px; margin-bottom:7px }
+      .pair .emoj { float:left }
+      .pair .orig { margin-left: 25px }
+    </style>
+  </head>
+  <body>
+    % for e in EMOJIS:
+    <div class="pair">
+      <div class="emoj">${parse_emoji(e) | n}</div><div class="orig">${e}</div>
+    </div>
+    % endfor
+  </body>
+</html>

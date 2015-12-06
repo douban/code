@@ -1,0 +1,73 @@
+<%inherit file="/base.html"/>
+
+<%def name="head_style()">
+  <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+  <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css">
+  <link rel="stylesheet" type="text/css" href="${static('/css/app/chat.css')}"/>
+</%def>
+
+<%def name="bottom_script()">
+  <script src="${static('/js/app/chat/main.js')}"></script>
+</%def>
+
+<%def name="title()">CodeChat</%def>
+<div class="container-fluid">
+  <div class="alert alert-error" style="display:none">
+    <button type="button" data-dismiss="alert" class="close">&times;</button>
+    <strong>Error!</strong> Room doesn't exist, redirect to lobby.
+  </div>
+  <div class="pagehead">
+    <h2>CodeChat</h2>
+    <div class="metanav rooms-right">
+        <div class="add_room">
+          <a href="/hub/chat/add_room" class="btn btn-success">new room</a>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="row-fluid">
+    <div class="span2">
+      <ul class="mod all_rooms nav nav-tabs nav-stacked">
+          <li class="">
+            <a href="#lobby" class="js-join-room">
+              <i class="icon-home"></i>
+              <span data-name="lobby" data-owner="">Lobby</span>
+            </a>
+          </li>
+          % for room in all_rooms:
+          <li class="">
+          <a href="#${room.name}" class="js-join-room">
+              <i class="icon-comment"></i>
+              <span data-name="${room.name}">${room.name}</span>
+            </a>
+            % if user.username == room.owner:
+            <button data-name="${room.name}" class="close del-room">&times;</button>
+            % endif
+          </li>
+          % endfor
+      </ul>
+    </div>
+
+    <div class="span10">
+      <div class="message" id="lobby" style="display:none">
+      </div>
+      % for room in all_rooms:
+      <div class="message" id="${room.name}" style="display:none">
+      </div>
+      % endfor
+      <div class="message-input">
+          <form name="messageForm" id="message-form" action="/j/chat/lobby" method="post">
+            <table width="100%" cellspacing="0">
+              <tbody>
+                <tr>
+                  <td><textarea autocomplete="off" id="message_input" class="wikitext mousetrap" name="message"></textarea></td>
+                  <td width="1%"><input class="silver" id="send_message_button" type="submit" value="Send"></td>
+                </tr>
+             </tbody>
+           </table>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>

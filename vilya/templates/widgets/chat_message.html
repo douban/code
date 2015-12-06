@@ -1,0 +1,28 @@
+<%page args="message"/>
+
+<%namespace name="utils" file="/issue/utils.html"/>
+
+<%def name="show_message(message)">
+<%
+    from vilya.models.user import User
+    from vilya.libs.text import parse_emoji
+    user = User(message['author'])
+    message_content = parse_emoji(message['content']) if message['content'] else ''
+%>
+<div style="display:block">
+${utils.side_avatar(user)}
+<div class="dia_box">
+  <div class="dia_info">
+    <span class="info_date">${message['date']}</span>
+  </div>
+  <div class="dia_bg">
+    <div class="dia_content">
+      <b>${message['author']}:</b>
+      <p class="dia_txt">${message_content | n}</p>
+    </div>
+  </div>
+</div>
+</div>
+</%def>
+
+${show_message(message)}

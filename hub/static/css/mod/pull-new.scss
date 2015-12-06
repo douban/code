@@ -1,0 +1,233 @@
+.pull-heading .btn-change {
+	float: right;
+	margin: 9px 10px 0 0;
+}
+
+.editor-expander {
+	cursor: pointer;
+}
+
+.pull-head {
+	padding: 10px;
+	border: 1px solid whiteSmoke;
+	border-top: none;
+	border-bottom: 2px solid #EEE;
+	border-radius: 5px;
+}
+
+.pull-description {
+	font-size: 14px;
+	margin: 0;
+	color: #333;
+	font-weight: 300;
+}
+.pull-description a {
+	font-weight: bold;
+	color: black;
+}
+.pull-description .commit-ref {
+	margin: 0 3px;
+}
+
+.commit-ref {
+	padding: 2px 5px;
+	line-height: 19px;
+	font-family: Consolas,Menlo,"Liberation Mono",Courier,monospace;
+	font-size: 12px;
+	font-weight: normal;
+	color: white;
+	text-shadow: -1px -1px 0 black;
+	text-decoration: none;
+	background: #787878;
+	background: -moz-linear-gradient(#787878, #282828);
+	background: -webkit-linear-gradient(#787878, #282828);
+	border-radius: 3px;
+}
+.commit-ref .project {
+	font-weight: normal;
+	color: #CCC;
+}
+
+.range-editor {
+	margin: 15px 0 20px;
+	background: url("http://t.douban.com/img/files/file-1363274223.gif") 50% 80px no-repeat;
+}
+.range-editor .chooser-box {
+	float: left;
+	width: 420px;
+}
+.range-editor .chooser-box.head {
+	float: right;
+}
+.range-editor table.reposha {
+	margin: 15px 0 0 0;
+	width: 100%;
+}
+.range-editor .commit-preview .message,
+.range-editor .commit-preview p.error {
+	margin: 10px 0 0 0;
+	background: #F7F8F9;
+	border: 1px solid #DDD;
+	border-bottom: none;
+	border-radius: 3px;
+}
+.range-editor .form-actions {
+	margin: 10px 0 0;
+	text-align: right;
+	padding-bottom: 5px;
+	padding: 0;
+	background-color: inherit;
+	border-top: none;
+}
+
+.chooser-box {
+	padding: 0 10px 10px;
+	background: white;
+	background: -moz-linear-gradient(white, #F1F1F1);
+	background: -webkit-linear-gradient(white, #F1F1F1);
+	border: 1px solid #DDD;
+	border-radius: 5px;
+}
+.chooser-box h3 {
+	margin: 0 0 0 -10px;
+	width: 100%;
+	padding: 13px 10px 10px;
+	font-size: 16px;
+	line-height: 1.2;
+	color: #222;
+	text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+	background: #FBFBFB;
+	background: -moz-linear-gradient(#FBFBFB, #F2F2F2);
+	background: -webkit-linear-gradient(#FBFBFB, #F2F2F2);
+	border-top-left-radius: 5px;
+	border-bottom: 1px solid white;
+}
+.chooser-box .fakerule {
+	margin: 0 0 0 -10px;
+	width: 100%;
+	height: 1px;
+	padding: 0 10px;
+	font-size: 1px;
+	line-height: 1px;
+	background: #DDD;
+}
+
+.reposha td.repo {
+	width: 1%;
+	white-space: nowrap;
+}
+.reposha .repo .at {
+	padding-right: 5px;
+	color: #666;
+}
+.reposha .sha {
+	text-align: left;
+}
+.reposha input[type="text"] {
+	width: 98%;
+	font-family: Helvetica,arial,freesans,clean,sans-serif;
+	font-size: 12px;
+	line-height: 20px;
+	color: #444;
+}
+
+/* following commit-preview styles are also used in commits.html */
+
+.commit-preview {
+	margin: 10px 0 0 0;
+	font-size: 11px;
+}
+.commit-preview p.name {
+	margin: 0;
+	height: 20px;
+	line-height: 20px;
+	font-size: 12px;
+	color: #5B6375;
+}
+.commit-preview p.name .avatar {
+	float: left;
+	margin-right: 5px;
+	width: 16px;
+	height: 16px;
+	padding: 1px;
+	background: white;
+	border: 1px solid #CEDADF;
+}
+.commit-preview p.name a {
+	font-weight: bold;
+	color: black;
+}
+.commit-preview p.name .date {
+	color: #5B6375;
+}
+.commit-preview .message,
+.commit-preview p.error {
+	clear: both;
+	padding: 5px;
+	background: #EAF2F5;
+	border: 1px solid #BEDCE7;
+}
+.commit-preview .message pre {
+	font-size: 11px;
+	color: #333;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	border: none;
+}
+.commit-preview .message p.commit-id {
+	margin: 5px 0 0 0;
+	padding: 0;
+	font-family: Consolas,Menlo,"Liberation Mono",Courier,monospace;
+	font-size: 11px;
+}
+
+.new-pull-request .pull-tabs {
+	clear: both;
+}
+
+.mini-icon-commit::before {
+	content: "\f01f";
+}
+.mini-icon-discussion::before {
+	content: "\f04f";
+}
+.mini-icon-diff::before {
+	content: "\f04d";
+}
+
+.pull-form {
+	margin: 0;
+}
+.pull-form input[type="text"] {
+	font-size: 14px;
+	padding: 5px 5px;
+	margin: 0 0 5px 0;
+	width: 98%;
+	color: #444;
+}
+.pull-form textarea {
+	height: 200px;
+}
+.pull-form .preview-content {
+	background: white;
+}
+
+.pull-form-main .form-actions {
+	padding: 0;
+	margin-top: 10px;
+	text-align: right;
+	padding-bottom: 5px;
+	background-color: inherit;
+	border-top: none;
+}
+
+.pull-dest-repo a {
+	font-size: 12px;
+	font-weight: bold;
+	padding: 5px 0;
+}
+.pull-dest-repo p {
+	font-size: 11px;
+	color: #999;
+	margin: 5px 0 15px 0;
+}

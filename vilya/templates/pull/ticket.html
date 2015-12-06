@@ -1,0 +1,157 @@
+<%inherit file="/base.html" />
+<%namespace name="utils" file="/pull/utils.html"/>
+<%namespace name="pagehead" file="/widgets/pagehead.mako" />
+<%namespace name="diffs_pane" file="/pull/diffs_pane.html"/>
+
+<%def name="title()">${ticket.title|n} · Pull Request #${ticket.ticket_id} · ${project.name}</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/ticket.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/pull/main.js')}"></script>
+</%def>
+
+<%!
+    ## remove this.
+    from models.user import User
+%>
+
+${pagehead.trac_header("pulls", project, user)}
+
+<%def name="repo_branch(repo, branch)">
+    <%
+        if repo:
+            branch_url = repo.url + 'tree/' + branch
+        else:
+            branch_url = ''
+    %>
+    <a href="${branch_url}">
+    <span class="commit-ref to editor-expander css-truncate expandable">
+        <span class="css-truncate-target user">
+            <span class="css-truncate-target">${repo}</span>
+        </span>
+        :
+        <span class="css-truncate-target">${branch}</span>
+    </span>
+    </a>
+</%def>
+
+<div class="pull-heading clearfix">
+    <div class="pull-head">
+        <div class="pull-description clearfix">
+            <span class="pull-state">
+                % if pullreq.merged:
+                <span class="state-indicator merged">Merged</span>
+                % elif ticket.closed:
+                <span class="state-indicator closed">Closed</span>
+                % else:
+                <span class="state-indicator open">Open</span>
+                % endif
+            </span>
+            <p>
+                % if pullreq.is_up_to_date() and not ticket.closed:
+                    Oops! The
+                    ${repo_branch(pullreq.to_proj, pullreq.to_branch)}
+                    branch is already up-to-date with
+                    ${repo_branch(pullreq.from_proj, pullreq.from_branch)}
+                    -- maybe you want to try something else?
+                    ${utils.related_time_html(ticket.time)}
+                % elif pullreq.merged:
+                    <% merge_by = User(pullreq.merge_by or project.owner.name) %>
+                    <a href="${merge_by.url}" class="user">
+                        <img src="${merge_by.avatar_url}" class="avatar tiny">${merge_by.name}
+                    </a>
+                    merged
+                    ${len(commits)} commits into
+                    ${repo_branch(pullreq.to_proj, pullreq.to_branch)}
+                    from
+                    ${repo_branch(pullreq.from_proj, pullreq.from_branch)}
+                    ${utils.related_time_html_(pullreq.merge_time)}
+                % elif ticket.closed:
+                    <% close_by = User(ticket.close_by or project.owner.name) %>
+                    <a href="${close_by.url}" class="user">
+                        <img src="${close_by.avatar_url}" class="avatar tiny">${close_by.name}
+                    </a>
+                    closed this PR
+                    ## TODO: ticket close time in model
+                    ${utils.related_time_html(ticket.time)}
+                % elif not show_merge_guide:
+                    <a href="${User(ticket.author).url}" class="user">
+                        <img src="${User(ticket.author).avatar_url}" class="avatar tiny">${ticket.author}
+                    </a>
+                    wants to merge
+                    ${len(commits)} commits into
+                    ${repo_branch(pullreq.to_proj, pullreq.to_branch)}
+                    from
+                    ${repo_branch(pullreq.from_proj, pullreq.from_branch)}
+                    ${utils.related_time_html(ticket.time)}
+                % else:
+                    You're asking to pull
+                    ${len(commits)} commits into
+                    ${repo_branch(pullreq.to_proj, pullreq.to_branch)}
+                    from
+                    ${repo_branch(pullreq.from_proj, pullreq.from_branch)}
+                    ${utils.related_time_html(ticket.time)}
+                % endif
+            </p>
+            <img src='${"/hub/beacon/pullrequest-%s-%s-no.gif/" % (project.name, pullreq.ticket_id) }' height='1' width='1'>
+        </div>
+    </div>
+</div>
+
+<!-- Error Message -->
+% if error:
+    <div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Error!</strong> ${error}
+    </div>
+% endif
+
+<!-- Tabs' Nav -->
+<div class="pull-nav tabnav">
+    <ul class="nav nav-tabs">
+        ## data-j-url
+        <li class="${'active' if not view else ''}">
+            <a href="#discussion-pane" data-toggle="tab" class="discussion-tab-link tabnav-tab"
+                data-url="${'/%s/pull/%s/' % (project.name, pullreq.ticket_id)}"
+                data-j-url="${'/%s/pull/%s/discussion_tab' % (project.name, pullreq.ticket_id)}"
+                data-tab-container="discussion-pane">
+                <span class="mini-icon mini-icon-discussion"></span> Discussion
+            </a>
+        </li>
+        <li class="${'active' if view=='commits' else ''} hidden-phone">
+            <a href="#commits-pane" data-toggle="tab" class="commits-tab-link tabnav-tab"
+                data-url="${'/%s/pull/%s/commits' % (project.name, pullreq.ticket_id)}"
+                data-j-url="${'/%s/pull/%s/commits_tab' % (project.name, pullreq.ticket_id)}"
+                data-tab-container="commits-pane">
+                <span class="mini-icon mini-icon-commit"></span> Commits
+                <span class="counter">${len(commits)}</span>
+            </a>
+        </li>
+        <li class="${'active' if view=='files' else ''}">
+            <a href="#files-pane" data-toggle="tab" class="diffs-tab-link tabnav-tab"
+                data-url="${'/%s/pull/%s/files' % (project.name, pullreq.ticket_id)}"
+                data-j-url="${'/%s/pull/%s/files_tab%s' % (project.name, pullreq.ticket_id, '?w=1' if ignore else '')}"
+                data-tab-container="files-pane">
+                <span class="mini-icon mini-icon-diff"></span> Files Changed
+                <span class="counter">${diff_length if diff_length else 0}</span>
+            </a>
+        </li>
+        <%namespace name="mute" file="/widgets/mute.html" />
+        ${mute.mute_button('ticket', project.name, ticket.ticket_id, request.user)}
+        ${mute.watch_ci_button()}
+    </ul>
+</div>
+
+<!-- Tabs' Contents -->
+<div class="pullrequest tab-content pull-tab-content">
+    <div class="tab-pane ${'active' if not view else ''}" id="discussion-pane"></div>
+    <div class="tab-pane ${'active' if view=='commits' else ''}" id="commits-pane" data-url="$commits_pane_url"></div>
+    <div class="tab-pane ${'active' if view=='files' else ''}" id="files-pane" data-url="$diffs_pane_url"></div>
+    <div class="loader"><div class="spinner"></div></div>
+</div>
+
+${diffs_pane.bottom_template()}

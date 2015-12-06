@@ -1,0 +1,223 @@
+@import "css/mod/common";
+img {
+    border: 0;
+    -ms-interpolation-mode: bicubic;
+}
+.cf {
+    zoom: 1;
+    &:before {
+        content: "";
+        display: table;
+    }
+    .cf:after {
+        clear: both;
+        content: "";
+        display: table;
+    }
+}
+ul {
+    list-style: none;
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+h3 {
+    font-family: "MuseoSans-500", arial, sans-serif;
+}
+h2 {
+    display: block;
+    font-size: 1.5em;
+    -webkit-margin-before: 0.83em;
+    -webkit-margin-after: 0.83em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+}
+.featured-team-list {
+    width:940px;
+    a {
+        text-decoration: none;
+    }
+    &>li {
+        text-align: -webkit-match-parent;
+        display: inline-block;
+        vertical-align: top;
+        width: 450px;
+        margin-left: 32px;
+        margin-bottom: 30px;
+        background: #fff;
+        border: 1px solid #c1ccd4;
+        position: relative;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        -o-border-radius: 4px;
+        border-radius: 4px;
+        .image {
+            height: 150px;
+            line-height: 150px;
+            text-align: center;
+            img {
+                max-width: 100%;
+                max-height: 100%;
+                vertical-align: middle;
+            }
+        }
+        header {
+            border-bottom: solid 1px #eaeaea;
+            display: block;
+            h2 {
+                font-size: 1.5em;
+                margin-bottom: 3px;
+                color: #343131;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -o-text-overflow: ellipsis;
+                -ms-text-overflow: ellipsis;
+                height: 22px;
+                margin-top: 1px;
+                line-height: 20px;
+            }
+            h3 {
+                font-size: 1.0em;
+                color: #5d5d5d;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -o-text-overflow: ellipsis;
+                -ms-text-overflow: ellipsis;
+                height: 16px;
+                margin-top: 1px;
+                margin-bottom: 1px;
+                line-height: 20px;
+            }
+            .avatar {
+                float: left;
+                margin-right: 15px;
+                img {
+                    display: block;
+                    width: 39px;
+                    height: 39px;
+                    -webkit-border-radius: 4px;
+                    -moz-border-radius: 4px;
+                    -ms-border-radius: 4px;
+                    -o-border-radius: 4px;
+                    border-radius: 4px;
+                }
+            }
+        }
+        .team-link {
+            display: block;
+            padding: 20px;
+            height: 40px;
+            -webkit-transform: translate3d(0, 0, 0);
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: subpixel-antialiased;
+            -moz-font-smoothing: subpixel-antialiased;
+            font-smoothing: subpixel-antialiased;
+            -webkit-transition: all 0.2s ease-out;
+            -moz-transition: all 0.2s ease-out;
+            -ms-transition: all 0.2s ease-out;
+            -o-transition: all 0.2s ease-out;
+            transition: all 0.2s ease-out;
+            -webkit-border-top-left-radius: 4px;
+            -webkit-border-top-right-radius: 4px;
+            -moz-border-radius-topleft: 4px;
+            -moz-border-radius-topright: 4px;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+        .hiring-ribbon {
+            position: absolute;
+            z-index: 100;
+            width: 76px;
+            height: 77px;
+            top: -6px;
+            right: -5px;
+            background: url('/static/img/join_team.png') no-repeat;
+            span {
+                display: none;
+            }
+        }
+        &:nth-child(odd) {
+            margin-left: 0;
+        }
+        .content {
+            padding: 20px;
+            -webkit-box-shadow: inset 0px 0px 2px 2px #ffffff;
+            box-shadow: inset 0px 0px 2px 2px #ffffff;
+            background: url('/static/img/team_paper_texture.jpg') repeat;
+            -webkit-border-bottom-left-radius: 4px;
+            -webkit-border-bottom-right-radius: 4px;
+            -moz-border-radius-bottomleft: 4px;
+            -moz-border-radius-bottomright: 4px;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+        footer {
+            border-top: solid 1px #eaeaea;
+            padding-top: 20px;
+            height: 26px;
+            .more-members {
+                float: right;
+                width: 24px;
+                height: 24px;
+                line-height: 26px;
+                text-align: center;
+                border: 1px solid #eaeaea;
+                background: #eaeaea;
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                -ms-border-radius: 4px;
+                -o-border-radius: 4px;
+                border-radius: 4px;
+            }
+            .members {
+                float: right;
+                margin-right: 10px;
+                margin-top: 0px;
+                li {
+                    float: left;
+                    margin-left: 10px;
+                    a {
+                        display: block;
+                        width: 26px;
+                        height: 26px;
+                        overflow: hidden;
+                        -webkit-border-radius: 4px;
+                        -moz-border-radius: 4px;
+                        -ms-border-radius: 4px;
+                        -o-border-radius: 4px;
+                        border-radius: 4px;
+                        img {
+                            width: 26px;
+                            height: 26px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.pagehead {
+    h2 {
+        margin: 0;
+        font-size: 30px;
+        line-height: 36px;
+        float: left;
+    }
+    .teams-right {
+         float: right;
+         width: 100px;
+    }
+}
+.add_team {
+    float: left;
+    margin-right: 5px;
+}
+.clearfix {
+    display: block;
+}

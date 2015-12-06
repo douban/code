@@ -1,0 +1,42 @@
+## FIXME: page args 参数不一致
+<%namespace name="inline_comment_form" file="/widgets/diff/inline_comment_form.html" />
+<%namespace name="utils" file="/pull/utils.html"/>
+<%namespace name="diff_render" file="/widgets/diff/diff.html"/>
+
+<%
+     MAX_DIFFS_SHOWN_COUNT = 2000
+%>
+
+% if diff and diff.length > 0:
+    <!-- diff -->
+    % if request.is_mobile:
+    <div class="raw" style="width:100%">
+    % else:
+    <div class="raw">
+    % endif
+        <div id="diff" class="span12">
+            % if diff.length > MAX_DIFFS_SHOWN_COUNT:
+                <div class="diff-cutoff">
+                    This diff is big! We're showing status information only for the first ${MAX_DIFFS_SHOWN_COUNT} files.
+                </div>
+            % endif
+
+            ${diff_render.diff_topic(diff)}
+
+            % if diff.length <= MAX_DIFFS_SHOWN_COUNT:
+                <div id="files" class="diff-view commentable">
+                    ${diff_render.diff_files(diff.patches, project, is_commentable=True)}
+                </div>
+            % endif
+        </div>
+    </div>
+
+    <!-- merge guide -->
+    % if show_merge_guide:
+        ${utils.merge_guide()}
+    % endif
+% endif
+
+<%def name="bottom_template()">
+    ${inline_comment_form.inline_comment_form_template('/%s/pull/%s/review_comment' % (project, pullreq.ticket_id))}
+</%def>

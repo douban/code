@@ -1,0 +1,284 @@
+<%namespace name="upload_widget" file="/widgets/upload_widget.html" />
+
+<%page args="ticket, pullreq" />
+<%!
+     import json
+     from datetime import datetime
+     from vilya.models.user import User
+     from vilya.models.ticket import TicketCommits, TicketComment
+     from vilya.models.user_fav import UserFavItem
+     from vilya.models.consts import K_PULL
+     from vilya.libs.text import (parse_emoji, render_markdown_with_project, plural,
+         parse_onimaru, replace_onimaru_to_link)
+%>
+<%
+    author = User(ticket.author)
+    i_am_author = user and ticket.author == user.username
+%>
+<%namespace name="utils" file="/pull/utils.html"/>
+<%namespace name="ticket_comment" file="/pull/ticket_comment.html"/>
+<%namespace name="ticket_codereview" file="/pull/render_ticket_codereview.html"/>
+<%namespace name="ticket_commits_tmpl" file="/pull/render_ticket_commits.html"/>
+
+## discussion pane
+<div id="content" class="ticket">
+    ${utils.side_avatar(author)}
+
+    <div id="ticket" class="tasklist-enabled">
+        <div class="discussion-bubble-inner">
+            <div class="discussion-topic-header">
+                <div class="date">
+                    <p>
+                        <a href="${author.url}">${author}</a> opened ${utils.related_time_html(ticket.time)}
+                    </p>
+                </div>
+                <h2 class="summary searchable">${parse_onimaru(parse_emoji(ticket.title), ticket.project) | n}</h2>
+                <ul class="comment-topic-actions">
+                    % if user:
+                    <li>
+                        <% is_faved = UserFavItem.is_liked_by_user(user.username, K_PULL, ticket.id) %>
+                        <a href="javascript:;" id="fav-button" class="${'faved' if is_faved else ''}" data-tid="${ticket.id}" data-tkind="${K_PULL}" title="Favorite"></a>
+                    </li>
+                    % endif
+                    % if i_am_author:
+                    <li><a href="javascript:void(0);" class="button minibutton comment-edit-button">Edit</a></li>
+                    % endif
+                </ul>
+            </div>
+            <div class="discusion-topic-infobar"></div>
+            <div class="comment-content">
+                <div class="comment-body markdown-body markdown-format">
+                    ${render_markdown_with_project(replace_onimaru_to_link(ticket.description, project), project.name) if ticket.description else 'No description given.'|n}
+                    <%include file="/widgets/markdown_checklist.html" args="content=ticket.description" />
+                </div>
+                % if i_am_author:
+                <div class="form-content js-write-bucket">
+                    <form id="ticket-content-edit-form" class="tasklist-form" action="/j/pull/${ticket.id}/edit" method="post">
+                        <input class="title-field" id="issue_title" name="title" size="30" tabindex="1" type="text" value="${ticket.title}", required>
+                        <textarea class="js-comment-field js-size-to-fit" cols="40" data-suggester="issue_2_suggester" id="issue_body" name="content" rows="20" tabindex="1" style="height: 34px;">${ticket.description}</textarea>
+                        <div class="form-actions">
+                            <a href="#" class="minibutton danger comment-cancel-button js-comment-cancel-button">Cancel</a>
+                            <button type="submit" class="minibutton bigger" tabindex="1">Update Comment</button>
+                        </div>
+                    </form>
+                </div>
+                % endif
+            </div>
+        </div>
+    </div>
+
+    <div class="pull-participation">
+        <% participants = ticket.participants %>
+        <input type="hidden" id="participants" value="${json.dumps(participants)}" />
+        <input type="hidden" id="all-teams" value="${json.dumps(teams)}" />
+        <p class="quickstat"><strong>${len(participants)}</strong> ${plural(len(participants), "participant", "participants")}</p>
+        % for p in participants:
+        <% p = User(p) %>
+        <a class="avatar tooltipped downwards" href="${p.url}" title="${p}"><img height="24" src="${p.avatar_url}" width="24"></a>
+        % endfor
+    </div>
+
+    <div class="pull-participation" id="room_peoples">
+      <p class="quickstat" style="display:none">people in room</p>
+    </div>
+
+    <div id="changelog">
+        <%
+            from models.consts import TICKET_NODE_TYPE_COMMIT
+            nodes = ticket.get_nodes()
+            shas = pullreq.get_commits_shas()
+
+            ## TODO: move to ticket model
+            ## add new merged commit which not in get_commits_shas
+            if pullreq.merged:
+                commits = [node.commit for node in nodes if node.type == TICKET_NODE_TYPE_COMMIT]
+                if commits:
+                    merge_commits = commits[-1]
+                    shas.append(merge_commits.commits.split(',')[0])
+        %>
+        % if nodes:
+            ${render_nodes(nodes, shas)}
+        % endif
+    </div>
+
+    <div id='typing' style="display:none"><span></span><img src="/static/img/typing.gif"></div>
+
+    % if show_merge_guide:
+    ${utils.merge_guide()}
+    % endif
+
+    <%def name="cm_form_content()">
+        <div class="form-content">
+            <div class="discussion-bubble-inner tab-content">
+                <div class="comment-form-head tabnav">
+                    <ul class="js-preview-tabs tabnav-tabs">
+                        <li><a href="#write_bucket" data-toggle="tab" class="tabnav-tab write-tab selected" action="write">Write</a></li>
+                        <li><a href="#preview_bucket" data-toggle="tab" class="tabnav-tab preview-tab" action="preview">Preview</a></li>
+                    </ul>
+
+                    <%namespace name="quick_emoji" file="/widgets/quick_emoji.html" />
+                    ${quick_emoji.buttons()}
+                </div>
+                <div id="write_bucket" class="write-content tab-pane active zen-enabled">
+                    <a href="#" class="go-zen enable-fullscreen js-enable-fullscreen tooltipped leftwards hidden-phone " original-title="Zen Mode" title="Zen Mode">
+                        <span class="mini-icon mini-icon-fullscreen"></span>
+                    </a>
+                    <textarea id="new_comment_content" name="content" class="wikitext mousetrap" placeholder="Leave a comment" rows="7" cols="78" tabindex="1" data-project-name="${project.name}" data-current-user="${user.username}" required></textarea>
+                </div>
+                <div id="preview_bucket" class="tab-pane preview-content tab-pane">
+                    <div class="content-body markdown-body" data-api-url="/preview">
+                        <p>Loading preview...</p>
+                    </div>
+                </div>
+                <div class="loader"><div class="spinner"></div></div>
+            </div>
+        </div>
+    </%def>
+
+    % if user:
+        <form id="add-comment-form" action="/${project}/pull/${pullreq.ticket_id}/comment" method="post" class="previewable-comment-form write-selected">
+            <input type="hidden" name="pullreq" value="1" />
+            <input type="hidden" name="from_repos" value="${pullreq.from_proj}" />
+            <input type="hidden" name="from_branch" value="${pullreq.from_branch}" />
+            <input type="hidden" name="to_repos" value="${pullreq.to_proj}" />
+            <input type="hidden" name="to_branch" value="${pullreq.to_branch}" />
+            ${utils.side_avatar(user)}
+            ${cm_form_content()}
+            <div class="form-actions">
+                % if show_close:
+                    <button type="submit" id="close" value="1" class="classy" tabindex="3" data-disable-with="" data-placement="bottom" data-original-title="Ctrl/Cmd + Enter">Close</button>
+                % elif show_reopen:
+                    <button type="submit" id="reopen" value="1" class="classy" tabindex="3" data-disable-with="" data-placement="bottom" data-original-title="Ctrl/Cmd + Enter">Reopen</button>
+                % endif
+                <button type="submit" class="classy primary" tabindex="2" data-disable-with="" data-placement="bottom" data-original-title="Ctrl/Cmd + Enter">Comment</button>
+            </div>
+        </form>
+        ${upload_widget.widget('form-file-upload')}
+    % endif
+</div>
+
+<%def name="render_nodes(nodes, shas)">
+    <%
+        from models.consts import (TICKET_NODE_TYPE_CLOSE,
+                                   TICKET_NODE_TYPE_LINECOMMENT,
+                                   TICKET_NODE_TYPE_COMMENT,
+                                   TICKET_NODE_TYPE_COMMIT,
+                                   TICKET_NODE_TYPE_MERGE,
+                                   TICKET_NODE_TYPE_OPEN)
+    %>
+    % for node in nodes:
+        % if node.type == TICKET_NODE_TYPE_OPEN:
+            ${render_node_open(node)}
+        % elif node.type == TICKET_NODE_TYPE_CLOSE:
+            ${render_node_close(node)}
+        % elif node.type == TICKET_NODE_TYPE_MERGE:
+            ${render_node_merge(node)}
+        % elif node.type == TICKET_NODE_TYPE_COMMENT:
+            ${render_node_comment(node)}
+        % elif node.type == TICKET_NODE_TYPE_COMMIT:
+            ${render_node_commit(node, shas)}
+        % elif node.type == TICKET_NODE_TYPE_LINECOMMENT and node.type_id in codereviews_group:
+            ${render_node_codereview(node, codereviews_group, shas, diff_by_linecomment_id)}
+        % endif
+    % endfor
+</%def>
+<%def name="render_node_commit(node, shas)">
+    <%
+    change = node.commit
+    author = change.author
+    %>
+    ${utils.side_avatar(author)}
+    <div class="change">
+        <div class="discussion-bubble-inner">
+            ${ticket_commits_tmpl.render_inner(pullreq, change, shas)}
+        </div>
+    </div>
+</%def>
+<%def name="render_node_comment(node)">
+    <%
+    change = node.comment
+    if not change:
+        return ''
+    author = change.author
+    %>
+    ${utils.side_avatar(author)}
+    <div class="change">
+        <div class="discussion-bubble-inner">
+            ${ticket_comment.render_inner(change, project.name)}
+        </div>
+    </div>
+</%def>
+<%def name="render_node_codereview(node, group, shas, diff_by_linecomment_id=None)">
+    <%
+    changes = group[node.type_id]
+    author = changes[0].author
+    %>
+    ${utils.side_avatar(author)}
+    <div class="change">
+        <div class="discussion-bubble-inner">
+            ${ticket_codereview.render_inner(pullreq, changes, shas, diff_by_linecomment_id)}
+        </div>
+    </div>
+</%def>
+<%def name="render_node_open(node)">
+    <div class="action-bubble">
+        <span class="action">
+            <span class="state-indicator reopened">Reopened</span>
+        </span>
+        <div class="bubble">
+            <p>
+                <%
+                    reopened_by = User(node.author)
+                    reopened_time = node.created_at
+                %>
+                <strong><span class="avatar"><img height="24" src="${reopened_by.avatar_url}" width="24"></span>
+                <a href="${reopened_by.url}">${reopened_by.name}</a></strong>
+                reopened the pull request
+                <time class="js-relative-date" datetime="${reopened_time}" title="${reopened_time}">${reopened_time}</time>
+            </p>
+        </div>
+    </div>
+</%def>
+<%def name="render_node_close(node)">
+    <div class="action-bubble">
+        <span class="action">
+            <span class="state-indicator closed">Closed</span>
+        </span>
+        <div class="bubble">
+            <p>
+                <%
+                    closed_by = User(node.author)
+                    closed_time = node.created_at
+                %>
+                <strong><span class="avatar"><img height="24" src="${closed_by.avatar_url}" width="24"></span>
+                <a href="${closed_by.url}">${closed_by.name}</a></strong>
+                closed the pull request
+                <time class="js-relative-date" datetime="${closed_time}" title="${closed_time}">${closed_time}</time>
+            </p>
+        </div>
+    </div>
+    <div class="closed-banner"></div>
+</%def>
+<%def name="render_node_merge(node)">
+    <div class="action-bubble">
+        <span class="action">
+            <span class="state-indicator merged">Merged</span>
+        </span>
+        <div class="bubble">
+            <p>
+                <%
+                    merged_by = User(node.author)
+                    merged_time = node.created_at
+                %>
+                <strong>
+                    <span class="avatar">
+                        <img height="24" src="${merged_by.avatar_url}" width="24">
+                    </span>
+                    <a href="${merged_by.url}">${merged_by.name}</a>
+                </strong>
+                merged
+                <time class="js-relative-date" datetime="${merged_time}" title="${merged_time}">${merged_time}</time>
+            </p>
+        </div>
+    </div>
+</%def>

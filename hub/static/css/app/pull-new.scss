@@ -1,0 +1,84 @@
+@import "css/mod/common";
+
+/* TODO Refactor the following mods into components */
+@import "css/mod/pull-new";
+@import "css/mod/pull-request";
+@import "css/mod/pull-github";
+@import "css/mod/pull-ticket";
+@import "css/mod/pull-tabs";
+@import "css/mod/pull-codereview";
+@import "css/mod/commits";
+
+/* Like these */
+@import "css/lib/jquery.atwho";
+@import "css/mod/project-info";
+@import "css/mod/commits-condensed";
+@import "css/mod/file-diff-blob";
+@import "css/mod/merge-guide";
+@import "css/mod/diffs-pane";
+@import "css/mod/comment-form";
+@import "css/mod/upload-widget";
+@import "css/mod/markdown-content";
+
+/* highlight */
+@import "css/mod/pull-highlight";
+
+/* Write/Preview Control style for new PR component */
+ul.edit-preview-tabs {
+	margin: 0 0 5px 0;
+	line-height: 13px;
+}
+ul.edit-preview-tabs li {
+	list-style-type: none;
+	margin: 0;
+	display: inline-block;
+}
+ul.edit-preview-tabs a {
+	display: inline-block;
+	padding: 2px 8px;
+	font-size: 11px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #666;
+	border: 1px solid transparent;
+	border-radius: 10px;
+}
+
+.previewable-comment-form li.active .write-tab,
+.previewable-comment-form li.active .preview-tab {
+	color: #333;
+	background: white;
+	border-color: #BBB;
+	border-right-color: #DDD;
+	border-bottom-color: #DDD;
+}
+
+/* Description Component background & help text, from hub.css*/
+.comment-form {
+	position: relative;
+	margin: -10px 0 10px 0;
+	padding: 5px;
+	background: #EEE;
+	border-radius: 5px;
+}
+
+.comment-form p.help {
+	margin: 3px 0 0 0;
+	float: right;
+	font-size: 11px;
+	color: #666;
+}
+
+.write-content.zen-enabled .go-zen { top: 15px; }
+
+#form-file-upload { top: -70px; }
+
+.contributing {
+    padding: 15px;
+    margin: 15px 0;
+    font-size: 14px;
+    color: #4c4a42;
+    background-color: #fff9ea;
+    border: 1px solid #dfd8c2;
+    border-radius: 3px;
+}

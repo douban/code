@@ -1,0 +1,29 @@
+@import "css/mod/common";
+
+@import "css/mod/project-info";
+@import "css/mod/file-blame-blob";
+
+@import "css/mod/pull-highlight";
+@import "css/mod/commits";
+
+.blame table tr.section-first td {
+    border-top: 1px solid #CCC;
+}
+.blame table tr td {
+    padding: .2em .5em;
+}
+.blame .line-number {
+    background-color: #ECECEC;
+    color: #AAA;
+    padding: 0 .5em;
+    text-align: right;
+    border-left: 1px solid #DDD;
+    border-right: 1px solid #DDD;
+    vertical-align: middle;
+}
+.blame .line-data {
+    background-color: ghostWhite;
+    white-space: pre;
+    width: 100%;
+    vertical-align: middle;
+}

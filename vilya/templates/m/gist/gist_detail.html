@@ -1,0 +1,39 @@
+<%inherit file="/m/base.html" />
+
+<%def name="head_style()">
+<link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+<link href="/static/css/highlight.css" type="text/css" rel="stylesheet">
+<link href="/static/css/code.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="${static('/css/app/m/gist.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+<script src="${static('/js/app/gist/gist.js')}"></script>
+</%def>
+
+<%def name="body()">
+<div class="column files">
+    % for path in gist.files:
+    <div class="bubble">
+        ${blob_block(gist, path, ref)}
+    </div>
+    % endfor
+</div>
+</%def>
+
+<%def name="blob_block(gist, path, ref='master')">
+<div  data-path="${path}" data-gist="${gist.id}" data-ref="${ref}" class="blob items">
+    <div class="top-bar">
+        <div class="gist-options">
+            % if user and gist.owner_id == user.name:
+            <a class="btn" href="${ gist.url }/edit">Edit</a>
+            <a class="btn" href="/gist/${user.name}">Gists</a>
+            % else:
+            <a class="btn" href="/gist/${gist.owner_id}">${gist.owner_id}'s Gists</a>
+            % endif
+        </div>
+        <h2>${path}</h2>
+    </div>
+    <div class="file"></div>
+</div>
+</%def>

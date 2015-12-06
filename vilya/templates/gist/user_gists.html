@@ -1,0 +1,73 @@
+<%inherit file="/gist/gists_base.html" />
+<%!
+    from vilya.models.user import User
+    from vilya.models.gist import Gist
+%>
+<%def name="title()">${ user.username }'s Gists</%def>>
+
+<%def name="page_title()">
+  % if request.user and request.user.username == user.username:
+    <h1> Your Gists </h1>
+  % else:
+    <div class="title-actions-bar">
+      <ul class="pagehead-actions">
+        <li>
+          <a href="${ user.url }" class="minibutton">
+            <span class="mini-icon mini-icon-octocat"></span>
+            ${ user.username } on Code
+          </a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="avatared">
+      <img src="${ user.avatar_url }" width="42" height="42">
+      <span itemprop="name">${ user.username.capitalize() }</span>
+      <em itemprop="additionalName">${ user.username }</em>
+    </h1>
+  % endif
+</%def>
+
+<%def name="sub_menu()">
+  <div class="menu-container">
+    <ul class="menu">
+      <%
+        link_path = request.get_path()
+      %>
+      <li>
+        <a href="/gist/${ user.username }"
+          class="${ link_path.endswith('/') and 'selected' or ''}">
+          <span class="mini-icon mini-icon-gist"></span> All Gists
+          <span class="counter">${ n_all }</span>
+        </a>
+      </li>
+      <li>
+        <a href="/gist/${ user.username }/forked"
+          class="${ link_path.endswith('forked') and 'selected' or ''}">
+          <span class="mini-icon mini-icon-gist-forked"></span> Forked
+          <span class="counter">${ n_fork }</span>
+        </a>
+      </li>
+      <li>
+        <a href="/gist/${ user.username }/starred"
+          class="${ link_path.endswith('starred') and 'selected' or ''}">
+          <span class="mini-icon mini-icon-gist-starred"></span> Starred
+          <span class="counter">${ n_star }</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <%doc>
+  % if request.user and request.user.username == user.username:
+  <ul class="filter-list small js-selectable-list">
+    <li>
+      <a href="/${ user.username }/public" class="js-selectable-item filter-item "> Public <span class="count">${ Gist.count_public_by_user(user.username)}</span> </a>
+    </li>
+    <li>
+      <a href="/${ user.username }/secret" class="js-selectable-item filter-item "> Secret <span class="count">${ Gist.count_secret_by_user(user.username) }</span> </a>
+    </li>
+  </ul>
+  % endif
+  </%doc>
+</%def>
+
+${ self.gists_content() }

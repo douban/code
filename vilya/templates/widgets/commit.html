@@ -1,0 +1,123 @@
+<%!
+    from vilya.libs.text import gravatar_url
+%>
+
+<%def name="commits_bucket(commits, n_authors, grouped_commits, show_summary=True)">
+    %if show_summary:
+    <p class="explain">
+        <i class="icon-upload"></i>
+        Showing <strong>${len(commits)} unique commit${'s' if len(commits) > 1 else ''}</strong> by <strong>${n_authors} author${'s' if n_authors > 1 else ''}</strong>.
+    </p>
+    % endif
+    <div class="boxed-group condensed">
+        % for date, day_commits in grouped_commits:
+            ${commit_group(date, day_commits)}
+        % endfor
+    </div>
+</%def>
+
+<%def name="commits_anything(project, sha1, sha2)">
+    <div class="boxed-group condensed">
+        <div style="margin-top: 15px; margin-bottom: 15px; line-height: 1.1; text-align: center;">
+        <h4>There isn't anything to compare.</h4>
+        <strong>${sha1}</strong> is up to date with all commits from <strong>${sha2}</strong>.
+        Try <a href="/${project.name}/compare/${sha2}...${sha1}">switching</a> the base for your comparison.
+        </div>
+    </div>
+</%def>
+
+<%def name="commit_group(date, day_commits)">
+    <h3>
+        <i class="icon-calendar"></i>${date.strftime("%b %d, %Y")}
+    </h3>
+    <div class="body boxed-group-inner">
+        <table class='commits commits-condensed' cellspacing='0' width="100%">
+            % for commit in day_commits:
+                <tr class="commit js-details-container">
+                    <td class="gravatar">
+                        <span class="gravatar"><a href="${commit.author.url}"><img height="16" src="${commit.author.avatar_url}" width="16" /></a></span>
+                    </td>
+                    <td class="author">
+                        <span class="commit-author" >
+                            <a href="${commit.author.url}" title="${commit.author.name}">${commit.author.name}</a>
+                        </span>
+                    </td>
+                    <td class="message">
+                        <code><a href="${commit.url}" class="message">${commit.rendered_message_header | n}</a></code>
+                        % if commit.message_body:
+                            <span class="hidden-text-expander inline">
+                                <a href="javascript:void(0);" class="js-details-target">…</a>
+                            </span>
+                            <div class="commit-desc">
+                                <pre>${commit.rendered_message_body | n}</pre>
+                            </div>
+                        % endif
+                    </td>
+                    <td class="commit-meta">
+                        <code><a href="${commit.url}">${commit.shortsha}</a></code>
+                    </td>
+                </tr>
+            % endfor
+        </table>
+    </div>
+</%def>
+
+<%def name="commit(commit, ref, project, path=None)">
+    <div class="commit full-commit ">
+        <a href="/${project.name}/tree/${ref}" class="browse-button" title="Browse the code at this point in the history" rel="nofollow">
+            Browse code
+        </a>
+        <a href="#ganbei" class="give_beer" style="float:right;padding:3px 9px 0 0">
+            <span class="mega-icon mega-icon-beer"></span>
+        </a>
+        <p class="commit-title">${commit.rendered_message_header | n}</p>
+        % if commit.message_body:
+            <div class="commit-desc">
+            <pre>${commit.rendered_message_body | n}</pre>
+            </div>
+        % endif
+        <div class="commit-meta clearfix">
+            <span class="sha-block">raw
+                <a href='/${project.name}/commit/${ref}.diff'>diff</a>
+                <a href='/${project.name}/commit/${ref}.patch'>patch</a>
+            </span>
+            <span class="sha-block">commit <span class="sha">
+                <a href="/${project.name}/commit/${ref}">${ref[:8]}</a>
+            </span></span>
+            <span class="sha-block">
+                <%
+                    parents = commit.parents
+                    parent_len = len(parents)
+                %>
+                % if parent_len == 0:
+                    0 parent
+                % elif parent_len == 1:
+                    1 parent
+                    % for p in parents:
+                        <a href="/${project.name}/commit/${p}" class="sha" data-hotkey="p">${p[:8]}</a>&nbsp;
+                    % endfor
+                % else:
+                    ${parent_len} parents
+                    % for p in parents:
+                        <a href="/${project.name}/commit/${p}" class="sha" data-hotkey="p">${p[:8]}</a>&nbsp;
+                    % endfor
+                % endif
+            </span>
+            <div class="authorship">
+                <img class="gravatar user-avatar" height="24" data-original="${gravatar_url(commit.email)}" width="24" src="${gravatar_url(commit.email)}" />
+                % if commit.has_author_link:
+                  <span class="author-name"><a href="/people/${commit.author.name}" rel="author">${commit.author.name}</a></span>
+                % else:
+                  <span class="author-name">${commit.author.name}</span>
+                % endif
+                authored <time class="js-relative-date" datetime="" title="${commit.time}">${commit.time}</time>
+            </div>
+        </div>
+    </div>
+    % if path:
+    <div class="commit-with-path-note">
+      * shows diffs that touch the specified path, `${path}`. \
+      See the <a href="/${project.name}/commit/${ref}">full diff</a> if needed.
+    </div>
+    % endif
+</%def>

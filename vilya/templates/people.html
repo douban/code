@@ -1,0 +1,204 @@
+<%inherit file="/base.html" />
+<%!
+    from vilya.models.user import User, FollowRelationship
+    from vilya.models.recommendation import Recommendation
+    from vilya.models.project import CodeDoubanProject
+    from vilya.models.team import Team
+%>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/people/main.js')}"></script>
+</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/people.css')}" />
+</%def>
+
+<%def name="title()">${name}</%def>
+<%def name="suffix()"></%def>
+
+<%
+    profile_user = User(name)
+%>
+
+<div class="container">
+  <div class="span3 person">
+    <div class="mod people-info">
+        <!-- removed h1.people-info style !-->
+        <img class="user-avatar" src="${profile_user.avatar_url}" width="128" height="128">
+        <div class="username">${name}</div>
+        <%
+           cur_user = request.user
+           is_me = False
+           if cur_user and cur_user.username == name:
+               is_me = True
+        %>
+        % if is_me == False:
+          <div class="follow-btn">
+          % if cur_user and FollowRelationship.check_exist(name, cur_user.username):
+          <a href="/people/${name}/unfollow" class="btn btn-small btn-danger unfollow" >
+              <span>Unfollow</span>
+          </a>
+          % else:
+          <a href="/people/${name}/follow" class="btn btn-small btn-success follow">
+              <span>Follow</span>
+          </a>
+          % endif
+          </div>
+        % endif
+
+        <div class="follow-stats">
+            <ul>
+                <li>
+                    <a href="/people/${name}/following">
+                        <strong class="following-count">${following_count}</strong>
+                        <span>following</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/people/${name}/followers">
+                        <strong class="followers-count">${followers_count}</strong>
+                        <span>followers</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <dl class="contact clear">
+          <dd>
+            <i class="icon-envelope"></i>
+            <a href="mailto:${profile_user.email}">${profile_user.email}</a>
+          </dd>
+        </dl>
+        <div>
+            <h4>Teams</h4>
+            % for team in profile_user.teams:
+                <a title="${team.name}" href="${team.url}" class="avatar-group-item">
+                    <img class="avatar" src="${team.profile_icon()}">
+                </a>
+            % endfor
+        </div>
+    </div>
+
+    % if is_me:
+    <div class="mod bind-trello">
+        % if user.trello_access_token:
+            <a href="/trello/unbind">Unbind Trello</a>
+        % else:
+            <a href="/trello/bind">Bind Trello</a>
+        % endif
+    </div>
+    % endif
+
+    <div class="mod">
+        <iframe id="me-widget-card" width="100%" height="312px" frameborder="0" scrolling="no" src="http://me.dapps.douban.com/ldap/${name}/?html_widget=true"></iframe>
+    </div>
+
+  </div><!--span3-->
+
+
+  <div class="span9">
+
+    <div class="mod glory">
+
+        %if cur_user:
+        <div class="rec">
+          <%
+             recs = Recommendation.gets_by_user(name)
+             rec_num = len(recs)
+          %>
+          % if is_me:
+          <a title="Your Praises (${rec_num})" class="add-rec mine" href="/people/${name}/praises"></a>
+          % else:
+          <a title="Recommend ${name}" class="add-rec" href="/people/${name}/add_rec"></a>
+          % endif
+          % if rec_num:
+          <div class="rec-num"><a href="/people/${name}/praises">${rec_num}</a></div>
+          % endif
+        </div>
+        %endif
+
+        <div class="badge-list">
+          <%include file="/widgets/badge_list.html" args="badge_items=badge_items, limit=9" />
+        </div>
+
+    </div><!-- /mod -->
+
+  <div class="mod">
+    <div id="contributions_graph" class="row">
+     <div id="contributions" class="span8">
+         <div id="cal-heatmap"></div>
+         <div id="contribution-details"></div>
+     </div>
+  </div>
+
+  </div><!-- span 9 !-->
+
+  <div class="span4">
+  <div class="mod">
+      <h3>
+        Projects(${len(your_projects)})
+      </h3>
+      <ul class="project-list">
+	    %for proj in your_projects:
+          ${project_item(proj)}
+	    %endfor
+      </ul>
+  </div><!-- /.mod -->
+  </div><!-- /span4 -->
+
+  <div class="span5">
+     <div class="people-activity mod">
+       <h3>Public Activity</h3>
+		%if actions:
+			<%include file="/widgets/actions_feed.html" args="actions=actions, is_notification=False, is_collapsed=False"/>
+		%else:
+			<div class="info">No public events to show</div>
+		%endif
+
+     </div>
+
+  </div><!-- /.mod -->
+
+
+</div><!-- /.container -->
+
+<%def name="project_item(project)">
+  <%
+  is_forked = (project.fork_from is not None)
+  forked_project = project.get_forked_from() if is_forked else None
+  forked_cnt = CodeDoubanProject.get_forked_count(project.id)
+  watched_cnt = CodeDoubanProject.get_watched_count(project.id)
+  #last_updated = project.get_info().get('last_commit', {}).get('date') or ''
+  last_updated = ''
+  %>
+  <li class="project-item ${'bs-docs-fork' if is_forked else 'bs-docs-project'}">
+    <ul class="project-stats pull-right">
+      <li><i class="icon-eye-open"></i> ${watched_cnt}</li>
+      <li><i class="icon-random"></i> ${forked_cnt}</li>
+    </ul>
+    <h4 class="project-title">
+      <i class="${'icon-random' if is_forked else 'icon-leaf'}"></i>
+      <a href="/${project.name}/">${project.name}</a>
+    </h4>
+    %if is_forked and isinstance(forked_project, CodeDoubanProject):
+      <small class="forked-flag">
+        forked from <a href="/${forked_project.name}/">${forked_project.name}</a>
+      </small>
+    %endif
+    <div class="body">
+      <p class="summary">
+        ${project.summary}
+      </p>
+      %if last_updated:
+      <small class="muted">
+        Last updated <time class="js-relative-date updated" datetime="${last_updated}" title="${last_updated}">${last_updated}</time>
+      </small>
+      %endif
+      <div class="commit-graph" id="graph-${project.id}" data-source="/${project.name}/graph/commits"></div>
+    </div>
+    </li>
+</%def>

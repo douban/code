@@ -1,0 +1,202 @@
+<%inherit file="/gist/base.html" />
+<%def name="bottom_script()">
+    <script src="${static('/js/app/gist/gist.js')}"></script>
+</%def>
+
+<%block name="extra_head">
+  <link href="/static/css/highlight.css" type="text/css" rel="stylesheet">
+  <link href="/static/css/code.css" type="text/css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="${static('/css/app/gist.css')}" />
+</%block>
+
+<%namespace name="gist_utils" file="/widgets/gist.html" />
+
+<%!
+from models.user import User
+from libs.text import highlight_code
+%>
+<%def name="gist_content(request, gist)">
+<div class="pagehead separation trans">
+  <div class="title-actions-bar">
+    <ul class="pagehead-actions">
+      % if request.user:
+        % if request.user.username in ['qingfeng', 'xutao', 'xyb', 'fanjianjin', 'testuser']:
+          ${ self.reindex_action(gist) }
+        % endif
+        % if gist.owner_id == request.user.username:
+          ${ self.owner_pagehead_actions(gist) }
+        % else:
+          ${ self.pagehead_actions(gist) }
+        % endif
+      % endif
+    </ul>
+    <h1 class="entry-title ${ 'public' if gist.is_public else 'secret' }">
+      <span class="repo-label">
+        <span>${ 'PUBLIC' if gist.is_public else 'SECRET' }</span>
+      </span>
+      <span class="mega-icon ${ 'mega-icon-gist' if gist.is_public else 'mega-icon-gist-secret' }"></span>
+      <div class="meta">
+        <div class="gist-author">
+          <img src="${ gist.owner.avatar_url }" width="26" height="26">
+          <span class="author vcard">
+            <span itemprop="title">
+              <a href="/gist/${ gist.owner.username }">${ gist.owner.username }</a>
+            </span>
+          </span>
+          /
+          <strong>
+            <a href="${ gist.url }">${ gist.name }</a>
+          </strong>
+        </div>
+        <div class="gist-timestamp">
+          <span class="datetime">
+            Last updated ${ gist.updated_at or gist.created_at }
+          </span>
+          ${ gist_utils.gist_forked_from(gist) }
+      </div>
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+${ self.banner(gist) }
+
+<div class="row">
+  <div class="span2 root-pane">
+    <div class="menu-container">
+      <ul class="menu">
+        ${ self.sub_menu(gist) }
+      </ul>
+    </div>
+    <ul class="export-references">
+      <li>
+        <a href="${ gist.download_url }" class="minibutton" rel="nofollow">
+          <span class="mini-icon mini-icon-download"> </span>
+        &nbsp;&nbsp;Download Gist&nbsp;&nbsp;
+        </a>
+      </li>
+      <li>
+        <label for="url-field"><strong>Clone</strong> this gist</label>
+        <input type="text" spllcheck="false" class="url-field js-url-field" name="url-field"
+          value="${ gist.git_url }">
+      </li>
+      <li>
+        <label for="embed-field"><strong>Embed</strong> this gist</label>
+        <input type="text" spllcheck="false" class="url-field js-url-field" name="embed-field"
+        value='<script src="${ gist.embed_url }"></script>'>
+      </li>
+      <li>
+        <label for="url-field"><strong>Link to</strong> this gist</label>
+        <input type="text" spllcheck="false" class="url-field js-url-field" name="link-field"
+          value="${ gist.url }/">
+      </li>
+    </ul>
+  </div>
+  <div class="span10 right-content">
+    ${ self.right_content(gist) }
+  </div>
+</div>
+</%def>
+
+<%def name="right_content(gist)"></%def>
+
+<%def name="blob_block(gist, path, ref='master')">
+  <div  data-path="${path}" data-gist="${gist.id}" data-ref="${ref}" class="blob items">
+      <div class="top-bar">
+          <ul class="button-group actions">
+              <li>
+                <%
+                  path_id = 'file-' + path.replace('.', '-')
+                %>
+                <a class="grouped-button minibutton tooltipped downwards bookmark" href="#${ path_id }" id="${ path_id }">
+                  <span class="mini-icon mini-icon-link"></span>
+                </a>
+              </li>
+              <li>
+                <a class="grouped-button minibutton tooltipped downwards raw-url" href="/gist/${gist.id}/raw/${ref}/${path}">
+                  <span class="mini-icon mini-icon-code"></span>
+                </a>
+              </li>
+          </ul>
+          <h2>${path}</h2>
+      </div>
+      <div class="file"></div>
+  </div>
+</%def>
+
+<%def name="star_action(gist)">
+<li>
+  % if gist.is_starred(request.user.username):
+    <a href="./unstar">
+      <button class="minibutton" type="submit">
+        <span class="mini-icon mini-icon-gist-star"></span> Unstar
+      </button>
+    </a>
+  % else:
+    <a href="./star">
+      <button class="minibutton" type="submit">
+        <span class="mini-icon mini-icon-gist-star"></span> Star
+      </button>
+    </a>
+  % endif
+  <a class="counts-label js-social-count" href="./stars">${ gist.n_star }</a>
+</li>
+</%def>
+<%def name="pagehead_actions(gist)">
+  ${ self.star_action(gist) }
+  <li>
+    <a href="./fork">
+    <button class="minibutton" type="submit"><span class="mini-icon mini-icon-gist-fork"></span> Fork</button>
+    <a class="counts-label js-social-count" href="./forks">${ gist.n_fork }</a>
+    </a>
+  </li>
+</%def>
+<%def name="reindex_action(gist)">
+  <li>
+    <a href="${ gist.url }/re_index">
+      <button class="minibutton" ><span class="mini-icon mini-icon-re_index"></span> Reindex</button>
+    </a>
+    </li>
+</%def>
+<%def name="owner_pagehead_actions(gist)">
+  <li>
+    <a href="${ gist.url }/edit" rel="nofollow">
+      <button class="minibutton" ><span class="mini-icon mini-icon-edit"></span> Edit</button>
+    </a>
+  </li>
+  <li>
+    <button class="minibutton danger js-delete-button js-delete-gist">
+      <span class="mini-icon mini-icon-delete-note"></span> Delete
+    </button>
+  </li>
+  ${ self.star_action(gist)}
+</%def>
+
+<%def name="banner(gist)"> </%def>
+
+<%def name="sub_menu(gist)">
+  <%
+    link_path = request.get_path()
+  %>
+  <li><a href="/gist/${ gist.id }/" class="${ link_path.endswith((str(gist.id), '/')) and 'selected' or ''}">Gist Detail</a></li>
+  <li><a href="/gist/${ gist.id }/revisions"
+         class="${ link_path.endswith('revisions') and 'selected' or '' }" >
+         Revisions <span class="counter">${ gist.n_revision }</span>
+       </a>
+  </li>
+  % if gist.n_fork:
+  <li><a href="/gist/${ gist.id }/forks"
+         class="${ link_path.endswith('forks') and 'selected' or '' }" >
+         Forks <span class="counter">${ gist.n_fork }</span>
+       </a>
+  </li>
+  % endif
+  % if gist.n_star:
+  <li><a href="/gist/${ gist.id }/stars"
+         class="${ link_path.endswith('stars') and 'selected' or '' }" >
+         Stars <span class="counter">${ gist.n_star }</span>
+       </a>
+  </li>
+  % endif
+</%def>

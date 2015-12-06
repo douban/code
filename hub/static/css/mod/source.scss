@@ -1,0 +1,119 @@
+@font-face{
+	font-family: 'Octicons Regular';
+    src:url("/static/octicons/octicons-regular-webfont.svg") format("svg"),
+        url("/static/octicons/octicons-regular-webfont.woff") format("woff");
+	font-weight:normal;
+	font-style:normal;
+} 
+.last-bar {
+  margin-top: 5px;
+}
+p.last-commit {
+    margin: 10px 0 -5px 0;
+    font-size: 11px;
+    color: #888;
+    
+    .mini-icon {
+        color: #BBB;
+        position: relative;
+        top: 1px;
+    }
+}
+.pr-latest-branch {
+    color: #888;
+    margin-top: 10px;
+    line-height: 27px;
+    border-bottom: 1px solid #DDD;
+    padding-bottom: 10px;
+}
+.pr-latest-branch #pullrequest-btn {
+    margin-right: 5px;
+}
+.mini-icon, .mega-icon {
+    line-height: 1;
+    font-family: 'Octicons Regular';
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    text-decoration: inherit;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    text-decoration: none;
+}
+.commit-tease {
+    margin: 10px 0;
+    padding: 8px 8px 0;
+    background: #EEE;
+    border: 1px solid #C5D5DD;
+    border-radius: 4px;
+}
+.commit-tease p.commit-title {
+    margin: 0 0 6px 0;
+}
+.commit .commit-title, .commit .commit-title a {
+    color: #4E575B;
+}
+.commit-tease .commit-meta {
+    margin-left: -8px;
+    width: 100%;
+    padding: 8px;
+    background: white;
+    border-top: 1px solid #D8E6EC;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+.commit-tease .sha-block {
+    float: right;
+    color: #888;
+}
+.commit .sha-block, .commit .sha {
+    font-size: 11px;
+    font-family: Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;
+}
+.commit-tease .authorship {
+    font-size: 12px;
+    color: #999;
+    margin-left: -4px;
+    margin-bottom: -4px;
+    margin-top: -2px;
+    .gravatar {
+      margin-top: -2px;
+      margin-right: 3px;
+      vertical-align: middle;
+      border-radius: 3px;      
+    }
+    a, span {
+      color: #444;
+      text-decoration: none;
+      font-weight: bold;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+}
+
+.commit-tease .mini-icon-clippy {
+    margin-right: 5px;
+    float: right;
+}
+.mini-icon-clippy {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    background-color: transparent;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    vertical-align: text-bottom;
+    background-image: url("/static/img/clippy.png");
+}
+.mini-icon-u-list:before { content:"\f061"; }
+.mini-icon-text-file:before { content:"\f211"; }
+.mini-icon-code-file:before { content:"\f210"; }
+.mini-icon-directory:before { content:"\f016"; }
+.mini-icon-submodule:before { content:"\f017"; }
+
+ul.browsefiles li { padding: 3px 0 2px 0; border-top: 1px solid #eee }
+ul.browsefiles a.mode-040000{ color: #333 }
+ul.browsefiles li a { display: block }
+ul.browsefiles li:hover { background: #eee }
+ul.browsefiles li a.warn-bad { color: red }

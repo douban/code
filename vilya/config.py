@@ -37,18 +37,6 @@ DOUBANDB = {
     'proxies': []
 }
 
-REDIS = {'host': '127.0.0.1', 'port': 6379}
-REDIS_STORE = {
-    'shire': {
-        'host': '127.0.0.1', 'port': 6379,
-        'dbs': {1: 'DEFAULT', 2: 'bloomfilters'},
-    },
-    'counter': {
-        'host': '127.0.0.1', 'port': 6379,
-        'dbs': {63: 'test-counter'},
-    },
-}
-
 MYSQL_STORE = {
     "farms": {
         "code_farm": {
@@ -58,13 +46,33 @@ MYSQL_STORE = {
     }
 }
 
-DOMAIN = "http://127.0.0.1:8000/"
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0
+
+BEANSDBCFG = {
+    "localhost:7901": range(16),
+    "localhost:7902": range(16),
+    "localhost:7903": range(16),
+}
+
+DOMAIN = 'http://127.0.0.1:8000/'
+IRC_SERVER = 'irc.intra.douban.com'
+IRC_PORT = 12345
+SMTP_SERVER = 'mail.douban.com'
 
 MAKO_FS_CHECK = True
 
 EMAIL_SUFFIX = 'douban.com'
+DEFAULT_SENDER_ADDR = 'code@douban.com'
+DEFAULT_NOTIFY_SENDER_ADDR = 'code-notification@douban.com'
+CUSTOMIZE_NOTIFY_SENDER_ADDR = 'code-notification+%s+code@douban.com'
+TRASH_EMAIL_ADDR = 'code-email-trash@dappsmail.douban.com'
+
+TRELLO_CONSUMER_KEY = ''
+TRELLO_CONSUMER_SECRET = ''
 
 try:
-    from local_config import *
+    from local_config import *  # noqa
 except ImportError:
     pass

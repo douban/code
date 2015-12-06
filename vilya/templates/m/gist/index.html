@@ -1,0 +1,41 @@
+<%inherit file="/m/base.html" />
+
+<%def name="head_style()">
+<link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+<link rel="stylesheet" href="/static/codemirror/codemirror.css" />
+<link rel="stylesheet" type="text/css" href="${static('/css/app/m/gist.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+<script src="${static('/js/app/gist/main.js')}"></script>
+</%def>
+
+<%def name="body()">
+<form action="" id="gist-form" method="post" accept-charset="UTF-8">
+    <div class="edit container">
+        <div id="files">
+            <div class="js-gist-files">
+                <div class="bubble js-gist-file">
+                    <input type="hidden" name="oid" value="">
+                    <div class="file">
+                        <div class="meta">
+                            <div class="name">
+                                <input class="gist-name-textbox" type="text" name="gist_name" placeholder="name this file...">
+                            </div>
+                            <div class="editor-options">
+                                <button type="submit" class="btn js-create-gist" name="gist_public" value="1">Done</button>
+                                % if user:
+                                <a class="btn" href="/gist/${user.name}">Gists</a>
+                                % endif
+                            </div>
+                        </div>
+                        <div class="input">
+                            <textarea class="gist-file-content" name="gist_content"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</%def>

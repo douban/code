@@ -1,0 +1,49 @@
+<%def name="render_ticket(ticket)">
+<%
+     ticket_project = ticket.project 
+     ticket_url = ticket.url
+%>
+% if ticket_url:
+<a href="${ticket_url}" class="title">
+    <span class="project-info">[${ticket.project.name if ticket.project else ''}#${ticket.ticket_number}]</span>
+    ${ticket.title}
+</a>
+% endif
+</%def>
+
+% if owned_tickets or commented_tickets:
+<div class="contribution-details">
+    <h3>Contribution Activity</h3>
+    % if owned_tickets:
+    <h3 class="conversation-list-heading">
+        <div class="inner">
+            <strong>${len(owned_tickets)}</strong>
+            Pull Request
+        </div>
+    </h3>
+    % for ticket in owned_tickets:
+    <ul class="simple-conversation-list contribution-pullreq">
+        <li>
+            ${render_ticket(ticket)}
+        </li>
+    </ul>
+    % endfor
+    % endif
+
+    % if commented_tickets:
+    <h3 class="conversation-list-heading">
+        <div class="inner">
+            <strong>${len(commented_tickets)}</strong>
+            Pull Request Participated
+        </div>
+    </h3>
+    % for ticket in commented_tickets:
+    <ul class="simple-conversation-list contribution-pullreq">
+        <li>
+            ${render_ticket(ticket)}
+        </li>
+    </ul>
+    % endfor
+    % endif
+</div>
+% endif

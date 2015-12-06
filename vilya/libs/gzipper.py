@@ -1,8 +1,10 @@
 # (c) 2005 Ian Bicking and contributors; written for Paste (http://pythonpaste.org)
-# Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+# Licensed under the MIT license:
+# http://www.opensource.org/licenses/mit-license.php
 
 # (c) 2005 Ian Bicking and contributors; written for Paste (http://pythonpaste.org)
-# Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+# Licensed under the MIT license:
+# http://www.opensource.org/licenses/mit-license.php
 
 """
 WSGI middleware
@@ -17,6 +19,7 @@ try:
 except ImportError:
     from StringIO import StringIO
 
+
 def header_value(headers, name):
     name = name.lower()
     result = [value for header, value in headers
@@ -25,6 +28,7 @@ def header_value(headers, name):
         return ','.join(result)
     else:
         return None
+
 
 def remove_header(headers, name):
     name = name.lower()
@@ -38,8 +42,10 @@ def remove_header(headers, name):
         i += 1
     return result
 
+
 class GzipOutput(object):
     pass
+
 
 class middleware(object):
 
@@ -60,6 +66,7 @@ class middleware(object):
 
         return response.write()
 
+
 class GzipResponse(object):
 
     def __init__(self, start_response, compress_level):
@@ -75,7 +82,7 @@ class GzipResponse(object):
         ce = header_value(headers, 'content-encoding')
         self.compressible = False
         if ct and (ct.startswith('text/') or ct.startswith('application/')) \
-            and 'zip' not in ct:
+                and 'zip' not in ct:
             self.compressible = True
         if ce:
             self.compressible = False
@@ -96,7 +103,7 @@ class GzipResponse(object):
     def finish_response(self, app_iter):
         if self.compressible:
             output = gzip.GzipFile(mode='wb', compresslevel=self.compress_level,
-                fileobj=self.buffer)
+                                   fileobj=self.buffer)
         else:
             output = self.buffer
         try:
@@ -110,6 +117,7 @@ class GzipResponse(object):
         content_length = self.buffer.tell()
         self.headers.append(('Content-Length', str(content_length)))
         self.start_response(self.status, self.headers)
+
 
 def make_gzip_middleware(app, compress_level=6):
     """

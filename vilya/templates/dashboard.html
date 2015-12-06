@@ -1,0 +1,26 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.mako" />
+
+<%def name="title()">Dashboard</%def>
+<%def name="suffix()">${project.name}</%def>
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/dashboard.css')}" />
+</%def>
+
+${pagehead.trac_header("dashboard", project, user)}
+
+<div class="raw">
+<iframe id='frame-electro' src="http://electro.dapps.douban.com/admin/project/${project.name}/" style="border: none;overflow: hidden;" ></iframe> 
+</div>
+
+<%def name="bottom_script()">
+<script type="text/javascript">
+$(document).ready(function () {
+		var $ele = $("#frame-electro");
+		$ele.width($(".container").width()+42);
+		$ele.height(800);
+		});
+</script>
+</%def>

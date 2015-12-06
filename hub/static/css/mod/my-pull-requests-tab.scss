@@ -1,0 +1,27 @@
+ul.filter-list .filter-item {
+    border-radius: 3px 3px 3px 3px;
+    color: #777777;
+    display: block;
+    font-size: 14px;
+    margin: 0 0 5px;
+    overflow: hidden;
+    padding: 8px 10px;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    &:hover {
+        background: none repeat scroll 0 0 #EEEEEE;
+    }
+    &.selected {
+        background: none repeat scroll 0 0 #4183C4;
+        color: #FFFFFF;
+    }
+    .count {
+        float: right;
+        font-weight: bold;
+    }
+}
+
+.my-pull-requests-tab {
+    margin-top: 27px;
+}

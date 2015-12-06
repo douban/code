@@ -1,0 +1,19 @@
+<%inherit file="/base.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/public-timeline.css')}" />
+</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/explore/public_timeline.js')}"></script>
+</%def>
+
+<%def name="title()">Public Timeline Feed</%def>
+%if actions:
+<%include file="/widgets/actions_feed.html" args="actions=actions, is_notification=False, show_avatar=True, is_public_timeline=True"/>
+%else:
+<div class="info">No public events to show</div>
+%endif

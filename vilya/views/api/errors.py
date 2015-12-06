@@ -54,7 +54,7 @@ class NotFoundError(CodeAPIError):
     problem_type = "not_found"
 
     def __init__(self, resource_name="resource"):
-        detail = "The %s your requested can not be found, it might have been removed" % resource_name
+        detail = "The %s your requested can not be found, it might have been removed" % resource_name  # noqa
         super(NotFoundError, self).__init__(detail)
 
 
@@ -80,7 +80,8 @@ class InvalidFieldError(UnprocessableEntityError):
     title = "The request's query data is invalid"
 
     def __init__(self, field_name, format_desc="a right one"):
-        detail = "The field %s is invalid, you need supply %s." % (field_name, format_desc)
+        detail = "The field %s is invalid, you need supply %s." % (
+            field_name, format_desc)
         super(InvalidFieldError, self).__init__(detail)
 
 

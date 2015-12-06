@@ -1,0 +1,62 @@
+<%inherit file="/base.html"/>
+
+<%def name="head_style()">
+  <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+  <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+  <link rel="stylesheet" type="text/css" href="${static('/css/app/center.css')}"/>
+</%def>
+
+<%def name="bottom_script()">
+    <script src="${static('/js/app/center/main.js')}"></script>
+</%def>
+
+<%def name="title()">CODE Center</%def>
+
+<div class="row">
+    <div class="span12">
+        <div class="timeline">
+            <div class="activity">
+            % for a in activities:
+            <div class="action mod" id="activity-${a.id}" data-id="${a.id}">
+                <div class="title">
+                    <i class="icon-ok"></i>
+                    ${a.title}
+                    <span class="time js-relative-date" data-time="${a.created_at.strftime('%Y-%m-%dT%H:%M:%S+0800')}"></span>
+                    <span class="emojstext"></span>
+                </div>
+                <div class="desc">
+                    <div class="content-body markdown-body markdown-format">
+                    ${a.rendered_description | n}
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            % endfor
+            </div>
+            <div class="loader" style="display: none;">
+                <img src="/static/img/ajax-loader.gif"/>
+            </div>
+            <div class="pagination" style="display: block;">
+                <a href="javascript:void(0);">More</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="tmpl-timeline-activity" type="text/x-jquery-tmpl">
+<div class="action mod" id="activity-{{= id}}" data-id="{{= id}}">
+    <div class="title">
+        <i class="icon-ok"></i>
+        {{= title}}
+        <span class="time js-relative-date" data-time="{{= created_at}}"></span>
+        <span class="emojstext"></span>
+    </div>
+    <div class="desc">
+        <div class="content-body markdown-body markdown-format">
+        {{= description}}
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+</script>

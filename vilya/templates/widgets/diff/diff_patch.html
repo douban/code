@@ -1,0 +1,172 @@
+<%def name="patch_heading(patch, index=0, project=None, is_discussion=False)">
+    ## meta 上的 data 哪里有用？
+    <div class="meta" id="${patch.old_file_path}" data-path="${patch.old_file_path}" data-new-path="${patch.new_file_path}">
+        % if patch.repo.provide('project'):
+            ${patch_data(patch)}
+        % endif
+        <div class="info">
+            ${patch_stat(index, patch, 'diff')}
+            % if patch.status == 'R':
+            <span class="patch-title" title="${patch.old_file_path}  →  ${patch.new_file_path}">${patch.old_file_path}  →  ${patch.new_file_path}</span>
+            % else:
+            <span class="patch-title" title="${patch.old_file_path}">${patch.old_file_path}</span>
+            % endif
+        </div>
+        % if patch.repo.provide('patch_actions'):
+        <div class="actions">
+            % if patch.linecomments and patch.repo.provide('show_inline_toggle'):
+            <span class="show-inline-notes checkbox-container">
+                <input type="checkbox" checked="checked" id="show-inline-notes" class="js-show-inline-comments-toggle" />
+                <label for="show-inline-notes">Show inline notes</label>
+            </span>
+            % endif
+            ## TODO: 显示逻辑
+            % if not is_discussion:
+            <a href="javascript:void(0);" class="minibutton js-side-diff" rel="nofollow">Side by Side</a>
+            <%
+                previours_commit = None
+                #previours_commit = patch.repo.get_previours_commit(patch.old_sha, patch.old_file_path) if patch.old_sha else None
+            %>
+            % if previours_commit:
+                <a href="${previours_commit.get_url_with_path(patch.old_file_path)}#diff-0" \
+                  class="minibutton">Previous</a>
+            % endif
+            <a href="/${project.name}/blob/${patch.new_sha}/${patch.new_file_path}" class="grouped-button minibutton bigger lighter" rel="nofollow">
+                Current
+            </a>
+            <a href="javascript:void(0);" class="minibutton js-fullscreen" rel="nofollow">Full Screen</a>
+            % endif
+        </div>
+        % endif
+    </div>
+</%def>
+## js get data attr from this, and fillup js-form-template
+## TODO: 考虑to_sha，因为对pr来说to_sha可能会变
+<%def name="patch_data(patch)">
+<input type="hidden" class="patch-data"
+    data-from-sha="${patch.new_sha}"
+##    data-to-sha="" ## 指pullreq 的 to_sha
+    data-new-sha="${patch.new_sha}"
+    data-old-sha="${patch.old_sha}"
+    data-old-path="${patch.old_file_path}"
+    data-new-path="${patch.new_file_path}"
+    data-from-oid="${patch.old_file_sha}"
+    data-to-oid="${patch.new_file_sha}"
+## FIXME: context_url is None
+    data-context-url="${patch.repo.context_url}">
+</%def>
+
+<%def name="patch_skipped(patch)">
+    <%
+        ## FIXME: 对于pull/new 的url，还没有ticket
+        fulltext_url = patch.repo.fulltext_url
+        whitespace_url = patch.repo.api_url + 'toggle_whitespace'
+    %>
+    <div class="skipped-container">
+        <div class="line-numbers-skipped skipped-top first">
+            ## diff_full button
+            ## TODO: 使用 patch_data 即可
+            <span class="ellipsis" data-path="${patch.old_file_path}" data-new-path="${patch.new_file_path}"
+                data-url="${fulltext_url}" original-title="Show Full Text"></span>
+            <span class="toggle_whitespace" data-path="${patch.old_file_path}" data-new-path="${patch.new_file_path}"
+                data-url="${whitespace_url}" data-w="1" original-title="Toggle whitespace ignore"></span>
+        </div>
+        ## FIXME: 是样式问题
+        <div class="skipped-top first"></div>
+    </div>
+</%def>
+
+<%def name="patch_image(patch, index)">
+    <%
+        # FIXME: move to patch.xx
+        # FIXME: image url
+        # FIXME: gist url?
+
+        if patch.repo.provide('project'):
+            if patch.repo.pull:
+                pullreq = patch.repo.pull
+                old_file_raw_url = "/%s/raw/%s/%s" % (pullreq.to_proj, pullreq.to_branch, patch.old_file_path)
+                new_file_raw_url = "/%s/raw/%s/%s" % (pullreq.from_proj, pullreq.from_branch, patch.new_file_path)
+            else:
+                project = patch.repo.project
+                old_file_raw_url = "/%s/raw/%s/%s" % (project.name, patch.old_sha, patch.old_file_path)
+                new_file_raw_url = "/%s/raw/%s/%s" % (project.name, patch.new_sha, patch.new_file_path)
+    %>
+    <div id="org_image_div_${index}" class="row">
+        <div class="span2">&nbsp;</div>
+        <div class="span8">
+            % if patch.status in ('M', 'R', 'D', 'C') :
+                <img src="${old_file_raw_url}" id="old_pic_${index}">
+            % endif
+            <img src="${new_file_raw_url}" id="new_pic_${index}">
+        </div>
+        <div class="span2"></div>
+    </div>
+    <div style="display:none" class="row" id="diff_image_div_${index}">
+        <div class="span4">&nbsp;</div>
+        <div class="span4">
+            % if patch.status in ('A') :
+                <img src="${new_file_raw_url}" id="result_pic_${index}">
+            % else:
+                <img src="${old_file_raw_url}" id="result_pic_${index}">
+            % endif
+        </div>
+        <div class="span4">&nbsp;</div>
+    </div>
+    <div class="meta rows">
+        <div class="span6">
+            <div class="actions">
+                <a id="up_image" imgid="${index}">2-Up</a>
+                <a id="diff_image" imgid="${index}">Difference</a>
+            </div>
+        </div>
+        <div class="span6">&nbsp;</div>
+    </div>
+</%def>
+
+<%def name="patch_stat(index, patch, position)">
+    <%
+        # FIXME: split stat and diff
+        n_add = patch.additions
+        n_del = patch.deletions
+        n_total = n_add + n_del
+        n_plus = min(n_add * 5 // n_total, n_add) if n_total else 0
+        n_minus = min(n_del * 5 // n_total, n_del) if n_total else 0
+        n_normal = 5 - n_plus - n_minus
+    %>
+    % if position == 'stats':
+        <span class="diffstat">
+            <a href="#diff-${index}" class="tooltipped leftwards"
+                title="${n_add} addition${'s' if n_add > 1 else ''} &amp; ${n_del} deletion${'s' if n_del > 1 else ''}">
+                ${n_total}
+                <span class="diffstat-bar">
+                    <i class="plus">${'&#xf053;' * n_plus | n}</i>
+                    <i class="minus">${'&#xf053;' * n_minus | n}</i>
+                    ${'&#xf053;' * n_normal | n}
+                </span>
+            </a>
+        </span>
+    % elif position == 'diff':
+        <span class="diffstat tooltipped rightwards"
+            title="${n_add} addition${'s' if n_add > 1 else ''} &amp; ${n_del} deletion${'s' if n_del > 1 else ''}">
+            ${n_total}
+            <span class="diffstat-bar">
+                <i class="plus">
+                    ${'&#xf053;' * n_plus | n}
+                </i>
+                <i class="minus">
+                    ${'&#xf053;' * n_minus | n}
+                </i>
+                ${'&#xf053;' * n_normal | n}
+            </span>
+        </span>
+    % endif
+</%def>
+
+<%def name="patch_binary()">
+    <tr class="file-diff-line">
+        <td>
+            <a href="javascript:void(0)" class="binary">This is a binary file. Diff Suppressed.</a>
+        </td>
+    </tr>
+</%def>

@@ -1,0 +1,25 @@
+@import "css/mod/text-truncate";
+
+.my_projects {
+    a.right {
+        float: right;
+    }
+
+    li {
+        @include text-truncate(300px);
+    }
+
+    li .delete-btn {
+        display: none;
+    }
+
+    li.hover .delete-btn {
+        display: block;
+    }
+    margin-top: 5px;
+
+}
+
+.my_projects .delete-btn {
+    padding: 0 6px 0 6px;
+}

@@ -1,0 +1,116 @@
+.markdown-body {
+    padding:30px;
+}
+.markdown-body > :first-child {
+    margin-top:0!important;
+}
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+    margin:20px 0 10px;
+    padding:0;
+    font-weight:bold;
+    -webkit-font-smoothing:antialiased;
+    cursor:text;
+    position:relative;
+}
+.markdown-body h2 {
+font-size:24px;
+border-bottom:1px solid #CCC;
+color:black;
+}
+.markdown-body,
+.markdown-body p {
+    font-size:14px;
+    line-height:1.6;
+}
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre {
+    margin:15px 0;
+}
+.markdown-body ul,
+.markdown-body ol {
+    padding-left:30px
+}
+.markdown-body ul li {
+    line-height:1.6;
+}
+.markdown-body ul {
+    list-style: disc;
+}
+.markdown-body ol {
+    list-style: decimal;
+}
+.markdown-body table {
+    width: 100%;
+}
+.markdown-body table caption+thead tr:first-child th,
+.markdown-body table caption+thead tr:first-child td,
+.markdown-body table colgroup+thead tr:first-child th,
+.markdown-body table colgroup+thead tr:first-child td,
+.markdown-body table thead:first-child tr:first-child th,
+.markdown-body table thead:first-child tr:first-child td {
+    border-top: 0;
+}
+.markdown-body table thead th {
+    vertical-align: bottom;
+}
+.markdown-body table th {
+    font-weight: bold;
+}
+.markdown-body table th,
+.markdown-body table td {
+    padding: 8px;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+.markdown-body table th,
+.markdown-body table td {
+    padding: 8px;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+.markdown-body table tbody>tr:nth-child(odd)>td,
+.markdown-body table tbody>tr:nth-child(odd)>th {
+    background-color: #f9f9f9;
+}
+.markdown-body .progress-percentage {
+    color:#888;
+}
+
+.markdown-page {
+    padding:0px;
+}
+.markdown-page h1,
+.markdown-page h2,
+.markdown-page h3,
+.markdown-page h4,
+.markdown-page h5,
+.markdown-page h6 {
+    position: static;
+}
+.markdown-page pre {
+    font-family: Consolas, 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    font-size: 14px;
+}
+.markdown-page .label {
+    background-color: transparent;
+}
+.markdown-page dd {
+    margin-left: 1.5em;
+}
+.markdown-body code {
+    white-space: pre-wrap;
+}

@@ -1,0 +1,21 @@
+<%inherit file="/gist/gist_base.html" />
+
+<%def name="right_content(gist)">
+  <ul class="stargazers user-list">
+    % for u in gist.stars:
+    <li>
+      <a href="/gist/${ u.username }" >
+        <img src="${ u.avatar_url }" width="24" height="24">
+      </a>
+      <a href="/gist/${ u.username }" > ${ u.username }</a>
+      <span class="actions">
+        <a href="/people/${ u.username }" class="minibutton">
+           ${ u.username } on Code
+        </a>
+      </span>
+    </li>
+    % endfor
+  </ul>
+</%def>
+
+${ self.gist_content(request, gist) }

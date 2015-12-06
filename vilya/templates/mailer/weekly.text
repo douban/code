@@ -1,0 +1,17 @@
+Team: ${team.name}
+Week: ${monday.strftime("%d/%m/%y")} - ${sunday.strftime("%d/%m/%y")}
+
+% for id, change in enumerate(changes):
+<%
+    project = change.get("project")
+    commits = change.get("commits", [])
+%>
+% if commits:
+${project.name}
+% for id, commit in enumerate(commits):
+    ${commit.sha[:7]} . ${commit.author_name} . ${commit.shortlog}
+    % endfor
+% endif
+% endfor
+
+--

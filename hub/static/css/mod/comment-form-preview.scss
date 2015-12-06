@@ -1,0 +1,11 @@
+/* preview comment form style */
+.tabnav { margin: 10px 0; border-bottom: 1px solid #DDD; height: 35px; }
+.tabnav .tabnav-tabs { display: inline-block; }
+.tabnav .tabnav-tabs > li { display: inline-block; }
+.tabnav-tab { display: inline-block; margin-bottom: -1px; padding: 8px 12px 9px; border: 1px solid transparent; border-bottom: 0; font-size: 14px; color: #666; text-decoration: none; }
+.tabnav-tab.selected { border-color: #DDD; border-radius: 3px 3px 0 0; background-color: white; color: #333; font-weight: bold; }
+.tabnav-tab:hover { text-decoration: none; }
+.previewable-comment-form .tabnav { position: relative; }
+.previewable-comment-form .tabnav ul.tabnav-tabs { padding-left: 10px; }
+.previewable-comment-form .write-content, .previewable-comment-form .preview-content { padding: 0 10px 10px; }
+.previewable-comment-form #preview_bucket .content-body { padding:10px; min-height:132px; }

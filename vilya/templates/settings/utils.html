@@ -1,0 +1,62 @@
+<%def name="settings_submenu(projname, active)">
+    <%
+        subtabs = [
+            ('main', '', 'Main', False),
+            ('conf', '/conf', 'Config', False),
+            ('sphinx_docs', '/sphinx_docs', 'Docs', False),
+            ('pages', '/pages', 'Pages', False),
+            ('hooks', '/hooks', 'Hooks', True),
+        ]
+    %>
+    <ul id="settings-submenu" class="nav nav-tabs">
+        % for key, lk, tx, is_new in subtabs:
+            <li class="${'active' if active == key else ''}">
+                <a href="/${projname}/settings${lk}">${tx}
+                % if is_new:
+                    <img class="is-new" src="/static/img/new_menu.gif" alt="new">
+                % endif
+                </a>
+            </li>
+        % endfor
+    </ul>
+</%def>
+
+<%def name="personal_settings_submenu(active)">
+    <%
+        subtabs = [
+            ('emails', '/emails', 'Email'),
+            ('github', '/github', 'GitHub'),
+            ('notification', '/notification', 'Notification'),
+            ('ssh', '/ssh', 'SSH Keys'),
+            ('codereview', '/codereview', 'Code Review'),
+        ]
+    %>
+    <div class="raw">
+        <div class="span12">
+            <ul class="nav nav-tabs">
+                % for key, lk, tx in subtabs:
+                    <li class="${'active' if active == key else ''}"><a href="/settings${lk}">${tx}</a></li>
+                % endfor
+            </ul>
+        </div>
+    </div>
+</%def>
+
+<%def name="personal_settings_add_form(page)">
+    <%
+        pages = {
+            'emails': ('new_user_email', 'new-email-form', 'Email address', 'email'),
+            'github': ('new_user_github', 'new-github-form', 'GitHub user', 'github'),
+        }
+        props = pages[page]
+    %>
+    <form action="." class="${props[0]}" id="${props[0]}" method="post">
+        <dl class="form ${props[1]}">
+            <dt><label>Add another ${props[2]}</label></dt>
+        <dd>
+            <input class="short" id="${props[3]}" name="${props[3]}" required="true" size="30" type="text">
+            <button type="submit" class="btn btn-primary">Add</button>
+        </dd>
+        </dl>
+    </form>
+</%def>

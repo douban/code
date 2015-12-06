@@ -1,0 +1,63 @@
+<%inherit file="/source.html" />
+<%namespace name="tree_render" file="/widgets/tree.html" />
+<%namespace name="pjax" file="/widgets/pjax_source.html" />
+
+<%def name="extra_head()">
+<%
+is_go_get = request.get_form_var('go-get', 0)
+%>
+%if is_go_get:
+<meta name="go-import" content="${project.full_url} git ${project.repository}">
+%endif
+</%def>
+
+${parent.body()}
+
+<%def name="main()">
+    % if not is_empty:
+        ${self.pullrequest_from_latestbranch()}
+        ${self.sourcenav_bar()}
+        <div id="pjax_container">
+            ${pjax.lastcommit_bar(project, ref_type, ref, lastcommit)}
+            ${pjax.breadcrumb(project, ref, path_breadcrumb)}
+            ${tree_render.tree_files(tree_path, ref, tree)}
+            % if readme_content:
+                ${pjax.readme_block(file_name, readme_content)}
+            % endif
+        </div>
+    % else:
+        <div class="span12">
+            ${empty_repository(project)}
+        </div>
+    % endif
+</%def>
+
+<%def name="empty_repository(project)">
+    <% from config import DOMAIN %>
+    <h3>This is an empty repository.</h3>
+    <h4>Create a new repository on the command line</h4>
+    <blockquote>
+        <p>
+            touch README.md<br>
+            git init<br>
+            git add README.md<br>
+            git commit -m "first commit"<br>
+            git remote add origin ${DOMAIN}/${project.name}.git<br>
+            git push -u origin master<br>
+        </p>
+    </blockquote>
+    <h4>Push an existing repository from the command line</h4>
+    <blockquote>
+        <p>
+            git remote add origin ${DOMAIN}/${project.name}.git<br>
+            git push -u origin master<br>
+        </p>
+    </blockquote>
+    <h4>面向设计师或其它非技术同事</h4>
+    <blockquote>
+        <p>
+          <img src="http://code.dapps.douban.com/bear/mogit/docs/pages/img/mogit-logo.png" width="32" height="32">
+          Please use <a href="/bear/mogit/docs/pages/index.html">MoGit</a>
+        </p>
+    </blockquote>
+</%def>

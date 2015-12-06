@@ -1,0 +1,44 @@
+<%inherit file="/base.html" />
+<%namespace name="pagehead" file="/widgets/pagehead.html" />
+
+<%def name="head_style()">
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/flat-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/lib/code.css" />
+    <link rel="stylesheet" type="text/css" href="${static('/css/app/team-add-project.css')}" />
+</%def>
+
+<%def name="title()">${team.uid}</%def>
+
+<%def name="bottom_script()">
+<script src="${static('/js/app/team/main.js')}"></script>
+<script src="${static('/js/app/team/add_project.js')}"></script>
+</%def>
+
+${pagehead.team_header(team, user, 'settings')}
+
+<div class="row">
+    <div class="span8">
+        <div class="boxed-group">
+            <div class="boxed-group-inner">
+            <form id="add-project-form" action="${team.url}add_project" method="post">
+                <dl class="form team-form">
+                <dt><label>添加项目</label></dt>
+                <dd>
+                    <input class="short" id="project_id" placeholder="input project name to add" autocomplete="off" value="${project_name}" name="project_name" required="true" size="30" type="text">
+                    <button id="add-project-btn" type="submit" class="btn btn-primary">Add</button>
+                    %if error == 'project_name_not_exists':
+                    <p class="alert alert-error">请填写project uid</p>
+                    %elif error == 'project_not_exists':
+                    <p class="alert alert-error">project不存在</p>
+                    %endif
+                    %if error == 'project_id_existed':
+                    <p class="alert alert-error">project已添加过</p>
+                    %endif
+                </dd>
+                </dl>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

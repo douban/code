@@ -1,0 +1,37 @@
+/* TODO: still has Github UI in this mod */
+@import "css/mod/nav-search-dropdown";
+
+.navbar .container { width: 100%; }
+div.navbar .nav-logo { float:left; margin:2px 2px 0 0; }
+.span4 .items { max-width: 300px; }
+body div.container { max-width: 940px; }
+
+.btn-back {
+  float: left;
+  margin-right: 5px;
+}
+
+/* other responsive styles */
+
+@media (max-width: 767px) {
+  body {
+    padding: 50px 0px 0px;
+  }
+  body div.container {
+    max-width: 950px;
+    padding: 5px 5px;
+  }
+  .navbar-fixed-top,
+  .navbar-fixed-bottom,
+  .navbar-static-top {
+    margin: 0px 0px;
+  }
+}
+
+@media (max-width: 979px) {
+  .navbar-fixed-top,
+  .navbar-fixed-bottom {
+    position: fixed;
+  }
+}
+

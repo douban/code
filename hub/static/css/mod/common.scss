@@ -1,0 +1,30 @@
+/* Styles that are used in ALL pages. */
+@import "css/lib/bootstrap-responsive";
+@import "css/mod/reset";
+@import "css/mod/subnav";
+@import "css/mod/nav";
+@import "css/mod/side-item";
+@import "css/mod/user-avatar";
+@import "css/mod/emoji";
+@import "css/mod/emoji-hint";
+@import "css/mod/footer";
+
+/* TODO: to be removed */
+@import "css/mod/mini-icons";
+
+.hidden {
+    display: none;
+}
+
+h1.pagehead {
+    font-size: 20px;
+    font-weight: normal;
+    color: #495961;
+}
+
+.pagehead { margin-bottom:7px;}
+
+.raw {
+    overflow: hidden;
+    margin-left: -20px;
+}

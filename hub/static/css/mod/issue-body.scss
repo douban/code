@@ -1,0 +1,245 @@
+@import "compass/css3";
+
+#issue {
+
+    #content {
+        word-wrap: break-word;
+        word-break: normal;
+
+        .side-avatar {
+            a:hover {
+                text-decoration: none;
+            }
+
+            img {
+                width: 48px;
+                height: 48px;
+                @include border-radius(3px);
+            }
+        }
+        #summary {
+            @include border-radius(3px);
+            display: block;
+            margin-left: 65px;
+
+            .form-content {
+                padding: 0px;
+            }
+
+            .is-comment-editing .content-body {
+                display: none;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            ul.actions {
+                float: right;
+                text-align: right;
+
+                li {
+                    display: inline;
+                }
+
+                #upvote i {
+                    position: absolute;
+                }
+            }
+            .summary-bottom {
+                margin-top: 10px;
+
+                .assignee {
+                    float: right;
+                    margin-right: 10px;
+                }
+                .state {
+                    float: left;
+                    a#issue-closer {
+                        padding-left: 10px;
+                    }
+                }
+            }
+            /* Milestone */
+            .milestone-body {
+                display: block;
+                .milestone-bar-title {
+                    display: inline;
+                    label {
+                        display: inline;
+                    }
+                }
+            }
+        }
+
+        .participation {
+            p {
+                display: inline-block;
+                margin-left: 15px;
+            }
+        }
+
+        #changelog {
+            padding: 0px;
+            @include border-radius(3px);
+
+            .change {
+                padding: 10px 15px;
+                border-bottom: 1px solid #eaeaea;
+
+                .change-text {
+                    padding: 10px;
+                }
+                &:hover .change-bottom .comment-header-actions {
+                    display: inline;
+                }
+                .change-bottom {
+                    position: relative;
+                    .comment-header-actions {
+                        display: none;
+                        position: absolute;
+                        bottom: 10px;
+                        left: 10px;
+                    }
+                    .author-profile {
+                        float: right;
+                        p {
+                            margin: 5px;
+                            display: inline-block;
+                        }
+                        a.change-header-date {
+                            color: lightgray;
+                        }
+                        .side-avatar {
+                            float: none;
+
+                            a:hover {
+                                text-decoration: none;
+                            }
+
+                            img {
+                                width: 32px;
+                                height: 32px;
+                                @include border-radius(3px);
+                            }
+                        }
+                    }
+                }
+            }
+
+            & > .change:last-child {
+                border-bottom: none;
+            }
+        }
+        .is-comment-editing .change-text {
+            display: none;
+        }
+
+        .markdown-body pre {
+            font-family: Consolas, Menlo, "Liberation Mono", Courier, monospace;
+            margin: 0;
+            border: 0;
+        }
+
+        .avatar.avatar-tiny {
+            display: inline-block;
+            margin: 0 3px 0 0;
+            vertical-align: baseline;
+            @include border-radius(3px);
+        }
+    }
+}
+
+/* modal */
+
+.modal-header {
+    background: rgba(99, 182, 174, 1);
+    color: rgba(255,255,255,1);
+    text-shadow: none;
+
+    p {
+        margin: 0;
+    }
+}
+
+.modal-body {
+    text-shadow: none;
+}
+
+.modal-footer {
+    background: rgba(99, 182, 174, 1);
+    color: rgba(255,255,255,1);
+    text-shadow: none;
+}
+
+.quick-emoji .emojis{
+    height:120px;
+}
+
+/* Tag */
+ul.tagit li.tagit-choice {
+    margin-top: 6px;
+}
+ul.tagit input[type="text"] {
+    width: 540px;
+}
+.tag-groups p{
+    margin: 0;
+}
+.tag-groups {
+    margin-bottom: 10px;
+}
+
+/* Milestone */
+#milestone-modal {
+    .milestone-menu {
+        list-style: none;
+        display: block;
+        float: none;
+        position: relative;
+        margin-bottom: 5px;
+        border: 1px solid rgba(0,0,0,0.2);
+        padding: 5px 0;
+        border-color: rgba(99,182,174,0.8);
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+    }
+    .milestone-menu>li>a:hover,
+    .milestone-menu>li>a:focus,
+    .milestone-menu > .active > a,
+    .milestone-menu > .active > a:hover,
+    .milestone-menu > .active > a:focus {
+        color: #fff;
+        text-decoration: none;
+        background: rgba(99,182,174,1);
+    }
+    .milestone-menu>li>a {
+        display: block;
+        padding: 3px 20px;
+        clear: both;
+        font-weight: normal;
+        line-height: 20px;
+        white-space: nowrap;
+    }
+
+    input[type=radio] {
+        display: none;
+    }
+}
+
+/* Issue for Responsive Mobile Hacks */
+
+@media (max-width: 767px){
+
+    #issue #content {
+        .mod {
+            margin-left: 35px;
+        }
+        span.side-avatar img.discussion-bubble-avatar {
+            width: 30px;
+            height: 30px;
+        }
+    }
+
+}

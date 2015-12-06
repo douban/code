@@ -1,0 +1,98 @@
+<%inherit file="/mailer/weekly_base.html" />
+
+<table class="body">
+  <tr>
+    <td class="center" align="center" valign="top">
+      <center>
+          Team: ${team.name}
+      </center>
+    </td>
+  </tr>
+  <tr>
+    <td class="center" align="center" valign="top">
+      <center>
+          Week: ${monday.strftime("%d/%m/%y")} - ${sunday.strftime("%d/%m/%y")}
+      </center>
+    </td>
+  </tr>
+</table>
+
+% for id, change in enumerate(changes):
+% if change.get("commits"):
+<table class="container">
+    <tr>
+        <td>
+            <table class="row">
+            <tbody>
+                <tr>
+                    <td class="wrapper last">
+                        <table class="twelve columns">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <h4 style="margin: 0px;">${change.get('project').name}</h4>
+                                    <p class="lead"></p>
+                                </td>
+                                <td class="expander"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table class="row">
+                % for id, commit in enumerate(change.get("commits", [])):
+                <tr>
+                    <td class="wrapper">
+                        <table class="one columns">
+                            <tr>
+                                <td>
+                                    <a href="http://code.dapps.douban.com${commit.url}">${commit.sha[:7]}</a>
+                                </td>
+                                <td class="expander"></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="wrapper">
+                        <table class="one columns">
+                            <tr>
+                                <td>
+                                    ${commit.author_name}
+                                </td>
+                                <td class="expander"></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="wrapper">
+                        <table class="one columns">
+                            <tr>
+                                <td>
+                                    ${commit.author_time.strftime('%Y-%m-%d %H:%M')}
+                                </td>
+                                <td class="expander"></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="wrapper last">
+                        <table class="nine columns">
+                            <tr>
+                                <td>
+                                    ${commit.shortlog}
+                                </td>
+                                <td class="expander"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                % endfor
+            </table>
+        </td>
+    </tr>
+</table>
+% endif
+% endfor

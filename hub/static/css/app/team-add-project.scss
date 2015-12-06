@@ -1,0 +1,33 @@
+@import "css/mod/common";
+@import "css/mod/team-header";
+@import "css/mod/drop-down-list";
+.boxed-group {
+    position: relative;
+    background: #EFEFEF;
+    padding: 3px;
+    border-radius: 3px;
+    margin: 0 0 15px 0;
+    .boxed-group-inner {
+        padding: 1px 10px;
+        background: white;
+        border: 1px solid #D8D8D8;
+        border-top: none;
+        border-bottom-left-radius: 1px;
+        border-bottom-right-radius: 1px;
+        color: #666;
+        font-size: 13px;
+    }
+}
+#project_id {
+    margin-bottom: 1px;
+}
+label {
+    margin-left:10px;
+    color: rgba(99, 182, 174, 1);
+}
+dd {
+    position: relative;
+}
+.add-item-menu{
+    top: 30px;
+}
