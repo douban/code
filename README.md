@@ -39,12 +39,15 @@ $boot2docker ip
 $docker run -t -i code /bin/bash
 ```
 
-Vagrant Installation
+Vagrant Installation(Recommended)
 --------------------
 
 ```
 $cd code
-vagrant up
+$vagrant up
+$vagrant ssh
+# In ubuntu. we use `supervisor` monitor and control CODE and other services.
+#You just go web http://localhost:8200
 ```
 
 Quick Installation
@@ -57,14 +60,26 @@ Currently supports the following systems:
 * opensuse
 * archlinux
 
-You only to excute:
+You only to execute:
 
 ```
-bash <(curl -s https://raw.githubusercontent.com/douban/code/master/scripts/install_code.sh)
+$bash <(curl -s https://raw.githubusercontent.com/douban/code/master/scripts/install_code.sh)
 ```
 
-Notes: The install script in `code/scripts` subdirectory, for example ubuntu/debian,
-You can see `code/scripts/ubuntu.sh`
+Then install & run `supervisor` to monitor and control all services of code.
+
+```
+pip install supervisor
+sudo wget -O /etc/init.d/supervisor https://raw.githubusercontent.com/Supervisor/initscripts/master/ubuntu
+sudo chmod +x /etc/init.d/supervisor
+sudo cp scripts/supervisord.conf /etc/supervisord.conf
+sudo cp scripts/code.conf /etc/supervisor/conf.d/code.conf
+sudo /etc/init.d/supervisor start
+# go web http://localhost:8200
+```
+
+Notes: The install script in `scripts` subdirectory, for example ubuntu/debian,
+You can see `scripts/ubuntu.sh`
 
 FAQ
 ----
