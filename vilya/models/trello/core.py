@@ -8,7 +8,7 @@ from vilya.config import DOMAIN
 from vilya.libs.mq import async
 
 
-@async()
+@async
 def process_trello_notify(user, ticket):
     if not ticket or not user or not user.trello_access_token:
         return

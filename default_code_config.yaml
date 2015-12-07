@@ -1,0 +1,23 @@
+
+## Code-Douban config file
+## -----------------------
+##
+## YAML format
+
+## Docs functionality in Code allow your project to host
+## some content like a documentation or a blog.
+## By default, we have a sphinx builder running on
+## the rst files found in the docs/ directory, if any.
+
+docs:
+  rstdocs:
+    dir: docs
+    builder: pickle
+    name: Docs
+
+# CSS customization
+style:
+  projhead: ""  # Inline styling for project head block
+
+# Onimaru url
+onimaru: ''

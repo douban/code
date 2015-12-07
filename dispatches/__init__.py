@@ -20,7 +20,8 @@ DISPATCH_MQ_NAME = "dispatches_mq"
 
 
 def sync_call(module_path, func_names, data):
-    logging.info('dispatch functions %s for module %s' % (func_names, module_path))
+    logging.info('dispatch functions %s for module %s' %
+                 (func_names, module_path))
     module = importlib.import_module(module_path)
 
     if isinstance(module, type) and issubclass(module, BaseDispatcher):
@@ -63,11 +64,13 @@ class BaseDispatcher(object):
         if self._module is self:
             for fn in fnames:
                 func = getattr(self._module, fn, None)
-                if callable(func): func()
+                if callable(func):
+                    func()
         else:
             for fn in fnames:
                 func = getattr(self._module, fn, None)
-                if callable(func): func(self._data)
+                if callable(func):
+                    func(self._data)
 
     def _call_funcs_async(self, fnames):
         fnames = list(fnames) if fnames else []
@@ -87,8 +90,8 @@ class BaseDispatcher(object):
             return
         dispatcherClass = getattr(self._module, fname, None)
         if isinstance(dispatcherClass, type) \
-            and issubclass(dispatcherClass, BaseDispatcher) \
-            and dispatcherClass.__module__ == self._module.__name__:
+                and issubclass(dispatcherClass, BaseDispatcher) \
+                and dispatcherClass.__module__ == self._module.__name__:
             dispatcher = dispatcherClass(self._data)
             dispatcher.dispatch()
 
@@ -111,6 +114,7 @@ class BaseDispatcher(object):
 
 def get_subpkg():
     dir_ = os.path.dirname(__file__)
+
     def is_package(d):
         d = os.path.join(dir_, d)
         return os.path.isdir(d) and glob.glob(os.path.join(d, '__init__.py*'))
@@ -134,6 +138,7 @@ def dispatch(name, data):
         dispatcher = BaseDispatcher(data, module)
         dispatcher.dispatch()
     else:
+        return
         raise ImportError(
-                'Dispatcher Not Found: checked path %s',
-                repr(checked_path))
+            'Dispatcher Not Found: checked path %s',
+            repr(checked_path))

@@ -56,7 +56,7 @@ BEANSDBCFG = {
     "localhost:7903": range(16),
 }
 
-DOMAIN = 'http://127.0.0.1:8000/'
+DOMAIN = 'http://127.0.0.1:8200/'
 IRC_SERVER = 'irc.intra.douban.com'
 IRC_PORT = 12345
 SMTP_SERVER = 'mail.douban.com'
