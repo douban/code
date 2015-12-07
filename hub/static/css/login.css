@@ -469,10 +469,7 @@ table td {
     opacity: 1;
 }
 .error_container {
-    position: absolute;
     opacity: 0;
-    top: 0;
-    left: 100%;
     white-space: nowrap;
     line-height: 70px;
     width: auto;
@@ -533,6 +530,7 @@ table td {
     -webkit-animation-delay: 2s;
     /* Chrome, Safari, Opera */
     animation-delay: 2s;
+    display: none;
 }
 @media only screen and (min-width : 0px) and (max-width : 870px) {
     .error_container.invisible {
@@ -543,6 +541,7 @@ table td {
         -moz-transform: translateX(0px);
         -ms-transform: translateX(0px);
         transform: translateX(0px);
+        display: none;
     }
 }
 .password_validator {

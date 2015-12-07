@@ -18,6 +18,7 @@ export class LoginComponent extends React.Component {
     }
 
     saveAndContinue = (event) =>  {
+        event.preventDefault();
         let data = {
             username: this.state.username,
             password: this.state.password,
