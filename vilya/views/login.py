@@ -18,5 +18,7 @@ def _q_index(request):
             request.user = user
             set_user(user.id)
             return json.dumps({"r": 0, "continue": continue_url or "/"})
-        return json.dumps({"r": 1})
+        else:
+            message = '用户名或密码错误！'
+            return json.dumps({"r": 1, 'message': message})
     return st('login.html')
