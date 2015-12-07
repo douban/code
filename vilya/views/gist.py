@@ -374,7 +374,7 @@ class GistEmbedUI(object):
         resp.set_header('Pragma', 'no-cache')
         resp.set_header('Cache-Control', 'must-revalidate, no-cache, private')
         if not self.gist_id.isdigit() or not Gist.get(self.gist_id):
-            return "document.write('<span style="color:red;">NOT EXIST GIST</span>')"  # noqa
+            return "document.write('<span style=\"color:red;\">NOT EXIST GIST</span>')"  # noqa
         gist = Gist.get(self.gist_id)
         html = EMBED_CSS + EMBED_HEAD % gist.id
         for path in gist.files:
