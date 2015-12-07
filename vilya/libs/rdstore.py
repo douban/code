@@ -5,7 +5,7 @@ from vilya.config import REDIS_HOST, REDIS_PORT, REDIS_DB
 
 
 def init_store():
-    return redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
+    return redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
 
 
 rdstore = init_store()

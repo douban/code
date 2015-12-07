@@ -266,8 +266,8 @@ class ProjectRepo(Repo):
                  recursive_with_tree_node=False):
         tree = self.repo.ls_tree(
             ref, path=path, recursive=recursive,
-            with_commit=with_commit,
-            recursive_with_tree_node=recursive_with_tree_node)
+            with_commit=with_commit)
+        # recursive_with_tree_node=recursive_with_tree_node)
         if not tree:
             return None
         return Tree(self, tree)
@@ -560,12 +560,12 @@ class PullRepo(ProjectRepo):
         sha = None
         ticket_id = self.pull.ticket_id
         if ticket_id:
-            from models.consts import PULL_REF_H
+            from vilya.models.consts import PULL_REF_H
             # FIXME: catch more exceptions
             try:
                 sha = self.sha(PULL_REF_H % ticket_id)
             except:
-                #旧有的被close但又未merge的pr可能出错
+                # 旧有的被close但又未merge的pr可能出错
                 pass
         if not sha and self.from_repo:
             sha = self.from_repo.sha(self.pull.from_ref)
@@ -576,12 +576,12 @@ class PullRepo(ProjectRepo):
         sha = None
         ticket_id = self.pull.ticket_id
         if ticket_id:
-            from models.consts import PULL_REF_M
+            from vilya.models.consts import PULL_REF_M
             # FIXME: catch more exceptions
             try:
                 sha = self.sha(PULL_REF_M % ticket_id)
             except:
-                #旧有的被close但又未merge的pr可能出错
+                # 旧有的被close但又未merge的pr可能出错
                 pass
         if not sha:
             sha = self.sha(self.pull.to_ref)
@@ -589,7 +589,7 @@ class PullRepo(ProjectRepo):
 
     def merge(self, merger, message_header, message_body):
         import shutil
-        from models.git import make_git_env
+        from vilya.models.git import make_git_env
 
         # TODO: Use User only
         if merger and isinstance(merger, basestring):

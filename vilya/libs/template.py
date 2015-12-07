@@ -11,6 +11,8 @@ from vilya.libs.permdir import get_tmpdir
 from vilya.libs.import_obj import import_obj
 from vilya.config import CODE_DIR, MAKO_FS_CHECK
 
+import vilya.libs.mako_cache  # noqa
+
 
 MAKO_CACHE_DIR = join(get_tmpdir(), "tmp_mako_0606", "mako_cache")
 

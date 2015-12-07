@@ -21,11 +21,11 @@ PullRequest = Pull2
 
 def add_pull(ticket, pullreq, user):
     from dispatches import dispatch
-    from libs.text import get_mentions_from_text
-    from libs.signals import pullrequest_signal
-    from models.user import get_author_by_email
-    from models.user import User
-    from models.trello.core import process_trello_notify
+    from vilya.libs.text import get_mentions_from_text
+    from vilya.libs.signals import pullrequest_signal
+    from vilya.models.user import get_author_by_email
+    from vilya.models.user import User
+    from vilya.models.trello.core import process_trello_notify
 
     reporter = user.username
     commits = pullreq.commits
@@ -117,7 +117,7 @@ def add_pull(ticket, pullreq, user):
 def merge_pull(ticket, pullreq, user, message, request):
     from dispatches import dispatch
     from queues_handler import sphinx_builds_add
-    from libs.signals import pullrequest_signal
+    from vilya.libs.signals import pullrequest_signal
     project = pullreq.to_proj
     # before
     # check user permission
@@ -184,7 +184,7 @@ def merge_pull(ticket, pullreq, user, message, request):
 
 def close_pull(ticket, pullreq, user, content, comment, request):
     from dispatches import dispatch
-    from libs.signals import pullrequest_signal
+    from vilya.libs.signals import pullrequest_signal
 
     project = ticket.project
     author = user.name

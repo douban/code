@@ -826,7 +826,7 @@ class CodeDoubanProject(PropsMixin, TagMixin):
     # FIXME: remove this, please use project.mirror
     @property
     def is_mirror_project(self):
-        from models.mirror import CodeDoubanMirror
+        from vilya.models.mirror import CodeDoubanMirror
         return CodeDoubanMirror.get_by_project_id(self.id) is not None
 
     @property
@@ -835,7 +835,7 @@ class CodeDoubanProject(PropsMixin, TagMixin):
 
     @property
     def mirror(self):
-        from models.mirror import CodeDoubanMirror
+        from vilya.models.mirror import CodeDoubanMirror
         mirror = CodeDoubanMirror.get_by_project_id(self.id)
         return mirror if mirror else None
 
@@ -897,8 +897,8 @@ class CodeDoubanProject(PropsMixin, TagMixin):
 
     @property
     def open_parent_pulls(self):
-        from models.ticket import Ticket
-        from models.pull import PullRequest
+        from vilya.models.ticket import Ticket
+        from vilya.models.pull import PullRequest
         pulls = []
         parent = self.get_forked_from()
         if parent:
@@ -916,8 +916,8 @@ class CodeDoubanProject(PropsMixin, TagMixin):
 
     @property
     def open_network_pulls(self):
-        from models.ticket import Ticket
-        from models.pull import PullRequest
+        from vilya.models.ticket import Ticket
+        from vilya.models.pull import PullRequest
         pulls = []
         projects = self.get_fork_network()
         for project in projects:
@@ -931,8 +931,8 @@ class CodeDoubanProject(PropsMixin, TagMixin):
 
     @property
     def open_pulls(self):
-        from models.ticket import Ticket
-        from models.pull import PullRequest
+        from vilya.models.ticket import Ticket
+        from vilya.models.pull import PullRequest
         pulls = [PullRequest.get_by_proj_and_ticket(self.id,
                                                     t.ticket_id)
                  for t in Ticket.gets_by_proj(self.id,
@@ -946,7 +946,7 @@ class CodeDoubanProject(PropsMixin, TagMixin):
 
     @property
     def groups(self):
-        from models.team_group import ProjectGroup
+        from vilya.models.team_group import ProjectGroup
         rs = ProjectGroup.gets(project_id=self.id)
         return [r.group for r in rs]
 
@@ -968,7 +968,7 @@ class CodeDoubanProject(PropsMixin, TagMixin):
         project = cls.get_by_name(name)
         if not project:
             return None
-        from models.pull import PullRequest
+        from vilya.models.pull import PullRequest
         pull = PullRequest.gets_by(to_project=project.id, ticket_id=pull_id,
                                    force_flush=True)
         if pull:

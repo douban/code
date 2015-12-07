@@ -127,7 +127,7 @@ __JS_MANAGER = None
 
 def get_static_manager(static_path):
     '''获取单例化的管理器'''
-    from config import DOMAIN
+    from vilya.config import DOMAIN
 
     global __CSS_MANAGER
     global __JS_MANAGER

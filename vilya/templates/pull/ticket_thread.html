@@ -84,7 +84,7 @@
 
     <div id="changelog">
         <%
-            from models.consts import TICKET_NODE_TYPE_COMMIT
+            from vilya.models.consts import TICKET_NODE_TYPE_COMMIT
             nodes = ticket.get_nodes()
             shas = pullreq.get_commits_shas()
 
@@ -159,12 +159,13 @@
 
 <%def name="render_nodes(nodes, shas)">
     <%
-        from models.consts import (TICKET_NODE_TYPE_CLOSE,
-                                   TICKET_NODE_TYPE_LINECOMMENT,
-                                   TICKET_NODE_TYPE_COMMENT,
-                                   TICKET_NODE_TYPE_COMMIT,
-                                   TICKET_NODE_TYPE_MERGE,
-                                   TICKET_NODE_TYPE_OPEN)
+        from vilya.models.consts import (
+            TICKET_NODE_TYPE_CLOSE,
+            TICKET_NODE_TYPE_LINECOMMENT,
+            TICKET_NODE_TYPE_COMMENT,
+            TICKET_NODE_TYPE_COMMIT,
+            TICKET_NODE_TYPE_MERGE,
+            TICKET_NODE_TYPE_OPEN)
     %>
     % for node in nodes:
         % if node.type == TICKET_NODE_TYPE_OPEN:

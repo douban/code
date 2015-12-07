@@ -104,7 +104,7 @@ class Beansdb(object):
         b = hash / self.bucket_size
         return self.buckets[b]
 
-    def get(self, key):
+    def get(self, key, default=None):
         ss = self._get_servers(key)
         for i, s in enumerate(ss):
             r = s.get(key)
@@ -113,6 +113,7 @@ class Beansdb(object):
                 for k in range(i):
                     ss[k].set(key, r)
                 return r
+        return default
 
     def get_multi(self, keys):
         rs = {}
