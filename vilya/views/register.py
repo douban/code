@@ -13,10 +13,10 @@ def _q_index(request):
         email = request.get_form_var('email')
         password = request.get_form_var('password')
         if not email:
-            return {'r': 1, 'message': 'Email没有指定'}
+            return json.dumps({'r': 1, 'message': 'Email没有指定'})
         user_name = email.split('@')[0]
         if CodeUser.is_exists(user_name):
-            return {'r': 1, 'message': '用户已存在'}
+            return json.dumps({'r': 1, 'message': '用户已存在'})
         code_user = CodeUser.add(user_name, password)
         set_user(code_user.id)
         return json.dumps({'r': 0})
