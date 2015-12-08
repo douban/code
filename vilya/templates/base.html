@@ -293,6 +293,11 @@
 
   </li>
   % else:
+  <li>
+    <span>
+      <a href="${User.create_register_url(request.url)}" class="btn btn-success">Sign up</a>
+    </span>
+  </li>
   <li><a href="${User.create_login_url(request.url)}">Sign in</a></li>
   % endif
 </%def>
