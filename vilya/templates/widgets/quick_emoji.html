@@ -1,8 +1,7 @@
 
 <%def name="buttons(dropup=False)">
 <%
-    #    from vilya.libs.emoji import EMOJIS, url_for_emoji, MENG_EMOJIS, LINE_EMOJIS, LINE_EMOJIS_1, LINE_EMOJIS_2, LINE_EMOJIS_3
-        from vilya.libs.emoji import EMOJIS, url_for_emoji
+    from vilya.libs.emoji import EMOJIS, url_for_emoji, EMOJIONE, TWEMOJI
 %>
 <div class="btn-group pull-right quick-emoji ${'dropup' if dropup else ''}">
     <a class="btn btn-small disabled">Quick Emoji:</a>
@@ -10,10 +9,10 @@
         <img src="/static/emoji/lgtm.png" width="18" alt="lgtm" />
     </a>
     <a class="btn btn-small" data-emoji=":beer:">
-        <img src="/static/emoji/lgtm.png" width="18" alt="beer" />
+        <img src="/static/emoji/ruby.png" width="18" alt="beer" />
     </a>
     <a class="btn btn-small" data-emoji=":clap:">
-        <img src="/static/emoji/lgtm.png" width="18" alt="clap" />
+        <img src="/static/emoji/thumbs_up_sign.png" width="18" alt="clap" />
     </a>
     <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
         <span class="caret"></span>
@@ -34,7 +33,7 @@
 </div>
 <div class="btn-group pull-right quick-emoji ${'dropup' if dropup else ''}">
     <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
-        <img src="/static/emoji/lgtm.png" width="18" alt="clap" />
+        <img src="/static/emoji/1F427.png" width="18" alt="clap" />
         <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
@@ -43,7 +42,7 @@
         </li>
         <li class="divider"></li>
         <div class="emojis">
-            % for emoji in EMOJIS:
+            % for emoji in EMOJIONE:
             <a data-emoji="${emoji}">
                 <img src="${url_for_emoji(emoji)}" />
             </a>
@@ -53,7 +52,7 @@
 </div>
 <div class="btn-group pull-right quick-emoji ${'dropup' if dropup else ''}">
     <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
-        <img src="/static/emoji/lgtm.png" width="18" alt="clap" />
+        <img src="/static/emoji/1f64f.png" width="18" alt="clap" />
         <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
@@ -62,64 +61,7 @@
         </li>
         <li class="divider"></li>
         <div class="emojis">
-            % for emoji in EMOJIS:
-            <a data-emoji="${emoji}">
-                <img src="${url_for_emoji(emoji)}" />
-            </a>
-            % endfor
-        </div>
-    </ul>
-</div>
-<div class="btn-group pull-right quick-emoji ${'dropup' if dropup else ''}">
-    <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
-        <img src="/static/emoji/lgtm.png" width="18" alt="clap" />
-        <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-        <li class="description">
-        Select an emoji
-        </li>
-        <li class="divider"></li>
-        <div class="emojis">
-            % for emoji in EMOJIS:
-            <a data-emoji="${emoji}">
-                <img src="${url_for_emoji(emoji)}" />
-            </a>
-            % endfor
-        </div>
-    </ul>
-</div>
-<div class="btn-group pull-right quick-emoji ${'dropup' if dropup else ''}">
-    <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
-        <img src="/static/emoji/lgtm.png" width="18" alt="clap" />
-        <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-        <li class="description">
-        Select an emoji
-        </li>
-        <li class="divider"></li>
-        <div class="emojis">
-            % for emoji in EMOJIS:
-            <a data-emoji="${emoji}">
-                <img src="${url_for_emoji(emoji)}" />
-            </a>
-            % endfor
-        </div>
-    </ul>
-</div>
-<div class="btn-group pull-right quick-emoji ${'dropup' if dropup else ''}">
-    <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
-        <img src="/static/emoji/lgtm.png" width="18" alt="clap" />
-        <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-        <li class="description">
-        Select an emoji
-        </li>
-        <li class="divider"></li>
-        <div class="emojis">
-            % for emoji in EMOJIS:
+            % for emoji in TWEMOJI:
             <a data-emoji="${emoji}">
                 <img src="${url_for_emoji(emoji)}" />
             </a>
