@@ -72,6 +72,9 @@ TRASH_EMAIL_ADDR = 'code-email-trash@dappsmail.douban.com'
 TRELLO_CONSUMER_KEY = ''
 TRELLO_CONSUMER_SECRET = ''
 
+# bcrypt_sha256/bcrypt
+PASSWORD_METHOD = 'bcrypt_sha256'
+
 try:
     from local_config import *  # noqa
 except ImportError:

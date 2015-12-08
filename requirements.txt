@@ -18,6 +18,7 @@ requests==2.7.0
 python-dateutil==2.1
 oauth2==1.5.211
 Trolly==0.1.0
+bcrypt==2.0.0
 -e git+https://github.com/qingfeng/misaka@2fbe52692e8f304eea9d8925fd2a857916ff0ea5#egg=misaka
 mikoto==0.0.4
 -e git+https://github.com/douban/sina.git@c8dbe938d7238ba44851cca36934b07320b0e143#egg=sina
