@@ -23,7 +23,7 @@ WebTest==2.0.20
 mock==1.3.0
 nose==1.3.7
 docutils==0.12
--e git+https://github.com/douban/sina.git@c8dbe938d7238ba44851cca36934b07320b0e143#egg=sina
+-e git+https://github.com/douban/sina.git@fd90a60150545bafd491dfd632d0f8212ae4f622#egg=sina
 -e git+https://github.com/douban/douban-utils.git@5ca697545da191dab3fbe308e6b6776d8da83bd5#egg=DoubanUtils
 -e git+https://github.com/douban/douban-sqlstore.git@d7136b7cac1075f0b285e8c763af2e85124f8b76#egg=DoubanSQLStore
 -e git+https://github.com/dongweiming/douban-mc.git@5a0a21cdb73a448eb09a1b657ad80d4941ddb404#egg=DoubanMC
