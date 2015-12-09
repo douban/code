@@ -23,9 +23,32 @@ ONE_WEEK = ONE_DAY * 7
 ONE_MONTH = ONE_DAY * 30
 ONE_YEAR = ONE_DAY * 365
 
+_clients = {}
+
+
+def hashdict(d):
+    """
+    make dictionary becomes a immutable tuple
+    """
+    if isinstance(d, (tuple, list)):
+        return tuple(hashdict(v) for v in d)
+    elif isinstance(d, dict):
+        return tuple(sorted((k, hashdict(v)) for k, v in d.iteritems()))
+    else:
+        return d
+
+
+def Client(servers=None, *args, **kwargs):
+    key = hashdict([servers, kwargs])
+    mc = _clients.get(key)
+    if not mc:
+        mc = libmc.Client(servers, *args, **kwargs)
+        _clients[key] = mc
+    return mc
+
 
 def get_mc():
-    return libmc.Client(MEMCACHED_HOSTS, **MEMCACHED_CONFIG)
+    return Client(MEMCACHED_HOSTS, **MEMCACHED_CONFIG)
 
 
 def get_db():
@@ -37,6 +60,7 @@ def stub_cache(*args, **kws):
 
 mc = get_mc()
 bdb = get_db()
+
 pcache = pcache2 = listcache = cache_in_obj = delete_cache = cache = stub_cache
 globals().update(create_decorators(mc))
 
@@ -56,12 +80,25 @@ def make_dict(cursor, row):
     return dict(zip((str(d[0]) for d in cursor.description), row))
 
 
-def reset_mc():
-    pass
+def reset_mc(deep=False):
+    for mc in _clients.itervalues():
+        getattr(mc, 'clear', lambda: True)()
+        if deep:
+            getattr(mc.mc, 'clear', lambda: True)()
 
 
 def reset_beansdb():
-    pass
+    for db in _clients.itervalues():
+        db.clear_cache()
+
+
+def clear_beansdb_for_test():
+    for db in _clients.itervalues():
+        db.clear_cache()
+        for s in db.db.servers:
+            clear = getattr(s.mc, 'clear', None)
+            if clear:
+                clear()
 
 
 def clear_local_cache():

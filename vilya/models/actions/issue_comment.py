@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from models.actions.base import Action, ActionScope
+from vilya.models.actions.base import Action, ActionScope
 
 
 # TODO

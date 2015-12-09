@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from libs import gyt
+from vilya.libs import gyt
 import shutil
 import tempfile
 from os.path import join as opj
@@ -75,7 +75,7 @@ class TestGyt(TestCase):
         ref_cmt1 = repo.revparse_single(sha)
         ref_cmt2 = repo.revparse_single('HEAD')
         diff = ref_cmt1.tree.diff(ref_cmt2.tree)
-        patches, filenames = gyt.parse_raw_diff_patches(diff.patch,True)
+        patches, filenames = gyt.parse_raw_diff_patches(diff.patch, True)
         assert patches[0][0][1] == [
             ('idem', u'a'),
             ('idem', u'b'),

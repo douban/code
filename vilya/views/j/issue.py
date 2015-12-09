@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 
 from quixote.errors import TraversalError
-from libs.template import st
-from libs.text import parse_emoji, render_markdown_with_project, render_markdown
-from models.issue import Issue
-from models.project import CodeDoubanProject
-from models.tag import TagName, Tag, TAG_TYPE_PROJECT_ISSUE, TAG_TYPE_TEAM_ISSUE
-from models.team import Team
-from views.util import jsonize
+from vilya.views.libs.template import st
+from vilya.views.libs.text import parse_emoji, render_markdown_with_project, render_markdown
+from vilya.views.models.issue import Issue
+from vilya.views.models.project import CodeDoubanProject
+from vilya.views.models.tag import TagName, Tag, TAG_TYPE_PROJECT_ISSUE, TAG_TYPE_TEAM_ISSUE
+from vilya.views.models.team import Team
+from vilya.views.util import jsonize
 
 _q_exports = ['delete_tag']
+
 
 def _q_lookup(request, uid):
     if uid.isdigit():
@@ -17,6 +18,7 @@ def _q_lookup(request, uid):
         if issue:
             return IssueUI(issue)
     raise TraversalError
+
 
 @jsonize
 def delete_tag(request):
@@ -46,7 +48,8 @@ def delete_tag(request):
         if not target.is_admin(user.name):
             return {'r': 0, 'msg': '没有操作权限'}
 
-        tname = TagName.get_by_name_and_target_id(tag_name, tag_type, target.id)
+        tname = TagName.get_by_name_and_target_id(
+            tag_name, tag_type, target.id)
         if not tname:
             return {'r': 0, 'msg': 'tag不存在'}
 
@@ -76,10 +79,12 @@ class IssueUI(object):
             if self.issue and user == self.issue.creator_id:
                 self.issue.update(title, content)
                 if self.issue == "project":
-                    content_html = render_markdown_with_project(content, self.target.name)
+                    content_html = render_markdown_with_project(
+                        content, self.target.name)
                 else:
                     content_html = render_markdown(content)
-                content_html += st('/widgets/markdown_checklist.html', **locals())
+                content_html += st('/widgets/markdown_checklist.html',
+                                   **locals())
                 return {'r': 0,
                         'title': title,
                         'content': content,

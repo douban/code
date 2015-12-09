@@ -2,7 +2,7 @@
 
 from tests.base import TestCase
 
-from models.sshkey import SSHKey
+from vilya.models.sshkey import SSHKey
 
 KEY1 = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9BDCAFpTC9h/0qEqYD62VRCYALKWBkJr"\
     "ll95hR8TDu3AOFLQCDZqEKcjzGrvoeEthwH++PTOv5mvYbwYmwtJb638tY/v7srxnFUCrrnzmZQqqY"\

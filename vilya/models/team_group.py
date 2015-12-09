@@ -44,7 +44,7 @@ class TeamGroup(BaseModel):
 
     @property
     def team(self):
-        from models.team import Team
+        from vilya.models.team import Team
         return Team.get(self.team_id)
 
     @property
@@ -53,13 +53,13 @@ class TeamGroup(BaseModel):
 
     @property
     def members(self):
-        from models.user import User
+        from vilya.models.user import User
         rs = GroupUser.gets(group_id=self.id)
         return [User(r.user_id) for r in rs]
 
     @property
     def projects(self):
-        from models.project import CodeDoubanProject
+        from vilya.models.project import CodeDoubanProject
         rs = ProjectGroup.gets(group_id=self.id)
         return filter(None, [CodeDoubanProject.get(r.project_id) for r in rs])
 
@@ -95,7 +95,7 @@ class GroupUser(BaseModel):
 
     @property
     def user(self):
-        from models.user import User
+        from vilya.models.user import User
         return User(self.user_id)
 
     def to_dict(self):
@@ -115,7 +115,7 @@ class ProjectGroup(BaseModel):
 
     @property
     def project(self):
-        from models.project import CodeDoubanProject
+        from vilya.models.project import CodeDoubanProject
         return CodeDoubanProject.get(self.project_id)
 
     def to_dict(self):

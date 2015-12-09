@@ -10,7 +10,7 @@ from vilya.models.project import CodeDoubanProject
 from vilya.models.user import get_author_by_email
 from vilya.models.lru_counter import (ProjectOwnLRUCounter,
                                       ProjectWatchLRUCounter)
-from views.uis.pull import TicketUI
+from vilya.views.uis.pull import TicketUI
 
 
 def __enter__(data):

@@ -11,18 +11,18 @@ class UserIssue(object):
     # FIXME: including open & closed
     @classmethod
     def gets_by_creator_id(cls, user_id, state=None):
-        from models.issue import Issue
+        from vilya.models.issue import Issue
         return Issue.gets_by_creator_id(user_id, state)
 
     # FIXME: including open & closed
     @classmethod
     def gets_by_assignee_id(cls, user_id, state=None):
-        from models.issue import Issue
+        from vilya.models.issue import Issue
         return Issue.gets_by_assignee_id(user_id, state)
 
     @classmethod
     def get_participated_issues(cls, user_id, state=None):
-        from models.issue import Issue
+        from vilya.models.issue import Issue
         issues_created = cls.gets_by_creator_id(user_id, state)
         issues = [issue for issue in Issue.gets_by_participated_user(user_id,
                                                                      state)

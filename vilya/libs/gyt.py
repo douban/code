@@ -39,7 +39,8 @@ HEADER = re.compile(r"""^diff[ ]--git[ ]a/(?P<a_path>.+)[ ]b/(?P<b_path>.+)""")
 # gc grep gui init log merge mv notes pull push rebase reset revert rm shortlog show stash status submodule tag config
 # fast-export fast-import filter-branch lost-found mergetool pack-refs prune reflog relink remote repack replace repo-config
 # annotate blame cherry count-objects difftool fsck get-tar-commit-id help instaweb merge-tree rerere rev-parse show-branch
-# verify-tag whatchanged archimport cvsexportcommit cvsimport cvsserver imap-send quiltimport request-pull send-email svn
+# verify-tag whatchanged archimport cvsexportcommit cvsimport cvsserver
+# imap-send quiltimport request-pull send-email svn
 
 isa = isinstance
 
@@ -435,7 +436,8 @@ class _Repo(object):
             if patch:
                 patches, filenames = parse_raw_diff_patches(
                     diff.patch, parse_patch)
-                changes = self.diff_file_type(changes, patches, from_sha, to_sha)
+                changes = self.diff_file_type(
+                    changes, patches, from_sha, to_sha)
         else:
             full_stream = self.call(cmd)
             head, _, patches_stream = full_stream.partition('\0\0')
@@ -443,7 +445,8 @@ class _Repo(object):
             if patch:
                 patches, filenames = parse_raw_diff_patches(
                     patches_stream, parse_patch)
-                changes = self.diff_file_type(changes, patches, from_sha, to_sha)
+                changes = self.diff_file_type(
+                    changes, patches, from_sha, to_sha)
         return changes
 
 

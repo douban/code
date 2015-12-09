@@ -4,7 +4,7 @@
 from dispatches.notifications import NotificationDispatcher
 from vilya.libs.mailer import Mail, MailContext
 from vilya.models.mute import Mute
-#from models.actions.pull_commit import PullCommit  # feed will need
+#from vilya.models.actions.pull_commit import PullCommit  # feed will need
 
 EMAIL_TITLE = "[%s] %s (#%s)"
 IN_REPLY_TO = '<%s-pull-%s@code>'

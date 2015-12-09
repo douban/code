@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from models.user_fav import UserFavItem
-from models.consts import K_PULL, K_ISSUE
-from views.util import jsonize
+from vilya.models.user_fav import UserFavItem
+from vilya.models.consts import K_PULL, K_ISSUE
+from vilya.views.util import jsonize
 
 _q_exports = []
 

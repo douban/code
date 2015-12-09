@@ -26,7 +26,7 @@ def _q_index(request):
         elif list_type == "yours":
             tickets = user.get_user_submit_pull_requests()
         elif list_type == "explore":
-            from models.ticket import Ticket
+            from vilya.models.ticket import Ticket
             tickets = Ticket.gets_all_opened()
             ticket_total_len = len(tickets)
             shuffle(tickets)

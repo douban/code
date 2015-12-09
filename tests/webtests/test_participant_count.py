@@ -2,10 +2,10 @@
 from tests.base import TestCase
 from webtest import TestApp
 
-from models.project import CodeDoubanProject
-from models.team import Team
-from models.project_issue import ProjectIssue
-from models.team_issue import TeamIssue
+from vilya.models.project import CodeDoubanProject
+from vilya.models.team import Team
+from vilya.models.project_issue import ProjectIssue
+from vilya.models.team_issue import TeamIssue
 import app as M
 
 
@@ -15,7 +15,8 @@ class ParticipantCountTest(TestCase):
         project_name = "project"
         project = CodeDoubanProject.add(
             project_name, owner_id="test1", summary="test", product="fire")
-        issue = ProjectIssue.add('test', 'test description', 'test', project=project.id)
+        issue = ProjectIssue.add(
+            'test', 'test description', 'test', project=project.id)
         resp = app.get(issue.url)
 
         assert resp.status_int == 200

@@ -70,7 +70,7 @@ class Team(OrzBase, PropsMixin, TagMixin):
 
     @property
     def projects(self):
-        from models.project import CodeDoubanProject
+        from vilya.models.project import CodeDoubanProject
         return filter(None, [CodeDoubanProject.get(_)
                              for _ in self.project_ids])
 

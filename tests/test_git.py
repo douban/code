@@ -27,7 +27,10 @@ class TestGit(TestCase):
         else:
             work_tree_path = self._path_work_tree(name)
             os.mkdir(work_tree_path)
-        CodeDoubanProject.create_git_repo(git_path)
+        try:
+            CodeDoubanProject.create_git_repo(git_path)
+        except:
+            pass
         repo = git.GitRepo(git_path, work_tree=work_tree_path)
         return repo
 

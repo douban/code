@@ -50,7 +50,7 @@ class IssueComment(object):
 
     @property
     def issue(self):
-        from models.issue import Issue
+        from vilya.models.issue import Issue
         return Issue.get_cached_issue(self.issue_id)
 
     def delete(self):

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from models.actions.base import Action, ActionScope
+from vilya.models.actions.base import Action, ActionScope
 
 
 # TODO
@@ -50,5 +50,6 @@ migrate_pull_comment = {
     'scope': ('', lambda x: 'project'),  # only projects has
     'entry_id': 'ticket',
     'title': ('ticket', lambda x: 'PullRequest #%d' % x),    # don't know title
-    'entry_title': ('ticket', lambda x: 'PullRequest #%d' % x),    # don't know title
+    # don't know title
+    'entry_title': ('ticket', lambda x: 'PullRequest #%d' % x),
 }

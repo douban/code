@@ -415,7 +415,7 @@ class CodeDoubanProject(PropsMixin, TagMixin):
             return PERM_PUSH
 
     def get_group_perm(self, user_id):
-        from models.team_group import ProjectGroup
+        from vilya.models.team_group import ProjectGroup
         pgs = ProjectGroup.gets(project_id=self.id)
         perm = None
         for pg in pgs:
@@ -559,6 +559,7 @@ class CodeDoubanProject(PropsMixin, TagMixin):
                 (name, owner_id, summary, datetime.now(),
                  product, git_path, name, fork_from, intern_banned))
         except IntegrityError:
+            raise
             return None
 
         if fork_from is not None:
@@ -699,7 +700,7 @@ class CodeDoubanProject(PropsMixin, TagMixin):
             return CodeDoubanProject.get(self.fork_from)
 
     def delete(self):
-        from models.nteam import TeamProjectRelationship
+        from vilya.models.nteam import TeamProjectRelationship
         shutil.rmtree(self.git_real_path, ignore_errors=True)
         for hook in self.hooks:
             hook.destroy()
@@ -772,7 +773,7 @@ class CodeDoubanProject(PropsMixin, TagMixin):
 
     @property
     def n_open_tickets(self):
-        from models.ticket import Ticket
+        from vilya.models.ticket import Ticket
         return Ticket.get_count_by_proj(self.id)
 
     @property

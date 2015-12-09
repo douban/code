@@ -148,7 +148,7 @@ class TicketCommits(BaseModel):
 
     @property
     def ticket(self):
-        from models.ticket import Ticket
+        from vilya.models.ticket import Ticket
         return Ticket.get(self.ticket_id)
 
     @property
@@ -247,7 +247,7 @@ class TicketComment(BaseModel):
         return comment
 
     def after_create(self, extra_args):
-        from models.ticket import Ticket
+        from vilya.models.ticket import Ticket
         comment = self
         TicketNode.add_comment(comment)
         content = extra_args

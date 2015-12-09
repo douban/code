@@ -42,8 +42,8 @@ class TestProjectGitCalls(TestCase):
             f.write(content)
             f.close()
             clone.call(['add', filename])
-        clone.call(['commit', '--author', '%s <%s>' % (author,
-                   author_email), '-m', msg], _env=self.env_for_git)
+        clone.call(['commit', '--author', '%s <%s>' % (
+            author, author_email), '-m', msg], _env=self.env_for_git)
         clone.call('push origin HEAD')
         return clone.sha()
 
@@ -332,7 +332,7 @@ class TestProjectGitCalls(TestCase):
         assert diff.filepath == filename
         assert len(diff.chunks) == 1
         chunk = diff.chunks[0]
-        assert chunk, diff_lines == [('add', u'line1'), ('add', u'line2'), ('add', u'line3'), ('add', u'line4\u4e32\u4e32'), ('other', u' No newline at end of file')]  @ noqa
+        assert chunk, diff_lines == [('add', u'line1'), ('add', u'line2'), ('add', u'line3'), ('add', u'line4\u4e32\u4e32'), ('other', u' No newline at end of file')]  # noqa
         assert chunk.tip_line == u'@@ -0,0 +1,4 @@'
 
     def test_parse_diff_with_bad_message(self):

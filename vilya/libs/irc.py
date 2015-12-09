@@ -50,7 +50,7 @@ class IrcMsg(object):
 
     @staticmethod
     def irc_receiver_filter(receivers, target):
-        from models.user import User
+        from vilya.models.user import User
         rs = set()
         for receiver in receivers:
             user = User(receiver)
@@ -65,7 +65,7 @@ class IrcMsg(object):
 
 
 def notify_by_irc(target_obj, channel, message):
-    from models.user import User
+    from vilya.models.user import User
     user = User(channel)
     notify_irc = user.notify_irc(target_obj) if user else None
     if notify_irc:

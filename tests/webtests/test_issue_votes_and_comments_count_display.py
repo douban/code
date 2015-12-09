@@ -2,8 +2,8 @@
 from tests.base import TestCase
 from webtest import TestApp
 
-from models.project import CodeDoubanProject
-from models.project_issue import ProjectIssue
+from vilya.models.project import CodeDoubanProject
+from vilya.models.project_issue import ProjectIssue
 import app as M
 
 

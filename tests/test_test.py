@@ -13,7 +13,7 @@ class TestTestClass(object):
 
 
 def test_connect_db():
-    from libs.store import connect_mysql
+    from vilya.libs.store import connect_mysql
     conn = connect_mysql()
     cursor = conn.cursor()
     cursor.execute("select * from codedouban_hooks")
@@ -23,7 +23,7 @@ def test_connect_db():
 
 class TestDb(TestCase):
     def test_insert_into_db(self):
-        from libs.store import connect_mysql
+        from vilya.libs.store import connect_mysql
         conn = connect_mysql()
         cursor = conn.cursor()
         cursor.execute("select * from codedouban_hooks")
@@ -39,7 +39,7 @@ class TestDb(TestCase):
         conn.commit()
 
     def test_mc(self):
-        from libs.store import get_mc
+        from vilya.libs.store import get_mc
         mc = get_mc()
         key = "RANDOM________2f3fddd4455"
         assert mc.get(key) is None, "Cache should be empty after next run"
@@ -47,7 +47,7 @@ class TestDb(TestCase):
         assert mc.get(key) == 'a value'
 
     def test_mc_called_twice(self):
-        from libs.store import get_mc
+        from vilya.libs.store import get_mc
         mc = get_mc()
         key = "RANDOM________2f3fddd4455"
         assert mc.get(key) is None
@@ -57,7 +57,7 @@ class TestDb(TestCase):
         assert mc2.get(key) == 'a value'
 
     def test_mc_with_strange_key_using_quote(self):
-        from libs.store import get_mc
+        from vilya.libs.store import get_mc
         import urllib
         mc = get_mc()
         key = urllib.quote_plus('sss sés你好的de')
@@ -66,7 +66,7 @@ class TestDb(TestCase):
         assert mc.get(key) == 'a value'
 
     def test_cache_decorator(self):
-        from libs.store import cache
+        from vilya.libs.store import cache
         cache_key = 'K2000'
 
         @cache(cache_key)
@@ -81,7 +81,7 @@ class TestDb(TestCase):
         assert check.count == 1, "Should go inside cached function ONLY once"
 
     def test_cache_decorator_with_params(self):
-        from libs.store import cache
+        from vilya.libs.store import cache
         cache_key = 'K2000 p1:%s:%s'
 
         @cache(cache_key % ('{param1}', '{param2}'))

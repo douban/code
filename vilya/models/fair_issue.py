@@ -23,7 +23,7 @@ class FairIssue(Issue):
         Issue.__init__(self, issue_id, title, creator, assignee, closer,
                        created_at, updated_at, closed_at, self.target_type)
         self.number = self.id
-        from models.fair import FAIR_ID
+        from vilya.models.fair import FAIR_ID
         self.team_id = FAIR_ID
 
     @property
@@ -32,7 +32,7 @@ class FairIssue(Issue):
 
     @property
     def target(self):
-        from models.fair import get_fair
+        from vilya.models.fair import get_fair
         return get_fair()
 
     @classmethod
@@ -64,7 +64,7 @@ class FairIssue(Issue):
     def get_by_issue_id(cls, issue_id):
         issue = Issue.get(issue_id)
         if issue:
-            from models.fair import FAIR_ID
+            from vilya.models.fair import FAIR_ID
             return cls(id, FAIR_ID, issue.id, issue.id, issue.title,
                        issue.creator_id, issue.assignee_id, issue.closer_id,
                        issue.created_at, issue.updated_at, issue.closed_at,
@@ -83,7 +83,7 @@ class FairIssue(Issue):
     def add_related_project(self, repo_url):
         info = urlparse(repo_url)
         project_name = info.path.strip('/')
-        from models.project import CodeDoubanProject
+        from vilya.models.project import CodeDoubanProject
         prj = CodeDoubanProject.get_by_name(project_name)
         if prj not in self.related_projects:
             store.execute('insert into issue_related_projects '
@@ -102,12 +102,12 @@ class FairIssue(Issue):
         rs = store.execute('select project_id from issue_related_projects '
                            'where issue_id=%s', (self.issue_id,))
         prj_ids = [id for (id, ) in rs]
-        from models.project import CodeDoubanProject
+        from vilya.models.project import CodeDoubanProject
         return CodeDoubanProject.gets(prj_ids)
 
     @property
     def pledged(self):
-        from models.user import User
+        from vilya.models.user import User
         return [(User(user_id), amount)
                 for user_id, amount, time in self.get_pledged()]
 

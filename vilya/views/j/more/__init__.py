@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from quixote.errors import TraversalError
-from views.util import jsonize, render_actions
-from models.feed import get_public_feed, get_user_feed, get_user_inbox, PAGE_ACTIONS_COUNT
+from vilya.views.util import jsonize, render_actions
+from vilya.models.feed import get_public_feed, get_user_feed, get_user_inbox, PAGE_ACTIONS_COUNT
 
 _q_exports = ['pub', 'notify', 'team', 'userfeed']
 

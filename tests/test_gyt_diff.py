@@ -4,7 +4,7 @@ import tempfile
 from os.path import join as opj
 
 from tests.base import TestCase
-from vilya.ibs import gyt
+from vilya.libs import gyt
 
 TEST_REPO = '/tmp/test_gyt/repo/.git'
 

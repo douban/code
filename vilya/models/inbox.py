@@ -88,7 +88,7 @@ class Courier(object):
 
     def add_code_review(self, ticket, author, text, commit_id):
         ticket_fields = ticket.values
-        from models.pull import PullRequest
+        from vilya.models.pull import PullRequest
         pullreq = PullRequest.get_by_ticket(ticket)
         uid = 'codereview-%s-%s-%s' % (pullreq.to_proj, ticket.id, commit_id)
 
