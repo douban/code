@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from vilya.config import PASSWORD_METHOD
+from vilya.models.hashers import check_password, make_password
 from vilya.libs.model import BaseModel, ModelField
 from vilya.models.consts import (
     USER_ROLE_INTERN, USER_ROLE_STAFF, USER_ROLE_DEFAULT)
@@ -23,7 +25,7 @@ class User2(BaseModel):
         return int(self.role) == USER_ROLE_INTERN
 
     def validate_password(self, password):
-        return self.password == password
+        return check_password(password, self.password)
 
     @classmethod
     def is_exists(cls, name):
@@ -31,7 +33,9 @@ class User2(BaseModel):
 
     @classmethod
     def add(cls, name, password):
-        return cls.create(name=name, password=password, role=USER_ROLE_DEFAULT)
+        encoded_password = make_password(password, hasher=PASSWORD_METHOD)
+        return cls.create(name=name, password=encoded_password,
+                          role=USER_ROLE_DEFAULT)
 
     def set_role(self, intern=False):
         self.role = USER_ROLE_INTERN if intern else USER_ROLE_STAFF

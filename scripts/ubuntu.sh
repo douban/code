@@ -4,7 +4,7 @@
 . common.sh
 
 echo "Install needed package.This may take some time..."
-sudo apt-get install build-essential g++ git python-pip python-virtualenv dh-autoreconf python-dev memcached redis-server -yq
+sudo apt-get install build-essential g++ git python-pip python-virtualenv dh-autoreconf python-dev memcached redis-server libffi-dev -yq
 
 echo "Install mysql..."
 sudo apt-get install mysql-client mysql-server libmysqlclient-dev -yq
