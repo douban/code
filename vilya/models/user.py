@@ -79,17 +79,22 @@ class User(PropsMixin):
         return CodeUser.get(name=name)
 
     @classmethod
+    def create_register_url(cls, dest_url=None, full_url=False):
+        return cls.create_url('/register/', dest_url=dest_url,
+                              full_url=full_url)
+
+    @classmethod
     def create_login_url(cls, dest_url=None, full_url=False):
-        url = '/login/'
-        if dest_url:
-            url += '?' + urlencode({'continue': dest_url})
-        return url
-        return _get_full_qualified_url(url) if full_url else url
+        return cls.create_url('/login/', dest_url=dest_url, full_url=full_url)
 
     @classmethod
     def create_logout_url(cls, dest_url, full_url=False):
-        url = '/logout/?' + urlencode({'continue': dest_url})
-        return url
+        return cls.create_url('/logout/', dest_url=dest_url, full_url=full_url)
+
+    @classmethod
+    def create_url(cls, url, dest_url=None, full_url=False):
+        if dest_url:
+            url += '?' + urlencode({'continue': dest_url})
         return _get_full_qualified_url(url) if full_url else url
 
     @property
