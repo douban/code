@@ -22,7 +22,7 @@
 ${pagehead.team_header(team, user, 'settings')}
 
 <%
-    from models.consts import TEAM_OWNER, TEAM_MEMBER
+    from vilya.models.consts import TEAM_OWNER, TEAM_MEMBER
     owners = team.owner_ids
     members = team.member_ids
     creators = team.owner_ids

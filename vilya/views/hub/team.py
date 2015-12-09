@@ -459,7 +459,7 @@ class TeamGroupsUI(object):
         self.team = team
 
     def _q_index(self, request):
-        from models.team_group import TeamGroup
+        from vilya.models.team_group import TeamGroup
         context = {}
         team = self.team
         context["request"] = request
@@ -480,7 +480,7 @@ class TeamGroupsUI(object):
         return st('/teams/groups.html', **context)
 
     def _q_lookup(self, request, part):
-        from models.team_group import TeamGroup
+        from vilya.models.team_group import TeamGroup
         team = self.team
         group = TeamGroup.get(team_id=team.id, name=part)
         if not group:

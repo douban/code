@@ -36,7 +36,7 @@ class TestUserPullRequests(TestCase):
         title = 'test title'
         desc = 'test desc'
         u = User('testu%s' % time.time())
-        p1_t1 = Ticket.add(self.proj1.id, title, desc, u.username)
+        p1_t1 = Ticket.add(self.proj2.id, title, desc, u.username)
         assert u.get_user_submit_pull_requests() != []
         assert u.n_user_open_submit_pull_requests == 1
 

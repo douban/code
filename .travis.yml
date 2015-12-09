@@ -3,6 +3,9 @@ language: python
 python:
  - 2.7
 
+services:
+ - redis-server
+
 before_script:
  - mysql -e 'create database valentine;'
  - mysql -D valentine < vilya/databases/schema.sql
@@ -11,4 +14,4 @@ install:
  - pip install -r requirements.txt
 
 script:
- - py.test vilya/tests
+ - py.test tests

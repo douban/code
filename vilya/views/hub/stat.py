@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from models.statistics import (
+from vilya.models.statistics import (
     get_all_ticket,
     get_ticket_comment_count,
     get_all_issue,
@@ -9,7 +9,7 @@ from models.statistics import (
     get_all_gist
 )
 from libs.template import st
-from views.api.utils import jsonize
+from vilya.views.api.utils import jsonize
 
 _q_exports = ['source']
 

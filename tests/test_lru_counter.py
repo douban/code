@@ -2,7 +2,7 @@
 
 from tests.base import TestCase
 
-from models.lru_counter import LRUCounter
+from vilya.models.lru_counter import LRUCounter
 
 
 class TestLRUCounter(TestCase):

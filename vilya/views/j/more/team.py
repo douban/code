@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from quixote.errors import TraversalError
-from views.util import jsonize, render_actions
-from models.feed import get_team_feed, PAGE_ACTIONS_COUNT
-from models.team import Team
+from vilya.views.util import jsonize, render_actions
+from vilya.models.feed import get_team_feed, PAGE_ACTIONS_COUNT
+from vilya.models.team import Team
 
 _q_exports = []
 

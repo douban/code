@@ -89,12 +89,12 @@ class Milestone(OrzBase):
 
     @property
     def tasks(self):
-        from models.milestone_task import MilestoneTask
+        from vilya.models.milestone_task import MilestoneTask
         return MilestoneTask(self).get_multi()
 
     @property
     def issue_ids(self):
-        from models.milestone_task import MilestoneTask
+        from vilya.models.milestone_task import MilestoneTask
         # TODO: check milestone type
         ms = MilestoneTask(self).get_multi()
         # TODO: orz return int
@@ -102,12 +102,12 @@ class Milestone(OrzBase):
 
     @property
     def open_tasks(self):
-        from models.milestone_task import MilestoneTask
+        from vilya.models.milestone_task import MilestoneTask
         return MilestoneTask(self).get_multi(state="open")
 
     @property
     def closed_tasks(self):
-        from models.milestone_task import MilestoneTask
+        from vilya.models.milestone_task import MilestoneTask
         return MilestoneTask(self).get_multi(state="closed")
 
     @property

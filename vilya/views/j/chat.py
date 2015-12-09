@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
-from models.message import get_room_message
-from models.room import Room
-from views.util import jsonize, render_message
+from vilya.models.message import get_room_message
+from vilya.models.room import Room
+from vilya.views.util import jsonize, render_message
 from libs.template import st
 
 _q_exports = ['delete_room']

@@ -100,12 +100,12 @@ class ProjectIssue(Issue):
 
     @property
     def target(self):
-        from models.project import CodeDoubanProject
+        from vilya.models.project import CodeDoubanProject
         return CodeDoubanProject.get(self.project_id)
 
     @property
     def proj_name(self):
-        from models.project import CodeDoubanProject
+        from vilya.models.project import CodeDoubanProject
         return CodeDoubanProject.get(self.project_id).name
 
     def _tags_as_dict(self):
@@ -192,7 +192,7 @@ class ProjectIssue(Issue):
 
     @classmethod
     def get_by_proj_name_and_number(cls, proj_name, number):
-        from models.project import CodeDoubanProject
+        from vilya.models.project import CodeDoubanProject
         project = CodeDoubanProject.get_by_name(proj_name)
         project_issue = cls.get(project.id, number=number)
         issue_id = project_issue.issue_id
@@ -371,7 +371,7 @@ class ProjectIssue(Issue):
                                                     state, people_attr)
             return project_issues[start:start + limit], len(project_issues)
         else:
-            #FIXME:
+            # FIXME:
             project_issues = cls.gets_by_project_id(project_id, state, limit,
                                                     start, order)
             return project_issues, cls.get_count_by_project_id(
@@ -423,20 +423,20 @@ class ProjectIssue(Issue):
 
     @property
     def milestone_name(self):
-        from models.milestone import Milestone
+        from vilya.models.milestone import Milestone
         m_id = self.milestone_id
         m = Milestone.get_by(m_id) if m_id else None
         return m.name if m else ''
 
     @property
     def milestone_percentage(self):
-        from models.milestone import Milestone
+        from vilya.models.milestone import Milestone
         m_id = self.milestone_id
         m = Milestone.get_by(m_id) if m_id else None
         return m.percentage if m else 0
 
     def add_milestone(self, user, name=None, milestone_id=None):
-        from models.milestone import Milestone
+        from vilya.models.milestone import Milestone
         target = self.target
         if name:
             ms = Milestone.get_by_project(target, name=name)
@@ -493,4 +493,4 @@ class ProjectIssue(Issue):
             issues = filter(lambda x: x.assignee_id == assignee.name, issues)
         if creator:
             issues = filter(lambda x: x.creator_id == creator.name, issues)
-        return dict(issues=issues[start:start+limit], total=len(issues))
+        return dict(issues=issues[start:start + limit], total=len(issues))

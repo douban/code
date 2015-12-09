@@ -1,10 +1,10 @@
 # coding=utf-8
-from views.util import jsonize
+from vilya.views.util import jsonize
 from quixote.errors import TraversalError
 
-from models.project import CodeDoubanProject
-from models.hook import CodeDoubanHook
-from models.consts import TELCHAR_URL
+from vilya.models.project import CodeDoubanProject
+from vilya.models.hook import CodeDoubanHook
+from vilya.models.consts import TELCHAR_URL
 
 _q_exports = []
 

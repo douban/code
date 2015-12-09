@@ -2,7 +2,7 @@
 
 from __future__ import absolute_import
 import shutil
-import models.elastic as _el
+import vilya.models.elastic as _el
 
 from nose import SkipTest
 
@@ -28,7 +28,7 @@ from vilya.models.git import make_git_env
 from vilya.models.user import User
 from vilya.models.pull import PullRequest, add_pull
 
-from libs.permdir import get_tmpdir
+from vilya.libs.permdir import get_tmpdir
 
 base_yaml_conf = """
 sphinx_docs:

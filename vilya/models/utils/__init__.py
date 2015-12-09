@@ -74,7 +74,7 @@ def format_pullrequest_info(sender, **kw):
 
 
 def format_code_review_info(sender, **kw):
-    from models.pull import PullRequest
+    from vilya.models.pull import PullRequest
     comment = kw['comment']
     anchor_id = comment.uid
     ticket = kw['ticket']
@@ -132,7 +132,7 @@ def get_uuid():
 
 
 def get_issue_by_issue_id(issue_id):
-    from models.issue import Issue
+    from vilya.models.issue import Issue
     issue = Issue.get_cached_issue(issue_id)
     return issue
 
@@ -167,7 +167,7 @@ def format_issue_info(**kw):
 
 
 def format_issue_comment_info(**kw):
-    from models.issue_comment import IssueComment
+    from vilya.models.issue_comment import IssueComment
     issue_id = kw['issue_id']
     author = kw['author']
     content = kw['content']

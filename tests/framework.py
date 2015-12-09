@@ -8,8 +8,8 @@ STUB_DIR = os.path.join(TEST_DIR, 'stub')
 sys.path.insert(0, STUB_DIR)
 
 memcached = {
-	'servers' : [],
-	'disabled' : False,
-} 
+    'servers': [],
+    'disabled': False,
+}
 
 import cmemcached

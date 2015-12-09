@@ -105,7 +105,7 @@ class Team(PropsMixin, TagMixin):
 
     @property
     def projects(self):
-        from models.project import CodeDoubanProject
+        from vilya.models.project import CodeDoubanProject
         return filter(None,
                       [CodeDoubanProject.get(_) for _ in self.project_ids])
 
@@ -157,7 +157,7 @@ class Team(PropsMixin, TagMixin):
 
     @property
     def users(self):
-        from models.user import User
+        from vilya.models.user import User
         return [User(u) for u in self.user_ids]
 
     @property
@@ -194,7 +194,7 @@ class Team(PropsMixin, TagMixin):
     def get_by_uid(cls, uid, ignore_case=True):
         # dirty hack
         if uid == 'fair':
-            from models.fair import FairTeam
+            from vilya.models.fair import FairTeam
             return FairTeam()
 
         team_query = 'lower(`team_id`)' if ignore_case else 'team_id'
@@ -225,7 +225,7 @@ class Team(PropsMixin, TagMixin):
     def get(cls, id):
         # dirty hack
         if id == 0:
-            from models.fair import FairTeam
+            from vilya.models.fair import FairTeam
             return FairTeam()
 
         sets = store.execute('select id, team_id, name, '
@@ -266,14 +266,14 @@ class Team(PropsMixin, TagMixin):
             return True
 
     def create_group(self, **kw):
-        from models.team_group import TeamGroup
+        from vilya.models.team_group import TeamGroup
         kw['team_id'] = self.id
         t = TeamGroup.create(**kw)
         return t
 
     @property
     def groups(self):
-        from models.team_group import TeamGroup
+        from vilya.models.team_group import TeamGroup
         return TeamGroup.gets(team_id=self.id)
 
     def add_user(self, user, identity):

@@ -84,7 +84,7 @@ class TeamIssue(Issue):
 
     @property
     def target(self):
-        from models.team import Team
+        from vilya.models.team import Team
         return Team.get(self.team_id)
 
     @classmethod

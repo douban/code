@@ -60,7 +60,7 @@ class FairUI(TeamIssueBoardUI):
 
     @property
     def issue_comments(self):
-        from views.hub.team import TeamIssueCommentUI
+        from vilya.views.hub.team import TeamIssueCommentUI
         return TeamIssueCommentUI(self.team.uid)
 
 

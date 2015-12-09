@@ -428,7 +428,7 @@ def add_issue_action(sender, **kw):
         feeds = get_related_feeds(
             author, extra_receivers=to_users, team_ids=[target.id])
     elif issue.target_type == "fair":
-        from models.fair import FAIR_ID
+        from vilya.models.fair import FAIR_ID
         feeds = get_related_feeds(author, extra_receivers=to_users,
                                   team_ids=[FAIR_ID])
     for feed in feeds:
@@ -453,7 +453,7 @@ def add_issue_comment_action(sender, **kw):
         feeds = get_related_feeds(
             author, extra_receivers=to_users, team_ids=[target.id])
     elif issue.target_type == "fair":
-        from models.fair import FAIR_ID
+        from vilya.models.fair import FAIR_ID
         feeds = get_related_feeds(author, extra_receivers=to_users,
                                   team_ids=[FAIR_ID])
     for feed in feeds:

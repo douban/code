@@ -55,7 +55,7 @@ class GistComment(object):
 
     @property
     def url(self):
-        from models.gist import Gist
+        from vilya.models.gist import Gist
         return '%s/#comment-%s' % (Gist.get(self.gist_id).url, self.id)
 
     def as_dict(self):

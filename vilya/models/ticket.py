@@ -357,7 +357,7 @@ class Ticket(PropsMixin):
 
         for paticipant in self.participants:
             # FIXME better interface
-            from models.user import UserPullRequests
+            from vilya.models.user import UserPullRequests
             UserPullRequests(paticipant).remove_participated(self.id)
             UserPullRequests(paticipant).remove_invited(self.id)
 

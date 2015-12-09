@@ -3,11 +3,11 @@ import os
 import shutil
 from os.path import join
 
-from libs.permdir import get_repo_root
-from libs.store import store
-from models.project import CodeDoubanProject as Project
-from models.pull import PullRequest
-from models.ticket import Ticket
+from vilya.libs.permdir import get_repo_root
+from vilya.libs.store import store
+from vilya.models.project import CodeDoubanProject as Project
+from vilya.models.pull import PullRequest
+from vilya.models.ticket import Ticket
 
 from tests.utils import clone
 

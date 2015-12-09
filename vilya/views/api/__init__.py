@@ -263,8 +263,8 @@ class APIUI:
 
 
 def timeline(request):
-    from models.timeline import format_timeline
-    from models.feed import get_public_feed
+    from vilya.models.timeline import format_timeline
+    from vilya.models.feed import get_public_feed
     timestamp = request.get_form_var('timestamp')
     count = request.get_form_var('count') or 15
     start = request.get_form_var('start') or 0

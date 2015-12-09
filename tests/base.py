@@ -1,6 +1,7 @@
 # encoding: UTF-8
 
 import os
+import glob
 import unittest
 import webtest
 
@@ -18,8 +19,27 @@ from vilya.models.feed import Feed  # noqa
 os.environ['CODEDOUBAN_RUNNING_MODE'] = 'unittest'
 
 
+def _mc_server_flush_all(host, port):
+    assert host in ('127.0.0.1', 'localhost', socket.getfqdn())
+
+    sock = socket.socket()
+    sock.connect((host, port))
+    req = 'flush_all\r\n'
+    expected_res = 'OK\r\n'
+    assert len(req) == sock.send(req)
+    assert sock.recv(1024) == expected_res
+    sock.close()
+
+
 def _flush_mc_server(mc):
-    pass
+    if not hasattr(mc, 'stats'):
+        return
+
+    stats = mc.stats()
+    assert len(stats) == 1
+    host, port = stats.keys()[0].split(':')
+    port = int(port)
+    _mc_server_flush_all(host, port)
 
 
 def clear_beansdb_for_test():
@@ -34,6 +54,11 @@ class TestApp(webtest.TestApp):
 
     def __init__(self, app=None, **kwargs):
         super(TestApp, self).__init__(app, **kwargs)
+
+
+def remove_files():
+    for p in glob.glob('vilya/permdir/test*'):
+        os.removedirs(p)
 
 
 class TestCase(unittest.TestCase):
