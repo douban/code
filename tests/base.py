@@ -4,6 +4,7 @@ import os
 import glob
 import unittest
 import webtest
+import socket
 
 from vilya.libs.rdstore import rds
 from vilya.libs.gyt import clear_memoizer

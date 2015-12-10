@@ -43,7 +43,7 @@ class TestBadge(object):
         user = User('qingfeng')
         with new_badge(user.username) as badge:
             badge.award(item_id=user.username)
-            eq_(len(user.get_badges()), 1)
+            eq_(len(user.get_badges()), 2)
 
     def test_get_user_new_badges(self):
         user = User('qingfeng')
