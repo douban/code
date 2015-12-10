@@ -83,6 +83,7 @@ class LineCommentTest(TestCase):
 
     def test_delete_comment(self):
         # commit
+        self.clear_comments(CommitLineComment, TARGET_ID, FROM_SHA)
         c1 = CommitLineComment.add(TARGET_ID, FROM_SHA, TO_SHA,
                                    OLD_PATH, NEW_PATH, FROM_OID, TO_OID,
                                    20, 30, AUTHOR, CONTENT1)
@@ -93,6 +94,7 @@ class LineCommentTest(TestCase):
         assert len(cs) == 0
 
         # pull
+        self.clear_comments(PullLineComment, TARGET_ID, FROM_SHA)
         c2 = PullLineComment.add(TARGET_ID, FROM_SHA, TO_SHA,
                                  OLD_PATH, NEW_PATH, FROM_OID, TO_OID,
                                  20, 30, AUTHOR, CONTENT1)
@@ -104,6 +106,7 @@ class LineCommentTest(TestCase):
 
     def test_gets_by_target_and_ref(self):
         # commit
+        self.clear_comments(CommitLineComment, TARGET_ID, FROM_SHA)
         c1 = CommitLineComment.add(TARGET_ID, FROM_SHA, TO_SHA,
                                    OLD_PATH, NEW_PATH, FROM_OID, TO_OID,
                                    20, 30, AUTHOR, CONTENT1)
@@ -116,12 +119,17 @@ class LineCommentTest(TestCase):
         cs = CommitLineComment.gets_by_target_and_ref(TARGET_ID, FROM_SHA)
         assert len(cs) == 3
 
+        self.clear_comments(PullLineComment, TARGET_ID, FROM_SHA)
         # pull
-        c1 = PullLineComment.add(TARGET_ID, FROM_SHA, TO_SHA,
-                                 OLD_PATH, NEW_PATH, FROM_OID, TO_OID,
-                                 20, 30, AUTHOR, CONTENT1)
-        c2 = PullLineComment.add(TARGET_ID, FROM_SHA, TO_SHA,
-                                 OLD_PATH, NEW_PATH, FROM_OID, TO_OID,
-                                 20, 30, AUTHOR, CONTENT1)
+        PullLineComment.add(TARGET_ID, FROM_SHA, TO_SHA,
+                            OLD_PATH, NEW_PATH, FROM_OID, TO_OID,
+                            20, 30, AUTHOR, CONTENT1)
+        PullLineComment.add(TARGET_ID, FROM_SHA, TO_SHA,
+                            OLD_PATH, NEW_PATH, FROM_OID, TO_OID,
+                            20, 30, AUTHOR, CONTENT1)
         cs = PullLineComment.gets_by_target_and_ref(TARGET_ID, FROM_SHA)
         assert len(cs) == 2
+
+    def clear_comments(self, classObj, TARGET_ID, FROM_SHA):
+        cs = classObj.gets_by_target_and_ref(TARGET_ID, FROM_SHA)
+        classObj.delete_multi(cs)

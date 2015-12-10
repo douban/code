@@ -72,8 +72,8 @@ class Repo(object):
               mirror=None, env=None, shared=None):
         self.repo.clone(path,
                         bare=bare, branch=branch,
-                        mirror=mirror, env=env,
-                        shared=shared)
+                        mirror=mirror, env=env)
+        # shared=shared) why?
 
     def archive(self, name, ref='master', ext='tar.gz'):
         content = self.repo.archive(name, ref=ref)

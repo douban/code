@@ -168,6 +168,11 @@ class LineComment(object):
             return True
         return False
 
+    @classmethod
+    def delete_multi(cls, cs):
+        for c in cs:
+            c.delete()
+
 
 class CommitLineComment(LineComment):
     _target_type = LINECOMMENT_TYPE_COMMIT

@@ -161,3 +161,7 @@ def index_users_action():
 
 def index_a_project_docs():
     pass
+
+
+def index_a_gist():
+    pass
