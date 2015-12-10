@@ -1,10 +1,10 @@
 # coding=utf-8
 from kombu import Queue
 
-from vilya.config import REDIS_HOST, REDIS_PORT, REDIS_DB
+from vilya.config import REDIS_URI
 
-BROKER_URL = 'redis://{0}:{1}/{2}'.format(REDIS_HOST, REDIS_PORT, REDIS_DB)
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+BROKER_URL = REDIS_URI
+CELERY_RESULT_BACKEND = REDIS_URI
 CELERY_TIMEZONE = 'UTC'
 
 CELERY_IMPORTS = ('tasks', )
