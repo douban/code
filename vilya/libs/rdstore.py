@@ -1,11 +1,11 @@
 # coding=utf-8
 import redis
 
-from vilya.config import REDIS_HOST, REDIS_PORT, REDIS_DB
+from vilya.config import REDIS_URI
 
 
 def init_store():
-    return redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
+    return redis.from_url(REDIS_URI)
 
 
 rdstore = init_store()
