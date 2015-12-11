@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import shutil
 
 from nose.tools import eq_
 
@@ -18,7 +19,9 @@ class TestGit(TestCase):
         return os.path.join(get_repo_root(), '%s.git' % name)
 
     def _path_work_tree(self, name):
-        return os.path.join(get_repo_root(), '%s.work_tree' % name)
+        path = os.path.join(get_repo_root(), '%s.work_tree' % name)
+        shutil.rmtree(path, ignore_errors=True)
+        return path
 
     def _repo(self, name, bare=True):
         git_path = self._path(name)
@@ -118,11 +121,11 @@ class TestGit(TestCase):
         repo = self._repo('test_merge_diff', bare=False)
         self._commit(repo, 'testfile', 'msg')
         not_bare = gyt.repo(repo.path, repo.work_tree)
-        sha1 = self._commit(repo, 'tf1', 'content1', 'msg1')
+        self._commit(repo, 'tf1', 'content1', 'msg1')
         not_bare.call('checkout -b test_br')
         sha2 = self._commit(repo, 'tf2', 'content2', 'msg2')
         not_bare.call('checkout master')
-        sha3 = self._commit(repo, 'tf3', 'content3', 'msg3')
+        self._commit(repo, 'tf3', 'content3', 'msg3')
         not_bare.call('merge test_br', _env=self.env_for_git)
         sha_merge = repo.pygit2_repo.revparse_single('HEAD').hex
         c = repo.get_commit(sha_merge)

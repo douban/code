@@ -6,12 +6,15 @@ from tests.base import TestCase
 from vilya.models.user import User
 from vilya.models.project import CodeDoubanProject
 from vilya.models.ticket import Ticket
+from tests.utils import delete_project
 
 
 class TestUserPullRequests(TestCase):
 
     def setUp(self):
         TestCase.setUp(self)
+        delete_project('test_pr1')
+        delete_project('test_pr2')
         self.proj1 = CodeDoubanProject.add('test_pr1', owner_id='test')
         self.proj2 = CodeDoubanProject.add('test_pr2', owner_id='test')
 

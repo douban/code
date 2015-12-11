@@ -16,6 +16,7 @@ class RecommendationTest(TestCase):
         self.user5 = 'testuser5'
 
     def test_recommendation(self):
+        self.clean_up()
         # lets praise user1
         content = 'Goooooood!'
         r1 = Recommendation.add(self.user2, self.user1, content)
@@ -42,6 +43,7 @@ class RecommendationTest(TestCase):
         assert rs[0].id == r3.id
 
     def test_recommendation_vote(self):
+        self.clean_up()
         content = 'Goooooood!'
         r1 = Recommendation.add(self.user2, self.user1, content)
         assert r1.from_user == self.user2
@@ -82,3 +84,8 @@ class RecommendationTest(TestCase):
         assert r2.is_voted(self.user2) is False
         assert r2.is_voted(self.user3) is False
         assert r2.is_voted(self.user5) is False
+
+    def clean_up(self):
+        rcs = Recommendation.gets()
+        for rc in rcs:
+            rc.delete()

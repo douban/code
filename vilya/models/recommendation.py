@@ -40,6 +40,10 @@ class Recommendation(object):
         res = rs and rs[0]
         return cls(*res) if res else None
 
+    def delete(self):
+        store.execute(
+            "delete from codedouban_recommendations where id=%s", (self.id,))
+
     @classmethod
     def gets_by_user(cls, owner):
         rs = store.execute(

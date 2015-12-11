@@ -54,7 +54,7 @@ def new_git_bare_repo():
 def clone(git_dir):
     with mkdtemp() as work_path:
         gyt.call(['git', 'clone', git_dir, work_path])
-        assert os.path.exists(work_path+'/.git')
+        assert os.path.exists(work_path + '/.git')
         yield work_path
 
         with chdir(work_path):
@@ -130,3 +130,12 @@ def get_temp_project(origin=None, repo_path=BARE_REPO_PATH):
     repo.clone(temp_repo_path, bare=True)
 
     return project
+
+
+def delete_project(names):
+    if isinstance(names, basestring):
+        names = [names]
+    for n in names:
+        prj = CodeDoubanProject.get_by_name(n)
+        if prj:
+            prj.delete()
