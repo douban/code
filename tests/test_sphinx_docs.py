@@ -45,6 +45,8 @@ class TestDocsHelpers(TestCase):
     html1 = '<h1>TITLE1**</h1>'
 
     def _prj(self):
+        prj = CodeDoubanProject.get_by_name('test')
+        prj.delete()
         prj = CodeDoubanProject.add('test', 'owner', create_trac=False)
         return prj
 

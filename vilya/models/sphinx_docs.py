@@ -132,6 +132,7 @@ class SphinxDocs(object):  # TODO rename this is not sphinx-only
                 return
         self.enabled = True
         self.builders = _builders_list(project.id)
+        mc.set(LAST_BUILD_MC_KEY % self.project_id, None)
 
     def last_build_info(self):
         return mc.get(LAST_BUILD_MC_KEY % self.project_id)
@@ -298,7 +299,10 @@ class AbstractDocBuilder(object):
                  self.builder)
             return False, 'no_doc_dir_found'
         mc.set(LAST_TREE_HASH_MC_KEY % (self.project_id,
-               self.builder), tree_hash)
+                                        self.builder), tree_hash)
+
+        if os.path.exists(self.docs_dir):
+            shutil.rmtree(self.docs_dir, ignore_errors=True)
         try:
             os.makedirs(self.docs_dir)
         except OSError:
@@ -324,6 +328,8 @@ class AbstractDocBuilder(object):
     def clean_up(self):
         if self.temp_dir_root and os.path.isdir(self.temp_dir_root):
             shutil.rmtree(self.temp_dir_root)
+        mc.set(LAST_TREE_HASH_MC_KEY, None)
+        mc.set(LAST_BUILD_MC_KEY, None)
 
     def need_rebuild(self):
         last_tree_hash = mc.get(
@@ -392,10 +398,12 @@ class SphinxDocBuilder(AbstractDocBuilder):
             # -- override a setting in configuration
         ]
         cmd += options
-        cmd += ['-d', os.path.join(self.temp_dir, SPHINX_BUILD_DOCTREES)]  # -- path for the cached environment and doctree files
+        # -- path for the cached environment and doctree files
+        cmd += ['-d', os.path.join(self.temp_dir, SPHINX_BUILD_DOCTREES)]
         cmd += ['-q']
         if self._has_sphinx_conf():
-            cmd += ['-c', self.temp_dir]  # -- path where configuration file (conf.py) is located
+            # -- path where configuration file (conf.py) is located
+            cmd += ['-c', self.temp_dir]
         else:
             cmd += ['-C']  # No conf.py file
         cmd += [self.temp_dir, self._path(tmp=True)]
@@ -472,6 +480,7 @@ class DocBuilderRaw(AbstractDocBuilder):
             return False
         with open(fp) as f:
             content = f.read()
+        os.remove(fp)
         return content
 
     def get_url_from_path(self, path):

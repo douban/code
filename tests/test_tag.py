@@ -17,6 +17,7 @@ class TestName(TestCase):
         assert tag.author_id == author
         assert tag.target_type == target_type
         assert tag.target_id == target_id
+        tag.delete()
 
     def test_get(self):
         name = "tag"
@@ -63,9 +64,12 @@ class TestTag(TestCase):
         assert tag.target_id == 3
 
     def test_get(self):
-        tag1 = Tag.add(1, TAG_TYPE_PROJECT_ISSUE, 1, 'test1', 3)
-        tag2 = Tag.add(2, TAG_TYPE_PROJECT_ISSUE, 1, 'test2', 3)
-        tag3 = Tag.add(1, TAG_TYPE_PROJECT_ISSUE, 2, 'test3', 3)
+        tags = Tag.gets()
+        for tag in tags:
+            tag.delete()
+        Tag.add(1, TAG_TYPE_PROJECT_ISSUE, 1, 'test1', 3)
+        Tag.add(2, TAG_TYPE_PROJECT_ISSUE, 1, 'test2', 3)
+        Tag.add(1, TAG_TYPE_PROJECT_ISSUE, 2, 'test3', 3)
 
         tag = Tag.get_by_type_id_and_tag_id(TAG_TYPE_PROJECT_ISSUE, 1, 1)
         assert isinstance(tag, Tag)
@@ -129,6 +133,9 @@ class TestTag(TestCase):
         assert type_id3 in type_ids
 
     def test_gets_by_target_id(self):
+        tags = Tag.gets()
+        for tag in tags:
+            tag.delete()
         name = "tag"
         author = "test"
         type = target_type = TAG_TYPE_PROJECT_ISSUE

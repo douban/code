@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import shutil
 
 from vilya.models.project import CodeDoubanProject
 from vilya.models import git
@@ -27,7 +28,12 @@ class TestDiff(TestCase):
             work_tree_path = None
         else:
             work_tree_path = self._path_work_tree(name)
-            os.mkdir(work_tree_path)
+            if os.path.exists(git_path):
+                shutil.rmtree(git_path, ignore_errors=True)
+            try:
+                os.mkdir(work_tree_path)
+            except OSError:
+                pass
         CodeDoubanProject.create_git_repo(git_path)
         repo = git.GitRepo(git_path, work_tree=work_tree_path)
         return repo
@@ -91,7 +97,7 @@ class TestDiff(TestCase):
         self._commit(repo, 'testfile', 'msg')
         not_bare = gyt.repo(repo.path, repo.work_tree)
         assert not not_bare.is_bare()
-        sha1 = self._commit(repo, 'tf1', 'content1', 'msg1')
+        self._commit(repo, 'tf1', 'content1', 'msg1')
         not_bare.call('checkout -b test_br')
         sha2 = self._commit(repo, 'tf2', 'content2', 'msg2')
         not_bare.call('checkout master')
@@ -115,8 +121,8 @@ class TestDiff(TestCase):
 
     def test_diff_smart_slice(self):
         repo = self._repo('test_diff_smart_slice.txt', bare=False)
-        content1 = 'a\n'*100
-        content2 = 'a\n'*5 + 'b\n'*10 + 'a\n'*20 + 'b\n'*40
+        content1 = 'a\n' * 100
+        content2 = 'a\n' * 5 + 'b\n' * 10 + 'a\n' * 20 + 'b\n' * 40
         c1_sha = self._commit(repo, 'testfile', content1, 'msg1')
         c2_sha = self._commit(repo, 'testfile', content2, 'msg2')
         diffs = repo.get_3dot_diff(c1_sha, c2_sha)

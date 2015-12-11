@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import os
 
+from vilya.libs.store import store
+
 from tests.base import TestCase
 from vilya.models.statistics import (
     get_all_project, get_all_gist, get_all_issue,
@@ -20,6 +22,7 @@ from tests.utils import mkdtemp, setup_repos
 class TestStat(TestCase):
 
     def test_project_stat(self):
+        store.execute("delete from codedouban_projects where project_id < 5")
         project_rs = get_all_project()
         assert len(project_rs) == 0
         project_fork_count = len(filter(lambda x: x[1] is not None,
@@ -130,7 +133,7 @@ class TestStat(TestCase):
 
         pr_comment_count = get_ticket_comment_count()
         assert(pr_comment_count) == 0
-        comment1 = ticket2.add_comment("comment1", "testuse1")
-        comment2 = ticket2.add_comment("comment2", "testuse2")
+        ticket2.add_comment("comment1", "testuse1")
+        ticket2.add_comment("comment2", "testuse2")
         pr_comment_count = get_ticket_comment_count()
         assert(pr_comment_count) == 2
