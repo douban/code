@@ -1,0 +1,4 @@
+code:
+  volumes:
+    - .:/code
+  working_dir: /code

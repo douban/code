@@ -1,0 +1,52 @@
+web:
+  build: ./dockerfiles/python
+  working_dir: /code
+  command: gunicorn -w 1 -b 0.0.0.0:8200 --reload app:app
+  ports:
+    - "8200:8200"
+  volumes:
+    - .:/code
+  links:
+    - "mysql"
+    - "memcached"
+    - "memcached_7901"
+    - "redis"
+  env_file:
+    - ./code.env
+
+webpack:
+  build: ./dockerfiles/node
+  working_dir: /code
+  command: bash -c "cp -R /node_modules /code; npm run build; npm run watch"
+  volumes_from:
+    - web
+
+grunt:
+  build: ./dockerfiles/node
+  working_dir: /code
+  command: bash -c "cp -R /node_modules /code; grunt ozma compass:dev; grunt watch"
+  volumes_from:
+    - web
+
+mysql:
+  build: ./dockerfiles/mysql
+  env_file:
+    - ./code.env
+  ports:
+    - "3306:3306"
+
+memcached:
+  image: memcached:1.4
+  ports:
+    - "11211:11211"
+
+memcached_7901:
+  image: memcached:1.4
+  command: memcached -u nobody -p 7901 -U 0
+  ports:
+    - "7901:7901"
+
+redis:
+  image: redis:3.0
+  ports:
+    - "6379:6379"

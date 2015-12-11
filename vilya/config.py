@@ -1,5 +1,6 @@
 # coding: utf-8
 
+import ast
 import os
 from os.path import dirname, abspath
 
@@ -22,7 +23,8 @@ SESSION_DOMAIN = ''
 SESSION_COOKIE_NAME = 'code_user'
 
 
-MEMCACHED_HOSTS = ['127.0.0.1:11311']
+MEMCACHED_HOSTS = os.environ.get('DOUBAN_CODE_MEMCACHED_HOSTS',
+                                 '127.0.0.1:11311').split(',')
 MEMCACHED_CONFIG = {
     'do_split': True,
     'comp_threshold': 0,
@@ -33,11 +35,13 @@ MEMCACHED_CONFIG = {
 }
 
 DOUBANDB = {
-    'servers': ["127.0.0.1:11311", ],
-    'proxies': []
+    'servers': os.environ.get('DOUBAN_CODE_DOUBANDB_SERVERS',
+                              '127.0.0.1:11311').split(','),
+    'proxies': os.environ.get('DOUBAN_CODE_DOUBANDB_PROXIES',
+                              '').split(',')
 }
 
-MYSQL_STORE = {
+_default_mysql_store = {
     "farms": {
         "code_farm": {
             "master": "localhost:3306:valentine:root:",
@@ -45,16 +49,20 @@ MYSQL_STORE = {
         }
     }
 }
+MYSQL_STORE = ast.literal_eval(
+    os.environ.get('DOUBAN_CODE_MYSQL_STORE', '{}')
+) or _default_mysql_store
 
-REDIS_URI = 'redis://localhost:6379/0'
 
-BEANSDBCFG = {
-    "localhost:7901": range(16),
-    "localhost:7902": range(16),
-    "localhost:7903": range(16),
-}
+REDIS_URI = os.environ.get('DOUBAN_CODE_REDIS_URI', 'redis://localhost:6379/0')
 
-DOMAIN = 'http://127.0.0.1:8200'
+_beansdb_hosts = os.environ.get(
+    'DOUBAN_CODE_BEANSDB_HOSTS',
+    'localhost:7901,localhost:7902,localhost:7903'
+).split(',')
+BEANSDBCFG = {host: range(16) for host in _beansdb_hosts}
+
+DOMAIN = os.environ.get('DOUBAN_CODE_DOMAIN', 'http://127.0.0.1:8200')
 IRC_SERVER = 'irc.intra.douban.com'
 IRC_PORT = 12345
 SMTP_SERVER = 'mail.douban.com'
