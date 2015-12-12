@@ -88,7 +88,7 @@ FAQ
  - `gunicorn -b 127.0.0.1:8001 app:app` # git http daemon
 
 2. vilya.config.DOMAIN
- - if you run 'gunicorn -b IP:PORT app:app', the DOMAIN should be 'http://IP:PORT/'
+ - if you run 'gunicorn -b IP:PORT app:app', the DOMAIN should be 'http://IP:PORT'
 
 
 License
