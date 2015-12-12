@@ -75,12 +75,14 @@ def mock_method(real_method):
 
 
 def setup_repos(tmpdir, prj_name='test_proj'):
+    delete_project(prj_name)
     origin_project = CodeDoubanProject.add(prj_name, 1,
                                            create_trac=False)
     path = origin_project.git_real_path
     with clone(path) as workdir:
         with open(os.path.join(workdir, 'origin'), 'w') as f:
             f.write(content_a)
+    delete_project(prj_name + '_fork')
     fork_project = CodeDoubanProject.add(prj_name + '_fork', 2,
                                          fork_from=origin_project.id,
                                          create_trac=False)

@@ -51,6 +51,7 @@ class TestStat(TestCase):
         project_fork.delete()
 
     def test_gist_stat(self):
+        store.execute("delete from gists where id < 20")
         gist_rs = get_all_gist()
         assert len(gist_rs) == 0
         g1 = self._add_gist()
@@ -64,6 +65,7 @@ class TestStat(TestCase):
 
     def test_issue_stat(self):
         issue_rs = get_all_issue()
+        store.execute("delete from issues where id < 20")
         assert len(issue_rs) == 0
         issue_open_count = len(filter(lambda x: x[1] is None, issue_rs))
         assert issue_open_count == 0

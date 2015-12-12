@@ -132,7 +132,7 @@ class TicketTest(TestCase):
         assert codereview.path == path
         assert codereview.from_sha == from_sha
 
-        #test update content
+        # test update content
         assert codereview.content == 'comment content'
         codereview.update('content updated')
         codereview = PullLineComment.get(codereview.id)
@@ -148,7 +148,7 @@ class TicketTest(TestCase):
             p1_t1.id, from_sha)
         assert len(codereviews) == 2
 
-        #test delete comment
+        # test delete comment
         codereview.delete()
         codereviews = PullLineComment.gets_by_target_and_ref(
             p1_t1.id, from_sha)

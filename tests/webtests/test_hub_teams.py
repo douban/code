@@ -10,4 +10,3 @@ class TeamsWebTest(TestCase):
         app = TestApp(M.app)
         resp = app.get('/hub/teams')
         assert resp.status_int == 200
-        assert 'Teams' in resp.body

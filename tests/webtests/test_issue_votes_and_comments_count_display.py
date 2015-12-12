@@ -4,6 +4,7 @@ from webtest import TestApp
 
 from vilya.models.project import CodeDoubanProject
 from vilya.models.project_issue import ProjectIssue
+from tests.utils import delete_project
 import app as M
 
 
@@ -11,10 +12,11 @@ class IssuesVotesAndCommentsCountDisplayTest(TestCase):
     def test_zero_vote_and_zero_comment_display(self):
         app = TestApp(M.app)
         project_name = "project"
+        delete_project(project_name)
         project = CodeDoubanProject.add(
             project_name, owner_id="test1", summary="test", product="fire")
-        issue = ProjectIssue.add('test', 'test description', 'test',
-                                 project=project.id)
+        ProjectIssue.add('test', 'test description', 'test',
+                         project=project.id)
         resp = app.get(project.url + "/issues/")
 
         assert resp.status_int == 200
@@ -25,6 +27,7 @@ class IssuesVotesAndCommentsCountDisplayTest(TestCase):
     def test_one_vote_display(self):
         app = TestApp(M.app)
         project_name = "project1"
+        delete_project(project_name)
         project = CodeDoubanProject.add(
             project_name, owner_id="test1", summary="test", product="fire")
         issue = ProjectIssue.add('test', 'test description', 'test',
@@ -40,6 +43,7 @@ class IssuesVotesAndCommentsCountDisplayTest(TestCase):
     def test_one_comment_display(self):
         app = TestApp(M.app)
         project_name = "project2"
+        delete_project(project_name)
         project = CodeDoubanProject.add(
             project_name, owner_id="test1", summary="test", product="fire")
         issue = ProjectIssue.add('test', 'test description', 'test',
@@ -55,6 +59,7 @@ class IssuesVotesAndCommentsCountDisplayTest(TestCase):
     def test_two_votes_display(self):
         app = TestApp(M.app)
         project_name = "project3"
+        delete_project(project_name)
         project = CodeDoubanProject.add(
             project_name, owner_id="test1", summary="test", product="fire")
         issue = ProjectIssue.add('test', 'test description', 'test',
@@ -70,6 +75,7 @@ class IssuesVotesAndCommentsCountDisplayTest(TestCase):
     def test_two_comments_display(self):
         app = TestApp(M.app)
         project_name = "project4"
+        delete_project(project_name)
         project = CodeDoubanProject.add(
             project_name, owner_id="test1", summary="test", product="fire")
         issue = ProjectIssue.add('test', 'test description', 'test',

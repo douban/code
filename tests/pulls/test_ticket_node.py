@@ -28,9 +28,9 @@ class TicketNodeTest(TestCase):
         assert node.author == author
         assert node.ticket_id == ticket_id
         assert node.created_at.timetuple() == created_at.timetuple()
-        node.delete()
 
     def test_get(self):
+        clean_up()
         created_at = datetime.now()
         node1 = TicketNode.add(
             TICKET_NODE_TYPE_CLOSE, 0, 'user1', 1, created_at)
@@ -62,14 +62,15 @@ class TicketNodeTest(TestCase):
         node3 = TicketNode.add(
             TICKET_NODE_TYPE_MERGE, 0, 'user1', 2, created_at)
         node = TicketNode.get(id=node2.id)
-        assert node != None
+        assert node is not None
         node2.delete()
         node = TicketNode.get(id=node2.id)
-        assert node == None
+        assert node is None
 
 
 class Test_Ticket_Rank(TestCase):
     def test_get_last_created_time(self):
+        clean_up()
         node1 = TicketNode.add(
             TICKET_NODE_TYPE_COMMENT, 0, 'user1', 1, datetime.now())
         node2 = TicketNode.add(
@@ -83,8 +84,10 @@ class Test_Ticket_Rank(TestCase):
             TICKET_NODE_TYPE_LINECOMMENT, 0, 'user1', 1, created_at)
         testtime = TicketRank.get_last_created_time(1)
         assert node5.created_at.timetuple() == testtime.timetuple()
+        clean_up()
 
     def test_get_comment_count(self):
+        clean_up()
         created_at = datetime.now()
         node1 = TicketNode.add(
             TICKET_NODE_TYPE_COMMENT, 0, 'user1', 1, created_at)
@@ -100,6 +103,7 @@ class Test_Ticket_Rank(TestCase):
         assert test_count == 2
 
     def test_get_line_comment_count(self):
+        clean_up()
         created_at = datetime.now()
         node1 = TicketNode.add(
             TICKET_NODE_TYPE_COMMENT, 0, 'user1', 1, created_at)
@@ -115,6 +119,7 @@ class Test_Ticket_Rank(TestCase):
         assert test_count == 1
 
     def test_get_sum_count(self):
+        clean_up()
         created_at = datetime.now()
         node1 = TicketNode.add(
             TICKET_NODE_TYPE_COMMENT, 0, 'user1', 1, created_at)
@@ -130,6 +135,7 @@ class Test_Ticket_Rank(TestCase):
         assert test_count == 3.3
 
     def test_count_ticket_rank(self):
+        clean_up()
         title = 'test title'
         desc = 'test desc'
         author = 'testuser'
@@ -165,3 +171,8 @@ class Test_Ticket_Rank(TestCase):
         rank_s1 = rank_score1[0][0]
         rank1 = 37.97
         assert rank_s1 == rank1
+
+
+def clean_up():
+    for node in TicketNode.gets():
+        node.delete()

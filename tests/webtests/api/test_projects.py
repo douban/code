@@ -3,6 +3,7 @@ import ast
 
 from base import APITestCase
 from vilya.models.project import CodeDoubanProject
+from tests.utils import delete_project
 
 COMMITS = """  # noqa
 [
@@ -22,6 +23,7 @@ class ProjectsTest(APITestCase):
         product_name = "fire"
         summary = "test"
         owner_id = "lisong_intern"
+        delete_project(project_name)
         CodeDoubanProject.add(
             project_name, owner_id=owner_id, summary=summary,
             product=product_name)
@@ -41,6 +43,7 @@ class ProjectsTest(APITestCase):
         project_name = "lisong_intern/code"
         summary = "test"
         owner_id = "lisong_intern"
+        delete_project(project_name)
         CodeDoubanProject.add(
             project_name, owner_id=owner_id, summary=summary)
 
