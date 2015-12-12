@@ -80,7 +80,7 @@ class TestIssue(TestCase):
 
         iss = Issue.gets_by_assignee_id("assignee")
         assert all([isinstance(i, Issue) for i in iss])
-        assert len(iss) == 4
+        assert len(iss) == 6
 
         iss = Issue.gets_by_assignee_id("assignee", "open")
         assert all([isinstance(i, Issue) for i in iss])

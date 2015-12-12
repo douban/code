@@ -1,6 +1,7 @@
 # encoding: utf-8
 from base import APITestCase
 from vilya.models.project import CodeDoubanProject
+from tests.utils import delete_project
 
 
 class UserTest(APITestCase):
@@ -40,6 +41,7 @@ class UserTest(APITestCase):
         summary = "test"
         owner_id = "xingben"
         for i in range(5):
+            delete_project("%s%d" % (project_name, i))
             CodeDoubanProject.add(
                 "%s%d" % (project_name, i),
                 owner_id=owner_id,
