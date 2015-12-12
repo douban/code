@@ -1,17 +1,23 @@
 language: python
 
 python:
- - 2.7
+  - 2.7
 
 services:
- - redis-server
+  - redis-server
+  - memcache
+  - mysql
 
 before_script:
- - mysql -e 'create database valentine;'
- - mysql -D valentine < vilya/databases/schema.sql
+  - memcached -p 11311 -d
+  - memcached -p 7901 -d
+  - memcached -p 7902 -d
+  - memcached -p 7903 -d
+  - mysql -e 'create database valentine;'
+  - mysql -D valentine < vilya/databases/schema.sql
 
 install:
- - pip install -r requirements.txt
+  - pip install -r requirements.txt
 
 script:
- - py.test tests
+  - py.test tests

@@ -7,6 +7,7 @@ from vilya.libs import gyt
 from vilya.libs.permdir import get_repo_root
 
 from tests.base import TestCase
+from tests.utils import delete_project
 
 T_MSG1 = u'msg1呀'
 T_AUTHOR = u'Test Author 不是我'
@@ -48,6 +49,7 @@ class TestProjectGitCalls(TestCase):
         return clone.sha()
 
     def _proj(self, name='test_proj', owner='test_user'):
+        delete_project(name)
         proj = CodeDoubanProject.add(name, owner, create_trac=False)
         return proj
 

@@ -3,6 +3,7 @@ import unittest
 from vilya.models.project import CodeDoubanProject
 from vilya.models.hook import CodeDoubanHook
 from tests.base import TestCase
+from tests.utils import delete_project
 
 
 class TestHook(TestCase):
@@ -10,6 +11,7 @@ class TestHook(TestCase):
         TestCase.setUp(self)
 
     def _prj(self):
+        delete_project('demo2')
         return CodeDoubanProject.add("demo2", owner_id="testuser1")
 
     def test_add_hook(self):

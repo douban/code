@@ -4,6 +4,7 @@ from base import APITestCase
 from vilya.models.project import CodeDoubanProject
 from vilya.models.project_issue import ProjectIssue
 from vilya.models.issue_comment import IssueComment
+from tests.utils import delete_project
 
 
 class ProjectIssueCommentsTest(APITestCase):
@@ -13,12 +14,13 @@ class ProjectIssueCommentsTest(APITestCase):
         product_name = "fire"
         summary = "test"
         owner_id = "lisong_intern"
+        delete_project(project_name)
         project = CodeDoubanProject.add(
             project_name,
             owner_id=owner_id,
             summary=summary,
             product=product_name
-            )
+        )
         self.project = project
         title = "test title"
         description = "test desc"
@@ -28,7 +30,7 @@ class ProjectIssueCommentsTest(APITestCase):
             description,
             creator,
             project=self.project.id
-            )
+        )
         self.issue = issue
         self.project = project
         self.comment1 = IssueComment.add(
@@ -43,7 +45,7 @@ class ProjectIssueCommentsTest(APITestCase):
             "/api/%s/issues/%s/comments/" % (
                 self.project.name, self.issue.number),
             status=200
-            ).json
+        ).json
         self.assertTrue(isinstance(ret, list))
         self.assertEquals(len(ret), 2)
 
@@ -55,7 +57,7 @@ class ProjectIssueCommentsTest(APITestCase):
                 self.project.name, self.issue.number),
             dict(content=comment_content),
             headers=dict(Authorization="Bearer %s" % api_token.token)
-            ).json
+        ).json
         self.assertEquals(ret['content'], comment_content)
 
     def test_get_a_single_issue_comment(self):
@@ -64,8 +66,8 @@ class ProjectIssueCommentsTest(APITestCase):
                 self.project.name,
                 self.issue.number,
                 self.comment1.number
-                )
-            ).json
+            )
+        ).json
         self.assertEquals(ret['content'], self.comment1.content)
 
     def test_delete_a_single_issue_comment(self):
@@ -75,9 +77,9 @@ class ProjectIssueCommentsTest(APITestCase):
                 self.project.name,
                 self.issue.number,
                 self.comment1.number
-                ),
+            ),
             status=401
-            ).json
+        ).json
         self.assertProblemType(ret['type'], "unauthorized")
 
         # not the author
@@ -86,10 +88,10 @@ class ProjectIssueCommentsTest(APITestCase):
                 self.project.name,
                 self.issue.number,
                 self.comment1.number
-                ),
+            ),
             status=403,
             headers=dict(Authorization="Bearer %s" % self.api_token2.token)
-            ).json
+        ).json
         self.assertProblemType(ret['type'], "not_the_author")
 
         # delete right
@@ -98,10 +100,10 @@ class ProjectIssueCommentsTest(APITestCase):
                 self.project.name,
                 self.issue.number,
                 self.comment1.number
-                ),
+            ),
             status=204,
             headers=dict(Authorization="Bearer %s" % self.api_token.token)
-            )
+        )
 
         # alright deleted
         ret = self.app.get(
@@ -109,9 +111,9 @@ class ProjectIssueCommentsTest(APITestCase):
                 self.project.name,
                 self.issue.number,
                 self.comment1.number,
-                ),
+            ),
             status=404
-            )
+        )
 
     def test_update_a_single_issue_comment(self):
         new_comment_content = "sent from iCode"
@@ -122,10 +124,10 @@ class ProjectIssueCommentsTest(APITestCase):
                 self.project.name,
                 self.issue.number,
                 self.comment1.number
-                ),
+            ),
             dict(content=new_comment_content),
             status=401
-            ).json
+        ).json
         self.assertProblemType(ret['type'], "unauthorized")
 
         # not the author
@@ -134,11 +136,11 @@ class ProjectIssueCommentsTest(APITestCase):
                 self.project.name,
                 self.issue.number,
                 self.comment1.number
-                ),
+            ),
             dict(content=new_comment_content),
             status=403,
             headers=dict(Authorization="Bearer %s" % self.api_token2.token)
-            ).json
+        ).json
         self.assertProblemType(ret['type'], "not_the_author")
 
         # send invalid json
@@ -147,12 +149,12 @@ class ProjectIssueCommentsTest(APITestCase):
                 self.project.name,
                 self.issue.number,
                 self.comment1.number
-                ),
+            ),
             method="PATCH",
             body="not a valid json",
             status=400,
             headers=dict(Authorization="Bearer %s" % self.api_token.token)
-            ).json
+        ).json
         self.assertProblemType(ret['type'], "not_json")
 
         # only the author can edit comment
@@ -161,9 +163,9 @@ class ProjectIssueCommentsTest(APITestCase):
                 self.project.name,
                 self.issue.number,
                 self.comment1.number
-                ),
+            ),
             dict(content=new_comment_content),
             status=200,
             headers=dict(Authorization="Bearer %s" % self.api_token.token)
-            ).json
+        ).json
         self.assertEquals(ret['content'], new_comment_content)

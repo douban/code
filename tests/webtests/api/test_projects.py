@@ -1,6 +1,6 @@
-# encoding: utf-8
+# coding: utf-8
+import ast
 
-import json
 from base import APITestCase
 from vilya.models.project import CodeDoubanProject
 
@@ -60,7 +60,7 @@ class ProjectsTest(APITestCase):
         """
         project = self.get_temp_project()
         ret = self.app.get("/api/%s/commits" % project.name, status=200).json
-        commits = json.loads(COMMITS)
+        commits = ast.literal_eval(COMMITS)
         for a, b in zip(ret, commits):
             self.assertEqual(a['files'], b['files'])
             self.assertEqual(a['message'], b['message'])

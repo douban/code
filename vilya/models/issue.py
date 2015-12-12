@@ -284,6 +284,15 @@ class Issue(object):
         issue.add_participant(creator)
         return issue
 
+    def delete(self):
+        store.execute('delete from issues where id=%s', (self.id,))
+        store.commit()
+        mc.delete(MC_KEY_ISSUE % self.id)
+        mc.delete(MC_KEY_ISSUES_IDS_BY_CREATOR_ID % self.creator_id)
+        mc.delete(MC_KEY_ISSUES_IDS_BY_ASSIGNEE_ID % self.assignee_id)
+        mc.delete(MC_KEY_ISSUES_DATA_BY_TARGET % (type, self.target_id))
+        bdb.set(BDB_ISSUE_DESCRIPTION_KEY % self.id, '')
+
     @classmethod
     def get(cls, id):
         rs = store.execute(

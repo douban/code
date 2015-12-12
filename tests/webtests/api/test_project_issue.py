@@ -4,6 +4,7 @@ from base import APITestCase
 from vilya.models.project import CodeDoubanProject
 from vilya.models.project_issue import ProjectIssue
 from vilya.models.issue_comment import IssueComment
+from tests.utils import delete_project
 
 
 class ProjectIssueTest(APITestCase):
@@ -14,6 +15,7 @@ class ProjectIssueTest(APITestCase):
         product_name = "fire"
         summary = "test"
         owner_id = "lisong_intern"
+        delete_project(project_name)
         project = CodeDoubanProject.add(
             project_name,
             owner_id=owner_id,

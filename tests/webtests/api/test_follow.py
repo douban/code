@@ -21,17 +21,17 @@ class FollowTest(APITestCase):
         self.zhangchi.follow('xingben')
 
         ret = self.app.get(
-            "/api/user/following",
-            status=403
-            ).json
-        self.assertProblemType(ret['type'], "unauthorized")
+            "/api/user/following/",
+            status=200
+        ).json
+        self.assertEquals(ret, [])
 
         ret = self.app.get(
-            "/api/user/following",
+            "/api/user/following/",
             headers=dict(
                 Authorization="Bearer %s" % self.api_token_zhangchi.token),
             status=200
-            ).json
+        ).json
 
         self.assertEquals(len(ret), 3)
         user_name_list = map(lambda x: x['username'], ret)
@@ -44,7 +44,7 @@ class FollowTest(APITestCase):
             headers=dict(
                 Authorization="Bearer %s" % self.api_token_zhangchi.token),
             status=200
-            ).json
+        ).json
         self.assertEquals(len(ret), 2)
         user_name_list = map(lambda x: x['username'], ret)
         self.assertTrue('test1' in user_name_list)
@@ -55,32 +55,32 @@ class FollowTest(APITestCase):
             headers=dict(
                 Authorization="Bearer %s" % self.api_token_zhangchi.token),
             status=404
-            )
+        )
 
         self.app.put(
             "/api/user/following/%s/" % (self.lijunpeng.username),
             headers=dict(
                 Authorization="Bearer %s" % self.api_token_zhangchi.token),
             status=204
-            )
+        )
 
         self.app.get(
             "/api/user/following/%s/" % (self.lijunpeng.username),
             headers=dict(
                 Authorization="Bearer %s" % self.api_token_zhangchi.token),
             status=204
-            )
+        )
 
         self.app.delete(
             "/api/user/following/%s/" % (self.lijunpeng.username),
             headers=dict(
                 Authorization="Bearer %s" % self.api_token_zhangchi.token),
             status=204
-            )
+        )
 
         self.app.get(
             "/api/user/following/%s/" % (self.lijunpeng.username),
             headers=dict(
                 Authorization="Bearer %s" % self.api_token_zhangchi.token),
             status=404
-            )
+        )
