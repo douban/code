@@ -1,0 +1,8 @@
+- name: Install MySQL Client
+  apt: pkg=mysql-client state=installed
+
+- name: Install MySQL Server
+  apt: pkg=mysql-server state=installed
+
+- name: Install MySQL lib
+  apt: pkg=libmysqlclient-dev state=installed

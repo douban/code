@@ -1,0 +1,12 @@
+---
+
+- name: Setup CODE dev env
+  hosts:
+    - all
+  roles:
+    - common
+    - mysql
+    - beansdb
+    - redis
+    - memcached
+    - web

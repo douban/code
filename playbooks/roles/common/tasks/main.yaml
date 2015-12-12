@@ -1,0 +1,11 @@
+- name: Install build-essential
+  apt: pkg=build-essential state=installed
+
+- name: Install dh-autoreconf
+  apt: pkg=dh-autoreconf state=installed
+
+- name: Install g++
+  apt: pkg=g++ state=installed
+
+- name: Install git
+  apt: pkg=git state=installed
