@@ -12,12 +12,13 @@ class TestIssueParticipant(TestCase):
         assert isinstance(p, IssueParticipant)
         assert p.issue_id == 1
         assert p.user_id == 'test1'
+        p.delete()
 
     def test_get(self):
-        p = IssueParticipant.add(1, 'test1')
-        p = IssueParticipant.add(2, 'test1')
-        p = IssueParticipant.add(3, 'test1')
-        p = IssueParticipant.add(1, 'test2')
+        p1 = IssueParticipant.add(1, 'test1')
+        p2 = IssueParticipant.add(2, 'test1')
+        p3 = IssueParticipant.add(3, 'test1')
+        p4 = IssueParticipant.add(1, 'test2')
 
         ps = IssueParticipant.gets_by_issue_id(1)
         assert all([isinstance(_p, IssueParticipant) for _p in ps])
@@ -31,11 +32,10 @@ class TestIssueParticipant(TestCase):
         assert isinstance(p, IssueParticipant)
         assert p.issue_id == 1
         assert p.user_id == 'test1'
+        for p in [p1, p2, p3, p4]:
+            p.delete()
 
     def test_delete(self):
-        p = IssueParticipant.add(1, 'test1')
-        p = IssueParticipant.add(2, 'test1')
-        p = IssueParticipant.add(3, 'test1')
         p = IssueParticipant.add(1, 'test2')
 
         p.delete()

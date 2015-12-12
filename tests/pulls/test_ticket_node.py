@@ -28,6 +28,7 @@ class TicketNodeTest(TestCase):
         assert node.author == author
         assert node.ticket_id == ticket_id
         assert node.created_at.timetuple() == created_at.timetuple()
+        node.delete()
 
     def test_get(self):
         created_at = datetime.now()
@@ -65,6 +66,7 @@ class TicketNodeTest(TestCase):
         node2.delete()
         node = TicketNode.get(id=node2.id)
         assert node == None
+
 
 class Test_Ticket_Rank(TestCase):
     def test_get_last_created_time(self):

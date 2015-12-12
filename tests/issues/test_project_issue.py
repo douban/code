@@ -14,6 +14,7 @@ class TestProjectIssue(TestCase):
         assert p.title == 'test'
         assert p.description == 'test description'
         assert p.project_id == 1
+        p.delete()
 
     def test_get_issue(self):
         p = ProjectIssue.add('test', 'test description', 'test', project=1)
@@ -56,6 +57,9 @@ class TestProjectIssue(TestCase):
         rs = ProjectIssue.gets_by_creator_id(1, 'test')
         assert all([isinstance(i, ProjectIssue) for i in rs])
         assert len(rs) == 4
+
+        for p in [p, p2, p3, p4, p5]:
+            p.delete()
 
     def test_n_issue(self):
         p1 = ProjectIssue.add(
@@ -102,6 +106,9 @@ class TestProjectIssue(TestCase):
         assert r.n_closed_issues == 2
         assert r.n_open_issues == 2
 
+        for p in [p1, p2, p3, p4, p5]:
+            p.delete()
+
     def test_open_and_close_issue(self):
         p1 = ProjectIssue.add('test1', 'test1 description', 'test', project=1)
         p2 = ProjectIssue.add('test2', 'test2 description', 'test', project=1)
@@ -115,6 +122,9 @@ class TestProjectIssue(TestCase):
         p1.open()
         count = ProjectIssue.get_count_by_project_id(1, 'open')
         assert count == 3
+
+        for p in [p1, p2, p3]:
+            p.delete()
 
     def test_add_tags(self):
         target_id = project_id = 1
@@ -132,6 +142,7 @@ class TestProjectIssue(TestCase):
 
         tag_names = [t.name for t in p.tags]
         assert set(tags) & set(tag_names) == set(tags)
+        p.delete()
 
     def test_gets_by_issue_ids(self):
         project_id = 1
@@ -172,12 +183,15 @@ class TestProjectIssue(TestCase):
         pissue = project_issues[0]
         assert isinstance(pissue, ProjectIssue)
         assert pissue.project_id == project_id
+        p.delete()
 
     def test_gets_by_project_ids(self):
-        ProjectIssue.add('test1', 'desp', 'test', project=1)
-        ProjectIssue.add('test2', 'desp', 'test2', project=2)
-        ProjectIssue.add('test3', 'desp', 'test3', project=2)
+        p1 = ProjectIssue.add('test1', 'desp', 'test', project=1)
+        p2 = ProjectIssue.add('test2', 'desp', 'test2', project=2)
+        p3 = ProjectIssue.add('test3', 'desp', 'test3', project=2)
 
         issues = ProjectIssue.gets_by_project_ids([1, 2])
 
         assert len(issues), 3
+        for p in [p1, p2, p3]:
+            p.delete()

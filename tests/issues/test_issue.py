@@ -37,6 +37,7 @@ class TestIssue(TestCase):
         assert i.assignee_id == 'assignee'
 
     def test_get_issue(self):
+
         issue1 = Issue.add('test1', 'test1 description', 'test', 'assignee')
         issue2 = Issue.add('test2', 'test2 description', 'test', 'assignee')
         issue2.close("test")
@@ -67,31 +68,31 @@ class TestIssue(TestCase):
 
         iss = Issue.gets_by_creator_id("test")
         assert all([isinstance(i, Issue) for i in iss])
-        assert len(iss) == 1
+        assert len(iss) == 4
 
         iss = Issue.gets_by_creator_id("test", "open")
         assert all([isinstance(i, Issue) for i in iss])
-        assert len(iss) == 1
+        assert len(iss) == 4
 
         iss = Issue.gets_by_creator_id("test", "closed")
         assert all([isinstance(i, Issue) for i in iss])
-        assert len(iss) == 1
+        assert len(iss) == 2
 
         iss = Issue.gets_by_assignee_id("assignee")
         assert all([isinstance(i, Issue) for i in iss])
-        assert len(iss) == 1
+        assert len(iss) == 4
 
         iss = Issue.gets_by_assignee_id("assignee", "open")
         assert all([isinstance(i, Issue) for i in iss])
-        assert len(iss) == 1
+        assert len(iss) == 4
 
         iss = Issue.gets_by_assignee_id("assignee", "closed")
         assert all([isinstance(i, Issue) for i in iss])
-        assert len(iss) == 1
+        assert len(iss) == 2
 
         iss = Issue.gets_by_closer_id("test")
         assert all([isinstance(i, Issue) for i in iss])
-        assert len(iss) == 1
+        assert len(iss) == 2
 
     def test_add_comment(self):
         i = Issue.add('test', 'test description', 'test', 'assignee')

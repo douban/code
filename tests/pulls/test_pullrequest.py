@@ -3,13 +3,16 @@
 from tests.base import TestCase
 from vilya.models.pull import PullRequest
 from vilya.models.ticket import PRCounter, Ticket
-from tests.utils import mkdtemp, setup_repos
+from tests.utils import mkdtemp, setup_repos, delete_project
 
 
 class PullRequestTest(TestCase):
 
     def setUp(self):
         TestCase.setUp(self)
+        for name in ('testproject1', 'testproject2', 'testproject1_fork',
+                     'testproject2_fork'):
+            delete_project(name)
         _, self.proj1, _, self.proj1_fork = setup_repos(mkdtemp(),
                                                         'testproject1')
         _, self.proj2, _, self.proj2_fork = setup_repos(mkdtemp(),

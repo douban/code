@@ -3,6 +3,7 @@ from vilya.models.sphinx_docs import SphinxDocs
 
 import nose
 from tests.base import TestCase
+from tests.utils import delete_project
 
 base_yaml_conf_old = """
 sphinx_docs:
@@ -46,6 +47,7 @@ class TestDocsHelpers(TestCase):
     html1 = '<h1>TITLE1**</h1>'
 
     def _prj(self):
+        delete_project('test')
         prj = CodeDoubanProject.add('test', 'owner', create_trac=False)
         return prj
 

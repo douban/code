@@ -9,6 +9,8 @@ class TestGistStar(TestCase):
     def test_gist_star(self):
         gist = self._add_gist()
         user_id = 'testuser'
+        gs = GistStar.gets_by_user(user_id)
+        gs[0].delete()
         ret = GistStar.add(gist.id, user_id)
         eq_(ret, True)
 

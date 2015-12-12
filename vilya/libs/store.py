@@ -73,7 +73,7 @@ def mc_gets(mc_key, getter, ids):
 
 # mysql
 def connect_mysql():
-    return connect(use_unicode=True)
+    return connect(use_unicode=True, user='root', passwd='', db='valentine')
 
 
 def make_dict(cursor, row):

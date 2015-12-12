@@ -7,6 +7,7 @@ import vilya.models.elastic as _el
 from nose import SkipTest
 
 from tests.base import TestCase
+from tests.utils import delete_project
 
 from vilya.libs.search import code_unittest_client
 
@@ -104,6 +105,7 @@ class TestProject(TestCase):
         _el.CodeSearch.c.delete()
 
     def _prj(self):
+        delete_project('test')
         prj = CodeDoubanProject.add('test', 'owner', create_trac=False)
         return prj
 
@@ -418,6 +420,7 @@ class TestSrcSearch(TestCase):
         _srcsearch.SrcSearch.update_mapping()
 
     def _prj(self):
+        delete_project('test')
         prj = CodeDoubanProject.add('test', 'owner', create_trac=False)
         return prj
 
