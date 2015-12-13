@@ -9,7 +9,7 @@ web:
   links:
     - "mysql"
     - "memcached"
-    - "memcached_7901"
+    - "beansdb"
     - "redis"
   env_file:
     - ./code.env
@@ -40,13 +40,12 @@ memcached:
   ports:
     - "11211:11211"
 
-memcached_7901:
-  image: memcached:1.4
-  command: memcached -u nobody -p 7901 -U 0
-  ports:
-    - "7901:7901"
-
 redis:
   image: redis:3.0
   ports:
     - "6379:6379"
+
+beansdb:
+  image: mozillazg/beansdb:0.7.1.4
+  ports:
+    - "7900:7900"
