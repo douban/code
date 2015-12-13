@@ -1,29 +1,29 @@
 web:
+  extends:
+    file: docker-common.yml
+    service: code
   build: ./dockerfiles/python
-  working_dir: /code
   command: gunicorn -w 1 -b 0.0.0.0:8200 --reload app:app
   ports:
     - "8200:8200"
-  volumes:
-    - .:/code
   links:
     - "mysql"
     - "memcached"
     - "beansdb"
     - "redis"
-  env_file:
-    - ./code.env
 
 webpack:
-  build: ./dockerfiles/node
-  working_dir: /code
+  extends:
+    file: docker-common.yml
+    service: node
   command: bash -c "cp -R /node_modules /code; npm run build; npm run watch"
   volumes_from:
     - web
 
 grunt:
-  build: ./dockerfiles/node
-  working_dir: /code
+  extends:
+    file: docker-common.yml
+    service: node
   command: bash -c "cp -R /node_modules /code; grunt ozma compass:dev; grunt watch"
   volumes_from:
     - web
