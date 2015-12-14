@@ -46,13 +46,13 @@ Vagrant Installation(Recommended)
 $cd code
 $vagrant up
 $vagrant ssh
-# In ubuntu. we use `supervisor` monitor and control CODE and other services.
+# In ubuntu. we use `supervisor` to monitor and control CODE and other services.
 #You just go web http://localhost:8200
 ```
 
 Quick Installation
 ------------------
-Currently supports the following systems:
+Currently supports following systems:
 
 * gentoo
 * ubuntu/debian
@@ -60,7 +60,7 @@ Currently supports the following systems:
 * opensuse
 * archlinux
 
-You only to execute:
+You only need to execute:
 
 ```
 $bash <(curl -s https://raw.githubusercontent.com/douban/code/master/scripts/install_code.sh)
@@ -78,8 +78,8 @@ sudo /etc/init.d/supervisor start
 # go web http://localhost:8200
 ```
 
-Notes: The install script in `scripts` subdirectory, for example ubuntu/debian,
-You can see `scripts/ubuntu.sh`
+Notes: The installation script is in `scripts` subdirectory, for example for ubuntu/debian,
+you can find `scripts/ubuntu.sh`
 
 FAQ
 ----
