@@ -14,3 +14,4 @@ node_modules
 local_config.py
 vilya.log
 .vagrant/
+code.local.env

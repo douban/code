@@ -7,6 +7,7 @@ services:
   - redis-server
   - memcache
   - mysql
+  - docker
 
 before_script:
   - memcached -p 11311 -d
@@ -16,9 +17,13 @@ before_script:
   - mysql -e 'drop database if exists valentine;'
   - mysql -e 'create database valentine;'
   - mysql -D valentine < vilya/databases/schema.sql
+  - echo "DOUBAN_CODE_DOMAIN=http://127.0.0.1:8200" > code.local.env
 
 install:
   - pip install -r requirements.txt
+  - docker-compose build
+  - docker-compose up -d
+  - mysql -udouban_code -pmy-code-passwd -D valentine < vilya/databases/schema.sql
 
 script:
   - >
@@ -30,3 +35,5 @@ script:
       --ignore=tests/issues/test_issue.py
       --ignore=tests/test_stat.py --ignore=tests/test_test.py
       --ignore=tests/pulls/test_pullrequest.py
+  - docker-compose ps
+  - curl http://127.0.0.1:8200

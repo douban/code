@@ -32,6 +32,7 @@ mysql:
   build: ./dockerfiles/mysql
   env_file:
     - ./code.env
+    - ./code.local.env
   ports:
     - "3306:3306"
 

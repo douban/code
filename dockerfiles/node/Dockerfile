@@ -5,8 +5,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     rubygems
 RUN gem install compass -V
 
-RUN mkdir /code
-RUN mkdir /node_modules
+RUN mkdir /code \
+        /node_modules
 ADD package.json /code/package.json
 
 WORKDIR /code
