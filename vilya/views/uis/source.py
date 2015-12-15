@@ -526,7 +526,7 @@ def report_deprecation(request, view):
     try:
         raise DeprecationWarning("Old url for source code %s" % view)
     except DeprecationWarning, err:
-        from libs.store import report_error_to_sentry
+        from vilya.libs.store import report_error_to_sentry
         report_error_to_sentry(
             err, "@guibog: Old url for source code %s from %s - v07" % (
                 view, from_))

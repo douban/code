@@ -2,7 +2,7 @@
 
 from __future__ import absolute_import
 
-from libs.template import st
+from vilya.libs.template import st
 from vilya.models.feed import get_user_inbox, get_public_feed
 
 MAX_ACT_COUNT = 100

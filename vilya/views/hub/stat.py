@@ -8,7 +8,7 @@ from vilya.models.statistics import (
     get_all_project,
     get_all_gist
 )
-from libs.template import st
+from vilya.libs.template import st
 from vilya.views.api.utils import jsonize
 
 _q_exports = ['source']
