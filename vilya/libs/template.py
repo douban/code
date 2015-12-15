@@ -9,7 +9,7 @@ from mako import exceptions
 from mako.lookup import TemplateLookup
 from vilya.libs.permdir import get_tmpdir
 from vilya.libs.import_obj import import_obj
-from vilya.config import CODE_DIR, MAKO_FS_CHECK
+from vilya.config import CODE_DIR, MAKO_FS_CHECK, DEVELOP_MODE
 
 import vilya.libs.mako_cache  # noqa
 
@@ -42,6 +42,8 @@ def serve_template(uri, **kwargs):
 
     except Exception, err:
         logging.debug("Mako error in %s: %s" % (uri, err))
+        if DEVELOP_MODE:
+            raise
         logging.debug(exceptions.text_error_template().render())
 
         if os.environ.get('DAE_ENV') == 'SDK':

@@ -27,6 +27,7 @@ class CODEPublisher(SessionPublisher):
         SessionPublisher.__init__(self, *args, **kwargs)
         self.configure(DISPLAY_EXCEPTIONS='plain',
                        SECURE_ERRORS=0,
+                       DEBUG_PROPAGATE_EXCEPTIONS=DEVELOP_MODE,
                        UPLOAD_DIR=get_tmpdir() + '/upload/')
 
     def start_request(self, request):
@@ -73,4 +74,5 @@ def create_publisher():
     return CODEPublisher(controllers)
 
 app = make_gzip_middleware(QWIP(create_publisher()))
-app = DebuggedApplication(app, evalex=True)
+if DEVELOP_MODE:
+    app = DebuggedApplication(app, evalex=True)
