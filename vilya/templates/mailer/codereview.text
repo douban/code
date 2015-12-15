@@ -2,7 +2,7 @@
 In ${path}:
 ——————————
 <%
-from libs.diff import linehtml
+from vilya.libs.diff import linehtml
 %>
 % for idx_in_file, line in enumerate(diff_content):
 ${linehtml(line.text) | n}

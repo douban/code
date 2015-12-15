@@ -40,7 +40,7 @@
         style="font-family:Menlo, Courier, Mono;font-size:14px;
         border-top:solid #666 2px; border-bottom:solid #666 2px;
         padding:2px 0;">
-        <% from libs.diff import linehtml %>
+        <% from vilya.libs.diff import linehtml %>
         % for line in diff_content:
             ${render_line(line.old, line.new, linehtml(line.text))}
         % endfor

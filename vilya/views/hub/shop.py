@@ -1,8 +1,9 @@
 # encoding: utf-8
-from libs.template import st
+from vilya.libs.template import st
 
 
 _q_exports = []
+
 
 def _q_index(request):
     t_shirts = [

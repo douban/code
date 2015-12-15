@@ -28,7 +28,7 @@ class Activity(BaseModel):
 
     @property
     def rendered_description(self):
-        from libs.text import render_markdown
+        from vilya.libs.text import render_markdown
         description = self.description
         if description:
             description = render_desc(self.type, description)

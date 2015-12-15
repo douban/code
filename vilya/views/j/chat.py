@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
+from vilya.libs.template import st
 from vilya.models.message import get_room_message
 from vilya.models.room import Room
 from vilya.views.util import jsonize, render_message
-from libs.template import st
 
 _q_exports = ['delete_room']
 
-    
 
 @jsonize
 def _q_lookup(request, room_name):
@@ -31,6 +30,7 @@ def _q_lookup(request, room_name):
         messages = room_message.get_messages()
         render_messages = [render_message(m) for m in messages]
         return {'r': 1, 'msg': render_messages}
+
 
 @jsonize
 def delete_room(request):
