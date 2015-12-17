@@ -1,24 +1,32 @@
-language: bash
+language: python
+
+python:
+  - 2.7
 
 services:
-  - docker
+  - redis-server
+  - memcache
+  - mysql
+
+before_script:
+  - memcached -p 11311 -d
+  - memcached -p 7901 -d
+  - memcached -p 7902 -d
+  - memcached -p 7903 -d
+  - mysql -e 'drop database if exists valentine;'
+  - mysql -e 'create database valentine;'
+  - mysql -D valentine < vilya/databases/schema.sql
 
 install:
-  - echo "DOUBAN_CODE_DOMAIN=http://127.0.0.1:8200" > code.local.env
-  - docker-compose build
-  - docker-compose up -d
-  - CID_MYSQL=`docker ps |grep mysql | awk '{print $1}'`
-  - HOST_MYSQL=`docker inspect --format '{{ .NetworkSettings.IPAddress }}' $CID_MYSQL`
-  - mysql -h $HOST_MYSQL -udouban_code -pmy-code-passwd -D valentine < vilya/databases/schema.sql
+  - pip install -r requirements.txt
 
 script:
-  - docker-compose ps
-  - curl http://127.0.0.1:8200
-  - docker-compose run web py.test tests --ignore=tests/test_git.py \
-      --ignore=tests/test_git_commit_one_file.py \
-      --ignore=tests/test_gyt.py --ignore=tests/test_project_git_calls.py \
-      --ignore=tests/pulls/test_model.py --ignore=tests/pulls/test_ticket.py \
-      --ignore=tests/issues/test_project_issue.py \
-      --ignore=tests/issues/test_issue.py \
-      --ignore=tests/test_stat.py --ignore=tests/test_test.py \
+  - >
+      py.test tests --ignore=tests/test_git.py
+      --ignore=tests/test_git_commit_one_file.py
+      --ignore=tests/test_gyt.py --ignore=tests/test_project_git_calls.py
+      --ignore=tests/pulls/test_model.py --ignore=tests/pulls/test_ticket.py
+      --ignore=tests/issues/test_project_issue.py
+      --ignore=tests/issues/test_issue.py
+      --ignore=tests/test_stat.py --ignore=tests/test_test.py
       --ignore=tests/pulls/test_pullrequest.py
