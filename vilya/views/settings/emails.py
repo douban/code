@@ -2,12 +2,14 @@
 
 from __future__ import absolute_import
 
+from vilya.libs.auth.decorators import login_required
 from vilya.libs.template import st
 from vilya.models.user import CodeDoubanUserEmails
 
 _q_exports = []
 
 
+@login_required
 def _q_index(request):
     errors = []
     user = request.user
@@ -21,6 +23,7 @@ def _q_index(request):
     return st('/settings/emails.html', **locals())
 
 
+@login_required
 def _q_lookup(request, email_id):
     user = request.user
     return EmailUI(user, email_id)

@@ -2,12 +2,14 @@
 
 from __future__ import absolute_import
 
+from vilya.libs.auth.decorators import login_required
 from vilya.libs.template import st
 from vilya.models.user import CodeDoubanUserGithub
 
 _q_exports = []
 
 
+@login_required
 def _q_index(request):
     errors = []
     user = request.user
@@ -21,6 +23,7 @@ def _q_index(request):
     return st('/settings/github.html', **locals())
 
 
+@login_required
 def _q_lookup(request, github_id):
     if request.get_form_var('_method') == 'delete':
         user = request.user
