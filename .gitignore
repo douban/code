@@ -13,3 +13,5 @@ node_modules
 .sass-cache
 local_config.py
 vilya.log
+.vagrant/
+code.local.env

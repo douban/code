@@ -1,0 +1,14 @@
+code:
+  volumes:
+    - .:/code
+  working_dir: /code
+  env_file:
+    - ./code.env
+    - ./code.local.env
+
+node:
+  build: ./dockerfiles/node
+  working_dir: /code
+  env_file:
+    - ./code.env
+    - ./code.local.env

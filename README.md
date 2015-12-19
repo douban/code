@@ -15,29 +15,16 @@ Dependency
 Docker Installation
 -------------------
 
-You can use [code](https://registry.hub.docker.com/u/dongweiming/code/)
-
-```
-$docker pull dongweiming/code
-```
-
-or just build locally(recommended):
-
-```
-$cd code
-$docker build -t code .
-```
-
-And launch a bash shell inside the container:
-
-```
-$docker run -d -p 8080:8000 code gunicorn -w 2 -b 0.0.0.0:8000 app:app  # start app
-5cf0d1f6a421c53d54662df77dd142978d24b8c76fd72ce1c106506458e1304a
-$boot2docker ip
-192.168.59.103
-# go web http://192.168.59.103:8080
-$docker run -t -i code /bin/bash
-```
+1. Intall [Docker Engine](https://docs.docker.com/engine/installation/)
+   and [Docker Compose](https://docs.docker.com/compose/install/).
+2. Note the Docker host IP address, if you are using a Docker Machine VM,
+   you can use the `docker-machine ip MACHINE_NAME` to get the IP address.
+3. `cp code.local.env.sample code.local.env`
+    then change the value of `DOUBAN_CODE_DOMAIN` to `http://IP:8200`.
+4. `docker-compose build`
+5. `docker-compose up -d`
+6. `mysql -udouban_code -pmy-code-passwd -h IP -D valentine < vilya/databases/schema.sql`
+7. open http://IP:8200
 
 Vagrant Installation(Recommended)
 --------------------

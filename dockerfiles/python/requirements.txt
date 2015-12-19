@@ -1,0 +1,35 @@
+-e git+https://github.com/qingfeng/MySQLdb1@MySQL-python-1.2.4#egg=MySQL-python
+Mako==0.9.0
+gevent==1.0.2
+gunicorn==19.4.1
+pytest==2.5.0
+wsgiauth==0.1
+pytz==2013.8
+Werkzeug==0.9.4
+celery==3.1.18
+redis==2.10.3
+blinker==1.4
+paramiko==1.15.2
+PyYAML==3.11
+Sphinx==1.3.1
+PyRSS2Gen==1.1
+requests==2.7.0
+python-dateutil==2.1
+oauth2==1.5.211
+Trolly==0.1.0
+bcrypt==2.0.0
+-e git+https://github.com/qingfeng/misaka@2fbe52692e8f304eea9d8925fd2a857916ff0ea5#egg=misaka
+mikoto==0.0.4
+WebTest==2.0.20
+mock==1.3.0
+nose==1.3.7
+docutils==0.12
+-e git+https://github.com/douban/sina.git@c8dbe938d7238ba44851cca36934b07320b0e143#egg=sina
+-e git+https://github.com/douban/douban-utils.git@5ca697545da191dab3fbe308e6b6776d8da83bd5#egg=DoubanUtils
+-e git+https://github.com/douban/douban-sqlstore.git@d7136b7cac1075f0b285e8c763af2e85124f8b76#egg=DoubanSQLStore
+-e git+https://github.com/dongweiming/douban-mc.git@5a0a21cdb73a448eb09a1b657ad80d4941ddb404#egg=DoubanMC
+-e git+https://github.com/douban/douban-orz.git@208b48177dc847ef2afdadfda302868c39797bdf#egg=ORZ
+-e git+https://github.com/douban/douban-quixote.git@20cda948580802ee4205b72fe46728de9dda5253#egg=Quixote
+-e git+https://github.com/douban/pygit2.git@c7b13237e9934b5620cf0c351ae7eaea7d14ffc3#egg=pygit2
+-e git+https://github.com/douban/ellen.git@e092eddd933a4676c53f016d11782897807f873a#egg=ellen
+-e git+https://github.com/douban/libmc.git@06b27e8bf2ae7f75d9817ba917f705c471e45028#egg=libmc

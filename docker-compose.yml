@@ -1,0 +1,52 @@
+web:
+  extends:
+    file: docker-common.yml
+    service: code
+  build: ./dockerfiles/python
+  command: gunicorn -w 1 -b 0.0.0.0:8200 --reload app:app
+  ports:
+    - "8200:8200"
+  links:
+    - "mysql"
+    - "memcached"
+    - "beansdb"
+    - "redis"
+
+webpack:
+  extends:
+    file: docker-common.yml
+    service: node
+  command: bash -c "cp -R /node_modules /code; npm run build; npm run watch"
+  volumes_from:
+    - web
+
+grunt:
+  extends:
+    file: docker-common.yml
+    service: node
+  command: bash -c "cp -R /node_modules /code; grunt ozma compass:dev; grunt watch"
+  volumes_from:
+    - web
+
+mysql:
+  build: ./dockerfiles/mysql
+  env_file:
+    - ./code.env
+    - ./code.local.env
+  ports:
+    - "3306:3306"
+
+memcached:
+  image: memcached:1.4
+  ports:
+    - "11211:11211"
+
+redis:
+  image: redis:3.0
+  ports:
+    - "6379:6379"
+
+beansdb:
+  image: mozillazg/beansdb:0.7.1.4
+  ports:
+    - "7900:7900"
