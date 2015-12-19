@@ -73,6 +73,8 @@ TRELLO_CONSUMER_SECRET = ''
 # bcrypt_sha256/bcrypt
 PASSWORD_METHOD = 'bcrypt_sha256'
 
+LOGIN_URL = '/login/'
+
 try:
     from local_config import *  # noqa
 except ImportError:
