@@ -19,7 +19,8 @@ REPO_DIR = os.path.join(CODE_DIR, 'permdir')
 
 # session
 SESSION_EXPIRE_DAYS = 14
-SESSION_DOMAIN = ''
+SESSION_COOKIE_DOMAIN = ''
+SESSION_COOKIE_PATH = '/'
 SESSION_COOKIE_NAME = 'code_user'
 
 
