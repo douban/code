@@ -1,0 +1,605 @@
+/* button list */
+/* line 3, ../../../hub/static/css/mod/file-blob.scss */
+.button-group {
+  display: inline-block;
+  overflow: hidden;
+  border: 1px solid #d4d4d4;
+  border-radius: 3px;
+  border-bottom-color: #bcbcbc;
+  background: #f5f5f5;
+  background: -moz-linear-gradient(#f5f5f5, #e5e5e5);
+  background: -webkit-linear-gradient(#f5f5f5, #e5e5e5);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5',endColorstr='#e5e5e5')";
+}
+
+/* line 4, ../../../hub/static/css/mod/file-blob.scss */
+.button-group li {
+  margin: 0 !important;
+  float: left;
+}
+
+/* line 5, ../../../hub/static/css/mod/file-blob.scss */
+.button-group li:first-child .grouped-button {
+  border-left: none;
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+}
+
+/* line 6, ../../../hub/static/css/mod/file-blob.scss */
+.button-group li:last-child .grouped-button {
+  border-right: none;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+
+/* line 7, ../../../hub/static/css/mod/file-blob.scss */
+.button-group .grouped-button {
+  float: left;
+  background: none;
+  border-bottom: none;
+  border-top: none;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 0;
+  cursor: pointer;
+}
+
+/* line 8, ../../../hub/static/css/mod/file-blob.scss */
+.button-group .minibutton {
+  position: relative;
+  display: inline-block;
+  padding: 0 10px 0 10px;
+  color: #333;
+  font-family: Helvetica,arial,freesans,clean,sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 24px;
+  text-shadow: 0 1px 0 #fff;
+  white-space: nowrap;
+  border-bottom-color: #bcbcbc;
+  border-radius: 3px;
+  background: #fafafa;
+  background: -moz-linear-gradient(#fafafa, #eaeaea);
+  background: -webkit-linear-gradient(#fafafa, #eaeaea);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa',endColorstr='#eaeaea')";
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* line-no */
+/* line 12, ../../../hub/static/css/mod/file-blob.scss */
+#blob .file {
+  min-height: 78px;
+  position: relative;
+  overflow: auto;
+}
+
+/* line 13, ../../../hub/static/css/mod/file-blob.scss */
+#blob .file .rawfile {
+  text-align: center;
+  background-color: #ddd;
+  padding: 30px;
+  position: relative;
+}
+
+/* line 14, ../../../hub/static/css/mod/file-blob.scss */
+.file table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 15, ../../../hub/static/css/mod/file-blob.scss */
+.file table td, .file table th {
+  vertical-align: top;
+  padding: 0;
+}
+
+/* line 16, ../../../hub/static/css/mod/file-blob.scss */
+.file .data {
+  overflow: auto;
+}
+
+/* line 18, ../../../hub/static/css/mod/file-blob.scss */
+.code {
+  width: 100%;
+}
+
+/* line 19, ../../../hub/static/css/mod/file-blob.scss */
+.code .highlight pre {
+  margin: 0;
+  padding: 8px;
+  border: none;
+  background-color: #FFF;
+  white-space: pre;
+}
+
+/* line 20, ../../../hub/static/css/mod/file-blob.scss */
+.code .highlight pre a {
+  display: block;
+}
+
+/* line 23, ../../../hub/static/css/mod/file-blob.scss */
+.linenos .linenodiv pre {
+  background-color: #ECECEC;
+  padding: 8px;
+  border: none;
+  border-right: 1px solid #DDD;
+  text-align: right;
+  white-space: pre;
+}
+
+/* line 24, ../../../hub/static/css/mod/file-blob.scss */
+.linenos .linenodiv pre a {
+  color: #AAA;
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 18px;
+}
+
+/* line 25, ../../../hub/static/css/mod/file-blob.scss */
+.code .highlight pre, .linenos .linenodiv pre {
+  margin: 0;
+  line-height: 18px;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+/* line 32, ../../../hub/static/css/mod/file-blob.scss */
+.linenos {
+  padding: 0;
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Source Code Pro"), local("SourceCodePro-Regular"), url("/static/css/fonts/SourceCodePro-Regular.woff") format("woff");
+}
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 500;
+  src: local("Source Code Pro Medium"), local("SourceCodePro-Medium"), url("/static/css/fonts/SourceCodePro-Medium.woff") format("woff");
+}
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 600;
+  src: local("Source Code Pro Semibold"), local("SourceCodePro-Semibold"), url("/static/css/fonts/SourceCodePro-Semibold.woff") format("woff");
+}
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 700;
+  src: local("Source Code Pro Bold"), local("SourceCodePro-Bold"), url("/static/css/fonts/SourceCodePro-Bold.woff") format("woff");
+}
+/* line 3, ../../../hub/static/css/mod/diff-base.scss */
+.code pre, xmp, plaintext, listing {
+  display: block;
+  font-size: 13px;
+  font-family: 'Source Code Pro',Courier,Monaco,Consolas,Menlo,monospace;
+  white-space: pre;
+  margin: 0;
+  padding: 0;
+}
+
+/* line 12, ../../../hub/static/css/mod/diff-base.scss */
+.code pre {
+  line-height: 18px;
+}
+
+/* line 16, ../../../hub/static/css/mod/diff-base.scss */
+.font-consolas pre {
+  font-family: Consolas,'Source Code Pro',Courier,Monaco,Menlo,monospace;
+}
+
+/* line 20, ../../../hub/static/css/mod/diff-base.scss */
+.font-monaco pre {
+  font-family: Monaco,'Source Code Pro',Courier,Consolas,Menlo,monospace;
+}
+
+/* line 24, ../../../hub/static/css/mod/diff-base.scss */
+.font-courier pre {
+  font-family: Courier,'Source Code Pro',Monaco,Consolas,Menlo,monospace;
+}
+
+/* line 28, ../../../hub/static/css/mod/diff-base.scss */
+.font-dejavu pre {
+  font-family: 'DejaVu Sans Mono','Source Code Pro',Courier,Monaco,Consolas,Menlo,monospace;
+}
+
+/* line 32, ../../../hub/static/css/mod/diff-base.scss */
+.font-ubuntu pre {
+  font-family: 'Ubuntu Mono','Source Code Pro',Courier,Monaco,Consolas,Menlo,monospace;
+}
+
+/* line 37, ../../../hub/static/css/mod/diff-base.scss */
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas,Menlo,"Liberation Mono",Courier,monospace;
+  border: 0;
+}
+
+/* line 43, ../../../hub/static/css/mod/diff-base.scss */
+.highlight .normal {
+  background-color: #FFF;
+}
+
+/* line 47, ../../../hub/static/css/mod/diff-base.scss */
+.highlight .deletion {
+  color: black;
+  background-color: #FDD;
+}
+/* line 50, ../../../hub/static/css/mod/diff-base.scss */
+.highlight .deletion .x, .highlight .deletion .c {
+  color: black;
+  background-color: #ffaaaa;
+}
+
+/* line 56, ../../../hub/static/css/mod/diff-base.scss */
+.highlight .insertion {
+  color: black;
+  background-color: #DFD;
+}
+/* line 59, ../../../hub/static/css/mod/diff-base.scss */
+.highlight .insertion .i, .highlight .insertion .c {
+  color: black;
+  background-color: #aaffaa;
+}
+
+/* line 65, ../../../hub/static/css/mod/diff-base.scss */
+.highlight .skipped {
+  color: #cacaca;
+  background-color: #f9f9f9;
+}
+/* line 69, ../../../hub/static/css/mod/diff-base.scss */
+.highlight .skipped a {
+  color: #cacaca;
+  vertical-align: middle;
+}
+/* line 73, ../../../hub/static/css/mod/diff-base.scss */
+.highlight .skipped a:hover {
+  text-decoration: none;
+}
+/* line 77, ../../../hub/static/css/mod/diff-base.scss */
+.highlight .skipped a[data-type="after"], .highlight .skipped a[data-type="before"] {
+  font-size: 20px;
+}
+
+/* line 1, ../../../hub/static/css/mod/colorcube.scss */
+.colorcube {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #DDD;
+}
+
+/* line 2, ../../../hub/static/css/mod/colorcube.scss */
+.colorcube::before {
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  border: 5px solid #DDD;
+  border-width: 5px;
+  border-color: #DDD transparent transparent transparent;
+  left: 10px;
+  top: 30px;
+  float: left;
+  position: absolute;
+}
+
+/* line 5, ../../../hub/static/css/mod/file-diff-blob.scss */
+#files .file .data .line_numbers, .file-box .data .line_numbers {
+  background-color: #ECECEC;
+  color: #AAA;
+  padding: 0 2px 0 16px;
+  border-right: 1px solid #DDD;
+  text-align: right;
+  cursor: pointer;
+}
+/* line 12, ../../../hub/static/css/mod/file-diff-blob.scss */
+#files .file .data .line_numbers.deletion, .file-box .data .line_numbers.deletion {
+  color: #AAA;
+  background-color: #f7c8c8;
+}
+/* line 16, ../../../hub/static/css/mod/file-diff-blob.scss */
+#files .file .data .line_numbers.insertion, .file-box .data .line_numbers.insertion {
+  color: #AAA;
+  background-color: #ceffce;
+}
+
+/* line 21, ../../../hub/static/css/mod/file-diff-blob.scss */
+#files .file .data .line_numbers a {
+  color: #AAA;
+}
+
+/* line 24, ../../../hub/static/css/mod/file-diff-blob.scss */
+#files .file .data .code {
+  width: 100%;
+}
+
+/* line 28, ../../../hub/static/css/mod/file-diff-blob.scss */
+#files .file .side {
+  overflow-x: none;
+  display: none;
+}
+
+/* line 33, ../../../hub/static/css/mod/file-diff-blob.scss */
+#files .file .side .file-col {
+  width: 50%;
+  float: left;
+  overflow-x: auto;
+}
+
+/* line 40, ../../../hub/static/css/mod/file-diff-blob.scss */
+#files .file .data .diff-table {
+  border-collapse: collapse;
+}
+
+/* line 44, ../../../hub/static/css/mod/file-diff-blob.scss */
+#files.commentable tr td pre:hover {
+  background-color: #FFC;
+}
+
+/* line 46, ../../../hub/static/css/mod/file-diff-blob.scss */
+#files .file .data .diff-table pre {
+  border-radius: 0px;
+}
+
+/* line 48, ../../../hub/static/css/mod/file-diff-blob.scss */
+#files .file .data table, .file-box .data table {
+  font-family: Consolas,Menlo,"Liberation Mono",Courier,monospace;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* line 54, ../../../hub/static/css/mod/file-diff-blob.scss */
+#files .file .data .file-diff-line span.color {
+  cursor: default;
+}
+
+/* Comment Bubble */
+/* line 58, ../../../hub/static/css/mod/file-diff-blob.scss */
+#files .file-diff-line .add-bubble {
+  position: absolute;
+  left: 0;
+  width: 25px;
+  height: 16px;
+  margin-top: 0;
+  cursor: pointer;
+  opacity: 0;
+  color: #4183C4;
+}
+
+/* line 69, ../../../hub/static/css/mod/file-diff-blob.scss */
+#files .file-diff-line:hover .add-bubble {
+  opacity: 1;
+}
+
+/* Comment Bubble icons */
+/* line 72, ../../../hub/static/css/mod/file-diff-blob.scss */
+.mini-icon,
+.mega-icon {
+  font-family: 'Octicons Regular';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1;
+  text-decoration: none;
+}
+
+/* line 83, ../../../hub/static/css/mod/file-diff-blob.scss */
+.mini-icon::before,
+.mega-icon::before {
+  -moz-transition: color .15s ease-in 0;
+  -webkit-transition: color .15s ease-in 0;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+/* line 91, ../../../hub/static/css/mod/file-diff-blob.scss */
+.mini-icon-add-comment::before {
+  content: "\f06f";
+}
+
+/* line 93, ../../../hub/static/css/mod/file-diff-blob.scss */
+.skipped-container:first-child:after {
+  margin: -18px 0 0;
+}
+
+/* line 97, ../../../hub/static/css/mod/file-diff-blob.scss */
+.skipped-container:after {
+  background: none repeat scroll 0 0 #fff;
+  content: "";
+  display: block;
+  height: 2px;
+  margin: -16px 0 0;
+  position: absolute;
+  left: 0px;
+  width: 938px;
+}
+
+/* line 109, ../../../hub/static/css/mod/file-diff-blob.scss */
+.data .line-numbers-skipped {
+  position: absolute;
+  width: 79px;
+  background-color: #f5f5f5;
+  border-right: 1px solid #ccc;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* line 119, ../../../hub/static/css/mod/file-diff-blob.scss */
+.skipped-container .skipped-top, .skipped-container .skipped-bottom {
+  height: 18px;
+  background-color: #f5f5f5;
+}
+
+/* line 124, ../../../hub/static/css/mod/file-diff-blob.scss */
+.skipped-top::before {
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  content: "";
+  display: block;
+  height: 4px;
+  position: relative;
+  top: -1px;
+  margin-left: -1px;
+}
+
+/* line 140, ../../../hub/static/css/mod/file-diff-blob.scss */
+.skipped-container .ellipsis:hover {
+  background-color: #e6e6e6;
+  border-color: #999;
+}
+
+/* line 145, ../../../hub/static/css/mod/file-diff-blob.scss */
+.skipped-container .ellipsis {
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  box-shadow: 0 0 0 2px #fff;
+  cursor: pointer;
+  display: block;
+  float: left;
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  text-align: center;
+  color: #707070;
+  height: 16px;
+  line-height: 6px;
+  margin: 0 0 0 5px;
+  padding: 0;
+  position: absolute;
+  width: 30px;
+  z-index: 10;
+}
+
+/* line 170, ../../../hub/static/css/mod/file-diff-blob.scss */
+.skipped-top .ellipsis {
+  margin-top: -10px;
+}
+
+/* line 174, ../../../hub/static/css/mod/file-diff-blob.scss */
+.skipped-container .ellipsis::before, .skipped-container .ellipsis::after {
+  border: 1px solid #ccc;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  content: "";
+  height: 9px;
+  left: -4px;
+  width: 36px;
+  position: absolute;
+}
+
+/* line 188, ../../../hub/static/css/mod/file-diff-blob.scss */
+.skipped-container .ellipsis::before {
+  border-bottom: none;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  content: "\2026";
+  padding: 2px 0 0;
+  top: -4px;
+}
+
+/* line 197, ../../../hub/static/css/mod/file-diff-blob.scss */
+.skipped-container .ellipsis::after {
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  bottom: -4px;
+  height: 10px;
+}
+
+/* line 206, ../../../hub/static/css/mod/file-diff-blob.scss */
+.skipped-container .toggle_whitespace:hover {
+  background-color: #e6e6e6;
+  border-color: #999;
+}
+
+/* line 211, ../../../hub/static/css/mod/file-diff-blob.scss */
+.skipped-container .toggle_whitespace {
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  box-shadow: 0 0 0 2px #fff;
+  cursor: pointer;
+  display: block;
+  float: left;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  text-align: center;
+  color: #707070;
+  height: 16px;
+  line-height: 6px;
+  margin: 0 0 0 44px;
+  padding: 0;
+  position: absolute;
+  width: 30px;
+  z-index: 10;
+}
+
+/* line 236, ../../../hub/static/css/mod/file-diff-blob.scss */
+.skipped-top .toggle_whitespace {
+  margin-top: -10px;
+}
+
+/* line 240, ../../../hub/static/css/mod/file-diff-blob.scss */
+.skipped-container .toggle_whitespace::before, .skipped-container .toggle_whitespace::after {
+  border: 1px solid #ccc;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  content: "";
+  height: 9px;
+  left: -4px;
+  width: 36px;
+  position: absolute;
+}
+
+/* line 254, ../../../hub/static/css/mod/file-diff-blob.scss */
+.skipped-container .toggle_whitespace::before {
+  border-bottom: none;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  content: "\2423";
+  padding: 2px 0 0;
+  top: -4px;
+}
+
+/* line 263, ../../../hub/static/css/mod/file-diff-blob.scss */
+.skipped-container .toggle_whitespace::after {
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  bottom: -4px;
+  height: 10px;
+}

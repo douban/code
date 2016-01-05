@@ -1,0 +1,48 @@
+/* line 1, ../../../hub/static/css/mod/drop-down-list.scss */
+.add-item-menu {
+  display: none;
+  position: absolute;
+  top: 35px;
+  width: 218px;
+  background-color: white;
+  border: 1px solid #EEE;
+  z-index: 100;
+}
+
+/* line 10, ../../../hub/static/css/mod/drop-down-list.scss */
+.add-item-menu ul li.intro {
+  padding: 7px;
+  color: #666666;
+}
+
+/* line 14, ../../../hub/static/css/mod/drop-down-list.scss */
+.add-item-menu ul li.intro.active {
+  background: #fff;
+  padding: 7px;
+  color: #666666;
+}
+
+/* line 19, ../../../hub/static/css/mod/drop-down-list.scss */
+.add-item-menu ul li.active {
+  background: #4183C4;
+  color: white;
+}
+
+/* line 23, ../../../hub/static/css/mod/drop-down-list.scss */
+.add-item-menu ul li {
+  min-height: 25px;
+  padding: 3px;
+  color: #666;
+  cursor: pointer;
+  word-wrap: break-word;
+}
+
+/* line 30, ../../../hub/static/css/mod/drop-down-list.scss */
+.add-item-menu .avatar img {
+  float: left;
+  border: none;
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+  border-radius: 3px;
+}

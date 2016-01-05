@@ -1,0 +1,84 @@
+/* line 1, ../../../hub/static/css/mod/diff-stat.scss */
+#toc li {
+  border-bottom: 1px solid #DDD;
+  list-style-type: none;
+  padding: 5px;
+}
+
+/* line 7, ../../../hub/static/css/mod/diff-stat.scss */
+#toc {
+  margin: 15px 0;
+}
+
+/* line 11, ../../../hub/static/css/mod/diff-stat.scss */
+#toc .diffstat {
+  float: right;
+}
+
+/* line 14, ../../../hub/static/css/mod/diff-stat.scss */
+#toc .mini-icon-modified {
+  color: #677A85;
+}
+
+/* line 18, ../../../hub/static/css/mod/diff-stat.scss */
+span.diffstat {
+  white-space: nowrap;
+  text-align: right;
+  font-family: Helvetica,arial,freesans,clean,sans-serif;
+  color: #666;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+/* line 26, ../../../hub/static/css/mod/diff-stat.scss */
+span.diffstat a {
+  text-decoration: none;
+  color: #666;
+}
+
+/* line 30, ../../../hub/static/css/mod/diff-stat.scss */
+span.diffstat .diffstat-bar {
+  position: relative;
+  left: -3px;
+  display: inline-block;
+  height: 12px;
+  text-decoration: none;
+  text-align: left;
+  color: #EEE;
+  font-family: 'Octicons Regular';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: inherit;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+  letter-spacing: -7px;
+}
+
+/* line 48, ../../../hub/static/css/mod/diff-stat.scss */
+span.diffstat .diffstat-bar.diff-added,
+span.diffstat .diffstat-bar i.plus {
+  color: #61C423;
+  font-style: normal;
+}
+
+/* line 53, ../../../hub/static/css/mod/diff-stat.scss */
+span.diffstat .diffstat-bar.diff-added,
+span.diffstat .diffstat-bar i.minus {
+  color: #C52323;
+  font-style: normal;
+}
+
+/* line 59, ../../../hub/static/css/mod/diff-stat.scss */
+p.explain {
+  font-size: 12px;
+  color: #666;
+  margin: 1em 0;
+}
+
+/* line 65, ../../../hub/static/css/mod/diff-stat.scss */
+p.explain .minibutton {
+  float: right;
+  top: -4px;
+}

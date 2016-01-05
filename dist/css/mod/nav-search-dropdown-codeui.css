@@ -1,0 +1,52 @@
+/* line 2, ../../../hub/static/css/mod/nav-search-dropdown-codeui.scss */
+#search-repos-menu {
+  display: none;
+  position: absolute;
+  top: 30px;
+  width: 370px;
+  background-color: white;
+  border: 1px solid rgba(99, 182, 174, 0.4);
+  z-index: 100;
+}
+
+/* line 6, ../../../hub/static/css/mod/nav-search-dropdown-codeui.scss */
+#search-repos-menu ul li {
+  min-height: 25px;
+  padding: 3px;
+  color: #666;
+  cursor: pointer;
+  word-wrap: break-word;
+}
+
+/* line 8, ../../../hub/static/css/mod/nav-search-dropdown-codeui.scss */
+#search-repos-menu ul li.active {
+  background: #63b6ae;
+  color: #fff;
+}
+
+/* line 12, ../../../hub/static/css/mod/nav-search-dropdown-codeui.scss */
+#search-repos-menu ul li.intro {
+  padding: 7px;
+  color: #666;
+}
+
+/* line 13, ../../../hub/static/css/mod/nav-search-dropdown-codeui.scss */
+#search-repos-menu ul li.intro.active {
+  background: #fff;
+  padding: 7px;
+  color: #666;
+}
+
+/* line 14, ../../../hub/static/css/mod/nav-search-dropdown-codeui.scss */
+#search-repos-menu .repo-name {
+  padding: 3px;
+}
+
+/* line 15, ../../../hub/static/css/mod/nav-search-dropdown-codeui.scss */
+#search-repos-menu .avatar img {
+  float: left;
+  border: none;
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}

@@ -1,0 +1,168 @@
+/* line 1, ../../../hub/static/css/mod/tag-list.scss */
+.issue-tags ul li .tag-filter, .issue-tags ul li .tag-remove, .issue-tags ul li .icon-remove, .issue-tags ul li .icon-white, .issue-tags ul .tag-filter, .issue-tags ul .tag-remove, .issue-tags ul .icon-remove, .issue-tags ul .icon-white {
+  background: #63b6ae;
+  background-image: none;
+  cursor: pointer;
+}
+
+/* line 6, ../../../hub/static/css/mod/tag-list.scss */
+.issue-tags ul li a:hover, .issue-tags ul a:hover {
+  background: #63b6ae;
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+/* line 12, ../../../hub/static/css/mod/tag-list.scss */
+.issue-tags {
+  padding: 8px 0;
+}
+/* line 15, ../../../hub/static/css/mod/tag-list.scss */
+.issue-tags ul li {
+  line-height: 20px;
+}
+/* line 23, ../../../hub/static/css/mod/tag-list.scss */
+.issue-tags ul li .tag-remove, .issue-tags ul li .icon-remove, .issue-tags ul li .icon-white {
+  float: right;
+}
+/* line 31, ../../../hub/static/css/mod/tag-list.scss */
+.issue-tags ul .tag-remove, .issue-tags ul .icon-remove, .issue-tags ul .icon-white {
+  float: right;
+}
+/* line 40, ../../../hub/static/css/mod/tag-list.scss */
+.issue-tags ul li.active a {
+  border-radius: 4px;
+}
+/* line 44, ../../../hub/static/css/mod/tag-list.scss */
+.issue-tags .nav-header {
+  margin-bottom: 8px;
+}
+/* line 47, ../../../hub/static/css/mod/tag-list.scss */
+.issue-tags .tag-admin {
+  float: right;
+  cursor: pointer;
+  font-weight: 400;
+}
+/* line 52, ../../../hub/static/css/mod/tag-list.scss */
+.issue-tags .tag-admin-unuse {
+  color: #63b6ae;
+}
+/* line 55, ../../../hub/static/css/mod/tag-list.scss */
+.issue-tags .tag-admin-using {
+  color: #999;
+}
+/* line 58, ../../../hub/static/css/mod/tag-list.scss */
+.issue-tags .nav-list-edit .tag-item {
+  display: block;
+  padding: 3px 1px;
+  color: #08c;
+}
+
+/* edit tag */
+/* line 66, ../../../hub/static/css/mod/tag-list.scss */
+ul.color-chooser .color-cooser-color {
+  display: block;
+  text-align: center;
+  height: 25px;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: solid 2px transparent;
+}
+
+/* line 74, ../../../hub/static/css/mod/tag-list.scss */
+.edit-color-label-form.open .color-chooser, .edit-color-label-form.open .color-editor {
+  display: block;
+}
+
+/* line 77, ../../../hub/static/css/mod/tag-list.scss */
+ul.color-chooser {
+  height: 25px;
+  list-style-type: none;
+  display: table-row;
+}
+
+/* line 82, ../../../hub/static/css/mod/tag-list.scss */
+ul.color-chooser li {
+  display: table-cell;
+  width: 1%;
+  vertical-align: top;
+}
+
+/* line 87, ../../../hub/static/css/mod/tag-list.scss */
+.fieldWithErrors {
+  display: inline;
+}
+
+/* line 90, ../../../hub/static/css/mod/tag-list.scss */
+.edit-color-label-form .color-editor-bg {
+  position: absolute;
+  left: 0;
+  height: 25px;
+  width: 130px;
+  opacity: 0.12;
+  border-radius: 3px;
+}
+
+/* line 98, ../../../hub/static/css/mod/tag-list.scss */
+.edit-color-label-form .color-editor .color-editor-input {
+  position: absolute;
+  left: 0;
+  background-color: transparent;
+  min-height: 25px;
+  border-left-width: 26px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  width: 130px;
+}
+
+/* line 108, ../../../hub/static/css/mod/tag-list.scss */
+.edit-color-label-form .color-editor .invalid-color-indicator {
+  display: none;
+  position: absolute;
+  top: 5px;
+  left: 9px;
+  color: #c00;
+  z-index: 10;
+  font-weight: bold;
+}
+
+/* line 117, ../../../hub/static/css/mod/tag-list.scss */
+.edit-color-label-form .color-editor {
+  margin-top: 5px;
+  position: relative;
+  height: 25px;
+  margin-bottom: 10px;
+}
+
+/* line 123, ../../../hub/static/css/mod/tag-list.scss */
+.edit-color-label-form .color-editor .invalid-color-indicator {
+  display: none;
+  position: absolute;
+  top: 5px;
+  left: 9px;
+  color: #c00;
+  z-index: 10;
+  font-weight: bold;
+}
+
+/* line 132, ../../../hub/static/css/mod/tag-list.scss */
+.edit-color-label-form input[type="text"] {
+  min-height: 34px;
+  padding: 7px 8px;
+  outline: none;
+  color: #333;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: right center;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+
+/* line 147, ../../../hub/static/css/mod/tag-list.scss */
+.edit-color-label-form.is-not-valid .color-editor .invalid-color-indicator {
+  display: block;
+}

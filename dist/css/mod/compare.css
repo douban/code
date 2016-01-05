@@ -1,0 +1,259 @@
+@charset "UTF-8";
+/* line 2, ../../../hub/static/css/mod/compare.scss */
+.compare-range {
+  margin-top: -15px;
+  float: right;
+}
+
+/* line 7, ../../../hub/static/css/mod/compare.scss */
+.compare-range .switch {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  text-indent: -9999px;
+  background: url("/static/img/switch_icon.png") 0 0 no-repeat;
+}
+
+/* line 15, ../../../hub/static/css/mod/compare.scss */
+.commit-ref {
+  padding: 2px 5px;
+  line-height: 19px;
+  font-family: Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;
+  font-size: 12px;
+  font-weight: normal;
+  color: white;
+  text-shadow: -1px -1px 0 black;
+  text-decoration: none;
+  background: #787878;
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#787878',endColorstr='#282828')";
+  border-radius: 3px;
+}
+
+/* line 29, ../../../hub/static/css/mod/compare.scss */
+#compare p.subtext {
+  margin: -15px 0 10px 0;
+  color: #666;
+}
+
+/* line 34, ../../../hub/static/css/mod/compare.scss */
+.rule, hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 1px solid #DDD;
+}
+
+/* line 43, ../../../hub/static/css/mod/compare.scss */
+.commits-condensed {
+  margin-top: 15px;
+  border: 1px solid #DDD;
+  border-width: 1px 1px 0 1px;
+}
+
+/* line 49, ../../../hub/static/css/mod/compare.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 100%;
+  font: inherit;
+}
+
+/* line 56, ../../../hub/static/css/mod/compare.scss */
+.avatar-bubble::before {
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  border: 10px solid #EEE;
+  border-width: 10px 10px 10px 0;
+  border-color: transparent #EEE transparent transparent;
+  position: absolute;
+  left: 51px;
+  top: 15px;
+}
+
+/* line 69, ../../../hub/static/css/mod/compare.scss */
+.bubble {
+  padding: 3px;
+  background: #EEE;
+  border-radius: 3px;
+}
+
+/* line 75, ../../../hub/static/css/mod/compare.scss */
+.new-comments .bubble .comment {
+  margin: 0;
+}
+
+/* line 78, ../../../hub/static/css/mod/compare.scss */
+.new-comments .comment {
+  margin: 10px 0;
+  border: 1px solid #CACACA;
+}
+
+/* line 83, ../../../hub/static/css/mod/compare.scss */
+.new-comments .comment .cmeta {
+  height: 33px;
+  padding: 0 10px 0 6px;
+  border-bottom: 1px solid #CCC;
+  background: #F8F8F8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#f8f8f8',endColorstr='#e1e1e1')";
+}
+
+/* line 91, ../../../hub/static/css/mod/compare.scss */
+.new-comments .comment > .body {
+  position: relative;
+  padding: 0;
+  color: #333;
+  font-size: 12px;
+  background: #FBFBFB;
+}
+
+/* line 99, ../../../hub/static/css/mod/compare.scss */
+.avatar-bubble {
+  margin: 20px 0;
+  padding-left: 60px;
+  position: relative;
+}
+
+/* line 105, ../../../hub/static/css/mod/compare.scss */
+.avatar-bubble > .avatar {
+  position: relative;
+  float: left;
+  margin-left: -60px;
+}
+
+/* line 111, ../../../hub/static/css/mod/compare.scss */
+.comment .content-body {
+  padding: 10px;
+  font-size: 13px;
+}
+
+/* line 116, ../../../hub/static/css/mod/compare.scss */
+.markdown-body {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* line 121, ../../../hub/static/css/mod/compare.scss */
+.markdown-body p, .markdown-body blockquote, .markdown-body ul, .markdown-body ol, .markdown-body dl, .markdown-body li, .markdown-body table, .markdown-body pre {
+  margin: 15px 0;
+}
+
+/* line 125, ../../../hub/static/css/mod/compare.scss */
+.new-comments .comment .cmeta p.author {
+  margin: 0;
+  float: left;
+  max-width: 600px;
+  font-size: 12px;
+  height: 33px;
+  line-height: 33px;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* line 138, ../../../hub/static/css/mod/compare.scss */
+.new-comments .comment .cmeta p.info {
+  float: right;
+  margin: 0;
+  font-size: 11px;
+  height: 33px;
+  line-height: 33px;
+}
+
+/* line 145, ../../../hub/static/css/mod/compare.scss */
+a.commit-ref:hover {
+  text-shadow: -1px -1px 0 #04284B;
+  background: #74A4D4;
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#74a4d4',endColorstr='#2a5177')";
+  text-decoration: none;
+}
+
+/* line 152, ../../../hub/static/css/mod/compare.scss */
+#compare h2 {
+  font-size: 20px;
+}
+
+/* line 156, ../../../hub/static/css/mod/compare.scss */
+.commit-preview {
+  margin: 10px 0 0 0;
+  font-size: 11px;
+}
+
+/* line 161, ../../../hub/static/css/mod/compare.scss */
+form-actions {
+  text-align: right;
+  padding-bottom: 5px;
+}
+
+/* line 166, ../../../hub/static/css/mod/compare.scss */
+.commit-preview > p {
+  margin: 16px 0;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* compare-popup related styles copied from hub.css */
+/* line 173, ../../../hub/static/css/mod/compare.scss */
+.mini-icon-remove-close::before {
+  content: "";
+}
+
+/* line 174, ../../../hub/static/css/mod/compare.scss */
+#compare-popup {
+  position: absolute;
+  top: 159px;
+  left: 407px;
+  z-index: 100;
+}
+
+/* line 180, ../../../hub/static/css/mod/compare.scss */
+#compare-popup .popup {
+  position: relative;
+  border-radius: 5px;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.4);
+}
+
+/* line 181, ../../../hub/static/css/mod/compare.scss */
+#compare-popup .content {
+  width: 425px;
+  color: #333;
+  font-size: 12px;
+  padding: 10px;
+  border-radius: 4px;
+  background: white;
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='white',endColorstr='#f4f9fb')";
+}
+
+/* line 182, ../../../hub/static/css/mod/compare.scss */
+#compare-popup .form-actions {
+  margin: 10px 0 0;
+  background-color: #fff;
+  text-align: right;
+}
+
+/* line 183, ../../../hub/static/css/mod/compare.scss */
+#compare-popup .close {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  padding: 2px;
+}
+
+/* line 184, ../../../hub/static/css/mod/compare.scss */
+#compare-popup .close .mini-icon-remove-close {
+  line-height: 16px;
+  height: 16px;
+  color: #CCC;
+}
+
+/* line 185, ../../../hub/static/css/mod/compare.scss */
+#compare-popup input[type="text"] {
+  width: 96%;
+  padding: 5px 5px;
+  font-size: 12px;
+}

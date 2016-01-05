@@ -1,0 +1,43 @@
+/* line 8, ../../../hub/static/css/mod/text-truncate.scss */
+.css-truncate.css-truncate-target, .css-truncate .css-truncate-target {
+  max-width: 125px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: top;
+  display: inline-block;
+}
+
+/* line 14, ../../../hub/static/css/mod/text-truncate.scss */
+.css-truncate.expandable:hover .css-truncate-target {
+  max-width: 10000px !important;
+}
+
+/* line 3, ../../../hub/static/css/mod/my-projects.scss */
+.my_projects {
+  margin-top: 5px;
+}
+/* line 4, ../../../hub/static/css/mod/my-projects.scss */
+.my_projects a.right {
+  float: right;
+}
+/* line 8, ../../../hub/static/css/mod/my-projects.scss */
+.my_projects li {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* line 12, ../../../hub/static/css/mod/my-projects.scss */
+.my_projects li .delete-btn {
+  display: none;
+}
+/* line 16, ../../../hub/static/css/mod/my-projects.scss */
+.my_projects li.hover .delete-btn {
+  display: block;
+}
+
+/* line 23, ../../../hub/static/css/mod/my-projects.scss */
+.my_projects .delete-btn {
+  padding: 0 6px 0 6px;
+}

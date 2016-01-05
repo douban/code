@@ -1,0 +1,27 @@
+/* line 1, ../../../hub/static/css/mod/gist-render.scss */
+.link-overlay {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  visibility: hidden;
+  z-index: 50;
+}
+
+/* line 2, ../../../hub/static/css/mod/gist-render.scss */
+.link-overlay .link {
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  margin: -14px 0 0 0;
+  padding: 4px 8px 4px 10px;
+  height: 20px;
+  position: absolute;
+  top: 20px;
+  right: 6px;
+  z-index: 100;
+}
+
+/* line 3, ../../../hub/static/css/mod/gist-render.scss */
+.link-overlay .link .mini-icon {
+  position: relative;
+  top: 2px;
+}

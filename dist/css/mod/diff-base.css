@@ -1,0 +1,116 @@
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Source Code Pro"), local("SourceCodePro-Regular"), url("/static/css/fonts/SourceCodePro-Regular.woff") format("woff");
+}
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 500;
+  src: local("Source Code Pro Medium"), local("SourceCodePro-Medium"), url("/static/css/fonts/SourceCodePro-Medium.woff") format("woff");
+}
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 600;
+  src: local("Source Code Pro Semibold"), local("SourceCodePro-Semibold"), url("/static/css/fonts/SourceCodePro-Semibold.woff") format("woff");
+}
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 700;
+  src: local("Source Code Pro Bold"), local("SourceCodePro-Bold"), url("/static/css/fonts/SourceCodePro-Bold.woff") format("woff");
+}
+/* line 3, ../../../hub/static/css/mod/diff-base.scss */
+.code pre, xmp, plaintext, listing {
+  display: block;
+  font-size: 13px;
+  font-family: 'Source Code Pro',Courier,Monaco,Consolas,Menlo,monospace;
+  white-space: pre;
+  margin: 0;
+  padding: 0;
+}
+
+/* line 12, ../../../hub/static/css/mod/diff-base.scss */
+.code pre {
+  line-height: 18px;
+}
+
+/* line 16, ../../../hub/static/css/mod/diff-base.scss */
+.font-consolas pre {
+  font-family: Consolas,'Source Code Pro',Courier,Monaco,Menlo,monospace;
+}
+
+/* line 20, ../../../hub/static/css/mod/diff-base.scss */
+.font-monaco pre {
+  font-family: Monaco,'Source Code Pro',Courier,Consolas,Menlo,monospace;
+}
+
+/* line 24, ../../../hub/static/css/mod/diff-base.scss */
+.font-courier pre {
+  font-family: Courier,'Source Code Pro',Monaco,Consolas,Menlo,monospace;
+}
+
+/* line 28, ../../../hub/static/css/mod/diff-base.scss */
+.font-dejavu pre {
+  font-family: 'DejaVu Sans Mono','Source Code Pro',Courier,Monaco,Consolas,Menlo,monospace;
+}
+
+/* line 32, ../../../hub/static/css/mod/diff-base.scss */
+.font-ubuntu pre {
+  font-family: 'Ubuntu Mono','Source Code Pro',Courier,Monaco,Consolas,Menlo,monospace;
+}
+
+/* line 37, ../../../hub/static/css/mod/diff-base.scss */
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas,Menlo,"Liberation Mono",Courier,monospace;
+  border: 0;
+}
+
+/* line 43, ../../../hub/static/css/mod/diff-base.scss */
+.highlight .normal {
+  background-color: #FFF;
+}
+
+/* line 47, ../../../hub/static/css/mod/diff-base.scss */
+.highlight .deletion {
+  color: black;
+  background-color: #FDD;
+}
+/* line 50, ../../../hub/static/css/mod/diff-base.scss */
+.highlight .deletion .x, .highlight .deletion .c {
+  color: black;
+  background-color: #ffaaaa;
+}
+
+/* line 56, ../../../hub/static/css/mod/diff-base.scss */
+.highlight .insertion {
+  color: black;
+  background-color: #DFD;
+}
+/* line 59, ../../../hub/static/css/mod/diff-base.scss */
+.highlight .insertion .i, .highlight .insertion .c {
+  color: black;
+  background-color: #aaffaa;
+}
+
+/* line 65, ../../../hub/static/css/mod/diff-base.scss */
+.highlight .skipped {
+  color: #cacaca;
+  background-color: #f9f9f9;
+}
+/* line 69, ../../../hub/static/css/mod/diff-base.scss */
+.highlight .skipped a {
+  color: #cacaca;
+  vertical-align: middle;
+}
+/* line 73, ../../../hub/static/css/mod/diff-base.scss */
+.highlight .skipped a:hover {
+  text-decoration: none;
+}
+/* line 77, ../../../hub/static/css/mod/diff-base.scss */
+.highlight .skipped a[data-type="after"], .highlight .skipped a[data-type="before"] {
+  font-size: 20px;
+}

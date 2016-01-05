@@ -1,0 +1,219 @@
+/* line 1, ../../../hub/static/css/mod/gist-comment.scss */
+.tabnav .tabnav-tabs > li:first-child .tabnav-tab.selected {
+  padding-left: 12px;
+}
+
+/* line 2, ../../../hub/static/css/mod/gist-comment.scss */
+.previewable-comment-form .tabnav {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  position: relative;
+}
+
+/* line 3, ../../../hub/static/css/mod/gist-comment.scss */
+.previewable-comment-form .write-content, .previewable-comment-form .preview-content {
+  padding: 0 10px 10px;
+}
+
+/* line 4, ../../../hub/static/css/mod/gist-comment.scss */
+.previewable-comment-form textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  background: #FAFAFA;
+  border: 1px solid #DDD;
+  webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 3px;
+}
+
+/* line 5, ../../../hub/static/css/mod/gist-comment.scss */
+.previewable-comment-form .write-content, .previewable-comment-form .preview-content {
+  display: none;
+  padding: 0 10px 10px;
+}
+
+/* line 6, ../../../hub/static/css/mod/gist-comment.scss */
+.previewable-comment-form.write-selected .write-content, .previewable-comment-form.preview-selected .preview-content {
+  display: block;
+}
+
+/* line 7, ../../../hub/static/css/mod/gist-comment.scss */
+.previewable-comment-form .comment {
+  border: 1px solid #CACACA;
+}
+
+/* line 8, ../../../hub/static/css/mod/gist-comment.scss */
+.comment-header {
+  height: 33px;
+  padding: 0 10px 0 6px;
+  border-bottom: 1px solid #CCC;
+  background-color: #E1E1E1;
+  background-image: -moz-linear-gradient(#F8F8F8, #E1E1E1);
+  background-image: -webkit-linear-gradient(#F8F8F8, #E1E1E1);
+  background-image: linear-gradient(#F8F8F8, #E1E1E1);
+  background-repeat: repeat-x;
+  font-size: 12px;
+}
+
+/* line 9, ../../../hub/static/css/mod/gist-comment.scss */
+.comment-header .comment-header-gravatar {
+  display: inline-block;
+  margin-right: 3px;
+  vertical-align: middle;
+  border-radius: 3px;
+}
+
+/* line 10, ../../../hub/static/css/mod/gist-comment.scss */
+.gist-form-actions {
+  text-align: right;
+  padding-bottom: 5px;
+}
+
+/* line 11, ../../../hub/static/css/mod/gist-comment.scss */
+.previewable-comment-form .write-content, .previewable-comment-form .preview-content {
+  display: none;
+  padding: 0 10px 10px;
+}
+
+/* line 12, ../../../hub/static/css/mod/gist-comment.scss */
+.comment-header .comment-header-author {
+  display: inline-block;
+  max-width: 600px;
+  height: 33px;
+  line-height: 33px;
+  font-weight: bold;
+  color: #222;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* line 13, ../../../hub/static/css/mod/gist-comment.scss */
+.comment-header a {
+  color: #666;
+}
+
+/* line 14, ../../../hub/static/css/mod/gist-comment.scss */
+.comment-header a:hover {
+  text-decoration: underline;
+}
+
+/* line 15, ../../../hub/static/css/mod/gist-comment.scss */
+.comment-header .comment-header-right {
+  float: right;
+}
+
+/* line 16, ../../../hub/static/css/mod/gist-comment.scss */
+.comment-header .comment-header-date {
+  display: inline-block;
+  margin: 0;
+  height: 33px;
+  font-size: 11px;
+  line-height: 33px;
+  font-style: normal;
+  color: #777;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
+  line-height: 33px;
+}
+
+/* line 17, ../../../hub/static/css/mod/gist-comment.scss */
+.comment-content .comment-body {
+  padding: 10px;
+  font-size: 13px;
+  overflow: auto;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 18, ../../../hub/static/css/mod/gist-comment.scss */
+.markdown-body {
+  font-size: 14px;
+  line-height: 1.6;
+  overflow: hidden;
+  background-color: white;
+}
+
+/* line 19, ../../../hub/static/css/mod/gist-comment.scss */
+.comment-content {
+  color: #333;
+  font-size: 12px;
+}
+
+/* line 20, ../../../hub/static/css/mod/gist-comment.scss */
+.markdown-body > :last-child {
+  margin-bottom: 0 !important;
+}
+
+/* line 21, ../../../hub/static/css/mod/gist-comment.scss */
+.markdown-body > :first-child {
+  margin-top: 0 !important;
+}
+
+/* line 22, ../../../hub/static/css/mod/gist-comment.scss */
+.markdown-body p, .markdown-body blockquote, .markdown-body ul, .markdown-body ol, .markdown-body dl, .markdown-body table, .markdown-body pre {
+  margin: 15px 0;
+}
+
+/* line 23, ../../../hub/static/css/mod/gist-comment.scss */
+.comment-content .comment-body {
+  font-size: 13px;
+}
+
+/* line 25, ../../../hub/static/css/mod/gist-comment.scss */
+.export-references {
+  list-style: none;
+  margin-top: 18px;
+}
+
+/* line 26, ../../../hub/static/css/mod/gist-comment.scss */
+.export-references li, .export-references label {
+  color: #999;
+  font-size: 11px;
+  margin-bottom: 2px;
+}
+
+/* line 27, ../../../hub/static/css/mod/gist-comment.scss */
+.export-references label {
+  display: block;
+  padding: 6px 0 1px;
+  margin-bottom: 0;
+}
+
+/* line 28, ../../../hub/static/css/mod/gist-comment.scss */
+input.url-field {
+  border-radius: 3px;
+  border: 1px solid #CCC;
+  font-family: Monaco, "Liberation Mono", Courier, monospace;
+  font-size: 11px;
+  color: #666;
+  padding: 0 5px 0 5px;
+  width: 136px;
+  height: 24px;
+  margin-bottom: 0;
+}
+
+/* line 29, ../../../hub/static/css/mod/gist-comment.scss */
+.comment-header-actions {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 13px;
+}
+
+/* line 30, ../../../hub/static/css/mod/gist-comment.scss */
+.comment-header .mini-icon {
+  color: #939AA0;
+  margin: 0 2px 0 1px;
+  position: relative;
+  top: 1px;
+}
+
+/* line 31, ../../../hub/static/css/mod/gist-comment.scss */
+.comment-header a:hover {
+  text-decoration: none;
+  color: #4183C4;
+}

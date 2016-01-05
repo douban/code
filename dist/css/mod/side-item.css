@@ -1,0 +1,124 @@
+/* Item Listing */
+/* line 2, ../../../hub/static/css/mod/side-item.scss */
+.items {
+  margin-top: 27px;
+  border: 1px solid #DDD;
+  border-radius: 5px;
+}
+
+/* line 7, ../../../hub/static/css/mod/side-item.scss */
+.items .top-bar {
+  position: relative;
+  height: 44px;
+  background-color: #fafafa;
+  background: -moz-linear-gradient(#fafafa, #eaeaea);
+  background: -ms-linear-gradient(#fafafa, #eaeaea);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fafafa), color-stop(100%, #eaeaea));
+  background: -webkit-linear-gradient(#fafafa, #eaeaea);
+  background: -o-linear-gradient(#fafafa, #eaeaea);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa',endColorstr='#eaeaea')";
+  background: linear-gradient(#fafafa, #eaeaea);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom: 1px solid #e1e1e2;
+}
+
+/* line 23, ../../../hub/static/css/mod/side-item.scss */
+.items .top-bar h2 {
+  margin: 0;
+  height: 44px;
+  line-height: 44px;
+  padding: 0 10px;
+  font-size: 16px;
+  color: #52595d;
+  border-bottom: 1px solid #D7D7D7;
+  background-color: #fafafa;
+  background: -moz-linear-gradient(#fafafa, #eaeaea);
+  background: -ms-linear-gradient(#fafafa, #eaeaea);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fafafa), color-stop(100%, #eaeaea));
+  background: -webkit-linear-gradient(#fafafa, #eaeaea);
+  background: -o-linear-gradient(#fafafa, #eaeaea);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa',endColorstr='#eaeaea')";
+  background: linear-gradient(#fafafa, #eaeaea);
+}
+
+/* line 41, ../../../hub/static/css/mod/side-item.scss */
+.items .top-bar .actions {
+  float: right;
+  margin-top: 10px;
+  margin-right: 5px;
+}
+
+/* line 47, ../../../hub/static/css/mod/side-item.scss */
+.items h2 em {
+  color: #99A4AA;
+  font-style: normal;
+}
+
+/* line 51, ../../../hub/static/css/mod/side-item.scss */
+.items input {
+  margin-bottom: 0;
+}
+
+/* line 54, ../../../hub/static/css/mod/side-item.scss */
+.items ul.item_list {
+  margin: 0;
+}
+
+/* line 57, ../../../hub/static/css/mod/side-item.scss */
+.items .item_list li {
+  border: none;
+  color: #666;
+  border-bottom: 1px solid #E5E5E5;
+  padding: 6px 10px 5px 12px;
+}
+
+/* line 64, ../../../hub/static/css/mod/side-item.scss */
+.items .item_list li a.action {
+  float: right;
+}
+
+/* line 67, ../../../hub/static/css/mod/side-item.scss */
+.items .item_list li a.item {
+  font-weight: bold;
+}
+
+/* line 70, ../../../hub/static/css/mod/side-item.scss */
+.items .bottom-bar {
+  min-height: 13px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: #FAFAFB;
+}
+
+/* Item Listing using flatui*/
+/* line 78, ../../../hub/static/css/mod/side-item.scss */
+ul .inline-left {
+  float: right;
+  padding: 0 5px 0 5px;
+}
+
+/* line 83, ../../../hub/static/css/mod/side-item.scss */
+.dull-comment {
+  font-size: 11px;
+  color: #999;
+  margin: 0;
+  line-height: 20px;
+}
+
+/* line 90, ../../../hub/static/css/mod/side-item.scss */
+.nav .top-bar {
+  margin: 15px 0 0 15px;
+  font-size: 15px;
+  position: relative;
+}
+
+/* line 96, ../../../hub/static/css/mod/side-item.scss */
+.nav-list li {
+  line-height: 27px;
+}
+
+/* line 100, ../../../hub/static/css/mod/side-item.scss */
+.nav-list li a.item {
+  display: inline;
+}

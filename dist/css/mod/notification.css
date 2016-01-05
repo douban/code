@@ -1,0 +1,31 @@
+/* line 1, ../../../hub/static/css/mod/notification.scss */
+#settings-notifications h4 {
+  margin: 15px 0 5px 0;
+  font-size: 14px;
+  color: black;
+}
+
+/* line 2, ../../../hub/static/css/mod/notification.scss */
+.user-mention {
+  font-weight: bold;
+  color: #333;
+}
+
+/* line 3, ../../../hub/static/css/mod/notification.scss */
+#settings-notifications ul.compact-options {
+  margin: -6px 0 13px 0;
+}
+
+/* line 4, ../../../hub/static/css/mod/notification.scss */
+#settings-notifications ul.compact-options li {
+  margin: 0 15px 0 0;
+  list-style-type: none;
+  font-weight: bold;
+}
+
+/* line 5, ../../../hub/static/css/mod/notification.scss */
+.horizontal_line {
+  margin: 10px 0 10px -10px;
+  padding: 0 10px;
+  width: 100%;
+}

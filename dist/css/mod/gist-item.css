@@ -1,0 +1,171 @@
+/* line 1, ../../../hub/static/css/mod/gist-item.scss */
+.gist-item {
+  display: inline-block;
+  display: block;
+  margin-bottom: 2em;
+  position: relative;
+}
+
+/* line 2, ../../../hub/static/css/mod/gist-item.scss */
+.gist-item ul.meta > li .mini-icon {
+  line-height: 0.6;
+  opacity: 0.5;
+}
+
+/* line 3, ../../../hub/static/css/mod/gist-item.scss */
+.gist-item ul.meta {
+  position: absolute;
+  right: 0;
+}
+
+/* line 4, ../../../hub/static/css/mod/gist-item.scss */
+.gist-item ul.meta > li {
+  font-size: 12px;
+  font-weight: bold;
+  list-style-type: none;
+  display: inline-block;
+  margin-left: 12px;
+}
+
+/* line 5, ../../../hub/static/css/mod/gist-item.scss */
+.gist-item ul.meta > li > a {
+  display: block;
+  text-decoration: none;
+  color: #666;
+}
+
+/* line 6, ../../../hub/static/css/mod/gist-item.scss */
+.gist-item .byline {
+  margin: 3px 0 11px;
+}
+
+/* line 7, ../../../hub/static/css/mod/gist-item.scss */
+.gist-item .creator img {
+  border-radius: 3px;
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 3px;
+}
+
+/* line 8, ../../../hub/static/css/mod/gist-item.scss */
+.gist-item .creator {
+  color: rgba(51, 51, 51, 0.75);
+  font-size: 13px;
+  font-weight: 300;
+  padding-left: 40px;
+  position: relative;
+  width: 480px;
+}
+
+/* line 9, ../../../hub/static/css/mod/gist-item.scss */
+.gist-item .creator a {
+  font-weight: bold;
+}
+
+/* line 10, ../../../hub/static/css/mod/gist-item.scss */
+.gist-item .metadata {
+  font-size: 11px;
+  margin-left: 40px;
+}
+
+/* line 11, ../../../hub/static/css/mod/gist-item.scss */
+.gist-item .metadata .datetime {
+  color: #999;
+}
+
+/* line 12, ../../../hub/static/css/mod/gist-item.scss */
+.gist-item .description {
+  color: rgba(51, 51, 51, 0.75);
+  display: block;
+  font-size: 12px;
+  vertical-align: text-top;
+  margin-top: 6px;
+  margin-left: 40px;
+  width: 480px;
+}
+
+/* line 13, ../../../hub/static/css/mod/gist-item.scss */
+.bubble {
+  background: #EEE;
+  border-radius: 3px;
+  margin-bottom: 1em;
+  padding: 3px;
+}
+
+/* line 14, ../../../hub/static/css/mod/gist-item.scss */
+table {
+  font-size: inherit;
+  font: 100%;
+}
+
+/* line 15, ../../../hub/static/css/mod/gist-item.scss */
+tbody {
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+/* line 16, ../../../hub/static/css/mod/gist-item.scss */
+.file-box {
+  background-color: #DDD;
+  border: 1px solid #CCC;
+  margin-bottom: 1em;
+  position: relative;
+}
+
+/* line 17, ../../../hub/static/css/mod/gist-item.scss */
+.file-box .data {
+  background-color: ghostWhite;
+  font-size: 12px;
+  overflow: auto;
+}
+
+/* line 18, ../../../hub/static/css/mod/gist-item.scss */
+.file-box .highlight {
+  border: none;
+  padding: 0;
+}
+
+/* line 19, ../../../hub/static/css/mod/gist-item.scss */
+.file-box .data tr:last-child td.line_numbers, .file-box .data tr:last-child .line_data {
+  padding-bottom: 12px;
+}
+
+/* line 20, ../../../hub/static/css/mod/gist-item.scss */
+.file-box .data tr:first-child td.line_numbers, .file-box .data tr:first-child .line_data {
+  padding-top: 12px;
+}
+
+/* line 21, ../../../hub/static/css/mod/gist-item.scss */
+.highlight {
+  background: white;
+}
+
+/* line 22, ../../../hub/static/css/mod/gist-item.scss */
+.bubble .file-box:only-child {
+  border-bottom: 1px solid #CCC;
+}
+
+/* line 23, ../../../hub/static/css/mod/gist-item.scss */
+.bubble .file-box .data {
+  background: ghostWhite;
+}
+
+/* line 24, ../../../hub/static/css/mod/gist-item.scss */
+.gist-item .file-box {
+  position: relative;
+}
+
+/* line 25, ../../../hub/static/css/mod/gist-item.scss */
+.bubble .file-box {
+  background: #ECECEC;
+  margin-bottom: 0;
+}
+
+/* line 26, ../../../hub/static/css/mod/gist-item.scss */
+.bubble.secret {
+  background-color: #F8EEC7;
+}

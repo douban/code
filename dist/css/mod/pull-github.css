@@ -1,0 +1,304 @@
+/*========= Github Style ========*/
+/* line 4, ../../../hub/static/css/mod/pull-github.scss */
+span.diffstat {
+  white-space: nowrap;
+  text-align: right;
+  font-family: Helvetica,arial,freesans,clean,sans-serif;
+  color: #666;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+/* line 12, ../../../hub/static/css/mod/pull-github.scss */
+span.diffstat a {
+  text-decoration: none;
+  color: #666;
+}
+
+/* line 16, ../../../hub/static/css/mod/pull-github.scss */
+span.diffstat .diffstat-bar {
+  position: relative;
+  left: -3px;
+  display: inline-block;
+  height: 12px;
+  text-decoration: none;
+  text-align: left;
+  color: #EEE;
+  font-family: 'Octicons Regular';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: inherit;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+  letter-spacing: -7px;
+}
+
+/* line 34, ../../../hub/static/css/mod/pull-github.scss */
+span.diffstat .diffstat-bar.diff-added,
+span.diffstat .diffstat-bar i.plus {
+  color: #61C423;
+  font-style: normal;
+}
+
+/* line 39, ../../../hub/static/css/mod/pull-github.scss */
+span.diffstat .diffstat-bar.diff-added,
+span.diffstat .diffstat-bar i.minus {
+  color: #C52323;
+  font-style: normal;
+}
+
+/* line 45, ../../../hub/static/css/mod/pull-github.scss */
+.mini-icon-added:before {
+  content: "\f06b";
+}
+
+/* line 46, ../../../hub/static/css/mod/pull-github.scss */
+.mini-icon-removed:before {
+  content: "\f06c";
+}
+
+/* line 47, ../../../hub/static/css/mod/pull-github.scss */
+.mini-icon-modified:before {
+  content: "\f06d";
+}
+
+/* line 48, ../../../hub/static/css/mod/pull-github.scss */
+.mini-icon-moved:before, .mini-icon-renamed:before {
+  content: "\f06e";
+}
+
+/* TODO remove the following line */
+/* file-blame-blob should only be import at blame page */
+/* line 1, ../../../hub/static/css/mod/minibutton.scss */
+.minibutton {
+  position: relative;
+  display: inline-block;
+  padding: 0 10px 0 10px;
+  color: #333;
+  font-family: Helvetica,arial,freesans,clean,sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 24px;
+  text-shadow: 0 1px 0 #fff;
+  white-space: nowrap;
+  border: 1px solid #d4d4d4;
+  border-bottom-color: #bcbcbc;
+  border-radius: 3px;
+  background: #fafafa;
+  background: -moz-linear-gradient(#fafafa, #eaeaea);
+  background: -webkit-linear-gradient(#fafafa, #eaeaea);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa',endColorstr='#eaeaea')";
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* line 2, ../../../hub/static/css/mod/minibutton.scss */
+.minibutton.green {
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+  background: #36b825;
+  background: -moz-linear-gradient(#36b825, #28881b);
+  background: -webkit-linear-gradient(#36b825, #28881b);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#36b825',endColorstr='#28881b')";
+  border-color: #4a993e;
+}
+
+/* line 3, ../../../hub/static/css/mod/minibutton.scss */
+.minibutton:hover.btn-windows:before, .button-group .btn-windows.grouped-button:before:hover {
+  background-position: -17px 3px;
+}
+
+/* line 4, ../../../hub/static/css/mod/minibutton.scss */
+.minibutton:disabled, .minibutton.disabled {
+  opacity: .5;
+  cursor: default;
+}
+
+/* line 5, ../../../hub/static/css/mod/minibutton.scss */
+button.minibutton::-moz-focus-inner {
+  margin: -1px -3px;
+}
+
+/* line 5, ../../../hub/static/css/mod/minibutton.scss */
+input[type=text] + .minibutton {
+  margin-left: 5px;
+}
+
+/* line 7, ../../../hub/static/css/mod/minibutton.scss */
+.minibutton:hover, .button-group .grouped-button:hover {
+  color: white;
+  text-decoration: none;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+  border-color: #518CC6;
+  border-bottom-color: #2A65A0;
+  background: #599BDC;
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#599bdc',endColorstr='#3072b3')";
+}
+
+/* line 3, ../../../hub/static/css/mod/file-blame-blob.scss */
+#files {
+  position: relative;
+}
+
+/* line 6, ../../../hub/static/css/mod/file-blame-blob.scss */
+#files .file {
+  margin-top: 0;
+}
+
+/* line 9, ../../../hub/static/css/mod/file-blame-blob.scss */
+#files .file, .file-box {
+  border: 1px solid #CCC;
+  margin-bottom: 13px;
+  position: relative;
+  background-color: #DDD;
+}
+
+/* line 15, ../../../hub/static/css/mod/file-blame-blob.scss */
+#files .file .meta,
+.file-box .meta {
+  overflow: hidden;
+  padding: 5px 10px;
+  font-size: 12px;
+  height: 33px;
+  text-align: left;
+  color: #555;
+  text-shadow: 0 1px 0 white;
+  border-bottom: 1px solid #D8D8D8;
+  background: #FAFAFA;
+  background: -moz-linear-gradient(#FAFAFA, #EAEAEA);
+  background: -webkit-linear-gradient(#FAFAFA, #EAEAEA);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa',endColorstr='#eaeaea')";
+}
+
+/* line 30, ../../../hub/static/css/mod/file-blame-blob.scss */
+#files .file .meta .info,
+.file-box .meta .info {
+  float: left;
+  height: 33px;
+  max-width: 555px;
+  line-height: 33px;
+  font-family: Consolas,Menlo,"Liberation Mono",Courier,monospace;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* line 41, ../../../hub/static/css/mod/file-blame-blob.scss */
+#files .file .meta .info span,
+.file-box .meta .info span {
+  padding-left: 9px;
+  margin-left: 5px;
+  border-left: 1px solid  #C1C1C1;
+  box-shadow: inset 1px 0 0  white;
+}
+
+/* line 50, ../../../hub/static/css/mod/file-blame-blob.scss */
+#files .file .meta .info span.icon,
+#files .file .meta .info span.diffstat,
+.file-box .meta .info span.icon {
+  line-height: 0;
+  float: left;
+  margin: 5px 5px 0 0;
+  padding: 3px;
+  background: #F7F7F7;
+  border: 1px solid #CCC;
+  border-right-color: #E5E5E5;
+  border-bottom-color: #E5E5E5;
+  border-radius: 3px;
+}
+
+/* line 63, ../../../hub/static/css/mod/file-blame-blob.scss */
+#files .file .meta .info span.diffstat {
+  height: 16px;
+  padding: 3px 6px;
+}
+
+/* line 67, ../../../hub/static/css/mod/file-blame-blob.scss */
+#files .file .meta .info span:first-child,
+#files .file .meta .info .icon + span,
+.file-box .meta .info span:first-child,
+.file-box .meta .info .icon + span {
+  border-left: 0 none;
+  box-shadow: inset 0 0 0 transparent;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+/* line 76, ../../../hub/static/css/mod/file-blame-blob.scss */
+#files .file .meta .info span.diffstat .diffstat-bar {
+  color: #D8D8D8;
+}
+
+/* line 79, ../../../hub/static/css/mod/file-blame-blob.scss */
+#files .file .meta .actions, .file-box .meta .actions {
+  float: right;
+  height: 33px;
+  line-height: 33px;
+  margin-top: 1px;
+}
+
+/* line 85, ../../../hub/static/css/mod/file-blame-blob.scss */
+#files .file .meta .actions .show-inline-notes {
+  display: block;
+  position: relative;
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+
+/* line 92, ../../../hub/static/css/mod/file-blame-blob.scss */
+#files .file .meta .actions .show-inline-notes label {
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+/* line 96, ../../../hub/static/css/mod/file-blame-blob.scss */
+#files .file .meta .actions .show-inline-notes input {
+  margin: 0;
+}
+
+/* line 99, ../../../hub/static/css/mod/file-blame-blob.scss */
+#files .file .meta .actions .button-group,
+.file-box .meta .actions .button-group {
+  float: right;
+  margin-top: 2px;
+}
+
+/* line 104, ../../../hub/static/css/mod/file-blame-blob.scss */
+#files .file .meta .actions code,
+.file-box .meta .actions code {
+  background: inherit;
+  border: none;
+  font-size: 11px;
+  color: inherit;
+  font-family: Consolas,Menlo,"Liberation Mono",Courier,monospace;
+  padding: 0;
+}
+
+/* line 114, ../../../hub/static/css/mod/file-blame-blob.scss */
+.file {
+  margin: 15px 0;
+}
+
+/* line 118, ../../../hub/static/css/mod/file-blame-blob.scss */
+.file .data {
+  overflow: auto;
+}
+
+/* line 120, ../../../hub/static/css/mod/file-blame-blob.scss */
+.change #files .file, .file-box, .change .file {
+  margin-bottom: 0;
+}
+
+/* line 122, ../../../hub/static/css/mod/file-blame-blob.scss */
+.blame .line-data {
+  font-size: 12px;
+  font-family: Consolas,Menlo,"Liberation Mono",Courier,monospace;
+}

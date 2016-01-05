@@ -1,0 +1,84 @@
+/* line 1, ../../../hub/static/css/mod/team-item.scss */
+.bs-docs-team:after {
+  content: "Team";
+}
+
+/* line 4, ../../../hub/static/css/mod/team-item.scss */
+.team-item {
+  position: relative;
+  margin: 15px 0;
+  padding: 14px 19px 14px 49px;
+  *padding-top: 14px;
+  background-color: transparent;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+/* line 14, ../../../hub/static/css/mod/team-item.scss */
+.team-item:after {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #9da0a4;
+  -webkit-border-radius: 4px 0 4px 0;
+  -moz-border-radius: 4px 0 4px 0;
+  border-radius: 4px 0 4px 0;
+}
+/* line 28, ../../../hub/static/css/mod/team-item.scss */
+.team-item h4.team-title {
+  margin: 0;
+}
+/* line 30, ../../../hub/static/css/mod/team-item.scss */
+.team-item h4.team-title i {
+  margin-top: 5px;
+}
+/* line 34, ../../../hub/static/css/mod/team-item.scss */
+.team-item ul.team-stats li {
+  float: left;
+  margin-left: 10px;
+}
+/* line 38, ../../../hub/static/css/mod/team-item.scss */
+.team-item .team-item .summary {
+  margin-top: 10px;
+}
+
+/* line 43, ../../../hub/static/css/mod/team-item.scss */
+.team-user-list {
+  height: 26px;
+  margin-bottom: 1px;
+  list-style: none;
+  display: block;
+}
+/* line 48, ../../../hub/static/css/mod/team-item.scss */
+.team-user-list ul {
+  float: right;
+  margin-right: 10px;
+  margin-top: 0px;
+}
+/* line 53, ../../../hub/static/css/mod/team-item.scss */
+.team-user-list li {
+  float: left;
+  margin-left: 10px;
+  line-height: 20px;
+}
+/* line 57, ../../../hub/static/css/mod/team-item.scss */
+.team-user-list li a {
+  display: block;
+  width: 26px;
+  height: 26px;
+  overflow: hidden;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+/* line 65, ../../../hub/static/css/mod/team-item.scss */
+.team-user-list li a img {
+  width: 26px;
+  height: 26px;
+}

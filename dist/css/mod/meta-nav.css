@@ -1,0 +1,38 @@
+/* line 1, ../../../hub/static/css/mod/meta-nav.scss */
+.metanav {
+  margin-top: 6px;
+}
+
+/* line 3, ../../../hub/static/css/mod/meta-nav.scss */
+.metanav .counts-label {
+  position: relative;
+  display: inline-block;
+  margin-left: 3px;
+  padding: 3px 7px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  color: #333;
+  background-color: #fafafa;
+  vertical-align: middle;
+}
+
+/* line 15, ../../../hub/static/css/mod/meta-nav.scss */
+.metanav .counts-label::before, .metanav .counts-label::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  display: block;
+  margin-right: 0px;
+  margin-top: -6px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-right-color: #ccc;
+}
+
+/* line 29, ../../../hub/static/css/mod/meta-nav.scss */
+.metanav .counts-label::after {
+  margin-right: -1px;
+  border-right-color: #fafafa;
+}

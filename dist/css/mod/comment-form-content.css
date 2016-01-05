@@ -1,0 +1,63 @@
+/* line 1, ../../../hub/static/css/mod/comment-form-content.scss */
+.previewable-comment-form.tab-content {
+  overflow: initial;
+  position: relative;
+}
+
+/* line 2, ../../../hub/static/css/mod/comment-form-content.scss */
+.previewable-comment-form .write-content, .previewable-comment-form .preview-content {
+  padding: 10px;
+}
+
+/* line 3, ../../../hub/static/css/mod/comment-form-content.scss */
+.previewable-comment-form textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  background: #FAFAFA;
+  border: 1px solid #DDD;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 3px;
+}
+
+/* line 5, ../../../hub/static/css/mod/comment-form-content.scss */
+#add-comment-form .form-actions {
+  padding: 0;
+}
+
+/* line 6, ../../../hub/static/css/mod/comment-form-content.scss */
+#add-comment-form .form-content {
+  position: relative;
+  border: 3px solid #EEE;
+}
+
+/* line 7, ../../../hub/static/css/mod/comment-form-content.scss */
+#add-comment-form .form-content {
+  padding: 0;
+  background: #EEE;
+}
+
+/* line 8, ../../../hub/static/css/mod/comment-form-content.scss */
+#add-comment-form .form-content .write-content {
+  padding: 0 10px 10px;
+}
+
+/* line 9, ../../../hub/static/css/mod/comment-form-content.scss */
+#add-comment-form .form-content textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  background: #FAFAFA;
+  border: 1px solid #DDD;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 3px;
+  margin: 0;
+}

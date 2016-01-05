@@ -1,0 +1,21 @@
+/* line 1, ../../../hub/static/css/mod/loader.scss */
+.loader {
+  display: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+  background-color: #eee;
+}
+
+/* line 2, ../../../hub/static/css/mod/loader.scss */
+.loader .spinner {
+  display: block;
+  width: 32px;
+  height: 32px;
+  margin: 0 auto;
+  top: 121px;
+  position: relative;
+  background: url(/static/img/spinner.gif) no-repeat;
+}

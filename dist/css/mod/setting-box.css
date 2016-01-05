@@ -1,0 +1,64 @@
+/* line 1, ../../../hub/static/css/mod/setting-box.scss */
+.boxed-group {
+  position: relative;
+  background: #EFEFEF;
+  padding: 3px;
+  border-radius: 3px;
+  margin: 0 0 15px 0;
+}
+
+/* line 8, ../../../hub/static/css/mod/setting-box.scss */
+.boxed-group > h3 {
+  background: #FAFAFA;
+  background: -moz-linear-gradient(#FAFAFA, #E0E0E0);
+  background: -webkit-linear-gradient(#FAFAFA, #E0E0E0);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa',endColorstr='#e0e0e0')";
+  margin: 0;
+  border-top-left-radius: 1px;
+  border-top-right-radius: 1px;
+  border: 1px solid #D8D8D8;
+  border-bottom: 1px solid #CCC;
+  padding: 10px 10px 11px 10px;
+  font-size: 14px;
+  text-shadow: 0 1px 0 white;
+}
+
+/* line 22, ../../../hub/static/css/mod/setting-box.scss */
+.boxed-group .boxed-group-inner {
+  padding: 1px 10px;
+  background: white;
+  border: 1px solid #D8D8D8;
+  border-top: none;
+  border-bottom-left-radius: 1px;
+  border-bottom-right-radius: 1px;
+  color: #666;
+  font-size: 13px;
+}
+
+/* line 32, ../../../hub/static/css/mod/setting-box.scss */
+.boxed-group.condensed > h3 {
+  padding: 6px 6px 7px;
+  font-size: 12px;
+}
+
+/* line 36, ../../../hub/static/css/mod/setting-box.scss */
+.boxed-group.condensed > h3 i {
+  position: relative;
+  padding: 0 6px 0 2px;
+}
+
+/* line 40, ../../../hub/static/css/mod/setting-box.scss */
+.boxed-group.condensed .boxed-group-inner {
+  font-size: 12px;
+  padding: 0;
+}
+
+/* line 45, ../../../hub/static/css/mod/setting-box.scss */
+.boxed-group-list > li {
+  display: block;
+  margin-left: -10px;
+  width: 100%;
+  padding: 5px 10px;
+  line-height: 23px;
+  border-bottom: 1px solid #E5E5E5;
+}

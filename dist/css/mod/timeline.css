@@ -1,0 +1,291 @@
+/* line 1, ../../../hub/static/css/mod/user-card.scss */
+.user-card {
+  position: absolute;
+  padding: 3px 5px 5px;
+  min-height: 68px;
+  width: 210px;
+  background-color: #fff;
+  border: 1px solid #BEBEBE;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* line 2, ../../../hub/static/css/mod/user-card.scss */
+.user-card .desc {
+  margin-left: 3px;
+}
+
+/* line 3, ../../../hub/static/css/mod/user-card.scss */
+.user-card .avatar-wrap {
+  width: 46px;
+  height: 36px;
+  float: left;
+  margin-right: 6px;
+  border-right: 1px solid #BEBEBE;
+}
+
+/* line 4, ../../../hub/static/css/mod/user-card.scss */
+.user-card .badge-item {
+  float: left;
+  width: 30px;
+  height: 30px;
+  border: none;
+  padding: 2px;
+  background-color: white;
+  line-height: 0;
+  margin-right: 0.7em;
+}
+
+/* line 5, ../../../hub/static/css/mod/user-card.scss */
+.user-card .title {
+  padding: 0 0 0.25em 0;
+}
+
+/* line 6, ../../../hub/static/css/mod/user-card.scss */
+.user-card .desc .avatar {
+  float: left;
+  width: 30px;
+  height: 30px;
+  padding: 2px;
+  background-color: white;
+  line-height: 0;
+  margin-right: 0.7em;
+}
+
+/* line 1, ../../../hub/static/css/mod/team-card.scss */
+.team-card {
+  position: absolute;
+  padding: 6px 10px;
+  min-height: 68px;
+  width: 236px;
+  background-color: #fff;
+  border: 1px solid #BEBEBE;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+/* line 10, ../../../hub/static/css/mod/team-card.scss */
+.team-card .pic {
+  float: right;
+  max-height: 50px;
+  margin: 6px 0 0 10px;
+}
+/* line 15, ../../../hub/static/css/mod/team-card.scss */
+.team-card .content {
+  word-wrap: break-word;
+}
+/* line 17, ../../../hub/static/css/mod/team-card.scss */
+.team-card .content .title {
+  margin: 6px 0;
+  font-size: 15px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+/* line 23, ../../../hub/static/css/mod/team-card.scss */
+.team-card .content .info {
+  position: relative;
+  margin-top: 10px;
+  font-size: 13px;
+}
+/* line 27, ../../../hub/static/css/mod/team-card.scss */
+.team-card .content .info .desc {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* line 35, ../../../hub/static/css/mod/team-card.scss */
+.member {
+  border-top: solid 1px #eaeaea;
+  padding-top: 8px;
+  height: 26px;
+}
+/* line 39, ../../../hub/static/css/mod/team-card.scss */
+.member .more-members {
+  float: right;
+  width: 24px;
+  height: 24px;
+  line-height: 26px;
+  text-align: center;
+  border: 1px solid #eaeaea;
+  background: #eaeaea;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+/* line 53, ../../../hub/static/css/mod/team-card.scss */
+.member .members li {
+  float: left;
+}
+/* line 55, ../../../hub/static/css/mod/team-card.scss */
+.member .members li a {
+  display: block;
+  width: 26px;
+  height: 26px;
+  overflow: hidden;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+/* line 65, ../../../hub/static/css/mod/team-card.scss */
+.member .members li a img {
+  width: 26px;
+  height: 26px;
+}
+
+/* line 73, ../../../hub/static/css/mod/team-card.scss */
+.cf {
+  zoom: 1;
+}
+/* line 75, ../../../hub/static/css/mod/team-card.scss */
+.cf:before {
+  content: "";
+  display: table;
+}
+/* line 79, ../../../hub/static/css/mod/team-card.scss */
+.cf .cf:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+/* Timeline */
+@media (max-width: 767px) {
+  /* line 6, ../../../hub/static/css/mod/timeline.scss */
+  .timeline {
+    padding: 10px;
+  }
+}
+/* line 9, ../../../hub/static/css/mod/timeline.scss */
+.timeline {
+  margin-top: 0px;
+  word-wrap: break-word;
+  word-break: normal;
+}
+/* line 14, ../../../hub/static/css/mod/timeline.scss */
+.timeline li {
+  position: relative;
+  list-style: none;
+  clear: both;
+  background: white;
+  padding: 10px 20px 10px 32px;
+  margin: 0 0 0px;
+  border-bottom: 1px solid #eaeaea;
+}
+/* line 23, ../../../hub/static/css/mod/timeline.scss */
+.timeline li .title {
+  margin-bottom: 0.5em;
+}
+/* line 25, ../../../hub/static/css/mod/timeline.scss */
+.timeline li .title i {
+  position: absolute;
+  left: 5px;
+  padding: 2px 5px 0;
+  color: #999;
+  font-size: 10px;
+}
+/* line 35, ../../../hub/static/css/mod/timeline.scss */
+.timeline .time {
+  float: right;
+  color: #ccc;
+  font-size: 12px;
+}
+/* line 41, ../../../hub/static/css/mod/timeline.scss */
+.timeline code {
+  white-space: normal;
+}
+
+/* line 46, ../../../hub/static/css/mod/timeline.scss */
+.timeline .padding {
+  height: 2em;
+  font-weight: bold;
+}
+
+/* line 50, ../../../hub/static/css/mod/timeline.scss */
+.timeline .more_items {
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+/* line 54, ../../../hub/static/css/mod/timeline.scss */
+.timeline .time {
+  color: #bbb;
+}
+
+/* line 57, ../../../hub/static/css/mod/timeline.scss */
+.timeline .desc {
+  padding: 0 0 1em 0;
+  color: #666;
+  word-wrap: break-word;
+}
+
+/* line 62, ../../../hub/static/css/mod/timeline.scss */
+.timeline .desc .right_side {
+  float: right;
+  margin-right: 30px;
+}
+
+/* line 67, ../../../hub/static/css/mod/timeline.scss */
+.timeline .pagination {
+  display: none;
+  background: #63b6ae;
+}
+
+/* line 71, ../../../hub/static/css/mod/timeline.scss */
+.pagination {
+  display: block;
+  margin: 7px 0;
+  overflow: hidden;
+  border: 1px solid #EAEAEA;
+  border-bottom-color: #CACACA;
+  border-top: none;
+  border-bottom: none;
+  border-radius: 3px;
+  background-image: -webkit-linear-gradient(top, white, #EFEFEF);
+}
+
+/* line 82, ../../../hub/static/css/mod/timeline.scss */
+.timeline .pagination a {
+  color: white;
+}
+
+/* line 85, ../../../hub/static/css/mod/timeline.scss */
+.pagination a {
+  padding: 8px;
+  width: 100%;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* line 91, ../../../hub/static/css/mod/timeline.scss */
+.pagination a:last-child, .pagination span:last-child {
+  border-right: none;
+  border-bottom-right-radius: 3px;
+}
+
+/* line 95, ../../../hub/static/css/mod/timeline.scss */
+.pagination a:first-child, .pagination span:first-child {
+  border-left: none;
+  border-bottom-left-radius: 3px;
+}
+
+/* line 99, ../../../hub/static/css/mod/timeline.scss */
+.pagination a, .pagination span {
+  float: left;
+  margin: 0;
+  color: #777;
+  font-size: 13px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 white;
+  border-bottom: 1px solid #DADADA;
+}
+
+/* line 108, ../../../hub/static/css/mod/timeline.scss */
+.timeline .loader img {
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: 0 auto;
+  position: relative;
+}

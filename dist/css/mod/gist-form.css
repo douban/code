@@ -1,0 +1,39 @@
+/* line 1, ../../../hub/static/css/mod/gist-form.scss */
+.bubble {
+  background: #EEE;
+  border-radius: 3px;
+  margin-bottom: 1em;
+  padding: 3px;
+}
+
+/* line 2, ../../../hub/static/css/mod/gist-form.scss */
+#gist-form .file {
+  border: 1px solid #D9D9D9;
+  background: whiteSmoke;
+}
+
+/* line 3, ../../../hub/static/css/mod/gist-form.scss */
+#gist-form .file .meta {
+  background-color: #EAEAEA;
+  background-image: -moz-linear-gradient(#FAFAFA, #EAEAEA);
+  background-image: -webkit-linear-gradient(#FAFAFA, #EAEAEA);
+  background-image: linear-gradient(#FAFAFA, #EAEAEA);
+  background-repeat: repeat-x;
+  display: inline-block;
+  display: block;
+  border-bottom: 1px solid #D8D8D8;
+  color: #555;
+  font-size: 12px;
+  height: 26px;
+  padding: 8px;
+  position: relative;
+  text-align: left;
+  text-shadow: 0 1px 0 white;
+}
+
+/* line 4, ../../../hub/static/css/mod/gist-form.scss */
+#gist-form .editor-options {
+  position: absolute;
+  top: 6px;
+  right: 5px;
+}

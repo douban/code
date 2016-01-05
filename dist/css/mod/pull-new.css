@@ -1,0 +1,298 @@
+/* line 1, ../../../hub/static/css/mod/pull-new.scss */
+.pull-heading .btn-change {
+  float: right;
+  margin: 9px 10px 0 0;
+}
+
+/* line 6, ../../../hub/static/css/mod/pull-new.scss */
+.editor-expander {
+  cursor: pointer;
+}
+
+/* line 10, ../../../hub/static/css/mod/pull-new.scss */
+.pull-head {
+  padding: 10px;
+  border: 1px solid whiteSmoke;
+  border-top: none;
+  border-bottom: 2px solid #EEE;
+  border-radius: 5px;
+}
+
+/* line 18, ../../../hub/static/css/mod/pull-new.scss */
+.pull-description {
+  font-size: 14px;
+  margin: 0;
+  color: #333;
+  font-weight: 300;
+}
+
+/* line 24, ../../../hub/static/css/mod/pull-new.scss */
+.pull-description a {
+  font-weight: bold;
+  color: black;
+}
+
+/* line 28, ../../../hub/static/css/mod/pull-new.scss */
+.pull-description .commit-ref {
+  margin: 0 3px;
+}
+
+/* line 32, ../../../hub/static/css/mod/pull-new.scss */
+.commit-ref {
+  padding: 2px 5px;
+  line-height: 19px;
+  font-family: Consolas,Menlo,"Liberation Mono",Courier,monospace;
+  font-size: 12px;
+  font-weight: normal;
+  color: white;
+  text-shadow: -1px -1px 0 black;
+  text-decoration: none;
+  background: #787878;
+  background: -moz-linear-gradient(#787878, #282828);
+  background: -webkit-linear-gradient(#787878, #282828);
+  border-radius: 3px;
+}
+
+/* line 46, ../../../hub/static/css/mod/pull-new.scss */
+.commit-ref .project {
+  font-weight: normal;
+  color: #CCC;
+}
+
+/* line 51, ../../../hub/static/css/mod/pull-new.scss */
+.range-editor {
+  margin: 15px 0 20px;
+  background: url("http://t.douban.com/img/files/file-1363274223.gif") 50% 80px no-repeat;
+}
+
+/* line 55, ../../../hub/static/css/mod/pull-new.scss */
+.range-editor .chooser-box {
+  float: left;
+  width: 420px;
+}
+
+/* line 59, ../../../hub/static/css/mod/pull-new.scss */
+.range-editor .chooser-box.head {
+  float: right;
+}
+
+/* line 62, ../../../hub/static/css/mod/pull-new.scss */
+.range-editor table.reposha {
+  margin: 15px 0 0 0;
+  width: 100%;
+}
+
+/* line 66, ../../../hub/static/css/mod/pull-new.scss */
+.range-editor .commit-preview .message,
+.range-editor .commit-preview p.error {
+  margin: 10px 0 0 0;
+  background: #F7F8F9;
+  border: 1px solid #DDD;
+  border-bottom: none;
+  border-radius: 3px;
+}
+
+/* line 74, ../../../hub/static/css/mod/pull-new.scss */
+.range-editor .form-actions {
+  margin: 10px 0 0;
+  text-align: right;
+  padding-bottom: 5px;
+  padding: 0;
+  background-color: inherit;
+  border-top: none;
+}
+
+/* line 83, ../../../hub/static/css/mod/pull-new.scss */
+.chooser-box {
+  padding: 0 10px 10px;
+  background: white;
+  background: -moz-linear-gradient(white, #F1F1F1);
+  background: -webkit-linear-gradient(white, #F1F1F1);
+  border: 1px solid #DDD;
+  border-radius: 5px;
+}
+
+/* line 91, ../../../hub/static/css/mod/pull-new.scss */
+.chooser-box h3 {
+  margin: 0 0 0 -10px;
+  width: 100%;
+  padding: 13px 10px 10px;
+  font-size: 16px;
+  line-height: 1.2;
+  color: #222;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+  background: #FBFBFB;
+  background: -moz-linear-gradient(#FBFBFB, #F2F2F2);
+  background: -webkit-linear-gradient(#FBFBFB, #F2F2F2);
+  border-top-left-radius: 5px;
+  border-bottom: 1px solid white;
+}
+
+/* line 105, ../../../hub/static/css/mod/pull-new.scss */
+.chooser-box .fakerule {
+  margin: 0 0 0 -10px;
+  width: 100%;
+  height: 1px;
+  padding: 0 10px;
+  font-size: 1px;
+  line-height: 1px;
+  background: #DDD;
+}
+
+/* line 115, ../../../hub/static/css/mod/pull-new.scss */
+.reposha td.repo {
+  width: 1%;
+  white-space: nowrap;
+}
+
+/* line 119, ../../../hub/static/css/mod/pull-new.scss */
+.reposha .repo .at {
+  padding-right: 5px;
+  color: #666;
+}
+
+/* line 123, ../../../hub/static/css/mod/pull-new.scss */
+.reposha .sha {
+  text-align: left;
+}
+
+/* line 126, ../../../hub/static/css/mod/pull-new.scss */
+.reposha input[type="text"] {
+  width: 98%;
+  font-family: Helvetica,arial,freesans,clean,sans-serif;
+  font-size: 12px;
+  line-height: 20px;
+  color: #444;
+}
+
+/* following commit-preview styles are also used in commits.html */
+/* line 136, ../../../hub/static/css/mod/pull-new.scss */
+.commit-preview {
+  margin: 10px 0 0 0;
+  font-size: 11px;
+}
+
+/* line 140, ../../../hub/static/css/mod/pull-new.scss */
+.commit-preview p.name {
+  margin: 0;
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  color: #5B6375;
+}
+
+/* line 147, ../../../hub/static/css/mod/pull-new.scss */
+.commit-preview p.name .avatar {
+  float: left;
+  margin-right: 5px;
+  width: 16px;
+  height: 16px;
+  padding: 1px;
+  background: white;
+  border: 1px solid #CEDADF;
+}
+
+/* line 156, ../../../hub/static/css/mod/pull-new.scss */
+.commit-preview p.name a {
+  font-weight: bold;
+  color: black;
+}
+
+/* line 160, ../../../hub/static/css/mod/pull-new.scss */
+.commit-preview p.name .date {
+  color: #5B6375;
+}
+
+/* line 163, ../../../hub/static/css/mod/pull-new.scss */
+.commit-preview .message,
+.commit-preview p.error {
+  clear: both;
+  padding: 5px;
+  background: #EAF2F5;
+  border: 1px solid #BEDCE7;
+}
+
+/* line 170, ../../../hub/static/css/mod/pull-new.scss */
+.commit-preview .message pre {
+  font-size: 11px;
+  color: #333;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  border: none;
+}
+
+/* line 177, ../../../hub/static/css/mod/pull-new.scss */
+.commit-preview .message p.commit-id {
+  margin: 5px 0 0 0;
+  padding: 0;
+  font-family: Consolas,Menlo,"Liberation Mono",Courier,monospace;
+  font-size: 11px;
+}
+
+/* line 184, ../../../hub/static/css/mod/pull-new.scss */
+.new-pull-request .pull-tabs {
+  clear: both;
+}
+
+/* line 188, ../../../hub/static/css/mod/pull-new.scss */
+.mini-icon-commit::before {
+  content: "\f01f";
+}
+
+/* line 191, ../../../hub/static/css/mod/pull-new.scss */
+.mini-icon-discussion::before {
+  content: "\f04f";
+}
+
+/* line 194, ../../../hub/static/css/mod/pull-new.scss */
+.mini-icon-diff::before {
+  content: "\f04d";
+}
+
+/* line 198, ../../../hub/static/css/mod/pull-new.scss */
+.pull-form {
+  margin: 0;
+}
+
+/* line 201, ../../../hub/static/css/mod/pull-new.scss */
+.pull-form input[type="text"] {
+  font-size: 14px;
+  padding: 5px 5px;
+  margin: 0 0 5px 0;
+  width: 98%;
+  color: #444;
+}
+
+/* line 208, ../../../hub/static/css/mod/pull-new.scss */
+.pull-form textarea {
+  height: 200px;
+}
+
+/* line 211, ../../../hub/static/css/mod/pull-new.scss */
+.pull-form .preview-content {
+  background: white;
+}
+
+/* line 215, ../../../hub/static/css/mod/pull-new.scss */
+.pull-form-main .form-actions {
+  padding: 0;
+  margin-top: 10px;
+  text-align: right;
+  padding-bottom: 5px;
+  background-color: inherit;
+  border-top: none;
+}
+
+/* line 224, ../../../hub/static/css/mod/pull-new.scss */
+.pull-dest-repo a {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 5px 0;
+}
+
+/* line 229, ../../../hub/static/css/mod/pull-new.scss */
+.pull-dest-repo p {
+  font-size: 11px;
+  color: #999;
+  margin: 5px 0 15px 0;
+}

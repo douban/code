@@ -1,0 +1,82 @@
+/* line 2, ../../../hub/static/css/mod/navbar-search.scss */
+.navbar-search i {
+  color: #63b6ae;
+  padding-right: 4px;
+}
+
+/* line 4, ../../../hub/static/css/mod/issues-sidebar.scss */
+.issues-sidebar {
+  background: #fff;
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.075);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.075);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.075);
+  margin-bottom: 20px;
+}
+/* line 9, ../../../hub/static/css/mod/issues-sidebar.scss */
+.issues-sidebar .nav {
+  margin: 0px;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+/* line 15, ../../../hub/static/css/mod/issues-sidebar.scss */
+.issues-sidebar .issue-tags {
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+}
+/* line 19, ../../../hub/static/css/mod/issues-sidebar.scss */
+.issues-sidebar > *:first-child {
+  -moz-border-radius-topleft: 3px;
+  -webkit-border-top-left-radius: 3px;
+  border-top-left-radius: 3px;
+  -moz-border-radius-topright: 3px;
+  -webkit-border-top-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+/* line 24, ../../../hub/static/css/mod/issues-sidebar.scss */
+.issues-sidebar > *:last-child {
+  -moz-border-radius-bottomleft: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  -moz-border-radius-bottomright: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+/* line 29, ../../../hub/static/css/mod/issues-sidebar.scss */
+.issues-sidebar .rule {
+  clear: both;
+  height: 0px;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 3px solid rgba(99, 182, 174, 0.2);
+}
+/* line 40, ../../../hub/static/css/mod/issues-sidebar.scss */
+.issues-sidebar .label {
+  margin: 2px 0px;
+}
+/* line 42, ../../../hub/static/css/mod/issues-sidebar.scss */
+.issues-sidebar .label a {
+  color: #63b6ae;
+  text-decoration: none;
+}
+/* line 45, ../../../hub/static/css/mod/issues-sidebar.scss */
+.issues-sidebar .label a:hover {
+  background: #63b6ae;
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+/* line 54, ../../../hub/static/css/mod/issues-sidebar.scss */
+.issues-sidebar .well {
+  margin-bottom: 0;
+  overflow: hidden;
+}

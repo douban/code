@@ -1,0 +1,83 @@
+/* Timeline */
+@media (max-width: 767px) {
+  /* line 4, ../../../hub/static/css/mod/rightside.scss */
+  .rightside {
+    padding: 10px;
+  }
+}
+/* line 7, ../../../hub/static/css/mod/rightside.scss */
+.rightside {
+  margin-top: 0px;
+  word-wrap: break-word;
+  word-break: normal;
+  margin-bottom: 20px;
+}
+/* line 12, ../../../hub/static/css/mod/rightside.scss */
+.rightside li {
+  position: relative;
+  list-style: none;
+  clear: both;
+  background: white;
+  padding: 1px 15px 10px 10px;
+  margin: 0 0 0px;
+  border-bottom: 1px solid #eaeaea;
+}
+/* line 21, ../../../hub/static/css/mod/rightside.scss */
+.rightside li .title {
+  margin-bottom: 0.5em;
+}
+/* line 23, ../../../hub/static/css/mod/rightside.scss */
+.rightside li .title i {
+  position: absolute;
+  left: 5px;
+  padding: 2px 5px 0;
+  color: #999;
+  font-size: 10px;
+}
+/* line 33, ../../../hub/static/css/mod/rightside.scss */
+.rightside .time {
+  float: right;
+  color: #ccc;
+  font-size: 12px;
+}
+
+/* line 40, ../../../hub/static/css/mod/rightside.scss */
+.rightside .padding {
+  height: 2em;
+  font-weight: bold;
+}
+
+/* line 45, ../../../hub/static/css/mod/rightside.scss */
+.rightside .more_items {
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+/* line 50, ../../../hub/static/css/mod/rightside.scss */
+.rightside .time {
+  color: #bbb;
+}
+
+/* line 52, ../../../hub/static/css/mod/rightside.scss */
+.rightside .desc {
+  padding: 0 0 1em 0;
+  color: #666;
+  word-wrap: break-word;
+}
+
+/* line 58, ../../../hub/static/css/mod/rightside.scss */
+.rightside .desc .right_side {
+  float: right;
+  margin-right: 30px;
+}
+
+/* line 63, ../../../hub/static/css/mod/rightside.scss */
+div.right-tittle {
+  color: gray;
+  background: rgba(99, 182, 174, 0.2);
+  text-align: center;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  font-size: 14px;
+  font-weight: bold;
+}

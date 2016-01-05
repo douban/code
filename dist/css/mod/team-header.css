@@ -1,0 +1,29 @@
+/* line 2, ../../../hub/static/css/mod/team-header.scss */
+.pagehead .team-left {
+  margin: 0;
+  font-size: 30px;
+  line-height: 36px;
+  float: left;
+}
+/* line 8, ../../../hub/static/css/mod/team-header.scss */
+.pagehead .team-desc {
+  margin-top: 12px;
+  margin-left: 5px;
+  margin-bottom: 0;
+  width: 60%;
+  float: left;
+}
+/* line 9, ../../../hub/static/css/mod/team-header.scss */
+.pagehead .team-desc p {
+  margin: 0;
+}
+/* line 10, ../../../hub/static/css/mod/team-header.scss */
+.pagehead .team-desc p small {
+  padding: 0 6px;
+  background: rgba(99, 182, 174, 0.2);
+  color: #63b6ae;
+}
+/* line 23, ../../../hub/static/css/mod/team-header.scss */
+.pagehead .team-right {
+  float: right;
+}
