@@ -1,0 +1,15 @@
+/* line 1, ../../../hub/static/css/mod/github.scss */
+span.github-actions {
+  float: right;
+}
+
+/* line 2, ../../../hub/static/css/mod/github.scss */
+.new-github-form input#github {
+  padding: 6px;
+  margin: 2px 2px 2px 0px;
+}
+
+/* line 3, ../../../hub/static/css/mod/github.scss */
+.new-github-form dd {
+  margin-left: 0px;
+}

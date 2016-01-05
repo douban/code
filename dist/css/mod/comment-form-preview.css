@@ -1,0 +1,64 @@
+/* preview comment form style */
+/* line 2, ../../../hub/static/css/mod/comment-form-preview.scss */
+.tabnav {
+  margin: 10px 0;
+  border-bottom: 1px solid #DDD;
+  height: 35px;
+}
+
+/* line 3, ../../../hub/static/css/mod/comment-form-preview.scss */
+.tabnav .tabnav-tabs {
+  display: inline-block;
+}
+
+/* line 4, ../../../hub/static/css/mod/comment-form-preview.scss */
+.tabnav .tabnav-tabs > li {
+  display: inline-block;
+}
+
+/* line 5, ../../../hub/static/css/mod/comment-form-preview.scss */
+.tabnav-tab {
+  display: inline-block;
+  margin-bottom: -1px;
+  padding: 8px 12px 9px;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  font-size: 14px;
+  color: #666;
+  text-decoration: none;
+}
+
+/* line 6, ../../../hub/static/css/mod/comment-form-preview.scss */
+.tabnav-tab.selected {
+  border-color: #DDD;
+  border-radius: 3px 3px 0 0;
+  background-color: white;
+  color: #333;
+  font-weight: bold;
+}
+
+/* line 7, ../../../hub/static/css/mod/comment-form-preview.scss */
+.tabnav-tab:hover {
+  text-decoration: none;
+}
+
+/* line 8, ../../../hub/static/css/mod/comment-form-preview.scss */
+.previewable-comment-form .tabnav {
+  position: relative;
+}
+
+/* line 9, ../../../hub/static/css/mod/comment-form-preview.scss */
+.previewable-comment-form .tabnav ul.tabnav-tabs {
+  padding-left: 10px;
+}
+
+/* line 10, ../../../hub/static/css/mod/comment-form-preview.scss */
+.previewable-comment-form .write-content, .previewable-comment-form .preview-content {
+  padding: 0 10px 10px;
+}
+
+/* line 11, ../../../hub/static/css/mod/comment-form-preview.scss */
+.previewable-comment-form #preview_bucket .content-body {
+  padding: 10px;
+  min-height: 132px;
+}

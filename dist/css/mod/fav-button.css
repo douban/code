@@ -1,0 +1,13 @@
+/* line 1, ../../../hub/static/css/mod/fav-button.scss */
+a#fav-button {
+  height: 25px;
+  width: 25px;
+  display: block;
+  float: right;
+  background: url("/static/img/fav_star.png") 0 0 no-repeat;
+}
+
+/* line 2, ../../../hub/static/css/mod/fav-button.scss */
+a#fav-button.faved {
+  background: url("/static/img/faved_star.png") 0 0 no-repeat;
+}

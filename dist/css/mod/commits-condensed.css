@@ -1,0 +1,222 @@
+/* line 1, ../../../hub/static/css/mod/commits-condensed.scss */
+table.commits {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* line 6, ../../../hub/static/css/mod/commits-condensed.scss */
+.boxed-group {
+  position: relative;
+  background: #EFEFEF;
+  padding: 3px;
+  border-radius: 3px;
+  margin: 0 0 15px 0;
+}
+
+/* line 13, ../../../hub/static/css/mod/commits-condensed.scss */
+.boxed-group > h3 {
+  background: #FAFAFA;
+  background: -moz-linear-gradient(#FAFAFA, #E0E0E0);
+  background: -webkit-linear-gradient(#FAFAFA, #E0E0E0);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa',endColorstr='#e0e0e0')";
+  margin: 0;
+  border-top-left-radius: 1px;
+  border-top-right-radius: 1px;
+  border: 1px solid #D8D8D8;
+  border-bottom: 1px solid #CCC;
+  padding: 10px 10px 11px 10px;
+  font-size: 14px;
+  text-shadow: 0 1px 0 white;
+}
+
+/* line 27, ../../../hub/static/css/mod/commits-condensed.scss */
+.boxed-group .boxed-group-inner {
+  padding: 1px 10px;
+  background: white;
+  border: 1px solid #D8D8D8;
+  border-top: none;
+  border-bottom-left-radius: 1px;
+  border-bottom-right-radius: 1px;
+  color: #666;
+  font-size: 13px;
+}
+
+/* line 37, ../../../hub/static/css/mod/commits-condensed.scss */
+.boxed-group.condensed > h3 {
+  padding: 6px 6px 7px;
+  font-size: 12px;
+}
+
+/* line 41, ../../../hub/static/css/mod/commits-condensed.scss */
+.boxed-group.condensed > h3 i {
+  position: relative;
+  padding: 0 6px 0 2px;
+}
+
+/* line 45, ../../../hub/static/css/mod/commits-condensed.scss */
+.boxed-group.condensed .boxed-group-inner {
+  font-size: 12px;
+  padding: 0;
+}
+
+/* line 50, ../../../hub/static/css/mod/commits-condensed.scss */
+.boxed-group-list > li {
+  display: block;
+  margin-left: -10px;
+  width: 100%;
+  padding: 5px 10px;
+  line-height: 23px;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+/* line 59, ../../../hub/static/css/mod/commits-condensed.scss */
+.commits-condensed {
+  margin-top: 0;
+  border: none;
+  background-color: white;
+}
+
+/* line 64, ../../../hub/static/css/mod/commits-condensed.scss */
+.commits-condensed td {
+  padding: 4px;
+  vertical-align: top;
+  border-top: 1px solid #E2EAEE;
+}
+
+/* line 69, ../../../hub/static/css/mod/commits-condensed.scss */
+.commits-condensed td.gravatar {
+  width: 29px;
+  padding: 5px;
+}
+
+/* line 74, ../../../hub/static/css/mod/commits-condensed.scss */
+.commits-condensed tr:first-child td {
+  border-top: 0;
+}
+
+/* line 77, ../../../hub/static/css/mod/commits-condensed.scss */
+.commits-condensed tr:nth-child(2n) td {
+  background: #F7FBFC;
+}
+
+/* line 80, ../../../hub/static/css/mod/commits-condensed.scss */
+.commits-condensed span.gravatar {
+  display: block;
+  width: 16px;
+  height: 16px;
+  line-height: 1px;
+  padding: 1px;
+  border: 1px solid #DDD;
+  background: white;
+}
+
+/* line 89, ../../../hub/static/css/mod/commits-condensed.scss */
+.commits-condensed span.gravatar a {
+  display: inline-block;
+}
+
+/* line 92, ../../../hub/static/css/mod/commits-condensed.scss */
+.commits-condensed td.author {
+  padding-left: 0;
+  color: #666;
+  width: 100px;
+  font-weight: bold;
+}
+
+/* line 98, ../../../hub/static/css/mod/commits-condensed.scss */
+.commits-condensed td.author span.commit-author {
+  display: inline-block;
+  width: 100px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: 22px;
+}
+
+/* line 105, ../../../hub/static/css/mod/commits-condensed.scss */
+.commits-condensed td.author a {
+  color: #333;
+}
+
+/* line 108, ../../../hub/static/css/mod/commits-condensed.scss */
+.commits-condensed td.message {
+  padding-left: 0;
+}
+
+/* line 111, ../../../hub/static/css/mod/commits-condensed.scss */
+.commits-condensed code {
+  font-family: Consolas,Menlo,"Liberation Mono",Courier,monospace;
+  background: inherit;
+}
+
+/* line 115, ../../../hub/static/css/mod/commits-condensed.scss */
+.commits-condensed td.message code {
+  line-height: 22px;
+}
+
+/* line 118, ../../../hub/static/css/mod/commits-condensed.scss */
+.commits-condensed td.message a {
+  color: #333;
+}
+
+/* line 121, ../../../hub/static/css/mod/commits-condensed.scss */
+.commits-condensed .commit-desc pre {
+  margin-top: 5px;
+  margin-bottom: 4px;
+  border-left: 1px solid #E5E5E5;
+  padding-left: 8px;
+  font-size: 11px;
+  font-weight: normal;
+  color: #596063;
+}
+
+/* line 130, ../../../hub/static/css/mod/commits-condensed.scss */
+.commits-condensed td.commit-meta {
+  width: 1%;
+  text-align: right;
+  white-space: nowrap;
+  padding-right: 10px;
+}
+
+/* line 136, ../../../hub/static/css/mod/commits-condensed.scss */
+.commits-condensed td.commit-meta code {
+  line-height: 22px;
+}
+
+/* following style for new-pull 'xxx add commits' commits-condense style */
+/* line 142, ../../../hub/static/css/mod/commits-condensed.scss */
+table.commits {
+  width: 100%;
+  margin: 0;
+  font-size: 12px;
+}
+
+/* line 147, ../../../hub/static/css/mod/commits-condensed.scss */
+table.commits .commit {
+  width: 59px;
+  padding-right: 10px;
+}
+
+/* line 151, ../../../hub/static/css/mod/commits-condensed.scss */
+table.commits code {
+  border: none;
+}
+
+/* line 154, ../../../hub/static/css/mod/commits-condensed.scss */
+table.commits td.message {
+  /*        width: 70%;*/
+}
+
+/* line 157, ../../../hub/static/css/mod/commits-condensed.scss */
+table.commits td.date {
+  text-align: right;
+}
+
+/* line 161, ../../../hub/static/css/mod/commits-condensed.scss */
+table.commits-condensed code {
+  white-space: normal;
+}
+
+/* line 164, ../../../hub/static/css/mod/commits-condensed.scss */
+table.commits-condensed pre {
+  white-space: pre-wrap;
+}

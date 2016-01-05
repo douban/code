@@ -1,0 +1,57 @@
+/* line 1, ../../../hub/static/css/lib/tag-it.scss */
+ul.tagit {
+  overflow: auto;
+}
+
+/* line 4, ../../../hub/static/css/lib/tag-it.scss */
+ul.tagit li {
+  -moz-border-radius: 5px 5px 5px 5px;
+  display: block;
+  float: left;
+  margin: 2px 5px 2px 0;
+}
+
+/* line 10, ../../../hub/static/css/lib/tag-it.scss */
+ul.tagit li.tagit-choice {
+  background-color: #00a89c;
+  padding: 2px 4px 3px;
+  color: #fff;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+}
+
+/* line 19, ../../../hub/static/css/lib/tag-it.scss */
+ul.tagit li.tagit-choice:hover {
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+}
+
+/* line 23, ../../../hub/static/css/lib/tag-it.scss */
+ul.tagit li.tagit-new {
+  padding: 2px 4px 3px;
+  padding: 2px 4px 1px;
+  padding: 2px 4px 1px 0;
+}
+
+/* line 29, ../../../hub/static/css/lib/tag-it.scss */
+ul.tagit li.tagit-choice input {
+  display: block;
+  float: left;
+  margin: 2px 5px 2px 0;
+}
+
+/* line 34, ../../../hub/static/css/lib/tag-it.scss */
+ul.tagit li.tagit-choice a.tag-close {
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  padding-left: 3px;
+  text-decoration: none;
+  text-shadow: none;
+}
+
+/* line 42, ../../../hub/static/css/lib/tag-it.scss */
+ul.tagit input[type="text"] {
+  width: 200px;
+}

@@ -1,0 +1,97 @@
+/* line 1, ../../../hub/static/css/mod/pagination.scss */
+.pagination {
+  display: block;
+  margin: 7px 0;
+  overflow: hidden;
+}
+/* line 5, ../../../hub/static/css/mod/pagination.scss */
+.pagination a {
+  padding: 8px;
+  width: 100%;
+  text-align: center;
+  line-height: 1.4;
+}
+/* line 11, ../../../hub/static/css/mod/pagination.scss */
+.pagination a, .pagination span {
+  float: left;
+  margin: 0;
+  color: #777;
+  font-size: 13px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 white;
+  border-bottom: 1px solid #DADADA;
+}
+/* line 23, ../../../hub/static/css/mod/pagination.scss */
+.pagination ul li a {
+  width: 20px;
+}
+/* line 29, ../../../hub/static/css/mod/pagination.scss */
+.pagination ul .disabled a {
+  background-color: #fff;
+}
+
+/* line 3, ../../../hub/static/css/mod/issues-list.scss */
+.new-issue {
+  float: left;
+}
+
+/* line 7, ../../../hub/static/css/mod/issues-list.scss */
+.sortby-issues {
+  float: right;
+}
+
+/* line 11, ../../../hub/static/css/mod/issues-list.scss */
+.issues-topbar {
+  overflow: hidden;
+  display: block;
+}
+
+/* line 16, ../../../hub/static/css/mod/issues-list.scss */
+.issue-list {
+  background: white;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eaeaea;
+}
+/* line 21, ../../../hub/static/css/mod/issues-list.scss */
+.issue-list > :first-child {
+  margin-top: 0px;
+}
+/* line 25, ../../../hub/static/css/mod/issues-list.scss */
+.issue-list .issue-item {
+  padding: 15px;
+  border-bottom: 1px solid #eaeaea;
+}
+/* line 29, ../../../hub/static/css/mod/issues-list.scss */
+.issue-list .issue-item h3 {
+  font-size: 16px;
+  font-weight: 400;
+  overflow: hidden;
+  word-break: break-all;
+  margin: 0;
+}
+/* line 36, ../../../hub/static/css/mod/issues-list.scss */
+.issue-list .issue-item h3 a {
+  color: #273338;
+}
+/* line 42, ../../../hub/static/css/mod/issues-list.scss */
+.issue-list .issue-item p a {
+  color: #999;
+}
+/* line 51, ../../../hub/static/css/mod/issues-list.scss */
+.issue-list .issue-item .meta {
+  margin-top: 20px;
+}
+/* line 55, ../../../hub/static/css/mod/issues-list.scss */
+.issue-list a.comment-count,
+.issue-list a.comment-count:link,
+.issue-list span.issue-info {
+  color: #bbb;
+}
+/* line 61, ../../../hub/static/css/mod/issues-list.scss */
+.issue-list .rule {
+  clear: both;
+  height: 0px;
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+}

@@ -1,0 +1,38 @@
+/* Timeline on mobile */
+/* line 2, ../../../hub/static/css/mod/mobile_timeline.scss */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* line 4, ../../../hub/static/css/mod/mobile_timeline.scss */
+.ui-footer ul li {
+  line-height: 32px;
+}
+
+/* line 5, ../../../hub/static/css/mod/mobile_timeline.scss */
+.scrollable .wrap {
+  background: #fff;
+}
+
+/* line 7, ../../../hub/static/css/mod/mobile_timeline.scss */
+.timeline {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  margin-top: 0;
+}
+
+/* line 8, ../../../hub/static/css/mod/mobile_timeline.scss */
+.timeline .action, .timeline .pulls {
+  margin-bottom: 0.5em;
+  padding: 0 12px 0 32px;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+/* line 9, ../../../hub/static/css/mod/mobile_timeline.scss */
+.timeline .desc {
+  border: none;
+  margin-bottom: 0.5em;
+  padding-bottom: 5px;
+}

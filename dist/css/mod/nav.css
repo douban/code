@@ -1,0 +1,108 @@
+/* TODO: still has Github UI in this mod */
+/* line 2, ../../../hub/static/css/mod/nav-search-dropdown.scss */
+#search-repos-menu {
+  display: none;
+  position: absolute;
+  top: 30px;
+  width: 228px;
+  background-color: white;
+  border: 1px solid #EEE;
+  z-index: 100;
+}
+
+/* line 3, ../../../hub/static/css/mod/nav-search-dropdown.scss */
+#search-repos-menu ul li {
+  min-height: 25px;
+  padding: 3px;
+  color: #666;
+  cursor: pointer;
+  word-wrap: break-word;
+}
+
+/* line 4, ../../../hub/static/css/mod/nav-search-dropdown.scss */
+#search-repos-menu ul li.active {
+  background: #4183C4;
+  color: #fff;
+}
+
+/* line 5, ../../../hub/static/css/mod/nav-search-dropdown.scss */
+#search-repos-menu ul li.intro {
+  padding: 7px;
+  color: #666;
+}
+
+/* line 6, ../../../hub/static/css/mod/nav-search-dropdown.scss */
+#search-repos-menu ul li.intro.active {
+  background: #fff;
+  padding: 7px;
+  color: #666;
+}
+
+/* line 7, ../../../hub/static/css/mod/nav-search-dropdown.scss */
+#search-repos-menu .repo-name {
+  padding: 3px;
+}
+
+/* line 8, ../../../hub/static/css/mod/nav-search-dropdown.scss */
+#search-repos-menu .avatar img {
+  float: left;
+  border: none;
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+
+/* line 4, ../../../hub/static/css/mod/nav.scss */
+.navbar .container {
+  width: 100%;
+}
+
+/* line 5, ../../../hub/static/css/mod/nav.scss */
+div.navbar .nav-logo {
+  float: left;
+  margin: 2px 2px 0 0;
+}
+
+/* line 6, ../../../hub/static/css/mod/nav.scss */
+.span4 .items {
+  max-width: 300px;
+}
+
+/* line 7, ../../../hub/static/css/mod/nav.scss */
+body div.container {
+  max-width: 940px;
+}
+
+/* line 9, ../../../hub/static/css/mod/nav.scss */
+.btn-back {
+  float: left;
+  margin-right: 5px;
+}
+
+/* other responsive styles */
+@media (max-width: 767px) {
+  /* line 17, ../../../hub/static/css/mod/nav.scss */
+  body {
+    padding: 50px 0px 0px;
+  }
+
+  /* line 20, ../../../hub/static/css/mod/nav.scss */
+  body div.container {
+    max-width: 950px;
+    padding: 5px 5px;
+  }
+
+  /* line 24, ../../../hub/static/css/mod/nav.scss */
+  .navbar-fixed-top,
+  .navbar-fixed-bottom,
+  .navbar-static-top {
+    margin: 0px 0px;
+  }
+}
+@media (max-width: 979px) {
+  /* line 32, ../../../hub/static/css/mod/nav.scss */
+  .navbar-fixed-top,
+  .navbar-fixed-bottom {
+    position: fixed;
+  }
+}

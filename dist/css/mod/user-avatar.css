@@ -1,0 +1,34 @@
+/* line 1, ../../../hub/static/css/mod/user-avatar.scss */
+.user-avatar-mini {
+  width: 12px;
+  height: 12px;
+}
+
+/* line 6, ../../../hub/static/css/mod/user-avatar.scss */
+img.avatar {
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* line 10, ../../../hub/static/css/mod/user-avatar.scss */
+img.avatar.tiny {
+  width: 16px;
+  height: 16px;
+}
+
+/* line 14, ../../../hub/static/css/mod/user-avatar.scss */
+img.avatar.small {
+  width: 20px;
+  height: 20px;
+}
+
+/* line 18, ../../../hub/static/css/mod/user-avatar.scss */
+img.avatar.medium {
+  width: 40px;
+  height: 40px;
+}
+
+/* line 23, ../../../hub/static/css/mod/user-avatar.scss */
+.avatar img {
+  border-radius: 3px;
+}

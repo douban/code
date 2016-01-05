@@ -1,0 +1,61 @@
+/* line 1, ../../../hub/static/css/mod/docs-nav.scss */
+.docsnav {
+  clear: both;
+  font-size: 120%;
+  margin: 15px 0 25px;
+  color: #34833E;
+  padding: 4px 0 6px 0;
+}
+
+/* line 2, ../../../hub/static/css/mod/docs-nav.scss */
+.docsnav a {
+  color: #34833E;
+  text-indent: 5px;
+}
+
+/* line 3, ../../../hub/static/css/mod/docs-nav.scss */
+.docsnav table {
+  width: 100%;
+}
+
+/* line 4, ../../../hub/static/css/mod/docs-nav.scss */
+.docsnav table td {
+  vertical-align: top;
+}
+
+/* line 5, ../../../hub/static/css/mod/docs-nav.scss */
+.docsnav .bigger::before {
+  font-size: 160%;
+  vertical-align: bottom;
+  line-height: 16px;
+}
+
+/* line 6, ../../../hub/static/css/mod/docs-nav.scss */
+.docsnav .biggest::before {
+  font-size: 200%;
+  vertical-align: bottom;
+  line-height: 10px;
+}
+
+/* line 7, ../../../hub/static/css/mod/docs-nav.scss */
+.docsnav .search::before {
+  font-size: 130%;
+  vertical-align: bottom;
+  line-height: 13px;
+}
+
+/* line 9, ../../../hub/static/css/mod/docs-nav.scss */
+.docsnav tr.first td {
+  width: 33%;
+  padding: 0 6px 0px 6px;
+}
+
+/* line 10, ../../../hub/static/css/mod/docs-nav.scss */
+.docsnav tr.second td {
+  padding-top: 9px;
+}
+
+/* line 12, ../../../hub/static/css/mod/docs-nav.scss */
+.docsnav {
+  border-bottom: 1px solid #CCC;
+}

@@ -1,0 +1,98 @@
+/* line 1, ../../../hub/static/css/mod/team-card.scss */
+.team-card {
+  position: absolute;
+  padding: 6px 10px;
+  min-height: 68px;
+  width: 236px;
+  background-color: #fff;
+  border: 1px solid #BEBEBE;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+/* line 10, ../../../hub/static/css/mod/team-card.scss */
+.team-card .pic {
+  float: right;
+  max-height: 50px;
+  margin: 6px 0 0 10px;
+}
+/* line 15, ../../../hub/static/css/mod/team-card.scss */
+.team-card .content {
+  word-wrap: break-word;
+}
+/* line 17, ../../../hub/static/css/mod/team-card.scss */
+.team-card .content .title {
+  margin: 6px 0;
+  font-size: 15px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+/* line 23, ../../../hub/static/css/mod/team-card.scss */
+.team-card .content .info {
+  position: relative;
+  margin-top: 10px;
+  font-size: 13px;
+}
+/* line 27, ../../../hub/static/css/mod/team-card.scss */
+.team-card .content .info .desc {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* line 35, ../../../hub/static/css/mod/team-card.scss */
+.member {
+  border-top: solid 1px #eaeaea;
+  padding-top: 8px;
+  height: 26px;
+}
+/* line 39, ../../../hub/static/css/mod/team-card.scss */
+.member .more-members {
+  float: right;
+  width: 24px;
+  height: 24px;
+  line-height: 26px;
+  text-align: center;
+  border: 1px solid #eaeaea;
+  background: #eaeaea;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+/* line 53, ../../../hub/static/css/mod/team-card.scss */
+.member .members li {
+  float: left;
+}
+/* line 55, ../../../hub/static/css/mod/team-card.scss */
+.member .members li a {
+  display: block;
+  width: 26px;
+  height: 26px;
+  overflow: hidden;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+/* line 65, ../../../hub/static/css/mod/team-card.scss */
+.member .members li a img {
+  width: 26px;
+  height: 26px;
+}
+
+/* line 73, ../../../hub/static/css/mod/team-card.scss */
+.cf {
+  zoom: 1;
+}
+/* line 75, ../../../hub/static/css/mod/team-card.scss */
+.cf:before {
+  content: "";
+  display: table;
+}
+/* line 79, ../../../hub/static/css/mod/team-card.scss */
+.cf .cf:after {
+  clear: both;
+  content: "";
+  display: table;
+}

@@ -1,0 +1,162 @@
+/* line 1, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-body {
+  padding: 30px;
+}
+
+/* line 4, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-body > :first-child {
+  margin-top: 0 !important;
+}
+
+/* line 7, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative;
+}
+
+/* line 20, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-body h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #CCC;
+  color: black;
+}
+
+/* line 25, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-body,
+.markdown-body p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* line 30, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre {
+  margin: 15px 0;
+}
+
+/* line 39, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 30px;
+}
+
+/* line 43, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-body ul li {
+  line-height: 1.6;
+}
+
+/* line 46, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-body ul {
+  list-style: disc;
+}
+
+/* line 49, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-body ol {
+  list-style: decimal;
+}
+
+/* line 52, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-body table {
+  width: 100%;
+}
+
+/* line 55, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-body table caption + thead tr:first-child th,
+.markdown-body table caption + thead tr:first-child td,
+.markdown-body table colgroup + thead tr:first-child th,
+.markdown-body table colgroup + thead tr:first-child td,
+.markdown-body table thead:first-child tr:first-child th,
+.markdown-body table thead:first-child tr:first-child td {
+  border-top: 0;
+}
+
+/* line 63, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-body table thead th {
+  vertical-align: bottom;
+}
+
+/* line 66, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-body table th {
+  font-weight: bold;
+}
+
+/* line 69, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-body table th,
+.markdown-body table td {
+  padding: 8px;
+  line-height: 20px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+}
+
+/* line 77, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-body table th,
+.markdown-body table td {
+  padding: 8px;
+  line-height: 20px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+}
+
+/* line 85, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-body table tbody > tr:nth-child(odd) > td,
+.markdown-body table tbody > tr:nth-child(odd) > th {
+  background-color: #f9f9f9;
+}
+
+/* line 89, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-body .progress-percentage {
+  color: #888;
+}
+
+/* line 93, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-page {
+  padding: 0px;
+}
+
+/* line 96, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-page h1,
+.markdown-page h2,
+.markdown-page h3,
+.markdown-page h4,
+.markdown-page h5,
+.markdown-page h6 {
+  position: static;
+}
+
+/* line 104, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-page pre {
+  font-family: Consolas, 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+  font-size: 14px;
+}
+
+/* line 108, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-page .label {
+  background-color: transparent;
+}
+
+/* line 111, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-page dd {
+  margin-left: 1.5em;
+}
+
+/* line 114, ../../../hub/static/css/mod/markdown-content.scss */
+.markdown-body code {
+  white-space: pre-wrap;
+}

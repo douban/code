@@ -1,0 +1,26 @@
+/* line 1, ../../../hub/static/css/mod/footer.scss */
+#footer {
+  clear: both;
+  padding: 10px 0;
+  color: #999;
+  border-top: 1px solid #EAEAEA;
+  background: url("/static/img/pb2.png") no-repeat center center;
+}
+
+/* line 8, ../../../hub/static/css/mod/footer.scss */
+#footer .footer-logo {
+  float: left;
+  opacity: 0.6;
+}
+
+/* line 9, ../../../hub/static/css/mod/footer.scss */
+#footer #revision {
+  color: lightgray;
+  float: right;
+  display: inline-table;
+}
+
+/* line 10, ../../../hub/static/css/mod/footer.scss */
+#footer #revision span {
+  padding: 0 5px;
+}

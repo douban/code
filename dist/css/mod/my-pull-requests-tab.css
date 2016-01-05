@@ -1,0 +1,32 @@
+/* line 1, ../../../hub/static/css/mod/my-pull-requests-tab.scss */
+ul.filter-list .filter-item {
+  border-radius: 3px 3px 3px 3px;
+  color: #777777;
+  display: block;
+  font-size: 14px;
+  margin: 0 0 5px;
+  overflow: hidden;
+  padding: 8px 10px;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* line 12, ../../../hub/static/css/mod/my-pull-requests-tab.scss */
+ul.filter-list .filter-item:hover {
+  background: none repeat scroll 0 0 #EEEEEE;
+}
+/* line 15, ../../../hub/static/css/mod/my-pull-requests-tab.scss */
+ul.filter-list .filter-item.selected {
+  background: none repeat scroll 0 0 #4183C4;
+  color: #FFFFFF;
+}
+/* line 19, ../../../hub/static/css/mod/my-pull-requests-tab.scss */
+ul.filter-list .filter-item .count {
+  float: right;
+  font-weight: bold;
+}
+
+/* line 25, ../../../hub/static/css/mod/my-pull-requests-tab.scss */
+.my-pull-requests-tab {
+  margin-top: 27px;
+}

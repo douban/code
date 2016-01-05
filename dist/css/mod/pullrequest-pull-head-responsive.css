@@ -1,0 +1,6 @@
+@media (max-width: 767px) {
+  /* line 2, ../../../hub/static/css/mod/pullrequest-pull-head-responsive.scss */
+  div.pull-head .pull-description p {
+    white-space: normal;
+  }
+}

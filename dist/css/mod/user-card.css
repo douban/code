@@ -1,0 +1,52 @@
+/* line 1, ../../../hub/static/css/mod/user-card.scss */
+.user-card {
+  position: absolute;
+  padding: 3px 5px 5px;
+  min-height: 68px;
+  width: 210px;
+  background-color: #fff;
+  border: 1px solid #BEBEBE;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* line 2, ../../../hub/static/css/mod/user-card.scss */
+.user-card .desc {
+  margin-left: 3px;
+}
+
+/* line 3, ../../../hub/static/css/mod/user-card.scss */
+.user-card .avatar-wrap {
+  width: 46px;
+  height: 36px;
+  float: left;
+  margin-right: 6px;
+  border-right: 1px solid #BEBEBE;
+}
+
+/* line 4, ../../../hub/static/css/mod/user-card.scss */
+.user-card .badge-item {
+  float: left;
+  width: 30px;
+  height: 30px;
+  border: none;
+  padding: 2px;
+  background-color: white;
+  line-height: 0;
+  margin-right: 0.7em;
+}
+
+/* line 5, ../../../hub/static/css/mod/user-card.scss */
+.user-card .title {
+  padding: 0 0 0.25em 0;
+}
+
+/* line 6, ../../../hub/static/css/mod/user-card.scss */
+.user-card .desc .avatar {
+  float: left;
+  width: 30px;
+  height: 30px;
+  padding: 2px;
+  background-color: white;
+  line-height: 0;
+  margin-right: 0.7em;
+}

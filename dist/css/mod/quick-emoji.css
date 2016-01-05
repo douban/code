@@ -1,0 +1,32 @@
+/* line 1, ../../../hub/static/css/mod/quick-emoji.scss */
+.quick-emoji {
+  margin-right: 10px;
+}
+/* line 4, ../../../hub/static/css/mod/quick-emoji.scss */
+.quick-emoji .description {
+  text-align: center;
+  color: #999;
+}
+/* line 9, ../../../hub/static/css/mod/quick-emoji.scss */
+.quick-emoji .emojis {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  word-wrap: break-word;
+  word-break: break-all;
+  width: 290px;
+  height: 260px;
+}
+/* line 17, ../../../hub/static/css/mod/quick-emoji.scss */
+.quick-emoji .emojis a {
+  display: block;
+  float: left;
+  width: 25px;
+  height: 25px;
+  padding: 2px;
+  border: 1px solid white;
+}
+/* line 24, ../../../hub/static/css/mod/quick-emoji.scss */
+.quick-emoji .emojis a:hover {
+  background: #eef;
+  border: 1px solid #aad;
+}

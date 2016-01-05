@@ -1,0 +1,22 @@
+/* line 1, ../../../hub/static/css/mod/colorcube.scss */
+.colorcube {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #DDD;
+}
+
+/* line 2, ../../../hub/static/css/mod/colorcube.scss */
+.colorcube::before {
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  border: 5px solid #DDD;
+  border-width: 5px;
+  border-color: #DDD transparent transparent transparent;
+  left: 10px;
+  top: 30px;
+  float: left;
+  position: absolute;
+}

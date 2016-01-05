@@ -1,0 +1,15 @@
+/* line 1, ../../../hub/static/css/mod/email.scss */
+span.email-actions {
+  float: right;
+}
+
+/* line 2, ../../../hub/static/css/mod/email.scss */
+.new-email-form input#email {
+  padding: 6px;
+  margin: 2px 2px 2px 0px;
+}
+
+/* line 3, ../../../hub/static/css/mod/email.scss */
+.new-email-form dd {
+  margin-left: 0px;
+}

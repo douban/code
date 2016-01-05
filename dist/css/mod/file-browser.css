@@ -1,0 +1,64 @@
+/* line 1, ../../../hub/static/css/mod/file-browser.scss */
+#tree, #blob {
+  margin: 0 0 27px;
+}
+
+/* line 3, ../../../hub/static/css/mod/file-browser.scss */
+.tree-browser {
+  width: 100%;
+  margin: 0;
+  border-radius: 3px;
+  border: 1px solid #CACACA;
+}
+
+/* line 4, ../../../hub/static/css/mod/file-browser.scss */
+.tree-browser th {
+  text-align: left;
+  font-weight: bold;
+  padding: 6px 3px;
+  color: #555;
+  text-shadow: 0 1px 0 #fff;
+  border-bottom: 1px solid #d8d8d8;
+  background: #fafafa;
+  background: -moz-linear-gradient(#fafafa, #eaeaea);
+  background: -webkit-linear-gradient(#fafafa, #eaeaea);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa',endColorstr='#eaeaea')";
+}
+
+/* line 5, ../../../hub/static/css/mod/file-browser.scss */
+.tree-browser td {
+  background: #f8f8f8;
+  border-bottom: 1px solid #eee;
+  padding: 7px 3px;
+  color: #484848;
+  vertical-align: middle;
+}
+
+/* line 6, ../../../hub/static/css/mod/file-browser.scss */
+.tree-browser tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* line 7, ../../../hub/static/css/mod/file-browser.scss */
+.tree-browser .message {
+  min-width: 270px;
+  max-width: 484px;
+}
+
+/* line 8, ../../../hub/static/css/mod/file-browser.scss */
+.tree-browser td a.message {
+  color: #484848;
+}
+
+/* line 10, ../../../hub/static/css/mod/file-browser.scss */
+.tree-browser i, .file i, .commit-group-item i {
+  filter: alpha(opacity=70);
+  opacity: .7;
+}
+
+/* line 11, ../../../hub/static/css/mod/file-browser.scss */
+.file .error {
+  text-align: center;
+  margin: 30px;
+  color: #666;
+}

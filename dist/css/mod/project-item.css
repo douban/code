@@ -1,0 +1,68 @@
+/* Echo out a label for the example */
+/* line 2, ../../../hub/static/css/mod/project-item.scss */
+.bs-docs-project:after {
+  content: "Proj";
+}
+
+/* line 6, ../../../hub/static/css/mod/project-item.scss */
+.bs-docs-fork:after {
+  content: "Fork";
+}
+
+/* line 10, ../../../hub/static/css/mod/project-item.scss */
+.project-item {
+  overflow: hidden;
+  word-wrap: break-word;
+  word-break: normal;
+  min-height: 80px;
+  position: relative;
+  margin: 15px 0;
+  padding: 14px 19px 14px 49px;
+  *padding-top: 14px;
+  background-color: transparent;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+/* line 25, ../../../hub/static/css/mod/project-item.scss */
+.project-item:after {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #9da0a4;
+  -webkit-border-radius: 4px 0 4px 0;
+  -moz-border-radius: 4px 0 4px 0;
+  border-radius: 4px 0 4px 0;
+}
+/* line 40, ../../../hub/static/css/mod/project-item.scss */
+.project-item h4.project-title {
+  margin: 0;
+}
+/* line 42, ../../../hub/static/css/mod/project-item.scss */
+.project-item h4.project-title i {
+  margin-top: 5px;
+}
+/* line 47, ../../../hub/static/css/mod/project-item.scss */
+.project-item ul.project-stats li {
+  float: left;
+  margin-left: 10px;
+}
+/* line 52, ../../../hub/static/css/mod/project-item.scss */
+.project-item .summary {
+  margin-top: 10px;
+}
+/* line 55, ../../../hub/static/css/mod/project-item.scss */
+.project-item .commit-graph {
+  position: absolute;
+  left: 10px;
+  bottom: 0;
+  z-index: -9999;
+  height: 80px;
+  width: 440px;
+}

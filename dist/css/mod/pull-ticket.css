@@ -1,0 +1,327 @@
+/* ticket style */
+/* line 2, ../../../hub/static/css/mod/pull-ticket.scss */
+#content.ticket {
+  width: 63em;
+  max-width: 100%;
+  margin-left: auto;
+}
+
+/* line 8, ../../../hub/static/css/mod/pull-ticket.scss */
+#field-description-help {
+  float: right;
+}
+
+/* line 9, ../../../hub/static/css/mod/pull-ticket.scss */
+#properties div.trac-resizable, #field-description {
+  width: 100%;
+}
+
+/* line 11, ../../../hub/static/css/mod/pull-ticket.scss */
+#ticket {
+  background: #ffd;
+  border: 1px outset #996;
+  margin-top: 1em;
+  padding: .5em 1em;
+  position: relative;
+}
+
+/* line 19, ../../../hub/static/css/mod/pull-ticket.scss */
+#ticket.ticketdraft {
+  background: #f8f8f8 url(../draft.png);
+}
+
+/* line 22, ../../../hub/static/css/mod/pull-ticket.scss */
+#ticketchange.ticketdraft {
+  padding: 0 1em;
+  margin: 1em 0;
+}
+
+/* line 26, ../../../hub/static/css/mod/pull-ticket.scss */
+#ticketchange.ticketdraft h3 {
+  margin-top: .5em;
+}
+
+/* line 29, ../../../hub/static/css/mod/pull-ticket.scss */
+.preview-notice {
+  font-weight: bold;
+}
+
+/* line 31, ../../../hub/static/css/mod/pull-ticket.scss */
+.ticketdraft {
+  background: #f8f8f8 url(../draft.png);
+  border: 1px outset #996;
+  padding: 0 .2em;
+}
+
+/* line 37, ../../../hub/static/css/mod/pull-ticket.scss */
+h1 .status {
+  color: #444;
+}
+
+/* line 38, ../../../hub/static/css/mod/pull-ticket.scss */
+#ticket h2.summary {
+  margin: 0 0 0.8em 0;
+}
+
+/* line 39, ../../../hub/static/css/mod/pull-ticket.scss */
+#ticket .date {
+  color: #996;
+  float: right;
+  font-size: 85%;
+  position: relative;
+}
+
+/* line 40, ../../../hub/static/css/mod/pull-ticket.scss */
+#ticket .date p {
+  margin: 0.3em;
+}
+
+/* line 42, ../../../hub/static/css/mod/pull-ticket.scss */
+#ticket table.properties {
+  clear: both;
+  border-top: 1px solid #dd9;
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+}
+
+/* line 49, ../../../hub/static/css/mod/pull-ticket.scss */
+#ticket table.properties tr {
+  border-bottom: 1px dotted #eed;
+}
+
+/* line 50, ../../../hub/static/css/mod/pull-ticket.scss */
+#ticket table.properties td, #ticket table.properties th {
+  font-size: 80%;
+  padding: .5em 1em;
+  vertical-align: top;
+}
+
+/* line 55, ../../../hub/static/css/mod/pull-ticket.scss */
+#ticket table.properties th {
+  color: #663;
+  font-weight: normal;
+  text-align: left;
+  width: 20%;
+}
+
+/* line 61, ../../../hub/static/css/mod/pull-ticket.scss */
+#ticket table.properties td {
+  width: 30%;
+}
+
+/* line 62, ../../../hub/static/css/mod/pull-ticket.scss */
+#ticket table.properties td p:first-child {
+  margin-top: 0;
+}
+
+/* line 63, ../../../hub/static/css/mod/pull-ticket.scss */
+#ticket table.properties td p:last-child {
+  margin-bottom: 0;
+}
+
+/* line 64, ../../../hub/static/css/mod/pull-ticket.scss */
+#ticket table.properties .description {
+  border-top: 1px solid #dd9;
+}
+
+/* line 66, ../../../hub/static/css/mod/pull-ticket.scss */
+#ticket .description h3 {
+  border-bottom: 1px solid #dd9;
+  color: #663;
+  font-size: 100%;
+  font-weight: normal;
+}
+
+/* line 72, ../../../hub/static/css/mod/pull-ticket.scss */
+#ticket .description h3 .lastmod {
+  font-size: 90%;
+}
+
+/* line 75, ../../../hub/static/css/mod/pull-ticket.scss */
+#ticket .inlinebuttons {
+  float: right;
+  position: relative;
+  bottom: 0.3em;
+  margin-left: 0.2em;
+}
+
+/* line 82, ../../../hub/static/css/mod/pull-ticket.scss */
+#changelog {
+  border: 1px outset #996;
+  padding: 1em;
+}
+
+/* line 83, ../../../hub/static/css/mod/pull-ticket.scss */
+.trac-shade {
+  background-color: #eee;
+}
+
+/* line 84, ../../../hub/static/css/mod/pull-ticket.scss */
+#trac-comment-editor {
+  margin-left: 2em;
+  margin-bottom: 1em;
+}
+
+/* line 85, ../../../hub/static/css/mod/pull-ticket.scss */
+#trac-comment-editor div.trac-resizable {
+  width: 100%;
+}
+
+/* line 86, ../../../hub/static/css/mod/pull-ticket.scss */
+#trac-comment-editor textarea {
+  background: #ffffe0;
+  margin-left: -1px;
+  margin-right: -1px;
+  width: 100%;
+}
+
+/* line 92, ../../../hub/static/css/mod/pull-ticket.scss */
+#trac-comment-editor .wikitoolbar {
+  margin-left: -1px;
+}
+
+/* line 93, ../../../hub/static/css/mod/pull-ticket.scss */
+#trac-add-comment :link, #trac-add-comment :visited {
+  color: #b00;
+}
+
+/* line 94, ../../../hub/static/css/mod/pull-ticket.scss */
+#changelog h3, #ticketchange h3 {
+  border-bottom: 1px solid #d7d7d7;
+  color: #999;
+  font-size: 100%;
+  font-weight: normal;
+}
+
+/* line 100, ../../../hub/static/css/mod/pull-ticket.scss */
+.threading, #changelog .inlinebuttons {
+  float: right;
+  margin-left: 0.2em;
+}
+
+/* line 101, ../../../hub/static/css/mod/pull-ticket.scss */
+.threading {
+  font-size: 85%;
+}
+
+/* line 102, ../../../hub/static/css/mod/pull-ticket.scss */
+.threading :link, .threading :visited {
+  border-bottom: 0;
+}
+
+/* line 103, ../../../hub/static/css/mod/pull-ticket.scss */
+#changelog .trac-lastedit {
+  padding-left: 2.5em;
+  color: #999;
+  font-size: 80%;
+}
+
+/* line 108, ../../../hub/static/css/mod/pull-ticket.scss */
+#changelog .trac-lastedit :link, #changelog .trac-lastedit :visited {
+  color: inherit;
+}
+
+/* line 110, ../../../hub/static/css/mod/pull-ticket.scss */
+#changelog .changes, #ticketchange .changes {
+  list-style: square;
+  margin-left: 2em;
+  padding: 0;
+}
+
+/* line 111, ../../../hub/static/css/mod/pull-ticket.scss */
+#changelog .comment, #ticketchange .comment {
+  margin-left: 2em;
+}
+
+/* line 113, ../../../hub/static/css/mod/pull-ticket.scss */
+form .field {
+  margin-top: .75em;
+  width: 100%;
+}
+
+/* line 114, ../../../hub/static/css/mod/pull-ticket.scss */
+form .field fieldset.iefix {
+  margin-left: 1px;
+  margin-right: 1px;
+}
+
+/* line 115, ../../../hub/static/css/mod/pull-ticket.scss */
+label[for=comment] {
+  float: right;
+}
+
+/* line 116, ../../../hub/static/css/mod/pull-ticket.scss */
+form .field .wikitoolbar {
+  margin-left: -1px;
+}
+
+/* line 117, ../../../hub/static/css/mod/pull-ticket.scss */
+form .field div.trac-resizable {
+  width: 100%;
+}
+
+/* line 119, ../../../hub/static/css/mod/pull-ticket.scss */
+#properties {
+  white-space: nowrap;
+  line-height: 160%;
+  padding: 0.5em;
+}
+
+/* line 120, ../../../hub/static/css/mod/pull-ticket.scss */
+#properties table {
+  border-spacing: 0;
+  width: 100%;
+  padding: 0 0.5em;
+}
+
+/* line 121, ../../../hub/static/css/mod/pull-ticket.scss */
+#properties table th {
+  padding: .4em;
+  text-align: right;
+  width: 20%;
+  vertical-align: top;
+}
+
+/* line 127, ../../../hub/static/css/mod/pull-ticket.scss */
+#properties table th.col2 {
+  border-left: 1px dotted #d7d7d7;
+}
+
+/* line 128, ../../../hub/static/css/mod/pull-ticket.scss */
+#properties table td {
+  vertical-align: middle;
+  width: 30%;
+}
+
+/* line 129, ../../../hub/static/css/mod/pull-ticket.scss */
+#properties table td.fullrow {
+  vertical-align: middle;
+  width: 80%;
+}
+
+/* line 131, ../../../hub/static/css/mod/pull-ticket.scss */
+#action {
+  line-height: 2em;
+}
+
+/* line 133, ../../../hub/static/css/mod/pull-ticket.scss */
+fieldset.radio {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* line 134, ../../../hub/static/css/mod/pull-ticket.scss */
+fieldset.radio legend {
+  color: #000;
+  float: left;
+  font-size: 100%;
+  font-weight: normal;
+  padding: 0 1em 0 0;
+}
+
+/* line 141, ../../../hub/static/css/mod/pull-ticket.scss */
+fieldset.radio label {
+  padding-right: 1em;
+}

@@ -1,0 +1,35 @@
+/* line 2, ../../../hub/static/css/mod/issues-tab.scss */
+ul.filter-list .filter-item {
+  border-radius: 3px 3px 3px 3px;
+  color: #777777;
+  display: block;
+  font-size: 14px;
+  margin: 0 0 5px;
+  overflow: hidden;
+  padding: 8px 10px;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* line 15, ../../../hub/static/css/mod/issues-tab.scss */
+ul.filter-list .filter-item:hover {
+  background: none repeat scroll 0 0 #EEEEEE;
+}
+
+/* line 19, ../../../hub/static/css/mod/issues-tab.scss */
+ul.filter-list .filter-item.selected {
+  background: none repeat scroll 0 0 #4183C4;
+  color: #FFFFFF;
+}
+
+/* line 24, ../../../hub/static/css/mod/issues-tab.scss */
+ul.filter-list .filter-item .count {
+  float: right;
+  font-weight: bold;
+}
+
+/* line 29, ../../../hub/static/css/mod/issues-tab.scss */
+.issues-tab {
+  margin-top: 27px;
+}

@@ -1,0 +1,35 @@
+/* line 1, ../../../hub/static/css/mod/reset.scss */
+ul, ol {
+  list-style-type: none;
+  display: block;
+  margin: 0;
+}
+
+/* line 7, ../../../hub/static/css/mod/reset.scss */
+.clear {
+  clear: both;
+}
+
+/* line 9, ../../../hub/static/css/mod/reset.scss */
+.clearfix {
+  display: block;
+}
+/* line 11, ../../../hub/static/css/mod/reset.scss */
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+/* hacks for adopting new version of bootstrap */
+/* line 21, ../../../hub/static/css/mod/reset.scss */
+h3 {
+  line-height: 27px;
+}
+
+/* line 25, ../../../hub/static/css/mod/reset.scss */
+input[type="checkbox"] {
+  margin: 0;
+}

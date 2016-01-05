@@ -1,0 +1,21 @@
+/* line 1, ../../../hub/static/css/mod/checkbox.scss */
+.checkbox-container {
+  display: inline-block;
+}
+
+/* line 5, ../../../hub/static/css/mod/checkbox.scss */
+.checkbox-container input[type=checkbox] {
+  vertical-align: middle;
+}
+
+/* line 9, ../../../hub/static/css/mod/checkbox.scss */
+.checkbox-container label {
+  display: inline;
+  vertical-align: middle;
+  padding: 0 0 0 5px;
+}
+
+/* line 15, ../../../hub/static/css/mod/checkbox.scss */
+.checkbox-container label span {
+  margin: 0 0 0 5px;
+}

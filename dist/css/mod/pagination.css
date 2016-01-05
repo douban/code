@@ -1,0 +1,31 @@
+/* line 1, ../../../hub/static/css/mod/pagination.scss */
+.pagination {
+  display: block;
+  margin: 7px 0;
+  overflow: hidden;
+}
+/* line 5, ../../../hub/static/css/mod/pagination.scss */
+.pagination a {
+  padding: 8px;
+  width: 100%;
+  text-align: center;
+  line-height: 1.4;
+}
+/* line 11, ../../../hub/static/css/mod/pagination.scss */
+.pagination a, .pagination span {
+  float: left;
+  margin: 0;
+  color: #777;
+  font-size: 13px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 white;
+  border-bottom: 1px solid #DADADA;
+}
+/* line 23, ../../../hub/static/css/mod/pagination.scss */
+.pagination ul li a {
+  width: 20px;
+}
+/* line 29, ../../../hub/static/css/mod/pagination.scss */
+.pagination ul .disabled a {
+  background-color: #fff;
+}

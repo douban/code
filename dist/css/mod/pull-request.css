@@ -1,0 +1,1345 @@
+@charset "UTF-8";
+/* preview comment form style */
+/* line 2, ../../../hub/static/css/mod/comment-form-preview.scss */
+.tabnav {
+  margin: 10px 0;
+  border-bottom: 1px solid #DDD;
+  height: 35px;
+}
+
+/* line 3, ../../../hub/static/css/mod/comment-form-preview.scss */
+.tabnav .tabnav-tabs {
+  display: inline-block;
+}
+
+/* line 4, ../../../hub/static/css/mod/comment-form-preview.scss */
+.tabnav .tabnav-tabs > li {
+  display: inline-block;
+}
+
+/* line 5, ../../../hub/static/css/mod/comment-form-preview.scss */
+.tabnav-tab {
+  display: inline-block;
+  margin-bottom: -1px;
+  padding: 8px 12px 9px;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  font-size: 14px;
+  color: #666;
+  text-decoration: none;
+}
+
+/* line 6, ../../../hub/static/css/mod/comment-form-preview.scss */
+.tabnav-tab.selected {
+  border-color: #DDD;
+  border-radius: 3px 3px 0 0;
+  background-color: white;
+  color: #333;
+  font-weight: bold;
+}
+
+/* line 7, ../../../hub/static/css/mod/comment-form-preview.scss */
+.tabnav-tab:hover {
+  text-decoration: none;
+}
+
+/* line 8, ../../../hub/static/css/mod/comment-form-preview.scss */
+.previewable-comment-form .tabnav {
+  position: relative;
+}
+
+/* line 9, ../../../hub/static/css/mod/comment-form-preview.scss */
+.previewable-comment-form .tabnav ul.tabnav-tabs {
+  padding-left: 10px;
+}
+
+/* line 10, ../../../hub/static/css/mod/comment-form-preview.scss */
+.previewable-comment-form .write-content, .previewable-comment-form .preview-content {
+  padding: 0 10px 10px;
+}
+
+/* line 11, ../../../hub/static/css/mod/comment-form-preview.scss */
+.previewable-comment-form #preview_bucket .content-body {
+  padding: 10px;
+  min-height: 132px;
+}
+
+/* line 1, ../../../hub/static/css/mod/comment-form-content.scss */
+.previewable-comment-form.tab-content {
+  overflow: initial;
+  position: relative;
+}
+
+/* line 2, ../../../hub/static/css/mod/comment-form-content.scss */
+.previewable-comment-form .write-content, .previewable-comment-form .preview-content {
+  padding: 10px;
+}
+
+/* line 3, ../../../hub/static/css/mod/comment-form-content.scss */
+.previewable-comment-form textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  background: #FAFAFA;
+  border: 1px solid #DDD;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 3px;
+}
+
+/* line 5, ../../../hub/static/css/mod/comment-form-content.scss */
+#add-comment-form .form-actions {
+  padding: 0;
+}
+
+/* line 6, ../../../hub/static/css/mod/comment-form-content.scss */
+#add-comment-form .form-content {
+  position: relative;
+  border: 3px solid #EEE;
+}
+
+/* line 7, ../../../hub/static/css/mod/comment-form-content.scss */
+#add-comment-form .form-content {
+  padding: 0;
+  background: #EEE;
+}
+
+/* line 8, ../../../hub/static/css/mod/comment-form-content.scss */
+#add-comment-form .form-content .write-content {
+  padding: 0 10px 10px;
+}
+
+/* line 9, ../../../hub/static/css/mod/comment-form-content.scss */
+#add-comment-form .form-content textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  background: #FAFAFA;
+  border: 1px solid #DDD;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 3px;
+  margin: 0;
+}
+
+/* line 1, ../../../hub/static/css/mod/minibutton.scss */
+.minibutton {
+  position: relative;
+  display: inline-block;
+  padding: 0 10px 0 10px;
+  color: #333;
+  font-family: Helvetica,arial,freesans,clean,sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 24px;
+  text-shadow: 0 1px 0 #fff;
+  white-space: nowrap;
+  border: 1px solid #d4d4d4;
+  border-bottom-color: #bcbcbc;
+  border-radius: 3px;
+  background: #fafafa;
+  background: -moz-linear-gradient(#fafafa, #eaeaea);
+  background: -webkit-linear-gradient(#fafafa, #eaeaea);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa',endColorstr='#eaeaea')";
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* line 2, ../../../hub/static/css/mod/minibutton.scss */
+.minibutton.green {
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+  background: #36b825;
+  background: -moz-linear-gradient(#36b825, #28881b);
+  background: -webkit-linear-gradient(#36b825, #28881b);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#36b825',endColorstr='#28881b')";
+  border-color: #4a993e;
+}
+
+/* line 3, ../../../hub/static/css/mod/minibutton.scss */
+.minibutton:hover.btn-windows:before, .button-group .btn-windows.grouped-button:before:hover {
+  background-position: -17px 3px;
+}
+
+/* line 4, ../../../hub/static/css/mod/minibutton.scss */
+.minibutton:disabled, .minibutton.disabled {
+  opacity: .5;
+  cursor: default;
+}
+
+/* line 5, ../../../hub/static/css/mod/minibutton.scss */
+button.minibutton::-moz-focus-inner {
+  margin: -1px -3px;
+}
+
+/* line 5, ../../../hub/static/css/mod/minibutton.scss */
+input[type=text] + .minibutton {
+  margin-left: 5px;
+}
+
+/* line 7, ../../../hub/static/css/mod/minibutton.scss */
+.minibutton:hover, .button-group .grouped-button:hover {
+  color: white;
+  text-decoration: none;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+  border-color: #518CC6;
+  border-bottom-color: #2A65A0;
+  background: #599BDC;
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#599bdc',endColorstr='#3072b3')";
+}
+
+/* line 1, ../../../hub/static/css/mod/comment-form-button.scss */
+button.classy.primary, button.primary.classy:disabled, button.primary.classy.disabled, button.primary.classy:disabled:hover, button.primary.classy.disabled:disabled:hover, button.classy:disabled:hover.primary, button.classy.disabled:disabled:hover.primary {
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+  border-color: #74BB5A;
+  border-bottom-color: #509338;
+  background: #8ADD6D;
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#8add6d', endColorstr='#60b044')";
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  background-image: -webkit-linear-gradient(top, #8ADD6D, #60B044);
+}
+
+/* line 2, ../../../hub/static/css/mod/comment-form-button.scss */
+button.classy.primary.disabled {
+  opacity: 0.5;
+}
+
+/* line 4, ../../../hub/static/css/mod/comment-form-button.scss */
+button.classy,
+button.classy:disabled,
+button.classy.disabled,
+a.button.classy:disabled,
+a.button.classy.disabled,
+button.classy:disabled:hover,
+button.classy.disabled:disabled:hover,
+a.button.classy.disabled:hover:disabled,
+a.button.classy.disabled:hover,
+a.button.classy,
+button.classy:disabled:hover,
+button.classy.disabled:disabled:hover,
+a.button.classy:disabled:hover,
+a.button.classy.disabled:disabled:hover,
+a.button.classy.disabled:hover {
+  display: inline-block;
+  padding: 8px 15px;
+  line-height: normal;
+  position: relative;
+  font-family: Helvetica,arial,freesans,clean,sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  color: #666;
+  text-shadow: 0 1px rgba(255, 255, 255, 0.9);
+  background: whiteSmoke;
+  background: -moz-linear-gradient(whiteSmoke, #E5E5E5);
+  background: -webkit-linear-gradient(whiteSmoke, #E5E5E5);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5',endColorstr='#e5e5e5')";
+  border-radius: 3px;
+  border: 1px solid #DDD;
+  border-bottom-color: #BBB;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* ================================== *\
+ * Zen Form
+ * ================================== */
+/* line 6, ../../../hub/static/css/lib/zen-form.scss */
+.zen-forms {
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 24px 30px 24px 24px;
+}
+
+/* line 16, ../../../hub/static/css/lib/zen-form.scss */
+.zen-forms-input-wrap {
+  max-width: 640px;
+  position: relative;
+  margin: 0 auto;
+}
+
+/**
+ * Buttons style
+ */
+/* line 25, ../../../hub/static/css/lib/zen-form.scss */
+.zen-forms-close-button,
+.zen-forms-theme-switch {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: #516066;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* line 39, ../../../hub/static/css/lib/zen-form.scss */
+.zen-forms-theme-switch {
+  top: 28px;
+  font-size: 34px;
+}
+
+/* line 44, ../../../hub/static/css/lib/zen-form.scss */
+.zen-forms-close-button:hover,
+.zen-forms-theme-switch:hover {
+  color: #667981;
+}
+
+/**
+ * Inputs basic style
+ */
+/* line 52, ../../../hub/static/css/lib/zen-form.scss */
+.zen-forms input,
+.zen-forms textarea {
+  padding: 8px 0;
+  width: 100%;
+  background: none;
+  border: none;
+  margin-bottom: 24px;
+  cursor: pointer;
+}
+
+/* line 62, ../../../hub/static/css/lib/zen-form.scss */
+.zen-forms input:focus,
+.zen-forms textarea:focus {
+  cursor: text;
+}
+
+/* line 67, ../../../hub/static/css/lib/zen-form.scss */
+.zen-forms textarea {
+  resize: none;
+}
+
+/* line 71, ../../../hub/static/css/lib/zen-form.scss */
+.zen-forms label {
+  cursor: pointer;
+  display: none;
+  padding: 8px 3;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+/* line 80, ../../../hub/static/css/lib/zen-form.scss */
+.zen-forms .empty + label {
+  display: block;
+}
+
+/* line 84, ../../../hub/static/css/lib/zen-form.scss */
+.zen-forms input:focus + label,
+.zen-forms textarea:focus + label {
+  display: none;
+}
+
+/* line 89, ../../../hub/static/css/lib/zen-form.scss */
+.zen-forms :focus {
+  outline-color: transparent;
+  outline-style: none;
+}
+
+/**
+ * Dark theme
+ */
+/* line 97, ../../../hub/static/css/lib/zen-form.scss */
+.zen-forms {
+  background: #151a1c;
+}
+
+/* line 101, ../../../hub/static/css/lib/zen-form.scss */
+.zen-forms label {
+  color: #516066;
+}
+
+/* line 105, ../../../hub/static/css/lib/zen-form.scss */
+.zen-forms input,
+.zen-forms textarea {
+  color: #667981;
+}
+
+/**
+ * Light theme
+ */
+/* line 113, ../../../hub/static/css/lib/zen-form.scss */
+.zen-forms.light-theme {
+  background: #fefefe;
+}
+
+/* line 117, ../../../hub/static/css/lib/zen-form.scss */
+.zen-forms.light-theme label {
+  color: #959697;
+}
+
+/* line 121, ../../../hub/static/css/lib/zen-form.scss */
+.zen-forms.light-theme input,
+.zen-forms.light-theme textarea {
+  color: #707071;
+}
+
+/* line 4, ../../../hub/static/css/mod/zen-forms.scss */
+.write-content .enable-fullscreen {
+  position: absolute;
+  top: 5px;
+  right: 16px;
+  color: #333333;
+  opacity: .5;
+  line-height: 1em;
+}
+
+/* line 5, ../../../hub/static/css/mod/zen-forms.scss */
+.mini-icon-fullscreen::before {
+  content: "";
+}
+
+/* line 6, ../../../hub/static/css/mod/zen-forms.scss */
+.fullscreen-overlay textarea, .zen-forms textarea {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  border: 0;
+  font-size: 21px;
+  line-height: 1.6em;
+  resize: none;
+  -moz-transition: color 0.15s ease-in 0;
+  -webkit-transition: color 0.15s ease-in 0;
+  transition: color 0.15s ease-in 0;
+  box-shadow: none;
+}
+
+/* line 7, ../../../hub/static/css/mod/zen-forms.scss */
+.zen-forms.light-theme textarea {
+  background: #fff;
+  color: #999999;
+}
+
+/* line 8, ../../../hub/static/css/mod/zen-forms.scss */
+.zen-forms .zen-forms-input-wrap {
+  width: 100%;
+  height: 100%;
+}
+
+/* line 9, ../../../hub/static/css/mod/zen-forms.scss */
+.zen-forms label[for^=zen-forms-input] {
+  display: none;
+}
+
+/* line 3, ../../../hub/static/css/mod/comment-form-zen.scss */
+.previewable-comment-form .zen-enabled textarea {
+  padding: 10px 18px 10px 10px;
+}
+
+/* line 4, ../../../hub/static/css/mod/comment-form-zen.scss */
+.write-content.zen-enabled {
+  position: relative;
+}
+
+/* line 5, ../../../hub/static/css/mod/comment-form-zen.scss */
+.write-content.zen-enabled .go-zen {
+  position: absolute;
+  right: 15px;
+  top: 5px;
+}
+
+/* line 1, ../../../hub/static/css/mod/loader.scss */
+.loader {
+  display: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+  background-color: #eee;
+}
+
+/* line 2, ../../../hub/static/css/mod/loader.scss */
+.loader .spinner {
+  display: block;
+  width: 32px;
+  height: 32px;
+  margin: 0 auto;
+  top: 121px;
+  position: relative;
+  background: url(/static/img/spinner.gif) no-repeat;
+}
+
+/* line 1, ../../../hub/static/css/lib/jquery.atwho.scss */
+#at-view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  margin-top: 18px;
+  background: white;
+  border: 1px solid #DDD;
+  border-radius: 3px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  min-width: 120px;
+  z-index: 10;
+}
+
+/* line 15, ../../../hub/static/css/lib/jquery.atwho.scss */
+#at-view .cur {
+  background: #3366FF;
+  color: white;
+}
+
+/* line 19, ../../../hub/static/css/lib/jquery.atwho.scss */
+#at-view .cur small {
+  color: white;
+}
+
+/* line 22, ../../../hub/static/css/lib/jquery.atwho.scss */
+#at-view strong {
+  color: #3366FF;
+}
+
+/* line 25, ../../../hub/static/css/lib/jquery.atwho.scss */
+#at-view .cur strong {
+  color: white;
+  font: bold;
+}
+
+/* line 29, ../../../hub/static/css/lib/jquery.atwho.scss */
+#at-view ul {
+  /* width: 100px; */
+  list-style: none;
+  padding: 0;
+  margin: auto;
+}
+
+/* line 35, ../../../hub/static/css/lib/jquery.atwho.scss */
+#at-view ul li {
+  display: block;
+  padding: 5px 10px;
+  border-bottom: 1px solid #DDD;
+  cursor: pointer;
+  /* border-top: 1px solid #C8C8C8; */
+}
+
+/* line 42, ../../../hub/static/css/lib/jquery.atwho.scss */
+#at-view small {
+  font-size: smaller;
+  color: #777;
+  font-weight: normal;
+}
+
+/* line 9, ../../../hub/static/css/mod/comment-form.scss */
+.side-avatar {
+  margin-left: 0;
+}
+
+/* fix li header for newer version of bootstrap */
+/* line 12, ../../../hub/static/css/mod/comment-form.scss */
+.comment-form-head li {
+  line-height: 18px;
+}
+
+/* line 16, ../../../hub/static/css/mod/comment-form.scss */
+#new_comment .form-content {
+  width: 880px;
+  margin-left: 60px;
+}
+
+/* line 18, ../../../hub/static/css/mod/comment-form.scss */
+.discussion-bubble-avatar {
+  position: relative;
+  float: left;
+  border-radius: 3px;
+}
+
+/* line 19, ../../../hub/static/css/mod/comment-form.scss */
+.discussion-bubble-inner {
+  min-height: 60px;
+  border: 1px solid #CACACA;
+  background-color: white;
+}
+
+/* line 1, ../../../hub/static/css/mod/loader.scss */
+.loader {
+  display: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+  background-color: #eee;
+}
+
+/* line 2, ../../../hub/static/css/mod/loader.scss */
+.loader .spinner {
+  display: block;
+  width: 32px;
+  height: 32px;
+  margin: 0 auto;
+  top: 121px;
+  position: relative;
+  background: url(/static/img/spinner.gif) no-repeat;
+}
+
+/* line 1, ../../../hub/static/css/mod/pullrequest-pull-head.scss */
+div.pull-head .pull-description .css-truncate-target + .css-truncate-target {
+  max-width: 125px;
+}
+
+/* line 2, ../../../hub/static/css/mod/pullrequest-pull-head.scss */
+div.pull-head .pull-description p .commit-ref .user {
+  color: #CCC;
+}
+
+/* line 3, ../../../hub/static/css/mod/pullrequest-pull-head.scss */
+div.pull-head {
+  margin: 20px 0;
+  background-color: #FAFAFA;
+  border: 1px solid #EEE;
+  border-bottom-width: 2px;
+  border-radius: 3px;
+}
+
+/* line 4, ../../../hub/static/css/mod/pullrequest-pull-head.scss */
+div.pull-head .pull-description .attention-icon {
+  position: relative;
+  float: left;
+  margin: 4px 10px 0 0;
+}
+
+/* line 5, ../../../hub/static/css/mod/pullrequest-pull-head.scss */
+div.pull-head .pull-description p {
+  padding-left: 10px;
+  position: relative;
+  float: left;
+  margin: 0;
+  line-height: 36px;
+  font-size: 13px;
+  max-width: 690px;
+  white-space: nowrap;
+}
+
+/* line 6, ../../../hub/static/css/mod/pullrequest-pull-head.scss */
+div.pull-head .pull-description p .user {
+  font-weight: bold;
+  color: #333;
+}
+
+/* line 8, ../../../hub/static/css/mod/pullrequest-pull-head.scss */
+div.pull-head .pull-description p {
+  padding-left: 0;
+}
+
+/* line 12, ../../../hub/static/css/mod/pullrequest-pull-head.scss */
+div.pull-head .pull-description .pull-state {
+  float: left;
+  padding: 8px;
+  margin-right: 8px;
+  border-right: 1px solid #EEE;
+  line-height: 20px;
+}
+
+/* line 13, ../../../hub/static/css/mod/pullrequest-pull-head.scss */
+div.pull-head .pull-description .state-indicator {
+  font-size: 13px;
+  display: inline-block;
+  height: 20px;
+  line-height: 20px;
+  padding: 0 5px;
+}
+
+/* line 15, ../../../hub/static/css/mod/pullrequest-pull-head.scss */
+.commit-ref {
+  position: relative;
+  height: 20px;
+  display: inline-block;
+  padding: 0 5px;
+  border: 1px solid black;
+  border-radius: 3px;
+  font: 10px/20px Monaco,"Liberation Mono",Courier,monospace;
+  color: white;
+  white-space: nowrap;
+  vertical-align: middle;
+  background-color: #222;
+  background-image: -moz-linear-gradient(#444, #222);
+  background-image: -webkit-linear-gradient(#444, #222);
+  background-image: linear-gradient(#444, #222);
+  background-repeat: repeat-x;
+}
+
+/* line 1, ../../../hub/static/css/mod/fav-button.scss */
+a#fav-button {
+  height: 25px;
+  width: 25px;
+  display: block;
+  float: right;
+  background: url("/static/img/fav_star.png") 0 0 no-repeat;
+}
+
+/* line 2, ../../../hub/static/css/mod/fav-button.scss */
+a#fav-button.faved {
+  background: url("/static/img/faved_star.png") 0 0 no-repeat;
+}
+
+/* line 6, ../../../hub/static/css/mod/pull-request.scss */
+#project-info {
+  margin-bottom: 15px;
+}
+
+/* line 8, ../../../hub/static/css/mod/pull-request.scss */
+.tab-content {
+  overflow: initial;
+  position: relative;
+}
+
+/* line 9, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest.tab-content {
+  min-height: 280px;
+  overflow: visible;
+}
+
+/* line 11, ../../../hub/static/css/mod/pull-request.scss */
+.commit-preview .date {
+  color: #5B6375;
+}
+
+/* line 13, ../../../hub/static/css/mod/pull-request.scss */
+.pull-nav.tabnav {
+  margin: 0 0 10px;
+  border-bottom: none;
+  height: 35px;
+}
+
+/* line 14, ../../../hub/static/css/mod/pull-request.scss */
+.pull-nav.tabnav .nav li.active {
+  font-weight: bold;
+}
+
+/* line 15, ../../../hub/static/css/mod/pull-request.scss */
+.pull-nav.tabnav .nav li a:hover {
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+
+/* line 16, ../../../hub/static/css/mod/pull-request.scss */
+.pull-nav.tabnav .nav li.active a {
+  background-color: #fff;
+  border-bottom: 1px solid #fff;
+}
+
+/* line 17, ../../../hub/static/css/mod/pull-request.scss */
+.pull-nav.tabnav .nav li.active a:hover {
+  background-color: #fff;
+  border: 1px solid #DDD;
+  border-bottom: 1px solid #fff;
+}
+
+/* line 19, ../../../hub/static/css/mod/pull-request.scss */
+.tabnav .counter {
+  position: relative;
+  top: -1px;
+  margin: 0 0 0 5px;
+  padding: 1px 5px 2px 5px;
+  font-size: 10px;
+  font-weight: bold;
+  color: #666;
+  background: #E5E5E5;
+  border-radius: 10px;
+}
+
+/* line 21, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest .explain {
+  margin: 15px 0;
+}
+
+/* line 23, ../../../hub/static/css/mod/pull-request.scss */
+.discussion-topic-header {
+  position: relative;
+  margin: 10px;
+}
+
+/* line 24, ../../../hub/static/css/mod/pull-request.scss */
+.discusion-topic-infobar {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* line 25, ../../../hub/static/css/mod/pull-request.scss */
+.discussion-topic-header .comment-topic-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  list-style-type: none;
+}
+
+/* line 26, ../../../hub/static/css/mod/pull-request.scss */
+.discussion-topic-header .comment-topic-actions li {
+  float: left;
+  margin-left: 12px;
+}
+
+/* line 28, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest blockquote.citation {
+  border: none;
+}
+
+/* line 29, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #trac-ticket-title {
+  display: none;
+}
+
+/* line 30, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest .ticket {
+  margin-top: 23px;
+}
+
+/* line 31, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest .trac-topnav {
+  margin-top: 0;
+  top: -20px;
+  position: absolute;
+  right: 0;
+}
+
+/* line 33, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest .ticket #ticket, .pullrequest div.change {
+  margin-bottom: 20px;
+  background: #fff;
+  border-radius: 3px;
+  border: 3px solid #eee;
+}
+
+/* line 34, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest .ticket #ticket::before, .pullrequest div.change::before, .pullrequest #propertyform fieldset.iefix::before, .pullrequest #add-comment-form .form-content::before {
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  border: 10px solid #EEE;
+  border-width: 10px 10px 10px 0;
+  border-color: transparent #EEE transparent transparent;
+  left: -12px;
+  top: 15px;
+  float: left;
+  position: absolute;
+}
+
+/* line 35, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest .ticket #ticket::before {
+  position: absolute;
+}
+
+/* line 36, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest div.change::before, .pullrequest #propertyform fieldset.iefix::before {
+  position: relative;
+}
+
+/* line 37, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest .ticket #ticket {
+  padding: 5px;
+}
+
+/* line 39, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest .ticket #ticket .date {
+  float: none;
+  clear: both;
+  color: #666;
+  font-size: 12px;
+}
+
+/* line 40, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest .ticket #ticket .date::after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+/* line 41, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest .ticket #ticket .date p {
+  float: left;
+}
+
+/* line 42, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest .ticket #ticket .summary {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* line 43, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest .ticket #ticket .properties {
+  display: none;
+  border: none;
+}
+
+/* line 44, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest .ticket #ticket .description {
+  margin-top: 10px;
+}
+
+/* line 45, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest .ticket #ticket .description div {
+  padding: 0;
+}
+
+/* line 46, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest .ticket #ticket .description h3 {
+  display: none;
+}
+
+/* line 47, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest .ticket #ticket .description #addreply {
+  float: right;
+}
+
+/* line 51, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest .commits-condensed tr td.message {
+  word-break: break-all;
+}
+/* line 55, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #changelog {
+  border: none;
+  padding: 0;
+}
+/* line 60, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #changelog .change table.commits tr td.author {
+  width: 80px;
+}
+/* line 63, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #changelog .change table.commits tr td.date {
+  width: 100px;
+}
+/* line 66, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #changelog .change table.commits tr td.status {
+  width: 20px;
+}
+/* line 71, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #changelog .change table.commits tr td span.commit-status {
+  width: 100px;
+  display: inline-block;
+  border-radius: 100px;
+  width: 15px;
+  height: 15px;
+  vertical-align: middle;
+}
+/* line 79, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #changelog .change table.commits tr td span.dirty {
+  background-color: #f6e69f;
+}
+/* line 82, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #changelog .change table.commits tr td span.error {
+  background-color: #da4f49;
+}
+/* line 85, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #changelog .change table.commits tr td span.success {
+  background-color: #6eda62;
+}
+
+/* line 93, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #changelog h3 {
+  border: none;
+}
+
+/* line 94, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #changelog .change div.outdated_mark {
+  background-color: #DDD;
+  height: 31px;
+  text-align: center;
+  color: #777;
+  line-height: 31px;
+}
+
+/* line 95, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #changelog .change div.outdated_commits {
+  display: none;
+}
+
+/* line 96, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #changelog .change div.outdated_codereview {
+  display: none;
+}
+
+/* line 97, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest div.change {
+  padding: 0;
+  background: #FBFBFB;
+}
+
+/* line 98, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #changelog .change h3.change {
+  color: #333;
+  margin: 0;
+  font-size: 12px;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 0 10px 0 6px;
+  border-bottom: 1px solid #CCC;
+  background: -webkit-linear-gradient(#F8FBFC, #DDE8EB);
+  background-image: -webkit-linear-gradient(#F8F8F8, #E1E1E1);
+  background-image: linear-gradient(#F8F8F8, #E1E1E1);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#f8fbfc', endColorstr='#dde8eb')";
+}
+
+/* line 99, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest div.change form[id^=reply-to-comment-] {
+  right: 7px;
+}
+
+/* line 100, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest div.change table.commits .commit code {
+  background-color: transparent;
+}
+
+/* line 101, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #changelog .comment {
+  margin: 0;
+  top: -1px;
+  position: relative;
+}
+
+/* line 102, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #changelog .comment #files {
+  margin-top: -24px;
+}
+
+/* line 103, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #changelog .comment #files .file {
+  width: 100%;
+  margin: 0 0 0 -1px;
+}
+
+/* line 104, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #changelog .comment p br {
+  height: 0;
+}
+
+/* line 105, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #changelog .comment p {
+  padding: 5px;
+  margin: 0;
+  color: #333;
+}
+
+/* line 107, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest div.change form#trac-comment-editor {
+  position: relative;
+  right: 0;
+  margin: 12px;
+}
+
+/* line 108, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest h2#trac-add-comment, .pullrequest .trac-nav {
+  display: none;
+}
+
+/* line 109, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest fieldset.iefix {
+  padding: 6px;
+  background: #EEE;
+  border-radius: 3px;
+}
+
+/* line 110, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest fieldset.iefix h3 {
+  font-size: 13px;
+  line-height: 1.4;
+  color: #333;
+  margin: 0 5px;
+}
+
+/* line 112, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #propertyform .btn[type=submit] {
+  padding: 8px 15px;
+}
+
+/* line 113, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #modify {
+  background-color: #EEE;
+  padding: 12px;
+}
+
+/* line 114, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #ticketchange.ticketdraft {
+  padding: 1em;
+  background: none;
+  background-color: #FBFBFB;
+}
+
+/* line 115, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #ticketchange.ticketdraft .comment {
+  margin: 1em;
+}
+
+/* line 116, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #ticketchange.ticketdraft .comment blockquote.citation {
+  margin: 12px 0;
+}
+
+/* line 117, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #ticketchange.ticketdraft .comment blockquote.citation p {
+  font-size: 13px;
+}
+
+/* line 119, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest .ticket .side-avatar {
+  position: absolute;
+  float: left;
+  margin-left: -60px;
+}
+
+/* line 121, ../../../hub/static/css/mod/pull-request.scss */
+table.commits {
+  margin: 0;
+  font-size: 12px;
+}
+
+/* line 123, ../../../hub/static/css/mod/pull-request.scss */
+.pull-participation {
+  margin: -10px 0 15px;
+  font-size: 13px;
+  font-weight: 300;
+  color: #666;
+}
+
+/* line 124, ../../../hub/static/css/mod/pull-request.scss */
+.pull-participation p.quickstat {
+  display: inline-block;
+  margin: 0 5px 0 0;
+}
+
+/* line 125, ../../../hub/static/css/mod/pull-request.scss */
+.pull-participation a {
+  color: #666;
+}
+
+/* line 126, ../../../hub/static/css/mod/pull-request.scss */
+.pull-participation .avatar {
+  position: relative;
+  display: inline-block;
+  height: 24px;
+  top: -2px;
+  margin-right: 3px;
+  margin-bottom: 3px;
+}
+
+/* line 127, ../../../hub/static/css/mod/pull-request.scss */
+.pull-participation .avatar img {
+  vertical-align: middle;
+}
+
+/* action-bubble part is also used in commits.html */
+/* line 131, ../../../hub/static/css/mod/pull-request.scss */
+.action-bubble {
+  margin: 20px 0;
+}
+
+/* line 132, ../../../hub/static/css/mod/pull-request.scss */
+.action-bubble .action {
+  float: left;
+  line-height: 29px;
+}
+
+/* line 133, ../../../hub/static/css/mod/pull-request.scss */
+.action-bubble .state-indicator {
+  display: inline-block;
+  margin-right: 8px;
+  font-size: 12px;
+  padding: 0 5px;
+  line-height: 24px;
+}
+
+/* line 134, ../../../hub/static/css/mod/pull-request.scss */
+.state-indicator.closed {
+  background: #BD2C00;
+}
+
+/* line 135, ../../../hub/static/css/mod/pull-request.scss */
+.state-indicator {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  border-radius: 3px;
+  background: #999;
+}
+
+/* line 136, ../../../hub/static/css/mod/pull-request.scss */
+.action-bubble .bubble {
+  font-size: 13px;
+  font-weight: 300;
+  background-color: transparent;
+}
+
+/* line 137, ../../../hub/static/css/mod/pull-request.scss */
+.bubble {
+  padding: 3px;
+  background: #EEE;
+  border-radius: 3px;
+}
+
+/* line 138, ../../../hub/static/css/mod/pull-request.scss */
+.action-bubble .bubble p {
+  margin: 0;
+  line-height: 26px;
+}
+
+/* line 139, ../../../hub/static/css/mod/pull-request.scss */
+.action-bubble .bubble strong {
+  font-weight: bold;
+}
+
+/* line 140, ../../../hub/static/css/mod/pull-request.scss */
+.action-bubble .avatar {
+  position: relative;
+  top: -2px;
+  display: inline-block;
+  height: 24px;
+  margin-right: 3px;
+  line-height: 1px;
+}
+
+/* line 141, ../../../hub/static/css/mod/pull-request.scss */
+.action-bubble .avatar img {
+  vertical-align: middle;
+}
+
+/* line 142, ../../../hub/static/css/mod/pull-request.scss */
+.state-indicator.open, .state-indicator.reopened, .state-indicator.merged {
+  background: #6CC644;
+}
+
+/* the following action-bubble style seems only used in commits.html */
+/* line 146, ../../../hub/static/css/mod/pull-request.scss */
+.action-bubble .state-renamed {
+  color: black;
+  background-color: #FFFA5D;
+  text-shadow: none;
+}
+
+/* line 151, ../../../hub/static/css/mod/pull-request.scss */
+.action-bubble .state {
+  display: inline-block;
+  padding: 0 5px;
+  height: 24px;
+  line-height: 25px;
+  text-shadow: 0 -1px -1px rgba(0, 0, 0, 0.25);
+}
+
+/* line 158, ../../../hub/static/css/mod/pull-request.scss */
+.action-bubble .state {
+  float: none;
+  padding: 3px 5px;
+  font-size: 11px;
+}
+
+/* line 165, ../../../hub/static/css/mod/pull-request.scss */
+.closed-banner {
+  margin: 15px 0;
+  height: 7px;
+  overflow: hidden;
+  background: url("/static/img/closed_pattern.gif");
+  border-radius: 5px;
+}
+
+/* line 167, ../../../hub/static/css/mod/pull-request.scss */
+.change-header .change-header-right {
+  float: right;
+  height: 15px;
+}
+
+/* line 168, ../../../hub/static/css/mod/pull-request.scss */
+.change-header .change-header-date {
+  display: inline-block;
+  margin: 0;
+  height: 33px;
+  font-size: 11px;
+  font-style: normal;
+  color: #777;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* line 170, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest .ticket #ticket {
+  padding: 0;
+}
+
+/* line 171, ../../../hub/static/css/mod/pull-request.scss */
+.discussion-bubble-avatar {
+  position: relative;
+  float: left;
+  border-radius: 3px;
+}
+
+/* line 172, ../../../hub/static/css/mod/pull-request.scss */
+.discussion-bubble-inner {
+  min-height: 60px;
+  border: 1px solid #CACACA;
+  background-color: white;
+}
+
+/* line 174, ../../../hub/static/css/mod/pull-request.scss */
+.pullrequest #changelog .change .change-header {
+  height: 23px;
+  color: #333;
+  margin: 0;
+  font-size: 12px;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 3px 10px 0 6px;
+  border-bottom: 1px solid #CCC;
+  background: -webkit-linear-gradient(#F8FBFC, #DDE8EB);
+  background-image: -webkit-linear-gradient(#F8F8F8, #E1E1E1);
+  background-image: linear-gradient(#F8F8F8, #E1E1E1);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#f8fbfc', endColorstr='#dde8eb')";
+}
+
+/* line 176, ../../../hub/static/css/mod/pull-request.scss */
+.comment-content .comment-body, .pullrequest .ticket #ticket .comment-content .comment-body {
+  padding: 10px;
+  font-size: 13px;
+  overflow: auto;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 177, ../../../hub/static/css/mod/pull-request.scss */
+.comment-content .comment-body, .pullrequest #changelog .comment p {
+  font-size: 13px;
+}
+
+/* line 179, ../../../hub/static/css/mod/pull-request.scss */
+.user-mention, .team-mention {
+  font-weight: bold;
+  color: #333;
+}
+
+/* line 181, ../../../hub/static/css/mod/pull-request.scss */
+.change #files .file {
+  border: none;
+}

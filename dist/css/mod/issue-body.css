@@ -1,0 +1,270 @@
+/* line 5, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content {
+  word-wrap: break-word;
+  word-break: normal;
+}
+/* line 10, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content .side-avatar a:hover {
+  text-decoration: none;
+}
+/* line 14, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content .side-avatar img {
+  width: 48px;
+  height: 48px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+/* line 20, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #summary {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  display: block;
+  margin-left: 65px;
+  /* Milestone */
+}
+/* line 25, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #summary .form-content {
+  padding: 0px;
+}
+/* line 29, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #summary .is-comment-editing .content-body {
+  display: none;
+}
+/* line 33, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #summary h2 {
+  font-size: 24px;
+}
+/* line 37, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #summary ul.actions {
+  float: right;
+  text-align: right;
+}
+/* line 41, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #summary ul.actions li {
+  display: inline;
+}
+/* line 45, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #summary ul.actions #upvote i {
+  position: absolute;
+}
+/* line 49, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #summary .summary-bottom {
+  margin-top: 10px;
+}
+/* line 52, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #summary .summary-bottom .assignee {
+  float: right;
+  margin-right: 10px;
+}
+/* line 56, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #summary .summary-bottom .state {
+  float: left;
+}
+/* line 58, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #summary .summary-bottom .state a#issue-closer {
+  padding-left: 10px;
+}
+/* line 64, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #summary .milestone-body {
+  display: block;
+}
+/* line 66, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #summary .milestone-body .milestone-bar-title {
+  display: inline;
+}
+/* line 68, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #summary .milestone-body .milestone-bar-title label {
+  display: inline;
+}
+/* line 76, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content .participation p {
+  display: inline-block;
+  margin-left: 15px;
+}
+/* line 82, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #changelog {
+  padding: 0px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+/* line 86, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #changelog .change {
+  padding: 10px 15px;
+  border-bottom: 1px solid #eaeaea;
+}
+/* line 90, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #changelog .change .change-text {
+  padding: 10px;
+}
+/* line 93, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #changelog .change:hover .change-bottom .comment-header-actions {
+  display: inline;
+}
+/* line 96, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #changelog .change .change-bottom {
+  position: relative;
+}
+/* line 98, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #changelog .change .change-bottom .comment-header-actions {
+  display: none;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+/* line 104, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #changelog .change .change-bottom .author-profile {
+  float: right;
+}
+/* line 106, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #changelog .change .change-bottom .author-profile p {
+  margin: 5px;
+  display: inline-block;
+}
+/* line 110, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #changelog .change .change-bottom .author-profile a.change-header-date {
+  color: lightgray;
+}
+/* line 113, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #changelog .change .change-bottom .author-profile .side-avatar {
+  float: none;
+}
+/* line 116, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #changelog .change .change-bottom .author-profile .side-avatar a:hover {
+  text-decoration: none;
+}
+/* line 120, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #changelog .change .change-bottom .author-profile .side-avatar img {
+  width: 32px;
+  height: 32px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+/* line 130, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content #changelog > .change:last-child {
+  border-bottom: none;
+}
+/* line 134, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content .is-comment-editing .change-text {
+  display: none;
+}
+/* line 138, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content .markdown-body pre {
+  font-family: Consolas, Menlo, "Liberation Mono", Courier, monospace;
+  margin: 0;
+  border: 0;
+}
+/* line 144, ../../../hub/static/css/mod/issue-body.scss */
+#issue #content .avatar.avatar-tiny {
+  display: inline-block;
+  margin: 0 3px 0 0;
+  vertical-align: baseline;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+/* modal */
+/* line 155, ../../../hub/static/css/mod/issue-body.scss */
+.modal-header {
+  background: #63b6ae;
+  color: white;
+  text-shadow: none;
+}
+/* line 160, ../../../hub/static/css/mod/issue-body.scss */
+.modal-header p {
+  margin: 0;
+}
+
+/* line 165, ../../../hub/static/css/mod/issue-body.scss */
+.modal-body {
+  text-shadow: none;
+}
+
+/* line 169, ../../../hub/static/css/mod/issue-body.scss */
+.modal-footer {
+  background: #63b6ae;
+  color: white;
+  text-shadow: none;
+}
+
+/* line 175, ../../../hub/static/css/mod/issue-body.scss */
+.quick-emoji .emojis {
+  height: 120px;
+}
+
+/* Tag */
+/* line 180, ../../../hub/static/css/mod/issue-body.scss */
+ul.tagit li.tagit-choice {
+  margin-top: 6px;
+}
+
+/* line 183, ../../../hub/static/css/mod/issue-body.scss */
+ul.tagit input[type="text"] {
+  width: 540px;
+}
+
+/* line 186, ../../../hub/static/css/mod/issue-body.scss */
+.tag-groups p {
+  margin: 0;
+}
+
+/* line 189, ../../../hub/static/css/mod/issue-body.scss */
+.tag-groups {
+  margin-bottom: 10px;
+}
+
+/* Milestone */
+/* line 195, ../../../hub/static/css/mod/issue-body.scss */
+#milestone-modal .milestone-menu {
+  list-style: none;
+  display: block;
+  float: none;
+  position: relative;
+  margin-bottom: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 5px 0;
+  border-color: rgba(99, 182, 174, 0.8);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+/* line 208, ../../../hub/static/css/mod/issue-body.scss */
+#milestone-modal .milestone-menu > li > a:hover,
+#milestone-modal .milestone-menu > li > a:focus,
+#milestone-modal .milestone-menu > .active > a,
+#milestone-modal .milestone-menu > .active > a:hover,
+#milestone-modal .milestone-menu > .active > a:focus {
+  color: #fff;
+  text-decoration: none;
+  background: #63b6ae;
+}
+/* line 217, ../../../hub/static/css/mod/issue-body.scss */
+#milestone-modal .milestone-menu > li > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 20px;
+  white-space: nowrap;
+}
+/* line 226, ../../../hub/static/css/mod/issue-body.scss */
+#milestone-modal input[type=radio] {
+  display: none;
+}
+
+/* Issue for Responsive Mobile Hacks */
+@media (max-width: 767px) {
+  /* line 236, ../../../hub/static/css/mod/issue-body.scss */
+  #issue #content .mod {
+    margin-left: 35px;
+  }
+  /* line 239, ../../../hub/static/css/mod/issue-body.scss */
+  #issue #content span.side-avatar img.discussion-bubble-avatar {
+    width: 30px;
+    height: 30px;
+  }
+}
