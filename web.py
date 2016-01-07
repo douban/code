@@ -11,10 +11,14 @@ from quixote.publish import SessionPublisher
 from werkzeug.debug import DebuggedApplication
 
 from vilya import views as controllers
-from vilya.config import DEVELOP_MODE
+from vilya.config import (
+    DEVELOP_MODE, SESSION_COOKIE_NAME, SESSION_COOKIE_PATH,
+    SESSION_COOKIE_DOMAIN
+)
 from vilya.libs.gzipper import make_gzip_middleware
 from vilya.libs.permdir import get_tmpdir
 from vilya.libs.import_obj import import_obj_set
+from vilya.libs.session import Session, SessionManager
 from vilya.libs.template import st
 from vilya.libs.auth.check_auth import check_auth
 from vilya.models.user import User
@@ -28,7 +32,10 @@ class CODEPublisher(SessionPublisher):
         self.configure(DISPLAY_EXCEPTIONS='plain',
                        SECURE_ERRORS=0,
                        DEBUG_PROPAGATE_EXCEPTIONS=DEVELOP_MODE,
-                       UPLOAD_DIR=get_tmpdir() + '/upload/')
+                       UPLOAD_DIR=get_tmpdir() + '/upload/',
+                       SESSION_COOKIE_NAME=SESSION_COOKIE_NAME,
+                       SESSION_COOKIE_DOMAIN=SESSION_COOKIE_DOMAIN,
+                       SESSION_COOKIE_PATH=SESSION_COOKIE_PATH)
 
     def start_request(self, request):
         SessionPublisher.start_request(self, request)
@@ -71,7 +78,7 @@ class CODEPublisher(SessionPublisher):
 
 
 def create_publisher():
-    return CODEPublisher(controllers)
+    return CODEPublisher(controllers, session_mgr=SessionManager(Session))
 
 app = make_gzip_middleware(QWIP(create_publisher()))
 if DEVELOP_MODE:

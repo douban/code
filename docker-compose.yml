@@ -3,7 +3,7 @@ web:
     file: docker-common.yml
     service: code
   build: ./dockerfiles/python
-  command: gunicorn -w 1 -b 0.0.0.0:8200 --reload app:app
+  command: gunicorn -b 0.0.0.0:8200 --reload app:app
   ports:
     - "8200:8200"
   links:
