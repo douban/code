@@ -57,12 +57,6 @@ MYSQL_STORE = ast.literal_eval(
 
 REDIS_URI = os.environ.get('DOUBAN_CODE_REDIS_URI', 'redis://localhost:6379/0')
 
-_beansdb_hosts = os.environ.get(
-    'DOUBAN_CODE_BEANSDB_HOSTS',
-    'localhost:7901,localhost:7902,localhost:7903'
-).split(',')
-BEANSDBCFG = {host: range(16) for host in _beansdb_hosts}
-
 DOMAIN = os.environ.get('DOUBAN_CODE_DOMAIN', 'http://127.0.0.1:8200')
 IRC_SERVER = 'irc.intra.douban.com'
 IRC_PORT = 12345
