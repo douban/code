@@ -7,9 +7,12 @@ from MySQLdb import connect, IntegrityError  # noqa
 from ORZ import setup, OrzField, OrzBase  # noqa
 from douban.mc import create_decorators
 from douban.sqlstore import store_from_config
-from .dbclient import Beansdb
+from redis2beansdb import Beansdb
 from vilya.config import (
-    MEMCACHED_HOSTS, MEMCACHED_CONFIG, MYSQL_STORE, BEANSDBCFG)
+    MEMCACHED_HOSTS,
+    MEMCACHED_CONFIG,
+    MYSQL_STORE,
+)
 
 logging.getLogger().setLevel(logging.DEBUG)
 
@@ -52,7 +55,7 @@ def get_mc():
 
 
 def get_db():
-    return Beansdb(BEANSDBCFG, 16)
+    return Beansdb()
 
 
 def stub_cache(*args, **kws):
@@ -87,11 +90,13 @@ def reset_mc(deep=False):
             getattr(mc.mc, 'clear', lambda: True)()
 
 
+# TODO(xutao) delete reset_beansdb?
 def reset_beansdb():
     for db in _clients.itervalues():
         db.clear_cache()
 
 
+# FIXME(xutao) rename to clear_mc_for_test?
 def clear_beansdb_for_test():
     for db in _clients.itervalues():
         db.clear_cache()
@@ -100,7 +105,7 @@ def clear_beansdb_for_test():
             if clear:
                 clear()
 
-
+# FIXME(xutao) I can't find any code about put beansdb client to `_clients`, and beansdb shouldn't be clear after request
 def clear_local_cache():
     reset_mc()
     reset_beansdb()

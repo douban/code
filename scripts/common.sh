@@ -41,13 +41,3 @@ install_code() {
 start_app() {
     test "$CODE_ENV" != "unset" && gunicorn -w 2 -b 127.0.0.1:8000 app:app  # web & git http daemon
 }
-
-install_beansdb() {
-    git clone https://github.com/douban/beansdb
-    cd beansdb
-    ./autogen.sh
-    ./configure && make && sudo make install
-    cd -
-    sudo mkdir /data/beansdb -p
-    beansdb -p 7900 -H /data/beansdb -T 0 -d
-}

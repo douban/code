@@ -9,7 +9,6 @@ web:
   links:
     - "mysql"
     - "memcached"
-    - "beansdb"
     - "redis"
 
 webpack:
@@ -45,8 +44,3 @@ redis:
   image: redis:3.0
   ports:
     - "6379:6379"
-
-beansdb:
-  image: mozillazg/beansdb:0.7.1.4
-  ports:
-    - "7900:7900"

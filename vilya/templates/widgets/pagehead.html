@@ -25,11 +25,6 @@
           </a>
         % endif
 
-        % if project.dashboard_enabled:
-            <a href="http://electro.dapps.douban.com/admin/project/${project.name}/">
-                <img src="http://electro.dapps.douban.com/api/maturity/${project.name}/level/badge">
-            </a>
-        % endif
     </h2>
     <div class="metanav pull-right">
         % if user:
@@ -63,11 +58,6 @@
     <div class="container">
       <ul class="nav nav-tables">
         <li class="${'active' if active == 'source' else ''} first"><a href="/${project.name}">Code</a></li>
-        % if project.dashboard_enabled:
-        <li class="${'active' if active == 'dashboard' else ''}">
-            <a href="/${project.name}/dashboard">Dashboard</a>
-        </li>
-        % endif
         % if project.conf['docs']:
             % for doc, vals in sorted(project.conf['docs'].items(), key=lambda x: x[1].get('sort', x[0])):
                 <li class="hidden-phone"><a class="tab_docs" href="/${project.name}/docs/${doc}">${vals.get('name', doc)}</a></li>

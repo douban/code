@@ -59,11 +59,6 @@
             </a>
         % endif
 
-        % if project.dashboard_enabled:
-            <a href="http://electro.dapps.douban.com/admin/project/${project.name}/">
-                <img src="http://electro.dapps.douban.com/api/maturity/${project.name}/level/badge">
-            </a>
-        % endif
     </h1>
     <div class="metanav pull-right">
         % if user:
@@ -121,11 +116,6 @@
 <div id="mainnav" class="subnav">
     <ul class="nav nav-pills">
         <li class="${'active' if active == 'source' else ''} first"><a href="/${project.name}">Code</a></li>
-    	% if project.dashboard_enabled:
-            <li class="${'active' if active == 'dashboard' else ''}">
-                <a href="/${project.name}/dashboard">Dashboard</a>
-            </li>
-	% endif
         % for dname, dpath, ddisp, _ in project.doc_tabs():
             <li class="${'active' if active == dname else ''} hidden-phone"><a class="tab_docs" href="/${project.name}${dpath}">${ddisp}</a></li>
         % endfor
