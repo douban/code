@@ -1,0 +1,26 @@
+# should install first
+- name: check virtualenv
+  stat: path=/vagrant/venv
+  register: venv_bin
+
+- name: create virualenv
+  command: virtualenv venv
+  when: venv_bin.stat.exists == false
+  args:
+    chdir: /vagrant
+
+- name: Install python pip
+  apt: pkg=python-pip state=installed
+
+- name: Install python virtualenv
+  apt: pkg=python-virtualenv state=installed
+
+- name: Install python dev
+  apt: pkg=python-dev state=installed
+
+- name: Install libffi
+  apt: pkg=libffi-dev state=installed
+
+- pip: name=cython virtualenv=/vagrant/venv
+- pip: name=setuptools virtualenv=/vagrant/venv
+- pip: requirements=/vagrant/requirements.txt virtualenv=/vagrant/venv

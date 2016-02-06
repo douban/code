@@ -1,0 +1,25 @@
+- name: Check if beansdb exists
+  stat: path=/usr/local/bin/beansdb
+  register: beansdb_bin
+
+- name: Clone beansdb repo
+  git: repo=https://github.com/douban/beansdb dest=/tmp/beansdb version=master
+  when: beansdb_bin.stat.exists == false
+
+- name: Install beansdb
+  command: ./autogen.sh && ./configure && make && make install
+  when: beansdb_bin.stat.exists == false
+  args:
+      chdir: /tmp/beansdb
+
+- name: Create /data/beansdb
+  file: path=/data/beansdb state=directory mode=0755
+
+- name: Create /etc/beansdb
+  file: path=/etc/beansdb state=directory mode=0755
+
+- name: Copy log config
+  copy: src=/tmp/beansdb/beansdb_log.conf dest=/etc/beansdb/log.conf
+
+- name: Start beansdb
+  command: beansdb -p 7900 -H /data/beansdb -T 0 -d -L /etc/beansdb/log.conf
