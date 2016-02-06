@@ -4,13 +4,6 @@ import select
 import subprocess
 from wsgiauth.basic import BasicAuth
 
-from gevent.monkey import get_original
-try:
-    select.poll = get_original('select', 'poll')
-except AttributeError:
-    select.poll = get_original('select', 'kqueue')
-subprocess.Popen = get_original('subprocess', 'Popen')
-
 from sina import Sina
 from sina.config import DEFAULT_CONFIG
 
