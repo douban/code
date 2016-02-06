@@ -39,5 +39,5 @@ install_code() {
 }
 
 start_app() {
-    test "$CODE_ENV" != "unset" && gunicorn -k gevent -w 2 -b 127.0.0.1:8000 app:app  # web & git http daemon
+    test "$CODE_ENV" != "unset" && gunicorn -w 2 -b 127.0.0.1:8000 app:app  # web & git http daemon
 }
