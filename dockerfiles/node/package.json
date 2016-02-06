@@ -5,8 +5,8 @@
   "scripts": {
     "build": "webpack --progress --colors",
     "watch": "webpack --watch --colors",
-    "start": "webpack && gunicorn -w 2 -b 0.0.0.0:8200 app:app",
-    "server": "gunicorn -w 2 -b 0.0.0.0:8200 app:app"
+    "start": "webpack && gunicorn -k gevent -w 2 -b 0.0.0.0:8200 app:app",
+    "server": "gunicorn -k gevent -w 2 -b 0.0.0.0:8200 app:app"
   },
   "dependencies": {
     "grunt-contrib-clean": "~0.4.0",

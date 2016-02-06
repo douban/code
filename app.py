@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import re
+from gevent import monkey; monkey.patch_all()
 
 from web import app as web
 from app_sina import app as git_http

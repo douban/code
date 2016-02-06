@@ -5,7 +5,6 @@ import os
 import sys
 import time
 import traceback
-from gevent import monkey; monkey.patch_all()
 from quixote.qwip import QWIP
 from quixote.publish import SessionPublisher
 
