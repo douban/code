@@ -8,8 +8,11 @@ class Beansdb(object):
     def __init__(self):
         self.redis = redis.from_url(REDIS_URI)
 
-    def get(self, key):
-        return self.redis.get(key)
+    def get(self, key, default=None):
+        data = self.redis.get(key)
+        if not data:
+            return default
+        return data
 
     def set(self, key, value):
         return self.redis.set(key, value)

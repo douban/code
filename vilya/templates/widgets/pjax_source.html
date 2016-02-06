@@ -424,10 +424,6 @@
                             <span class="sha">${c.sha[:10]}</span>
                         </a>
                         <br>
-                        % if project.deploy_link_enabled:
-                        <a href="http://bridge.dapps.douban.com/app/${project.name}/deploy#${c.sha}" class="browse-button" title="Deploy via dae-deploy" rel="nofollow" target='_blank'>Deploy</a>
-                        <span style="color:#CCC">●</span>
-                        % endif
                         <a href="/${project.name}/tree/${c.sha}" class="browse-button" title="Browse the code at this point in the history" rel="nofollow">Browse</a>
                         <span style="color:#CCC">●</span>
                         <a href="/${project.name}/compare/${c.sha[:10]}...master" data-ref="${c.sha[:10]}" class="compare-button" title="compare code from this commit to master" rel="nofollow">Compare</a>

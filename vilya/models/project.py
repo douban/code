@@ -30,7 +30,6 @@ from vilya.models.release import get_unreleased_commit_num
 from vilya.models.lru_counter import (
     ProjectOwnLRUCounter, ProjectWatchLRUCounter)
 from vilya.models.milestone import Milestone
-from vilya.models.utils.switch import WhiteListSwitch
 from ellen.utils import JagareError
 from vilya.models.nproject import ProjectWatcher
 
@@ -81,20 +80,6 @@ class CodeDoubanProject(PropsMixin, TagMixin):
 
     def __str__(self):
         return self.name
-
-    @property
-    def dashboard_enabled(self):
-        dashboard_enabled_switch = WhiteListSwitch(
-            'DASHBOARD_ENABLED_PROJECTS')
-        enabled_projects = dashboard_enabled_switch.get()
-        return self.name in enabled_projects
-
-    @property
-    def deploy_link_enabled(self):
-        deploy_link_enabled_switch = WhiteListSwitch(
-            'DEPLOY_LINK_ENABLED_PROJECTS')
-        enabled_projects = deploy_link_enabled_switch.get()
-        return self.name in enabled_projects
 
     @property
     def url(self):
