@@ -8,5 +8,4 @@ def init_store():
     return redis.from_url(REDIS_URI)
 
 
-rdstore = init_store()
-rds = rdstore
+rds = init_store()

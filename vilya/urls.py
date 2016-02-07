@@ -15,9 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from views.django import views as django_views
+from views.django import views
+from views.django import user
+
 
 urlpatterns = [
-    url(r'^vilya/', django_views.index, name='index'),
+    url(r'^people/(?P<username>\w+)/praises', user.praises, name='user_praises'),
+    url(r'^people/(?P<username>\w+)/followers', user.followers, name='user_followers'),
+    url(r'^people/(?P<username>\w+)/following', user.following, name='user_following'),
+    url(r'^people/(?P<username>\w+)/badges', user.badges, name='user_badges'),
+    url(r'^people/(?P<username>\w+)/contributions', user.contributions, name='user_contributions'),
+    url(r'^people/(?P<username>\w+)/contribution_detail', user.contribution_detail, name='user_contribution_detail'),
+    url(r'^people/(?P<username>\w+)', user.index, name='user_index'),
+    url(r'^vilya', views.index),
     url(r'^admin/', admin.site.urls),
 ]
