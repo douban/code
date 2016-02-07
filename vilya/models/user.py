@@ -9,7 +9,7 @@ from urllib import urlencode
 from quixote import get_user as get_current_user_id, get_session
 
 from vilya.libs.store import store, cache, mc, ONE_MONTH
-from vilya.libs.text import gravatar_url
+from vilya.libs.gravatar import gravatar_url
 from vilya.libs.props import PropsMixin, PropsItem
 from vilya.libs.validators import check_email, check_name
 from vilya.libs.signals import follow_user_signal
