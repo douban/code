@@ -138,13 +138,13 @@ class Git2(Repository):
         to_commit = self.revparse_single(to_ref)
         if to_commit.type == GIT_OBJ_TAG:
             to_commit = self[to_commit.target]
-        walker = self.walk(to_commit.id, GIT_SORT_TIME)
+        walker = self.walk(to_commit.oid, GIT_SORT_TIME)
         if from_ref:
             try:
                 from_commit = self.revparse_single(from_ref)
                 if from_commit.type == GIT_OBJ_TAG:
                     from_commit = self[from_commit.target]
-                walker.hide(from_commit.id)
+                walker.hide(from_commit.oid)
             except KeyError:
                 from_commit = None
 
@@ -411,7 +411,7 @@ class Git2(Repository):
 
             if size:
                 if objtype == 'blob':
-                    blob = self[entry.id]
+                    blob = self[entry.oid]
                     item = [mode, objtype, entry.hex, blob.size, path]
                 else:
                     item = [mode, objtype, entry.hex, '-', path]
