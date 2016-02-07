@@ -35,3 +35,4 @@ docutils==0.12
 kombu==3.0.33
 billiard==3.3.0.22
 paramiko==1.16.0
+Django==1.9.2

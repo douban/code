@@ -4,10 +4,13 @@ import re
 from gevent import monkey; monkey.patch_all()
 from web import app as web
 from app_sina import app as git_http
+from vilya.wsgi import application as django_app
 
 
 ROUTE_MAP = [(re.compile(r'/[^/]*\.git.*'), git_http),
              (re.compile(r'/[^/]*/([^/]*)\.git.*'), git_http),
+             (re.compile(r'/admin'), django_app),
+             (re.compile(r'/vilya'), django_app),
              (re.compile(r'/.*'), web)]
 
 
