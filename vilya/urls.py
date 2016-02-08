@@ -26,6 +26,9 @@ from views.django import gist_comment
 
 urlpatterns = [
     # user
+    url(r'^login/?$', user.login, name='user_login'),
+    url(r'^logout/?$', user.logout, name='user_logout'),
+    url(r'^register/?$', user.register, name='user_register'),
     url(r'^people/(?P<username>\w+)/praises', user.praises, name='user_praises'),
     url(r'^people/(?P<username>\w+)/followers', user.followers, name='user_followers'),
     url(r'^people/(?P<username>\w+)/following', user.following, name='user_following'),

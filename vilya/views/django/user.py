@@ -2,6 +2,9 @@
 
 from django.http import HttpResponse
 from django.http import JsonResponse
+from django.http import HttpResponseRedirect
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
 from vilya.libs.template import st
 
 FOLLOW_LIST_USER_COUNT = 24
@@ -26,6 +29,77 @@ def index(request, username):
     followers_count = user.followers_count
     following_count = user.following_count
     return HttpResponse(st('people.html', **locals()))
+
+
+@csrf_exempt
+def login(request):
+    from django.contrib.auth import authenticate, login
+    from vilya.models.user import User
+    from vilya.models.user import set_user
+
+    if request.method == 'POST':
+        name = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=name, password=password)
+        if user is not None:
+            continue_url = request.GET.get('continue', '') \
+                or request.META.get('Referer', '')
+
+            # django user
+            login(request, user)
+
+            # quixote user
+            request.user = User(user.username)
+            set_user(user.id)
+            return JsonResponse({"r": 0, "continue": continue_url or "/"})
+        else:
+            message = '用户名或密码错误！'
+            return JsonResponse({"r": 1, 'message': message})
+    return HttpResponse(st('login.html'))
+
+
+@csrf_exempt
+def register(request):
+    from vilya.models.nuser import User2
+    from vilya.models.user import set_user
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        if not email:
+            return JsonResponse({'r': 1, 'message': 'Email没有指定'})
+
+        user_name = email.split('@')[0]
+        if User2.is_exists(user_name):
+            return JsonResponse({'r': 1, 'message': '用户已存在'})
+
+        # django user
+        # FIXME(xutao) get user name from user input
+        user = User.objects.create_user(user_name, email, password)
+        user.save()
+
+        # quixote user
+        code_user = User2.add(user_name, password)
+        set_user(code_user.id)
+        return JsonResponse({'r': 0})
+    return HttpResponse(st('register.html'))
+
+
+@csrf_exempt
+def logout(request):
+    from django.contrib.auth import logout
+    from vilya.models.user import User
+
+    if request.method == 'POST':
+        logout(request)
+        continue_url = request.GET.get('continue', '') or request.META.get('Referer', '')
+        return HttpResponseRedirect(continue_url or '/')
+
+    if request.user:
+        user = User(request.user.username)
+        context = {}
+        context['current_user'] = user
+    return HttpResponse(st('logout.html', **context))
 
 
 def badges(request, username):
