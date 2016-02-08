@@ -9,11 +9,11 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseBadRequest
 from django.http import StreamingHttpResponse
-from vilya.models.consts import TEMP_BRANCH_MARKER
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from vilya.libs.template import st
+from vilya.models.consts import TEMP_BRANCH_MARKER
 
 
 def _latest_update_branch(project, ref, user):

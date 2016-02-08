@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.views.generic.base import RedirectView
 from views.django import views
 from views.django import user
 from views.django import gist
@@ -26,6 +27,7 @@ from views.django import badge
 from views.django import project
 from views.django import project_setting
 from views.django import trello
+from views.django import setting
 
 
 urlpatterns = [
@@ -46,6 +48,24 @@ urlpatterns = [
     url(r'^praise/vote/?$', user.praise_vote, name="user_praise_vote"),
     url(r'^trello/bind/?$', trello.bind, name="trello_bind"),
     url(r'^trello/unbind/?$', trello.unbind, name="trello_unbind"),
+    url(r'^settings/?$', setting.index, name='setting_index'),
+    url(r'^settings/emails$', RedirectView.as_view(pattern_name='setting_emails')),
+    url(r'^settings/emails/$', setting.emails, name='setting_emails'),
+    url(r'^settings/emails/(?P<id>[0-9]+)/delete/?$', setting.emails_delete, name='setting_emails_delete'),
+    url(r'^settings/emails/(?P<id>[0-9]+)/set_notif/?$', setting.emails_set_notif, name='setting_emails_set_notif'),
+    url(r'^settings/emails/(?P<id>[0-9]+)/un_notif/?$', setting.emails_un_notif, name='setting_emails_un_notif'),
+    url(r'^settings/github$', RedirectView.as_view(pattern_name='setting_github')),
+    url(r'^settings/github/$', setting.github, name='setting_github'),
+    url(r'^settings/github/(?P<id>[0-9]+)/?$', setting.github_delete, name='setting_github_delete'),
+    url(r'^settings/notification$', RedirectView.as_view(pattern_name='setting_notification')),
+    url(r'^settings/notification/$', setting.notification, name='setting_notification'),
+    url(r'^settings/notification/setting/?$', setting.notification_setting, name='setting_notification_setting'),
+    url(r'^settings/ssh$', RedirectView.as_view(pattern_name='setting_ssh')),
+    url(r'^settings/ssh/$', setting.ssh, name='setting_ssh'),
+    url(r'^settings/ssh/(?P<id>[0-9]+)/?$', setting.ssh_delete, name='setting_ssh_delete'),
+    url(r'^settings/codereview$', RedirectView.as_view(pattern_name='setting_codereview')),
+    url(r'^settings/codereview/$', setting.codereview, name='setting_codereview'),
+    url(r'^settings/codereview/setting/?$', setting.codereview_setting, name='setting_codereview_setting'),
 
     # gist
     url(r'^gist/$', gist.index, name='gist_index'),
