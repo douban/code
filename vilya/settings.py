@@ -49,6 +49,8 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # FIXME(xutao) remove QuixoteMiddleware
+    'vilya.libs.middleware.QuixoteMiddleware',
 ]
 
 ROOT_URLCONF = 'vilya.urls'

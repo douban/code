@@ -17,12 +17,6 @@ def index(request, username):
     django_user = request.user
     user = quixote_user
 
-    # FIXME(xutao) remove compatibility for quixote
-    request.is_mobile = False
-    def test():
-        return None
-    request.get_path = test
-    request.url = "/"
     # FIXME(xutao) translate current django user to quixote user
     request.user = user
 
