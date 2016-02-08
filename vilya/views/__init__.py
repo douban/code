@@ -38,7 +38,7 @@ from tasks import index_a_project_docs
 
 ISSUES_COUNT_PER_PAGE = 5
 
-_q_exports = ['hub', 'people', 'badge', 'api', 'preview',
+_q_exports = ['hub', 'people', 'api', 'preview',
               'watch', 'settings', 'praise', 'gist', 'oauth',
               'j', 'm', 'watching', 'fetch', 'trello',
               'teams', 'favorites', 'login', 'logout', 'register']

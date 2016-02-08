@@ -22,6 +22,7 @@ from views.django import gist_user
 from views.django import gist_raw
 from views.django import gist_embed
 from views.django import gist_comment
+from views.django import badge
 
 
 urlpatterns = [
@@ -55,6 +56,18 @@ urlpatterns = [
     url(r'^gist/(?P<username>\w+)/(?P<id>[0-9]+)/delete$', gist_user.gist_delete, name='gist_user_gist_delete'),
     url(r'^gist/(?P<username>\w+)/(?P<id>[0-9]+)/(?P<revision>\w+)$', gist_user.gist_index, name='gist_gist_index_revision'),
     url(r'^gist/(?P<username>\w+)/(?P<id>[0-9]+)/raw/(?P<revision>\w+)/(?P<filename>.*)$', gist_raw.index, name='gist_raw_index'),
+
+    # badge
+    url(r'^badge/?$', badge.timeline),
+    url(r'^badge/fetch_new/?$', badge.fetch_new, name='badge_fetch_new'),
+    url(r'^badge/all/?$', badge.all, name='badge_all'),
+    url(r'^badge/timeline/?$', badge.timeline, name='badge_timeline'),
+    url(r'^badge/badges/?$', badge.badges, name='badge_badges'),
+    url(r'^badge/items/?$', badge.items, name='badge_items'),
+    url(r'^badge/count/?$', badge.count, name='badge_count'),
+    url(r'^badge/add/?$', badge.add, name='badge_add'),
+    url(r'^badge/(?P<id>[0-9]+)/?$', badge.badge_index, name='badge_badge_index'),
+    url(r'^badge/(?P<id>[0-9]+)/people/?$', badge.badge_people, name='badge_badge_people'),
 
     # misc
     url(r'^mirrors/?$', views.mirrors, name="views_mirrors"),
