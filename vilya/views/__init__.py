@@ -108,6 +108,10 @@ def _q_index(request):
 def _q_lookup(request, name):
     if name == 'static':
         return StaticUI(request)
+    if name == 'favicon.ico':
+        return StaticUI(request, '/favicon.ico')
+    if name == 'favicon.ico':
+        return StaticUI(request)
     if name == 'fair':
         return FairUI(request)
     if CodeDoubanProject.exists(name):
