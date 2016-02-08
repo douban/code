@@ -3,6 +3,7 @@
 from django.http import HttpResponse
 from django.http import Http404
 from django.http import HttpResponseRedirect
+from django.http import HttpResponseForbidden
 from django.http import StreamingHttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from vilya.libs.template import st
@@ -30,14 +31,7 @@ def public(request, username):
 
 
 def secret(request, username):
-    from vilya.models.user import User
     from vilya.models.gist import Gist
-
-    django_user = request.user
-    # FIXME(xutao) translate django user to quixote user
-    user = User('xutao881001')
-    request.user = user
-
     current_user = request.user
     if not current_user or current_user.username != username:
         return HttpResponseRedirect('/gist/%s' % username)
@@ -49,12 +43,9 @@ def _render(username, request, func):
     from vilya.models.user import User
     from vilya.models.gist import Gist
     name = username
-    user = User(name)
 
-    django_user = request.user
-    # FIXME(xutao) translate django user to quixote user
-    user = User('xutao881001')
-    request.user = user
+    # FIXME(xutao) check user
+    user = User(name)
 
     current_user = request.user
     is_self = current_user and current_user.username == name
@@ -90,14 +81,8 @@ def _render(username, request, func):
 
 
 def gist_index(request, username, id, revision=None):
-    from vilya.models.user import User
     from vilya.models.gist import Gist
     from vilya.views.util import is_mobile_device
-
-    django_user = request.user
-    # FIXME(xutao) translate django user to quixote user
-    user = User('xutao881001')
-    request.user = user
 
     gist = Gist.get(id)
     user = request.user
@@ -114,13 +99,9 @@ def gist_index(request, username, id, revision=None):
 
 
 def gist_revisions(request, username, id):
-    from vilya.models.user import User
     from vilya.models.gist import Gist
 
-    django_user = request.user
-    # FIXME(xutao) translate django user to quixote user
-    user = User('xutao881001')
-    request.user = user
+    user = request.user
 
     gist = Gist.get(id)
     page = int(request.GET.get('page', 1))
@@ -149,91 +130,54 @@ def gist_revisions(request, username, id):
 
 
 def gist_forks(request, username, id):
-    from vilya.models.user import User
     from vilya.models.gist import Gist
-
-    django_user = request.user
-    # FIXME(xutao) translate django user to quixote user
-    user = User('xutao881001')
-    request.user = user
-
+    user = request.user
     gist = Gist.get(id)
     tdt = dict(request=request, gist=gist, user=user)
     return HttpResponse(st('/gist/gist_forks.html', **tdt))
 
 
 def gist_stars(request, username, id):
-    from vilya.models.user import User
     from vilya.models.gist import Gist
-
-    django_user = request.user
-    # FIXME(xutao) translate django user to quixote user
-    user = User('xutao881001')
-    request.user = user
-
+    user = request.user
     gist = Gist.get(id)
     tdt = dict(request=request, gist=gist, user=user)
     return HttpResponse(st('/gist/gist_stars.html', **tdt))
 
 
 def gist_fork(request, username, id):
-    from vilya.models.user import User
     from vilya.models.gist import Gist
-
-    django_user = request.user
-    # FIXME(xutao) translate django user to quixote user
-    user = User('xutao881001')
-    request.user = user
-
+    user = request.user
     gist = Gist.get(id)
-    new_gist = gist.fork(request.user.username)
+    new_gist = gist.fork(user.username)
     return HttpResponseRedirect(new_gist.url)
 
 
 def gist_unstar(request, username, id):
-    from vilya.models.user import User
     from vilya.models.gist import Gist
     from vilya.models.gist_star import GistStar
-
-    django_user = request.user
-    # FIXME(xutao) translate django user to quixote user
-    user = User('xutao881001')
-    request.user = user
-
+    user = request.user
     gist = Gist.get(id)
-    star = GistStar.get_by_gist_and_user(id, request.user.username)
+    star = GistStar.get_by_gist_and_user(id, user.username)
     if star:
         star.delete()
     return HttpResponseRedirect(gist.url)
 
 
 def gist_star(request, username, id):
-    from vilya.models.user import User
     from vilya.models.gist import Gist
     from vilya.models.gist_star import GistStar
-
-    django_user = request.user
-    # FIXME(xutao) translate django user to quixote user
-    user = User('xutao881001')
-    request.user = user
-
+    user = request.user
     gist = Gist.get(id)
-    GistStar.add(id, request.user.username)
+    GistStar.add(id, user.username)
     return HttpResponseRedirect(gist.url)
 
 
 @csrf_exempt
 def gist_edit(request, username, id):
     from vilya.views.util import is_mobile_device
-    from vilya.models.user import User
     from vilya.models.gist import Gist
-    from vilya.models.gist_star import GistStar
-
-    django_user = request.user
-    # FIXME(xutao) translate django user to quixote user
-    user = User('xutao881001')
-    request.user = user
-
+    user = request.user
     gist = Gist.get(id)
     if not user or user.username != gist.owner_id:
         raise HttpResponseForbidden()
@@ -251,14 +195,8 @@ def gist_edit(request, username, id):
 
 
 def gist_delete(request, username, id):
-    from vilya.models.user import User
     from vilya.models.gist import Gist
-
-    django_user = request.user
-    # FIXME(xutao) translate django user to quixote user
-    user = User('xutao881001')
-    request.user = user
-
+    user = request.user
     gist = Gist.get(id)
     if not user or user.username != gist.owner_id:
         raise HttpResponseForbidden()

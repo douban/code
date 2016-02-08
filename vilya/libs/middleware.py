@@ -7,6 +7,7 @@
 class QuixoteMiddleware(object):
 
     def process_request(self, request):
+        from vilya.models.user import User
         # FIXME(xutao) remove get_header
         if not hasattr(request, 'get_header'):
             def get_header(name):
@@ -37,3 +38,8 @@ class QuixoteMiddleware(object):
 
         if not hasattr(request, 'url'):
             request.url = request.get_path()
+
+        # translate django user to quixote user
+        user = request.user
+        request.django_user = user
+        request.user = User(user.username)

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import json
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.http import HttpResponseRedirect
@@ -15,14 +16,7 @@ def index(request, username):
     from vilya.models.project import CodeDoubanProject
     from vilya.models.user import User
     name = username
-    # TODO(xutao) validate username
-    quixote_user = User(username)
-    django_user = request.user
-    user = quixote_user
-
-    # FIXME(xutao) translate current django user to quixote user
-    request.user = user
-
+    user = request.user
     your_projects = CodeDoubanProject.get_projects(owner=name,
                                                    sortby='lru')
     actions = get_user_feed(name).get_actions(0, 20)
@@ -35,7 +29,6 @@ def index(request, username):
 def login(request):
     from django.contrib.auth import authenticate, login
     from vilya.models.user import User
-    from vilya.models.user import set_user
 
     if request.method == 'POST':
         name = request.POST.get('username')
@@ -51,37 +44,47 @@ def login(request):
 
             # quixote user
             request.user = User(user.username)
-            set_user(user.id)
-            return JsonResponse({"r": 0, "continue": continue_url or "/"})
+            # FIXME(xutao) jsx
+            #return JsonResponse({"r": 0, "continue": continue_url or "/"})
+            return HttpResponse(json.dumps({'r': 0, "continue": continue_url or "/"}))
         else:
             message = '用户名或密码错误！'
-            return JsonResponse({"r": 1, 'message': message})
+            # FIXME(xutao) jsx
+            #return JsonResponse({"r": 1, 'message': message})
+            return HttpResponse(json.dumps({"r": 1, 'message': message}))
     return HttpResponse(st('login.html'))
 
 
 @csrf_exempt
 def register(request):
+    from django.contrib.auth import login
     from vilya.models.nuser import User2
-    from vilya.models.user import set_user
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
         if not email:
-            return JsonResponse({'r': 1, 'message': 'Email没有指定'})
+            # FIXME(xutao) jsx
+            #return JsonResponse({'r': 1, 'message': 'Email没有指定'})
+            return HttpResponse(json.dumps({'r': 1, 'message': 'Email没有指定'}))
 
         user_name = email.split('@')[0]
         if User2.is_exists(user_name):
-            return JsonResponse({'r': 1, 'message': '用户已存在'})
+            # FIXME(xutao) jsx
+            #return JsonResponse({'r': 1, 'message': '用户已存在'})
+            return HttpResponse(json.dumps({'r': 1, 'message': '用户已存在'}))
 
         # django user
         # FIXME(xutao) get user name from user input
         user = User.objects.create_user(user_name, email, password)
         user.save()
+        login(request, user)
 
         # quixote user
         code_user = User2.add(user_name, password)
-        set_user(code_user.id)
-        return JsonResponse({'r': 0})
+
+        # FIXME(xutao) jsx
+        #return JsonResponse({'r': 0})
+        return HttpResponse(json.dumps({'r': 0}))
     return HttpResponse(st('register.html'))
 
 
@@ -91,8 +94,8 @@ def logout(request):
     from vilya.models.user import User
 
     if request.method == 'POST':
-        logout(request)
         continue_url = request.GET.get('continue', '') or request.META.get('Referer', '')
+        logout(request)
         return HttpResponseRedirect(continue_url or '/')
 
     if request.user:

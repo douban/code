@@ -7,7 +7,7 @@ from vilya.libs.gravatar import gravatar_url
 from vilya.models.inbox import Inbox
 
 
-class Profile(models.Model):
+class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     # TODO(xutao) gravatar
@@ -32,21 +32,21 @@ class Profile(models.Model):
         return Notification.unread_count(self.name)
 
 
-class Follower(models.Model):
-    follower = models.ForeignKey(User, db_constraint=False)
-    followee = models.ForeignKey(User, db_constraint=False)
+class UserFollower(models.Model):
+    follower = models.ForeignKey(User, db_constraint=False, related_name='follower')
+    followee = models.ForeignKey(User, db_constraint=False, related_name='followee')
     created_at = models.DateTimeField('created at', auto_now_add=True)
     updated_at = models.DateTimeField('updated at', auto_now=True)
 
 
-class Email(models.Model):
+class UserEmail(models.Model):
     user = models.ForeignKey(User, db_constraint=False)
     email = models.CharField(max_length=100)
     created_at = models.DateTimeField('created at', auto_now_add=True)
     updated_at = models.DateTimeField('updated at', auto_now=True)
 
 
-class Key(models.Model):
+class UserKey(models.Model):
     title = models.CharField(max_length=128)
     text = models.CharField(max_length=1024)
     fingerprint = models.CharField(max_length=48)

@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.http import HttpResponse
-from django.http import JsonResponse
 from django.http import HttpResponseRedirect
-from django.http import StreamingHttpResponse
-from django.http import HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
 from vilya.libs.template import st
 
@@ -12,12 +9,9 @@ from vilya.libs.template import st
 @csrf_exempt
 def index(request):
     from vilya.views.util import is_mobile_device
-    from vilya.models.user import User
     from vilya.models.gist import Gist
-    django_user = request.user
     # FIXME(xutao) translate django user to quixote user
-    user = User('xutao881001')
-    request.user = user
+    user = request.user
     if request.method == 'POST':
         desc, is_public, names, contents, oids = _get_req_gist_data(request)
         owner_id = user and user.username or Gist.ANONYMOUS
@@ -58,13 +52,9 @@ def _get_req_gist_data(request):
 
 def _discover(request):
     import inspect
-    from vilya.models.user import User
     from vilya.models.gist import Gist
-    django_user = request.user
     # FIXME(xutao) translate django user to quixote user
-    user = User('xutao881001')
-    request.user = user
-
+    user = request.user
     name = inspect.stack()[1][3]
     (page, start, link_prev, link_next, sort,
      direction) = make_page_args(request, name)
