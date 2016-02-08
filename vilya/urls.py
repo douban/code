@@ -23,6 +23,7 @@ from views.django import gist_raw
 from views.django import gist_embed
 from views.django import gist_comment
 from views.django import badge
+from views.django import project
 
 
 urlpatterns = [
@@ -37,6 +38,7 @@ urlpatterns = [
     url(r'^people/(?P<username>\w+)/contributions', user.contributions, name='user_contributions'),
     url(r'^people/(?P<username>\w+)/contribution_detail', user.contribution_detail, name='user_contribution_detail'),
     url(r'^people/(?P<username>\w+)', user.index, name='user_index'),
+    url(r'^watching/?$', user.watching, name="user_watching"),
 
     # gist
     url(r'^gist/$', gist.index, name='gist_index'),
@@ -68,6 +70,11 @@ urlpatterns = [
     url(r'^badge/add/?$', badge.add, name='badge_add'),
     url(r'^badge/(?P<id>[0-9]+)/?$', badge.badge_index, name='badge_badge_index'),
     url(r'^badge/(?P<id>[0-9]+)/people/?$', badge.badge_people, name='badge_badge_people'),
+
+    # project
+    # FIXME(xutao) move `^watch/?$` to user
+    url(r'^watch/?$', project.watch_index, name="project_watch_index"),
+    url(r'^watch/(?P<id>[0-9]+)/?$', project.watch, name="project_watch"),
 
     # misc
     url(r'^mirrors/?$', views.mirrors, name="views_mirrors"),

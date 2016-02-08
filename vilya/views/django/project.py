@@ -1,0 +1,51 @@
+# -*- coding: utf-8 -*-
+
+import json
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
+
+def watch_index(request):
+    from vilya.models.project import CodeDoubanProject
+    """get all watches"""
+    user = request.user
+    if user:
+        return HttpResponse(json.dumps([
+            {'pid': str(p.id)}
+            for p in CodeDoubanProject.get_watched_projects_by_user(user.name)]))  # noqa
+    return HttpResponse('')
+
+
+@csrf_exempt
+def watch(request, id):
+    from vilya.models.project import CodeDoubanProject
+    from vilya.views.util import error_message
+
+    def new(request, proj_id):
+        user = request.user
+        CodeDoubanProject.add_watch(proj_id, user.name)
+        return HttpResponse(json.dumps({"ok": 1}))
+
+
+    def remove(request, proj_id):
+        user = request.user
+        CodeDoubanProject.del_watch(proj_id, user.name)
+        return HttpResponse(json.dumps({"ok": 1}))
+
+
+    # FIXME: ugly fix
+    def has_watched(request, proj_id):
+        user = request.user
+        if CodeDoubanProject.has_watched(proj_id, user.name):
+            return HttpResponse(json.dumps({"ok": 1}))
+        return HttpResponse(json.dumps({"ok": 0}))
+
+    proj_id = id
+    if request.method == "POST":
+        return new(request, proj_id)
+    elif request.method == "DELETE":
+        return remove(request, proj_id)
+    elif request.method == "GET":
+        return has_watched(request, proj_id)
+    else:
+        return HttpResponse(error_message("bad request"))

@@ -14,7 +14,6 @@ FOLLOW_LIST_USER_COUNT = 24
 def index(request, username):
     from vilya.models.feed import get_user_feed
     from vilya.models.project import CodeDoubanProject
-    from vilya.models.user import User
     name = username
     user = request.user
     your_projects = CodeDoubanProject.get_projects(owner=name,
@@ -208,3 +207,11 @@ def follow_list(name, request, list_type, user_list):
     current_user_following = current_user.get_following() \
                                 if current_user else []
     return st('follow-list.html', **locals())
+
+
+def watching(request):
+    user = request.user
+    if user:
+        watched_projects = user.watched_projects
+        return HttpResponse(st('/watching.html', **locals()))
+    return HttpResponseRedirect("/hub/public_timeline")
