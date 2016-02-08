@@ -40,6 +40,8 @@ urlpatterns = [
     url(r'^people/(?P<username>\w+)', user.index, name='user_index'),
     url(r'^watching/?$', user.watching, name="user_watching"),
     url(r'^favorites/?$', user.favorites, name="user_favorites"),
+    url(r'^praise/?$', user.praise_index, name="user_praise_index"),
+    url(r'^praise/vote/?$', user.praise_vote, name="user_praise_vote"),
 
     # gist
     url(r'^gist/$', gist.index, name='gist_index'),

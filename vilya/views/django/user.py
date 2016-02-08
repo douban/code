@@ -223,3 +223,25 @@ def favorites(request):
         return HttpResponseRedirect('/')
     favs = UserFavItem.gets_by_user_kind(request.user.username)
     return HttpResponse(st('/favorites.html', **locals()))
+
+
+def praise_index(request):
+    from vilya.models.recommendation import Recommendation
+    """recommendations timeline"""
+    start = request.GET.get('start')
+    start = start and start.isdigit() and int(start) or 0
+    limit = 20
+    recs = Recommendation.gets(start=start, limit=limit)
+    return HttpResponse(st('recommendations.html', **locals()))
+
+
+def praise_vote(request):
+    from vilya.models.recommendation import Recommendation
+    user = request.user
+    if user:
+        rec_id = request.GET.get('rec_id')
+        r = Recommendation.get(rec_id)
+        if r:
+            r.add_vote(user.name)
+            return HttpResponse(json.dumps({'r': 1}))
+    return HttpResponse(json.dumps({'r': 0}))
