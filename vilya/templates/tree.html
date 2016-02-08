@@ -3,9 +3,6 @@
 <%namespace name="pjax" file="/widgets/pjax_source.html" />
 
 <%def name="extra_head()">
-<%
-is_go_get = request.get_form_var('go-get', 0)
-%>
 %if is_go_get:
 <meta name="go-import" content="${project.full_url} git ${project.repository}">
 %endif

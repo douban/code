@@ -28,6 +28,12 @@ ROUTE_MAP = [(re.compile(r'/[^/]*\.git.*'), git_http),
              (re.compile(r'/\w+/\w+/forkers'), django_app),
              (re.compile(r'/\w+/\w+/archive'), django_app),
              (re.compile(r'/\w+/\w+/settings'), django_app),
+             (re.compile(r'/\w+/\w+/blob'), django_app),
+             (re.compile(r'/\w+/\w+/edit'), django_app),
+             (re.compile(r'/\w+/\w+/tree'), django_app),
+             (re.compile(r'/\w+/\w+/commits'), django_app),
+             (re.compile(r'/\w+/\w+/blame'), django_app),
+             (re.compile(r'/\w+/\w+/raw'), django_app),
              (re.compile(r'/.*'), web)]
 
 

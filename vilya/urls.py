@@ -79,6 +79,12 @@ urlpatterns = [
     url(r'^badge/(?P<id>[0-9]+)/people/?$', badge.badge_people, name='badge_badge_people'),
 
     # project
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/blob/(?P<revision>\w+)/(?P<path>.*)$', project.ProjectBlobView.as_view(), name="project_blob"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/edit/(?P<revision>\w+)/(?P<path>.*)$', project.ProjectEditView.as_view(), name="project_edit"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/blame/(?P<revision>\w+)/(?P<path>.*)$', project.ProjectBlameView.as_view(), name="project_blame"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/raw/(?P<revision>\w+)/(?P<path>.*)$', project.ProjectRawView.as_view(), name="project_raw"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/commits/(?P<revision>\w+)/(?P<path>.*)$', project.ProjectCommitsView.as_view(), name="project_commits"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/tree/(?P<revision>\w+)/(?P<path>.*)$', project.ProjectTreeView.as_view(), name="project_tree"),
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/watchers/?$', project.watchers, name="project_watchers"),
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/forkers/?$', project.forkers, name="project_forkers"),
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/archive/(?P<revision>\w+)/?$', project.archive, name="project_archive"),
