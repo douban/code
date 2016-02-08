@@ -38,10 +38,8 @@ from tasks import index_a_project_docs
 
 ISSUES_COUNT_PER_PAGE = 5
 
-_q_exports = ['hub', 'people', 'api', 'preview',
-              'settings', 'praise', 'gist', 'oauth',
-              'j', 'm', 'fetch', 'trello',
-              'teams', 'favorites', 'login', 'logout', 'register']
+_q_exports = ['hub', 'api', 'preview', 'settings', 'praise', 'oauth',
+              'j', 'm', 'fetch', 'trello', 'teams']
 
 
 class StaticUI(object):
@@ -110,8 +108,6 @@ def _q_lookup(request, name):
         return StaticUI(request)
     if name == 'favicon.ico':
         return StaticUI(request, '/favicon.ico')
-    if name == 'favicon.ico':
-        return StaticUI(request)
     if name == 'fair':
         return FairUI(request)
     if CodeDoubanProject.exists(name):

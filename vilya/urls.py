@@ -39,6 +39,7 @@ urlpatterns = [
     url(r'^people/(?P<username>\w+)/contribution_detail', user.contribution_detail, name='user_contribution_detail'),
     url(r'^people/(?P<username>\w+)', user.index, name='user_index'),
     url(r'^watching/?$', user.watching, name="user_watching"),
+    url(r'^favorites/?$', user.favorites, name="user_favorites"),
 
     # gist
     url(r'^gist/$', gist.index, name='gist_index'),

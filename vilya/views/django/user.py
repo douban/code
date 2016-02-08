@@ -215,3 +215,11 @@ def watching(request):
         watched_projects = user.watched_projects
         return HttpResponse(st('/watching.html', **locals()))
     return HttpResponseRedirect("/hub/public_timeline")
+
+
+def favorites(request):
+    from vilya.models.user_fav import UserFavItem
+    if not request.user:
+        return HttpResponseRedirect('/')
+    favs = UserFavItem.gets_by_user_kind(request.user.username)
+    return HttpResponse(st('/favorites.html', **locals()))
