@@ -76,6 +76,7 @@ urlpatterns = [
     # FIXME(xutao) move `^watch/?$` to user
     url(r'^watch/?$', project.watch_index, name="project_watch_index"),
     url(r'^watch/(?P<id>[0-9]+)/?$', project.watch, name="project_watch"),
+    url(r'^fetch/(?P<id>[0-9]+)/?$', project.fetch, name="project_fetch"),
 
     # misc
     url(r'^mirrors/?$', views.mirrors, name="views_mirrors"),

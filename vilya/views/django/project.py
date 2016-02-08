@@ -49,3 +49,13 @@ def watch(request, id):
         return has_watched(request, proj_id)
     else:
         return HttpResponse(error_message("bad request"))
+
+
+@csrf_exempt
+def fetch(request, id):
+    from vilya.views.util import error_message
+    from tasks import fetch_mirror_project
+    if request.method == "POST":
+        fetch_mirror_project(id)
+        return HttpResponse(json.dumps({"ok": 1}))
+    return HttpResponse(error_message("bad request"))
