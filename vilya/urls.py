@@ -78,6 +78,8 @@ urlpatterns = [
     url(r'^badge/(?P<id>[0-9]+)/people/?$', badge.badge_people, name='badge_badge_people'),
 
     # project
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/watchers/?$', project.watchers, name="project_watchers"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/forkers/?$', project.forkers, name="project_forkers"),
     # FIXME(xutao) move `^watch/?$` to user
     url(r'^watch/?$', project.watch_index, name="project_watch_index"),
     url(r'^watch/(?P<id>[0-9]+)/?$', project.watch, name="project_watch"),

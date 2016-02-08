@@ -14,7 +14,6 @@ from vilya.views.uis.docs import DocsUI
 from vilya.views.uis.source import SourceUI
 from vilya.views.uis.commit import CommitUI
 from vilya.views.uis.pages import PagesUI
-from vilya.views.uis.watchers import WatchersUI, ForkersUI
 from vilya.views.uis.pull import PullUI, PullsUI
 from vilya.views.uis.dashboard import DashboardUI
 from vilya.views.uis.compare import CompareUI
@@ -133,7 +132,7 @@ class CodeUI:
         'hooks', 'graph', 'commit', 'pull', 'newpull', 'comments',
         'compare', 'line_comments', 'settings', 'browsefiles', 'pulls',
         'docs', 'remove', 'code_review', 'pr_comment', 'issues',
-        'issue_comments', 'watchers', 'forkers', 're_index_docs', 'src_index',
+        'issue_comments', 're_index_docs', 'src_index',
         'search', 'pages', 'xdocs', 'dashboard', 'archive'
     ]
 
@@ -190,14 +189,6 @@ class CodeUI:
     @property
     def graph(self):
         return GraphUI(self.proj_name)
-
-    @property
-    def watchers(self):
-        return WatchersUI(self.proj_name)
-
-    @property
-    def forkers(self):
-        return ForkersUI(self.proj_name)
 
     @property
     def pull(self):

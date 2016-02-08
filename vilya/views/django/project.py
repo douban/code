@@ -3,6 +3,7 @@
 import json
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from vilya.libs.template import st
 
 
 def watch_index(request):
@@ -59,3 +60,23 @@ def fetch(request, id):
         fetch_mirror_project(id)
         return HttpResponse(json.dumps({"ok": 1}))
     return HttpResponse(error_message("bad request"))
+
+
+def watchers(request, username, projectname):
+    from vilya.models.project import CodeDoubanProject
+    name = '/'.join([username, projectname])
+    project = CodeDoubanProject.get_by_name(name)
+    projects = []
+    user = request.user
+    users = project.get_watch_users()
+    return HttpResponse(st('watchers.html', **locals()))
+
+
+def forkers(request, username, projectname):
+    from vilya.models.project import CodeDoubanProject
+    name = '/'.join([username, projectname])
+    project = CodeDoubanProject.get_by_name(name)
+    projects = project.get_forked_projects()
+    user = request.user
+    users = project.get_forked_users()
+    return HttpResponse(st('watchers.html', **locals()))
