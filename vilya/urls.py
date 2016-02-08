@@ -24,6 +24,7 @@ from views.django import gist_embed
 from views.django import gist_comment
 from views.django import badge
 from views.django import project
+from views.django import trello
 
 
 urlpatterns = [
@@ -42,6 +43,8 @@ urlpatterns = [
     url(r'^favorites/?$', user.favorites, name="user_favorites"),
     url(r'^praise/?$', user.praise_index, name="user_praise_index"),
     url(r'^praise/vote/?$', user.praise_vote, name="user_praise_vote"),
+    url(r'^trello/bind/?$', trello.bind, name="trello_bind"),
+    url(r'^trello/unbind/?$', trello.unbind, name="trello_unbind"),
 
     # gist
     url(r'^gist/$', gist.index, name='gist_index'),

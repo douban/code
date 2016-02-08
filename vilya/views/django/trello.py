@@ -1,23 +1,16 @@
-# coding=utf8
+# -*- coding: utf-8 -*-
 
-__author__ = 'torpedoallen'
-
-from quixote.errors import AccessError, TraversalError
-from vilya.models.trello.wrapper import DoubanTrelloClient
+from django.http import HttpResponseRedirect
+from django.http import HttpResponseBadRequest
 from vilya.config import DOMAIN
-
-_q_exports = ['bind', 'unbind']
-
-
-def _q_access(request):
-    if not request.user:
-        raise AccessError('must login')
 
 
 def bind(request):
+    from vilya.models.trello.wrapper import DoubanTrelloClient
     user = request.user
     if user.trello_access_token:
-        raise TraversalError('already binded')
+        return HttpResponseBadRequest('already binded')
+
     dtclient = DoubanTrelloClient()
     if not user.trello_request_token:
         # get request token
@@ -28,15 +21,15 @@ def bind(request):
         url = '%s%s' % (DOMAIN, request.environ.get('REQUEST_URI'))
         authorize_url = dtclient.get_authorisation_url(
             request_token['oauth_token'], url)
-        return request.redirect(authorize_url)
+        return HttpResponseRedirect(authorize_url)
     else:
         # get access token
-        oauth_verifier = request.get_form_var("oauth_verifier")
+        oauth_verifier = request.GET.get("oauth_verifier")
         access_token = dtclient.get_access_token(
             user.trello_request_token, oauth_verifier)
         user.trello_access_token = access_token
         url = '%s%s' % (DOMAIN, user.url)
-        return request.redirect(url)
+        return HttpResponseRedirect(url)
 
 
 def unbind(request):
@@ -44,4 +37,4 @@ def unbind(request):
     user.trello_request_token = None
     user.trello_access_token = None
     url = '%s%s' % (DOMAIN, user.url)
-    return request.redirect(url)
+    return HttpResponseRedirect(url)
