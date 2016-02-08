@@ -2,6 +2,8 @@
 
 import json
 from django.http import HttpResponse
+from django.http import HttpResponseBadRequest
+from django.http import StreamingHttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from vilya.libs.template import st
 
@@ -80,3 +82,29 @@ def forkers(request, username, projectname):
     user = request.user
     users = project.get_forked_users()
     return HttpResponse(st('watchers.html', **locals()))
+
+
+def archive(request, username, projectname, revision):
+    from vilya.models.project import CodeDoubanProject
+    name = '/'.join([username, projectname])
+    part = revision
+    project = CodeDoubanProject.get_by_name(name)
+    repo = project.repo
+    sha = repo.sha(revision)
+    if not sha:
+        return HttpResponseBadRequest()
+
+    ext = request.GET.get('ext')
+    if ext == 'tar':
+        response = StreamingHttpResponse(content_type='application/x-tar')
+        response['Content-Disposition'] = "filename=%s.tar" % part
+        response.streaming_content = repo.archive(part, ref=sha, ext=ext)
+    elif ext == 'tar.gz':
+        response = StreamingHttpResponse(content_type='application/x-gzip')
+        response['Content-Disposition'] = "filename=%s.tar.gz" % part
+        response.streaming_content = repo.archive(part, ref=sha)
+    else:
+        response = StreamingHttpResponse(content_type='application/x-gzip')
+        response['Content-Disposition'] = "filename=%s.tar.gz" % part
+        response.streaming_content = repo.archive(part, ref=sha)
+    return response

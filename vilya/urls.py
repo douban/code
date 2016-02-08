@@ -80,6 +80,7 @@ urlpatterns = [
     # project
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/watchers/?$', project.watchers, name="project_watchers"),
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/forkers/?$', project.forkers, name="project_forkers"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/archive/(?P<revision>\w+)/?$', project.archive, name="project_archive"),
     # FIXME(xutao) move `^watch/?$` to user
     url(r'^watch/?$', project.watch_index, name="project_watch_index"),
     url(r'^watch/(?P<id>[0-9]+)/?$', project.watch, name="project_watch"),

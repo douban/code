@@ -23,7 +23,6 @@ from vilya.views.uis.code_review import CodeReviewUI
 from vilya.views.uis.pr_comment import PrCommentUI
 from vilya.views.uis.issue import IssueBoardUI, IssueCommentUI
 from vilya.views.uis.settings import SettingsUI
-from vilya.views.uis.archive import ArchiveUI
 from vilya.views.util import jsonize
 from vilya.views.fair import FairUI
 from vilya.views.hub.search_beta import SrcIndexUI, SearchUI
@@ -133,7 +132,7 @@ class CodeUI:
         'compare', 'line_comments', 'settings', 'browsefiles', 'pulls',
         'docs', 'remove', 'code_review', 'pr_comment', 'issues',
         'issue_comments', 're_index_docs', 'src_index',
-        'search', 'pages', 'xdocs', 'dashboard', 'archive'
+        'search', 'pages', 'xdocs', 'dashboard',
     ]
 
     def __init__(self, proj_name):
@@ -271,10 +270,6 @@ class CodeUI:
                 else:
                     return dict(r=0, err='该项目仍有未关闭的Pull request，请关闭后再删除项目。')  # noqa
         return dict(r=0, err='')
-
-    @property
-    def archive(self):
-        return ArchiveUI(self.proj_name)
 
 
 def preview(request):
