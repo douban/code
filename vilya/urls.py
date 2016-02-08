@@ -80,6 +80,9 @@ urlpatterns = [
 
     # misc
     url(r'^mirrors/?$', views.mirrors, name="views_mirrors"),
-    url(r'^vilya', views.index),
+    url(r'^m/?$', views.m_index, name="views_m_index"),
+    url(r'^m/public_timeline/?$', views.m_public_timeline, name="views_m_public_timeline"),
+    url(r'^m/actions/?$', views.m_actions, name="views_m_actions"),
+    url(r'^vilya/?$', views.index),
     url(r'^admin/', admin.site.urls),
 ]

@@ -39,7 +39,7 @@ from tasks import index_a_project_docs
 ISSUES_COUNT_PER_PAGE = 5
 
 _q_exports = ['hub', 'api', 'preview', 'settings', 'praise', 'oauth',
-              'j', 'm', 'trello', 'teams']
+              'j', 'trello', 'teams']
 
 
 class StaticUI(object):
