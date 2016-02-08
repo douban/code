@@ -40,7 +40,7 @@ ISSUES_COUNT_PER_PAGE = 5
 
 _q_exports = ['hub', 'people', 'badge', 'api', 'page', 'preview',
               'watch', 'settings', 'praise', 'gist', 'oauth',
-              'j', 'm', 'watching', 'fetch', 'mirrors', 'trello',
+              'j', 'm', 'watching', 'fetch', 'trello',
               'teams', 'favorites', 'login', 'logout', 'register']
 
 

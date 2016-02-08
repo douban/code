@@ -56,6 +56,8 @@ urlpatterns = [
     url(r'^gist/(?P<username>\w+)/(?P<id>[0-9]+)/(?P<revision>\w+)$', gist_user.gist_index, name='gist_gist_index_revision'),
     url(r'^gist/(?P<username>\w+)/(?P<id>[0-9]+)/raw/(?P<revision>\w+)/(?P<filename>.*)$', gist_raw.index, name='gist_raw_index'),
 
+    # misc
+    url(r'^mirrors/?$', views.mirrors, name="views_mirrors"),
     url(r'^vilya', views.index),
     url(r'^admin/', admin.site.urls),
 ]
