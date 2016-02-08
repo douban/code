@@ -27,6 +27,7 @@ ROUTE_MAP = [(re.compile(r'/[^/]*\.git.*'), git_http),
              (re.compile(r'/\w+/\w+/watchers'), django_app),
              (re.compile(r'/\w+/\w+/forkers'), django_app),
              (re.compile(r'/\w+/\w+/archive'), django_app),
+             (re.compile(r'/\w+/\w+/settings'), django_app),
              (re.compile(r'/.*'), web)]
 
 

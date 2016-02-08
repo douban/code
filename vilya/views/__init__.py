@@ -22,7 +22,6 @@ from vilya.views.uis.line_comments import LineCommentUI
 from vilya.views.uis.code_review import CodeReviewUI
 from vilya.views.uis.pr_comment import PrCommentUI
 from vilya.views.uis.issue import IssueBoardUI, IssueCommentUI
-from vilya.views.uis.settings import SettingsUI
 from vilya.views.util import jsonize
 from vilya.views.fair import FairUI
 from vilya.views.hub.search_beta import SrcIndexUI, SearchUI
@@ -129,7 +128,7 @@ class UserPrefixedRepoAdapter(object):
 class CodeUI:
     _q_exports = [
         'hooks', 'graph', 'commit', 'pull', 'newpull', 'comments',
-        'compare', 'line_comments', 'settings', 'browsefiles', 'pulls',
+        'compare', 'line_comments', 'browsefiles', 'pulls',
         'docs', 'remove', 'code_review', 'pr_comment', 'issues',
         'issue_comments', 're_index_docs', 'src_index',
         'search', 'pages', 'xdocs', 'dashboard',
@@ -220,10 +219,6 @@ class CodeUI:
     @property
     def pr_comment(self):
         return PrCommentUI(self.proj_name)
-
-    @property
-    def settings(self):
-        return SettingsUI(self.proj_name)
 
     @property
     def browsefiles(self):

@@ -24,6 +24,7 @@ from views.django import gist_embed
 from views.django import gist_comment
 from views.django import badge
 from views.django import project
+from views.django import project_setting
 from views.django import trello
 
 
@@ -81,6 +82,19 @@ urlpatterns = [
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/watchers/?$', project.watchers, name="project_watchers"),
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/forkers/?$', project.forkers, name="project_forkers"),
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/archive/(?P<revision>\w+)/?$', project.archive, name="project_archive"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/settings/?$', project_setting.index, name="project_setting_index"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/settings/add_committer/?$', project_setting.add_committer, name="project_setting_add_committer"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/settings/del_committer/?$', project_setting.del_committer, name="project_setting_del_committer"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/settings/sphinx_docs/?$', project_setting.sphinx_docs, name="project_setting_sphinx_docs"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/settings/hooks/?$', project_setting.hooks_index, name="project_setting_hooks_index"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/settings/hooks/new/?$', project_setting.hooks_new, name="project_setting_hooks_new"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/settings/hooks/(?P<id>[0-9]+)/?$', project_setting.hooks_hook, name="project_setting_hooks_hook"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/settings/conf/?$', project_setting.conf, name="project_setting_conf"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/settings/pages/?$', project_setting.pages, name="project_setting_pages"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/settings/transfer_project/?$', project_setting.transfer_project, name="project_setting_transfer_project"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/settings/rename_project/?$', project_setting.rename_project, name="project_setting_rename_project"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/settings/groups/?$', project_setting.groups_index, name="project_setting_groups_index"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/settings/groups/destroy/?$', project_setting.groups_destory, name="project_setting_groups_destroy"),
     # FIXME(xutao) move `^watch/?$` to user
     url(r'^watch/?$', project.watch_index, name="project_watch_index"),
     url(r'^watch/(?P<id>[0-9]+)/?$', project.watch, name="project_watch"),
