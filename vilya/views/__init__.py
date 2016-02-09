@@ -18,7 +18,6 @@ from vilya.views.uis.dashboard import DashboardUI
 from vilya.views.uis.compare import CompareUI
 from vilya.views.uis.comments import CommentUI
 from vilya.views.uis.line_comments import LineCommentUI
-from vilya.views.uis.code_review import CodeReviewUI
 from vilya.views.uis.pr_comment import PrCommentUI
 from vilya.views.uis.issue import IssueBoardUI, IssueCommentUI
 from vilya.views.util import jsonize
@@ -128,7 +127,7 @@ class CodeUI:
     _q_exports = [
         'hooks', 'graph', 'commit', 'pull', 'newpull', 'comments',
         'compare', 'line_comments', 'pulls',
-        'docs', 'remove', 'code_review', 'pr_comment', 'issues',
+        'docs', 'remove', 'pr_comment', 'issues',
         'issue_comments', 're_index_docs', 'src_index',
         'search', 'pages', 'xdocs', 'dashboard',
     ]
@@ -210,10 +209,6 @@ class CodeUI:
     @property
     def line_comments(self):
         return LineCommentUI(self.proj_name)
-
-    @property
-    def code_review(self):
-        return CodeReviewUI(self.proj_name)
 
     @property
     def pr_comment(self):

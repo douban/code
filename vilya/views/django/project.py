@@ -643,3 +643,40 @@ def browsefiles(request, username, projectname):
         return HttpResponse(json.dumps(allfiles))
     else:
         return HttpResponse(st('browsefiles.html', **locals()))
+
+
+@csrf_exempt
+def codereview_delete(request, username, projectname, id):
+    from vilya.models.linecomment import PullLineComment
+    comment = PullLineComment.get(id)
+    if not comment:
+        raise Http404("Unable to find comment %s" % id)
+
+    user = request.user
+    if comment.author == user.name:
+        ok = comment.delete()
+        if ok:
+            return HttpResponse(json.dumps({'r': 1}))  # FIXME: 这里 r=1 表示成功，跟其他地方不统一
+    return HttpResponse(json.dumps({'r': 0}))
+
+
+@csrf_exempt
+def codereview_edit(request, username, projectname, id):
+    from vilya.models.linecomment import PullLineComment
+    from vilya.models.project import CodeDoubanProject
+    name = '/'.join([username, projectname])
+    comment = PullLineComment.get(id)
+    if not comment:
+        raise Http404("Unable to find comment %s" % id)
+
+    user = request.user
+    project = CodeDoubanProject.get_by_name(name)
+    content = request.POST.get(
+        'pull_request_review_comment', '').decode('utf-8')
+    if comment.author == user.name:
+        comment.update(content)
+        linecomment = PullLineComment.get(comment.id)
+        pullreq = True
+        return HttpResponse(json.dumps(dict(
+            r=0, html=st('/pull/ticket_linecomment.html', **locals()))))
+    return HttpResponse(json.dumps(dict(r=1)))
