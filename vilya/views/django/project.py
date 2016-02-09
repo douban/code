@@ -713,3 +713,45 @@ def comment_delete(request, username, projectname, id):
             raise Http404("Unable to delete comment %s" % id)
         return HttpResponse('')
     return HttpResponse("Display comment %s TODO" % id)
+
+
+def compare_index(request, username, projectname):
+    return HttpResponseBadRequest('please provide valid start & end revisions: /compare/start...end')
+
+
+def compare_range(request, username, projectname, range):
+    from itertools import groupby
+    from vilya.models.project import CodeDoubanProject
+    from vilya.models.comment import Comment
+    name = '/'.join([username, projectname])
+    revrange = range
+    project = CodeDoubanProject.get_by_name(name)
+    current_user = request.user
+    try:
+        sha1, sha2 = revrange.split('...')
+    except ValueError:
+        raise Http404(
+            'please provide valid start & end revisions: /compare/sha1...sha2')  # noqa
+    commits = project.repo.get_commits(sha2, sha1)
+    if commits is False:
+        raise Http404()
+    lasttime = commits and commits[0].author_time.strftime(
+        "%Y-%m-%d %H:%M:%S") or 'UNKNOWN'
+    grouped_commits = groupby(commits, lambda c: c.author_time.date())
+    n_commits = len(commits)
+    n_authors = len(set(c.author.username for c in commits))
+    diff = project.repo.get_diff(sha2,
+                                 from_ref=sha1,
+                                 rename_detection=True)
+    #diffs = project.git.get_3dot_diff(sha1, sha2)
+    n_files = diff.length if diff else 0
+    comments = []
+    for ci in commits:
+        comments.extend(Comment.gets_by_proj_and_ref(project.id, ci.sha))
+    branches = project.repo.branches
+    tags = project.repo.tags
+    ref = project.default_branch
+    n_comments = len(comments)
+    ref_type = 'branch' if ref in branches else 'tag' \
+                if ref in tags else 'tree'
+    return HttpResponse(st('compare.html', **locals()))
