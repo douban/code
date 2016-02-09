@@ -8,7 +8,6 @@ from quixote.errors import TraversalError, AccessError
 from vilya.libs.text import render_markdown
 from vilya.libs.template import st, request
 from vilya.views.uis.graph import GraphUI
-from vilya.views.uis.browsefiles import BrowsefilesUI
 from vilya.views.uis.sphinx_docs import SphinxDocsUI
 from vilya.views.uis.docs import DocsUI
 from vilya.views.uis.source import SourceUI
@@ -128,7 +127,7 @@ class UserPrefixedRepoAdapter(object):
 class CodeUI:
     _q_exports = [
         'hooks', 'graph', 'commit', 'pull', 'newpull', 'comments',
-        'compare', 'line_comments', 'browsefiles', 'pulls',
+        'compare', 'line_comments', 'pulls',
         'docs', 'remove', 'code_review', 'pr_comment', 'issues',
         'issue_comments', 're_index_docs', 'src_index',
         'search', 'pages', 'xdocs', 'dashboard',
@@ -219,10 +218,6 @@ class CodeUI:
     @property
     def pr_comment(self):
         return PrCommentUI(self.proj_name)
-
-    @property
-    def browsefiles(self):
-        return BrowsefilesUI(self.proj_name)
 
     @property
     def docs(self):

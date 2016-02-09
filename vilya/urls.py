@@ -105,6 +105,7 @@ urlpatterns = [
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/raw/(?P<revision>\w+)/(?P<path>.*)$', project.ProjectRawView.as_view(), name="project_raw"),
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/commits/(?P<revision>\w+)/(?P<path>.*)$', project.ProjectCommitsView.as_view(), name="project_commits"),
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/tree/(?P<revision>\w+)/(?P<path>.*)$', project.ProjectTreeView.as_view(), name="project_tree"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/browsefiles/?$', project.browsefiles, name="project_browsefiles"),
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/watchers/?$', project.watchers, name="project_watchers"),
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/forkers/?$', project.forkers, name="project_forkers"),
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/archive/(?P<revision>\w+)/?$', project.archive, name="project_archive"),

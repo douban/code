@@ -595,3 +595,51 @@ class ProjectCommitsView(ProjectView):
             'graph_data': graph_data,
         })
         return tdt
+
+
+def browsefiles(request, username, projectname):
+    from vilya.models.project import CodeDoubanProject
+
+    def _add_file_type_and_warns(node):
+        code_file_exts = 'py rb c h html mako ptl js css less handlebars coffee sql'.split()  # noqa
+        bad_exts = 'pyc exe'.split()
+        node_ext = node['path'].rsplit('.')[1] if '.' in node['path'] else ''
+        if node['type'] == 'tree':
+            icon_type = 'directory'
+        elif node['type'] == 'commit':
+            icon_type = 'submodule'
+        elif node_ext in code_file_exts:
+            icon_type = 'code-file'
+        else:
+            icon_type = 'text-file'
+        node['icon-type'] = icon_type
+        if node_ext in bad_exts:
+            node['warn'] = 'bad'
+        else:
+            node['warn'] = 'no'
+        return node
+
+    name = '/'.join([username, projectname])
+
+    if 'json' in request.environ['HTTP_ACCEPT']:
+        output = 'json'
+    else:
+        output = 'html'
+    project = CodeDoubanProject.get_by_name(name)
+    user = request.user
+    path = request.GET.get('path', '')
+    rev = request.GET.get('rev', project.default_branch)
+    allfiles = project.repo.get_tree(rev, path=path)
+    allfiles = [_add_file_type_and_warns(f) for f in allfiles]
+    errors = ''
+    ref = rev
+    if ref is None:
+        ref = project.default_branch
+    branches = project.repo.branches
+    tags = project.repo.tags
+    ref_type = 'branch' if ref in branches else 'tag' \
+                if ref in tags else 'tree'
+    if output == 'json':
+        return HttpResponse(json.dumps(allfiles))
+    else:
+        return HttpResponse(st('browsefiles.html', **locals()))
