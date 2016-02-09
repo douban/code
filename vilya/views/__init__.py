@@ -16,7 +16,6 @@ from vilya.views.uis.pages import PagesUI
 from vilya.views.uis.pull import PullUI, PullsUI
 from vilya.views.uis.dashboard import DashboardUI
 from vilya.views.uis.compare import CompareUI
-from vilya.views.uis.comments import CommentUI
 from vilya.views.uis.line_comments import LineCommentUI
 from vilya.views.uis.pr_comment import PrCommentUI
 from vilya.views.uis.issue import IssueBoardUI, IssueCommentUI
@@ -125,7 +124,7 @@ class UserPrefixedRepoAdapter(object):
 
 class CodeUI:
     _q_exports = [
-        'hooks', 'graph', 'commit', 'pull', 'newpull', 'comments',
+        'hooks', 'graph', 'commit', 'pull', 'newpull',
         'compare', 'line_comments', 'pulls',
         'docs', 'remove', 'pr_comment', 'issues',
         'issue_comments', 're_index_docs', 'src_index',
@@ -201,10 +200,6 @@ class CodeUI:
     @property
     def dashboard(self):
         return DashboardUI(self.proj_name)
-
-    @property
-    def comments(self):
-        return CommentUI(self.proj_name)
 
     @property
     def line_comments(self):

@@ -680,3 +680,36 @@ def codereview_edit(request, username, projectname, id):
         return HttpResponse(json.dumps(dict(
             r=0, html=st('/pull/ticket_linecomment.html', **locals()))))
     return HttpResponse(json.dumps(dict(r=1)))
+
+
+def comment(request, username, projectname):
+    from vilya.models.comment import latest
+    return HttpResponse("Last comments list TODO" + str(latest()))
+
+
+@csrf_exempt
+def comment_new(request, username, projectname):
+    from vilya.models.project import CodeDoubanProject
+    from vilya.models.comment import Comment
+    name = '/'.join([username, projectname])
+    project = CodeDoubanProject.get_by_name(name)
+    user = request.user
+    ref = request.POST.get('ref')
+    assert ref, "comment ref cannot be empty"
+    content = request.POST.get('content', '')
+    new_comment = Comment.add(project, ref, user.name, content)
+
+    return HttpResponseRedirect("/%s/commit/%s#%s" %
+                            (name, ref, new_comment.uid))
+
+
+@csrf_exempt
+def comment_delete(request, username, projectname, id):
+    from vilya.models.comment import Comment
+    if request.method == 'DELETE':
+        # FIXME: 不用验证user？
+        ok = Comment.delete(id)
+        if not ok:
+            raise Http404("Unable to delete comment %s" % id)
+        return HttpResponse('')
+    return HttpResponse("Display comment %s TODO" % id)
