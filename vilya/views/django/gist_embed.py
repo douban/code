@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from django.http import HttpResponse
 from django.http import Http404
+from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseServerError
 from django.http import StreamingHttpResponse

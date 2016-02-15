@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
+from django.conf.urls import url
 from django.contrib import admin
 from django.views.generic.base import RedirectView
 from views.django import views
@@ -28,6 +28,7 @@ from views.django import project
 from views.django import project_setting
 from views.django import trello
 from views.django import setting
+from views.django import hub
 
 
 urlpatterns = [
@@ -66,6 +67,8 @@ urlpatterns = [
     url(r'^settings/codereview$', RedirectView.as_view(pattern_name='setting_codereview')),
     url(r'^settings/codereview/$', setting.codereview, name='setting_codereview'),
     url(r'^settings/codereview/setting/?$', setting.codereview_setting, name='setting_codereview_setting'),
+    url(r'^hub/beacon/?$', hub.beacon, {'path': ''}),
+    url(r'^hub/beacon/(?P<path>.*)$', hub.beacon, name='hub_beacon'),
 
     # gist
     url(r'^gist/$', gist.index, name='gist_index'),
@@ -99,12 +102,14 @@ urlpatterns = [
     url(r'^badge/(?P<id>[0-9]+)/people/?$', badge.badge_people, name='badge_badge_people'),
 
     # project
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)$', RedirectView.as_view(pattern_name='project_index')),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/$', project.ProjectTreeView.as_view(), {'revision': '', 'path': ''}, name="project_index"),
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/blob/(?P<revision>\w+)/(?P<path>.*)$', project.ProjectBlobView.as_view(), name="project_blob"),
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/edit/(?P<revision>\w+)/(?P<path>.*)$', project.ProjectEditView.as_view(), name="project_edit"),
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/blame/(?P<revision>\w+)/(?P<path>.*)$', project.ProjectBlameView.as_view(), name="project_blame"),
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/raw/(?P<revision>\w+)/(?P<path>.*)$', project.ProjectRawView.as_view(), name="project_raw"),
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/commits/(?P<revision>\w+)/(?P<path>.*)$', project.ProjectCommitsView.as_view(), name="project_commits"),
-    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/tree/(?P<revision>\w+)/(?P<path>.*)$', project.ProjectTreeView.as_view(), name="project_tree"),
+    url(r'^(?P<username>\w+)/(?P<projectname>\w+)/tree/(?P<revision>[\w\-]+)/(?P<path>.*)$', project.ProjectTreeView.as_view(), name="project_tree"),
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/browsefiles/?$', project.browsefiles, name="project_browsefiles"),
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/code_review/(?P<id>[0-9]+)/delete/?$', project.codereview_delete, name="project_codereview_delete"),
     url(r'^(?P<username>\w+)/(?P<projectname>\w+)/code_review/(?P<id>[0-9]+)/edit/?$', project.codereview_edit, name="project_codereview_edit"),
@@ -136,6 +141,17 @@ urlpatterns = [
 
     # misc
     url(r'^mirrors/?$', views.mirrors, name="views_mirrors"),
+    url(r'^j/pull/(?P<id>[0-9]+)/?$', views.j_pull_edit, name="views_j_pull_edit"),
+    url(r'^j/issue/(?P<id>[0-9]+)/?$', views.j_issue_edit, name="views_j_issue_edit"),
+    url(r'^j/issue/delete_tag/?$', views.j_issue_delete_tag, name="views_j_issue_delete_tag"),
+    url(r'^j/hooks/(?P<id>[0-9]+)/telchar/?$', views.j_hooks_telchar, name="views_j_hooks_telchar"),
+    url(r'^j/fav/?$', views.j_fav, name="views_j_fav"),
+    url(r'^j/chat/delete_room/?$', views.j_chat_delete_room, name="views_j_chat_delete_room"),
+    url(r'^j/chat/(?P<name>\w+)/?$', views.j_chat_room, name="views_j_chat_room"),
+    url(r'^j/more/notify/(?P<id>[0-9]+)/?$', views.j_more_notify, name="views_j_more_notify"),
+    url(r'^j/more/team/(?P<name>\w+)/(?P<number>[0-9]+)/?$', views.j_more_team, name="views_j_more_team"),
+    url(r'^j/more/userfeed/(?P<id>[0-9]+)/?$', views.j_more_userfeed, name="views_j_more_userfeed"),
+    url(r'^j/more/pub/(?P<id>[0-9]+)/?$', views.j_more_pub, name="views_j_more_pub"),
     url(r'^m/?$', views.m_index, name="views_m_index"),
     url(r'^m/public_timeline/?$', views.m_public_timeline, name="views_m_public_timeline"),
     url(r'^m/actions/?$', views.m_actions, name="views_m_actions"),
