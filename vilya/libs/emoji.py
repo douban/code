@@ -12,7 +12,7 @@ EMOJIS = [
     ':kissing_smiling_eyes:', ':tropical_drink:', ':face_with_medical_mask:',
     ':pill:', ':ruby:', ':cactus:', ':smiley_stuck_out_tongue_winking_eye:',
     ':boar:', ':smile:', ':face_with_tear_of_joy:', ':Cancer:',
-    ':couple_in_love:', ':horse:', ':two_men_with_heart:', ':bowtie:',
+    ':couple_in_love:', ':horse:', ':two_men_with_heart:',
     ':open_mouth:', ':frog_face:', ':Taurus:', ':octopus:', ':ship:',
     ':shooting_star:', ':face_with_ok_gesture:', ':wolf_face:', ':heart:',
     ':loudly_crying_face:', ':frowning:', ':scuba_diver:', ':love_hotel:',
@@ -23,7 +23,7 @@ EMOJIS = [
     ':tennis_racquet_and_ball:', ':person_frowning:', ':spouting_whale:',
     ':tangerine:', ':person_bowing_deeply:', ':stuck_out_tongue_closed_eyes:',
     ':dog_face:', ':circled_ideograph_secret:', ':Libra:', ':jumping_spider:',
-    ':disappointed_face:', ':hamburger:', ':octocat:', ':sleeping:',
+    ':disappointed_face:', ':hamburger:', ':sleeping:',
     ':crescent_moon:', ':no_one_under_eighteen_symbol:', ':kissing:',
     ':unamused:', ':couple_with_heart:', ':fisted_hand_sign:',
     ':smiling_cat_face_with_heart_shaped_eyes:', ':anguished:', ':groupme:',
@@ -103,7 +103,13 @@ TWEMOJI = [
     ':1f681:', ':1f682:'
 ]
 
-EMOJI_GROUPS = {}
+EMOJI_GROUPS = {
+    ":mergetime:": """
+:zap::zap::zap::zap::zap::zap::zap::zap::zap::zap:
+:zap::metal: M E R G E T I M E :metal::zap:
+:zap::zap::zap::zap::zap::zap::zap::zap::zap::zap:
+""",
+}
 
 
 def parse_emoji_groups(text):

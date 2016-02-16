@@ -2,7 +2,11 @@
     <%
         import copy
         import urllib
-        form = copy.deepcopy(request.form)
+        # FIXME(xutao) move this to views
+        if hasattr(request, 'POST'):
+            form = copy.deepcopy(request.POST)
+        else:
+            form = copy.deepcopy(request.form)
         tags = form.get('tags', '')
         selected_tag_names = tags.split(',') if tags else []
         if key_word:

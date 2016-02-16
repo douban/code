@@ -3,7 +3,11 @@
     <%
         import copy
         import urllib
-        form = copy.deepcopy(request.form)
+        # FIXME(xutao) move this to views
+        if hasattr(request, 'POST'):
+            form = copy.deepcopy(request.POST)
+        else:
+            form = copy.deepcopy(request.form)
     %>
     <div class="rule"></div>
     <div class="milestone-list">

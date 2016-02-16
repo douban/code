@@ -10,7 +10,7 @@ from tests.base import TestCase
 
 from vilya.config import DOMAIN
 from vilya.models.project import CodeDoubanProject
-from vilya.libs.text import gravatar_url
+from vilya.libs.gravatar import gravatar_url
 from vilya.libs.permdir import get_repo_root
 
 

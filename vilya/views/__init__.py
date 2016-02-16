@@ -8,23 +8,16 @@ from quixote.errors import TraversalError, AccessError
 from vilya.libs.text import render_markdown
 from vilya.libs.template import st, request
 from vilya.views.uis.graph import GraphUI
-from vilya.views.uis.browsefiles import BrowsefilesUI
 from vilya.views.uis.sphinx_docs import SphinxDocsUI
 from vilya.views.uis.docs import DocsUI
 from vilya.views.uis.source import SourceUI
 from vilya.views.uis.commit import CommitUI
 from vilya.views.uis.pages import PagesUI
-from vilya.views.uis.watchers import WatchersUI, ForkersUI
 from vilya.views.uis.pull import PullUI, PullsUI
 from vilya.views.uis.dashboard import DashboardUI
-from vilya.views.uis.compare import CompareUI
-from vilya.views.uis.comments import CommentUI
 from vilya.views.uis.line_comments import LineCommentUI
-from vilya.views.uis.code_review import CodeReviewUI
 from vilya.views.uis.pr_comment import PrCommentUI
 from vilya.views.uis.issue import IssueBoardUI, IssueCommentUI
-from vilya.views.uis.settings import SettingsUI
-from vilya.views.uis.archive import ArchiveUI
 from vilya.views.util import jsonize
 from vilya.views.fair import FairUI
 from vilya.views.hub.search_beta import SrcIndexUI, SearchUI
@@ -38,10 +31,7 @@ from tasks import index_a_project_docs
 
 ISSUES_COUNT_PER_PAGE = 5
 
-_q_exports = ['hub', 'people', 'badge', 'api', 'page', 'preview',
-              'watch', 'settings', 'praise', 'gist', 'oauth',
-              'j', 'm', 'watching', 'fetch', 'mirrors', 'trello',
-              'teams', 'favorites', 'login', 'logout', 'register']
+_q_exports = ['hub', 'api', 'preview', 'oauth', 'teams']
 
 
 class StaticUI(object):
@@ -108,6 +98,8 @@ def _q_index(request):
 def _q_lookup(request, name):
     if name == 'static':
         return StaticUI(request)
+    if name == 'favicon.ico':
+        return StaticUI(request, '/favicon.ico')
     if name == 'fair':
         return FairUI(request)
     if CodeDoubanProject.exists(name):
@@ -131,11 +123,11 @@ class UserPrefixedRepoAdapter(object):
 
 class CodeUI:
     _q_exports = [
-        'hooks', 'graph', 'commit', 'pull', 'newpull', 'comments',
-        'compare', 'line_comments', 'settings', 'browsefiles', 'pulls',
-        'docs', 'remove', 'code_review', 'pr_comment', 'issues',
-        'issue_comments', 'watchers', 'forkers', 're_index_docs', 'src_index',
-        'search', 'pages', 'xdocs', 'dashboard', 'archive'
+        'hooks', 'graph', 'commit', 'pull', 'newpull',
+        'line_comments', 'pulls',
+        'docs', 'remove', 'pr_comment', 'issues',
+        'issue_comments', 're_index_docs', 'src_index',
+        'search', 'pages', 'xdocs', 'dashboard',
     ]
 
     def __init__(self, proj_name):
@@ -169,10 +161,6 @@ class CodeUI:
             return request.redirect(User.create_login_url(request.url))
 
     @property
-    def compare(self):
-        return CompareUI(self.proj_name)
-
-    @property
     def commit(self):
         return CommitUI(self.proj_name)
 
@@ -193,14 +181,6 @@ class CodeUI:
         return GraphUI(self.proj_name)
 
     @property
-    def watchers(self):
-        return WatchersUI(self.proj_name)
-
-    @property
-    def forkers(self):
-        return ForkersUI(self.proj_name)
-
-    @property
     def pull(self):
         return PullUI(self.proj_name)
 
@@ -217,28 +197,12 @@ class CodeUI:
         return DashboardUI(self.proj_name)
 
     @property
-    def comments(self):
-        return CommentUI(self.proj_name)
-
-    @property
     def line_comments(self):
         return LineCommentUI(self.proj_name)
 
     @property
-    def code_review(self):
-        return CodeReviewUI(self.proj_name)
-
-    @property
     def pr_comment(self):
         return PrCommentUI(self.proj_name)
-
-    @property
-    def settings(self):
-        return SettingsUI(self.proj_name)
-
-    @property
-    def browsefiles(self):
-        return BrowsefilesUI(self.proj_name)
 
     @property
     def docs(self):
@@ -281,10 +245,6 @@ class CodeUI:
                 else:
                     return dict(r=0, err='该项目仍有未关闭的Pull request，请关闭后再删除项目。')  # noqa
         return dict(r=0, err='')
-
-    @property
-    def archive(self):
-        return ArchiveUI(self.proj_name)
 
 
 def preview(request):

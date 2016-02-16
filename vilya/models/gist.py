@@ -108,11 +108,16 @@ class Gist(object):
 
     @property
     def git_url(self):
+        # TODO(xutao) user namespace
         return '%s/%s' % (DOMAIN, self.git_path)
 
     @property
     def url(self):
         return '%s/gist/%s/%s' % (DOMAIN, self.owner_id, self.id)
+
+    @property
+    def relative_url(self):
+        return '/gist/%s/%s' % (self.owner_id, self.id)
 
     @property
     def download_url(self):
@@ -324,7 +329,7 @@ class Gist(object):
         return [cls(*r) for r in rs]
 
     @classmethod
-    def stars_by_user(cls, owner_id, start=0, limit=10):
+    def stars_by_user(cls, owner_id, start=0, limit=10, sort=None, direction=None):
         rs = store.execute(
             "select gist_id from gist_stars "
             "where user_id=%s order by id desc limit %s, %s",

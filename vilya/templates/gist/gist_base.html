@@ -114,7 +114,7 @@ ${ self.banner(gist) }
                 </a>
               </li>
               <li>
-                <a class="grouped-button minibutton tooltipped downwards raw-url" href="/gist/${gist.id}/raw/${ref}/${path}">
+                <a class="grouped-button minibutton tooltipped downwards raw-url" href="${gist.relative_url}/raw/${ref}/${path}">
                   <span class="mini-icon mini-icon-code"></span>
                 </a>
               </li>
@@ -179,21 +179,21 @@ ${ self.banner(gist) }
   <%
     link_path = request.get_path()
   %>
-  <li><a href="/gist/${ gist.id }/" class="${ link_path.endswith((str(gist.id), '/')) and 'selected' or ''}">Gist Detail</a></li>
-  <li><a href="/gist/${ gist.id }/revisions"
+  <li><a href="${ gist.relative_url }/" class="${ link_path.endswith((str(gist.id), '/')) and 'selected' or ''}">Gist Detail</a></li>
+  <li><a href="${ gist.relative_url }/revisions"
          class="${ link_path.endswith('revisions') and 'selected' or '' }" >
          Revisions <span class="counter">${ gist.n_revision }</span>
        </a>
   </li>
   % if gist.n_fork:
-  <li><a href="/gist/${ gist.id }/forks"
+  <li><a href="${ gist.relative_url }/forks"
          class="${ link_path.endswith('forks') and 'selected' or '' }" >
          Forks <span class="counter">${ gist.n_fork }</span>
        </a>
   </li>
   % endif
   % if gist.n_star:
-  <li><a href="/gist/${ gist.id }/stars"
+  <li><a href="${ gist.relative_url }/stars"
          class="${ link_path.endswith('stars') and 'selected' or '' }" >
          Stars <span class="counter">${ gist.n_star }</span>
        </a>

@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 import re
-import urllib
-import hashlib
 import docutils
 import docutils.core
+from vilya.libs.gravatar import gravatar_url  # noqa
 
 from mikoto.libs.text import *  # noqa
 from mikoto.libs.emoji import *  # noqa
@@ -72,15 +71,6 @@ def is_binary(fname):
     if ext in IGNORE_FILE_EXTS or ext not in (SOURCE_FILE + NOT_GENERATED):
         return True
     return False
-
-
-def gravatar_url(email, size=80):
-    # 线上尺寸图已有size: (48, 64, 80)
-    default = "http://www.gravatar.com/avatar"
-    url = "http://www.gravatar.com/avatar/" + hashlib.md5(
-        email.encode('utf8').lower()).hexdigest() + "?"
-    url += urllib.urlencode({'d': default, 's': str(size), 'r': 'x'})
-    return url
 
 
 def remove_unknown_character(text):

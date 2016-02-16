@@ -20,12 +20,8 @@ from vilya.views.teams import TeamsUI
 
 _q_exports = ['teams', 'create', 'future', 'notification', 'my_pull_requests',
               'remove', 'watch', 'unwatch', 'yours', 'my_issues',
-              'public_timeline', 'search', 'emoji', 'bo', 'team',
+              'public_timeline', 'search', 'emoji', 'team',
               'add_team', 'beacon', 'shop', 'stat', 'chat', 'center']
-
-
-def bo(request):
-    return request.redirect('/shire_git_RO/commits/master/?author=bo')
 
 
 def teams(request):
