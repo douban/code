@@ -161,8 +161,8 @@ def create(request):
         return HttpResponseRedirect('/%s/' % project.name)
 
     fork_from = ''
-    if request.get_form_var('fork_from'):
-        fork_from = CodeDoubanProject.get(request.get_form_var('fork_from'))
+    if request.POST.get('fork_from'):
+        fork_from = CodeDoubanProject.get(request.POST.get('fork_from'))
         name = "%s/%s" % (user.name, fork_from.realname)
         if CodeDoubanProject.exists(name):
             return HttpResponseRedirect('/%s/' % name)
@@ -177,46 +177,8 @@ def future(request):
     return HttpResponse(st('future.html', **locals()))
 
 
-# FIXME(xutao) useless?
-@csrf_exempt
-def watch(request):
-    from vilya.models.project import CodeDoubanProject
-    user = request.user
-    if not user:
-        return HttpResponseRedirect("/")
-    errors = ""
-    if request.method == "POST":
-        proj_id = request.POST.get('proj_id')
-        CodeDoubanProject.add_watch(proj_id, user.name)
-        project = CodeDoubanProject.get(proj_id)
-        return HttpResponseRedirect('/%s/' % project.name)
-
-    proj_id = request.GET.get('proj_id') or ""
-    project = CodeDoubanProject.get(proj_id)
-    action = "watch"
-    return HttpResponse(st('watch.html', **locals()))
-
-# FIXME(xutao) useless?
-@csrf_exempt
-def unwatch(request):
-    from vilya.models.project import CodeDoubanProject
-    user = request.user
-    if not user:
-        return HttpResponseRedirect("/")
-    errors = ""
-    if request.method == "POST":
-        proj_id = request.POST.get('proj_id')
-        CodeDoubanProject.del_watch(proj_id, user.name)
-        project = CodeDoubanProject.get(proj_id)
-        return HttpResponseRedirect('/%s/' % project.name)
-
-    proj_id = request.GET.get_form_var('proj_id') or ""
-    project = CodeDoubanProject.get(proj_id)
-    action = "unwatch"
-    return HttpResponse(st('watch.html', **locals()))
-
-
 # TODO(xutao) move to /teams/new
+@csrf_exempt
 def add_team(request):
     from vilya.libs.signals import team_created_signal
     from vilya.models.consts import TEAM_OWNER
@@ -227,10 +189,10 @@ def add_team(request):
         return HttpResponseRedirect("/")
 
     errors = ""
+    uid = request.POST.get('uid') or ''
+    name = request.POST.get('name') or ''
+    description = request.POST.get('description') or ''
     if request.method == "POST":
-        uid = request.POST.get('uid') or ''
-        name = request.POST.get('name') or ''
-        description = request.POST.get('description') or ''
 
         teams = Team.gets()
         team_uid_pattern = re.compile(r'[a-zA-Z0-9\_]*')

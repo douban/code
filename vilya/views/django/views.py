@@ -7,10 +7,6 @@ from django.views.decorators.csrf import csrf_exempt
 from vilya.libs.template import st
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the vilya index.")
-
-
 def mirrors(request):
     from vilya.models.project import CodeDoubanProject
     your_projects = CodeDoubanProject.get_projects(
@@ -84,13 +80,14 @@ def j_pull_edit(request, id):
     return HttpResponse(json.dumps({'r': 1}))
 
 
+@csrf_exempt
 def j_issue_edit(request, id):
-    from vilya.views.libs.text import (
+    from vilya.libs.text import (
         parse_emoji,
         render_markdown_with_project,
         render_markdown
     )
-    from vilya.views.models.issue import Issue
+    from vilya.models.issue import Issue
     issue = Issue.get_cached_issue(id)
     if not issue:
         raise Http404()
