@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/douban/code.png?branch=master)](https://travis-ci.org/douban/code)
 
-Douban CODE
+Douban CODE(Still in development)
 ===========
 
 * Website: <http://douban-code.github.io>
